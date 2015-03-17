@@ -1,0 +1,10 @@
+{
+  "name": "ionic-project",
+  "version": "1.0.0",
+  "description": "An Ionic project",
+  "dependencies": {
+    "grunt": "0.4.4",
+    "fabs": "0.5.3",
+    "lodash": "2.2.1"
+  }
+}

@@ -1,0 +1,7 @@
+node_modules/
+.sass-cache
+build-output
+platforms
+plugins
+vendor
+ionic-tutorial-app.iml

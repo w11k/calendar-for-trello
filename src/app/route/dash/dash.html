@@ -3,10 +3,11 @@
     <h1>Dash</h1>
 
 
-    <button class="btn btn-default btn-primary btn-block" ng-click="auth()">Auth</button>
+      <button class="btn btn-default btn-primary btn-block" ng-click="auth()">Auth</button>
+      <button class="btn btn-default btn-assertive btn-block" ng-click="logout()">Logout</button>
 
 
-      <ul>
+      <ul id="listCards">
           <li ng-repeat="card in cards"><a href="{{card.shortUrl}}"> {{card.name}}</a></li>
       </ul>
 

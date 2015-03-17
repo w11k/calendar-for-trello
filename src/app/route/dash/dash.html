@@ -1,5 +1,15 @@
 <ion-view title="Dashboard">
   <ion-content class="has-header padding">
     <h1>Dash</h1>
+
+
+    <button class="btn btn-default btn-primary btn-block" ng-click="auth()">Auth</button>
+
+
+      <ul>
+          <li ng-repeat="card in cards"><a href="{{card.shortUrl}}"> {{card.name}}</a></li>
+      </ul>
+
+
   </ion-content>
 </ion-view>

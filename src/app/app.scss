@@ -22,3 +22,17 @@ $ionicons-font-path: "assets/ionic/release/fonts";
 
 @import "ionic/scss/ionic";
 
+
+
+@media (min-width: 767px) {
+  .menu-content {
+    -webkit-transform: translate3d(270px, 0px, 0px) !important;
+    width: calc(100% - 270px) !important;
+  }
+
+  .bar-header button.ion-navicon {
+    display: none;
+  }
+}
+
+

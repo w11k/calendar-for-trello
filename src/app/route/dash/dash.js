@@ -8,7 +8,7 @@ angular.module('starter').config(function($stateProvider) {
         .state('tab.dash', {
             url: '/dash',
             views: {
-                'tab-dash': {
+                'menuContent': {
                     templateUrl: 'route/dash/dash.html',
                     controller: 'DashCtrl'
                 }
@@ -56,8 +56,6 @@ angular.module('starter').run(function() {
 angular.module('starter.dash').controller('DashCtrl', ['$scope', function($scope) {
 
 
-
-
     var onAuthorize = function() {
         updateLoggedIn();
 
@@ -80,6 +78,7 @@ angular.module('starter.dash').controller('DashCtrl', ['$scope', function($scope
     var updateLoggedIn = function() {
         var isLoggedIn = Trello.authorized();
         console.log(isLoggedIn)
+$scope.login = isLoggedIn;
 
         $("#loginPanel").toggle(!isLoggedIn);
         $("#cardPanel").toggle(isLoggedIn);
@@ -103,7 +102,9 @@ angular.module('starter.dash').controller('DashCtrl', ['$scope', function($scope
 
     $scope.auth = function() {
         Trello.authorize({
+        name: 'w11k Trello Kalender',
             type: "popup",
+
             success: onAuthorize
         })
     };

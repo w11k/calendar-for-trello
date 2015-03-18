@@ -29,7 +29,7 @@ angular.module('starter').config(function ($stateProvider, $urlRouterProvider) {
     .state('tab', {
       url: '/tab',
       abstract: true,
-      templateUrl: 'partial/tabs.html'
+      templateUrl: 'partial/sidemenu.html'
     });
 
   // if none of the above states are matched, use this as the fallback

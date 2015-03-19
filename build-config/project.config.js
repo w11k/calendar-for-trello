@@ -42,7 +42,8 @@ module.exports = {
         'angular-sanitize/angular-sanitize.js',
         'angular-ui-router/release/angular-ui-router.js',
         'ionic/release/js/ionic.js',
-        'ionic/release/js/ionic-angular.js'
+        'ionic/release/js/ionic-angular.js',
+        'lodash/lodash.js'
       ],
       js_mock: [
       ],

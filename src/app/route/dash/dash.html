@@ -1,55 +1,46 @@
 <ion-view title="Dashboard">
-  <ion-content class="has-header padding">
+    <ion-nav-buttons side="right">
+        <div ng-switch="login">
+            <button class="button button-positive" ng-switch-default ng-click="auth()">Login</button>
+            <button class="button  button-assertive" ng-switch-when="true" ng-click="logout()">Logout</button>
+        </div>
+    </ion-nav-buttons>
+    <ion-content class="has-header padding">
+        <div class="listing" ng-if="login">
+            <h1>Hello {{member.fullName}}, <small>your cards:</small></h1>
+            <div class="list card" ng-repeat="card in cards | orderBy:'due':false | filter: filterFn">
+                <!--{{card}}-->
+                <div class="item">
+                    <!--<img src="">-->
+                    <h2><a href="{{card.shortUrl}}"> {{card.name}}</a></h2>
+                    <p><small>Board: <a href="{{card.boardUrl}}">{{card.boardName}}</a> | last modified: {{ card.dateLastActivity | date:'dd.MM.yyyy  hh:mm'}} <span ng-if="card.due">| <strong >expires: {{card.due | date:'dd.MM.yyyy  hh:mm'}}</strong></span></small></p>
+                </div>
 
+                <div class="item item-body" ng-if="card.desc ">
+                    <p>{{card.desc}}</p>
+                </div>
 
-      <button class="btn btn-default btn-primary btn-block" ng-click="auth()" ng-hide="login" >Auth</button>
-      <button class="btn btn-default btn-assertive btn-block" ng-click="logout()" ng-hide="!login" >Logout</button>
-
-      <h1>Cards:</h1>
-
-      <div class="list card" ng-repeat="card in cards">
-          <div class="item">
-              <!--<img src="">-->
-              <h2><a href="{{card.shortUrl}}"> {{card.name}}</a></h2>
-              <p><small>Board: <a href="">w11k Trello Kalendar</a> | last modified:{{card.dateLastActivity}}</small></p>
-          </div>
-
-          <div class="item item-body">
-              <strong ng-if="card.due">Expires: {{card.due}}</strong>
-              <!--<img src="">-->
-              <p>{{card.desc}}</p>
-          </div>
-
-          <div class="item tabs tabs-secondary tabs-icon-left">
-
-              <a class="tab-item" href="{{card.shortUrl}}" ><!--ng-if="card.badges.comments"-->
-                  <i class="icon ion-chatbox"></i>
-                  {{card.badges.comments}}
-                  <span ng-if="card.badges.comments==1">Comment</span>
-                  <span ng-if="card.badges.comments!=1">Comments</span>
-
-
-              </a>
-
-              <a class="tab-item" href="{{card.shortUrl}}"><!--ng-if="card.badges.attachments"-->
-                  <i class="icon ion-paperclip"></i>
-                  {{card.badges.attachments}}
-                  <span ng-if="card.badges.attachments<2">Attachment</span>
-                  <span ng-if="card.badges.attachments>=2">Attachments</span>
-
-
-              </a>
-
-
-
-              <a class="tab-item" href="{{card.shortUrl}}">
-                  <i class="icon ion-trash-b"></i>
-                  Delete
-              </a>
-          </div>
-
-      </div>
-
-
-  </ion-content>
+                <div class="item tabs tabs-secondary tabs-icon-left">
+                    <a class="tab-item" href="{{card.shortUrl}}">
+                        <!--ng-if="card.badges.comments"-->
+                        <i class="icon ion-chatbox"></i> {{card.badges.comments}}
+                        <span ng-if="card.badges.comments==1">Comment</span>
+                        <span ng-if="card.badges.comments!=1">Comments</span>
+                    </a>
+                    <a class="tab-item" href="{{card.shortUrl}}">
+                        <!--ng-if="card.badges.attachments"-->
+                        <i class="icon ion-paperclip"></i> {{card.badges.attachments}}
+                        <span ng-if="card.badges.attachments<2">Attachment</span>
+                        <span ng-if="card.badges.attachments>=2">Attachments</span>
+                    </a>
+                    <a class="tab-item" ng-click="archiveCard(card.id)">
+                        <i class="icon ion-trash-b"></i> archive
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="auth" ng-if="!login">
+            <h1>Hello, <small>login to use Trello.</small></h1>
+        </div>
+    </ion-content>
 </ion-view>

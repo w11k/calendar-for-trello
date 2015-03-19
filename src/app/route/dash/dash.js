@@ -21,18 +21,18 @@ angular.module('starter').config(function($stateProvider) {
 
 angular.module('starter').run(function() {});
 
-angular.module('starter.dash').controller('DashCtrl', ['$scope', 'helloWorldFromFactory', function($scope, helloWorldFromFactory) {
+angular.module('starter.dash').controller('DashCtrl', function($scope, helloWorldFromFactory, $modal, $log) {
     //console.log(helloWorldFromFactory.sayHello())
 
 
-$scope.alerts = [
+    $scope.alerts = [
 
-  ];
+    ];
 
 
-  $scope.closeAlert = function(index) {
-    $scope.alerts.splice(index, 1);
-  };
+    $scope.closeAlert = function(index) {
+        $scope.alerts.splice(index, 1);
+    };
 
     var onAuthorize = function() {
         updateLoggedIn();
@@ -67,7 +67,7 @@ $scope.alerts = [
                         }
 
                     });
-                     $scope.$apply();
+                    $scope.$apply();
                 })
                 console.log(cards)
                 $scope.cards = cards
@@ -119,25 +119,37 @@ $scope.alerts = [
 
     $scope.archiveCard = function(id) {
 
-       console.log("closing Card with id:" + id)
-       var path = "cards/"+id+"/closed"
-       var params = {value: true}
-       Trello.put(path, params)
-       $scope.alerts.push( { type: 'warning', msg: 'Archiviert.', reactivate: "true", id: id })
-       onAuthorize();
+        console.log("closing Card with id:" + id)
+        var path = "cards/" + id + "/closed"
+        var params = {
+            value: true
+        }
+        Trello.put(path, params)
+        $scope.alerts.push({
+            type: 'warning',
+            msg: 'Archiviert.',
+            reactivate: "true",
+            id: id
+        })
+        onAuthorize();
 
     }
 
-  $scope.reactivate = function(id)  {
-       $scope.alerts = [];
-       console.log("reopening Card with id:" + id)
-       var path = "cards/"+id+"/closed"
-       var params = {value: false}
-       Trello.put(path, params)
-       $scope.alerts.push( { type: 'success', msg: 'Wiederhergestellt.'})
-              onAuthorize();
+    $scope.reactivate = function(id) {
+        $scope.alerts = [];
+        console.log("reopening Card with id:" + id)
+        var path = "cards/" + id + "/closed"
+        var params = {
+            value: false
+        }
+        Trello.put(path, params)
+        $scope.alerts.push({
+            type: 'success',
+            msg: 'Wiederhergestellt.'
+        })
+        onAuthorize();
 
-   }
+    }
 
 
 
@@ -149,15 +161,153 @@ $scope.alerts = [
     };
 
 
+    // Modal
+
+
+    $scope.title = "reset due date to:";
+
+    $scope.open = function(id, date) {
+        console.log("opened")
+
+        var modalInstance = $modal.open({
+            templateUrl: 'partial/modal.html',
+            controller: 'ModalInstanceCtrl',
+            size: 'sm',
+            resolve: {
+                data: function() {
+                    return [{
+                        title: $scope.title,
+                        id: id,
+                        date: date
+                    }]
+                }
+
+
+            }
+        });
+        modalInstance.result.then(function(data) {
+            $scope.data = data;
+            console.log(data)
+                // Send new due date
+
+            var path = "cards/" + data[1] + "/"
+            var params = {
+                due: data[0]
+            }
+            Trello.put(path, params)
+                // $scope.alerts.push( { type: 'warning', msg: 'Archiviert.', reactivate: "true", id: id })
+            onAuthorize();
+
+        }, function() {
+
+        });
+
+
+    };
+
+
+// select boards
+$scope.user = {
+    status: 2
+  };
+
+  $scope.statuses = [
+    {value: 1, text: 'status1'},
+    {value: 2, text: 'status2'},
+    {value: 3, text: 'status3'},
+    {value: 4, text: 'status4'}
+  ];
+
+  $scope.showStatus = function() {
+    var selected = $filter('filter')($scope.statuses, {value: $scope.user.status});
+    return ($scope.user.status && selected.length) ? selected[0].text : 'Not set';
+  };
 
 
 
-}])
+
+})
+
+
+
+
+angular.module('starter.dash').controller('ModalInstanceCtrl', function($scope, $modalInstance, data, $timeout, $filter) {
+    $scope.data = data[0];
+
+
+
+
+    $scope.dateTimeNow = function() {
+        $scope.date = new Date($scope.data.date);
+        console.log($scope.date)
+    };
+    $scope.dateTimeNow();
+
+    $scope.toggleMinDate = function() {
+        $scope.minDate = $scope.minDate ? null : new Date();
+    };
+
+    $scope.maxDate = new Date('2014-06-22');
+    $scope.toggleMinDate();
+
+    $scope.dateOptions = {
+        startingDay: 1,
+        showWeeks: false
+    };
+
+
+
+    $scope.hourStep = 1;
+    $scope.minuteStep = 15;
+
+
+
+    $scope.showMeridian = false;
+
+
+
+
+    $scope.ok = function() {
+        $scope.response = [$scope.date, $scope.data.id]
+        $modalInstance.close($scope.response);
+    };
+
+    $scope.cancel = function() {
+        $modalInstance.dismiss('cancel');
+    };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+});
+
+
+
+
+
+
+
+
+
+
+
 
 
 angular.module('starter.dash').factory('helloWorldFromFactory', function() {
     return {
-        sayHello: function() { return "Hello, World!"; }
-        };
-    });
-;
+        sayHello: function() {
+            return "Hello, World!";
+        }
+    };
+});;

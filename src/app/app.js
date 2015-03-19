@@ -5,10 +5,15 @@ angular.module('starter', [
   'starter.dash',
   'starter.friends',
   'starter.account',
-  'ui.bootstrap'
+  'ui.bootstrap',
+  'ui.bootstrap.datetimepicker',
+  'xeditable'
 ]);
 
-angular.module('starter').run(function ($ionicPlatform, $window) {
+angular.module('starter').run(function ($ionicPlatform, $window,editableOptions) {
+  editableOptions.theme = 'bs3'; // bootstrap3 theme. Can be also 'bs2', 'default'
+
+
   $ionicPlatform.ready(function () {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)

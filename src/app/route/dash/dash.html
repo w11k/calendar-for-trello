@@ -15,12 +15,18 @@
                 <!--{{card}}-->
                 <div class="item">
                     <!--<img src="">-->
-                    <h2><a href="{{card.shortUrl}}"> {{card.name}}</a></h2>
-                    <p><small>Board: <a href="{{card.boardUrl}}">{{card.boardName}}</a> | last modified: {{ card.dateLastActivity | date:'dd.MM.yyyy  hh:mm'}} <span ng-if="card.due">| <strong >expires: {{card.due | date:'dd.MM.yyyy  hh:mm'}}</strong></span></small></p>
+                    <h2><a href="{{card.shortUrl}}"> {{card.name}}</a> <a class="pull-right"><i class="icon ion-share"></i>open in Trello</a></h2>
+                    <p><small>Board: <a href="{{card.boardUrl}}">{{card.boardName}}</a> |     | last modified: {{ card.dateLastActivity | date:'dd.MM.yyyy  HH:mm'}} <span ng-if="card.due">| <strong >expires: {{card.due | date:'dd.MM.yyyy  HH:mm'}}</strong></span></small></p>
                 </div>
 
                 <div class="item item-body" ng-if="card.desc ">
-                    <p>{{card.desc}}</p>
+
+
+                    <a href="#" editable-textarea="card.desc" e-rows="7" e-cols="40" class="editArea">
+                        <p>{{ card.desc || 'no description' }}</p>
+                    </a>
+
+
                 </div>
 
                 <div class="item tabs tabs-secondary tabs-icon-left">
@@ -39,8 +45,27 @@
                     <a class="tab-item" ng-click="archiveCard(card.id)">
                         <i class="icon ion-trash-b"></i> archive
                     </a>
+                    <a class="tab-item" ng-click="open(card.id,card.due)">
+                        <i class="icon ion-clock"></i> change due date
+                    </a>
+
+                    <!--
+                    <a class="tab-item" ng-click="">
+                        <i class="icon  ion-arrow-move"></i> move to another Board
+                    </a>
+                    <a class="tab-item" ng-click="">
+                        <i class="icon  ion-person-add"></i> add Members
+                    </a>
+                    -->
+
+
                 </div>
             </div>
+
+
+
+
+
         </div>
         <div class="auth" ng-if="!login">
             <h1>Hello, <small>login to use Trello.</small></h1>

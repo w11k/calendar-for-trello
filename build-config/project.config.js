@@ -44,7 +44,9 @@ module.exports = {
         'angular-ui-router/release/angular-ui-router.js',
         'ionic/release/js/ionic.js',
         'ionic/release/js/ionic-angular.js',
-        'lodash/lodash.js'
+        'lodash/lodash.js',
+        'angular-ui-bootstrap-datetimepicker/datetimepicker.js',
+        'angular-xeditable/dist/js/xeditable.js'
       ],
       js_mock: [
       ],
@@ -53,7 +55,10 @@ module.exports = {
       js_e2e: [
       ],
       css: [
-      'angular-bootstrap/bootstrap.css'
+      'angular-bootstrap/bootstrap.css',
+      'angular-ui-bootstrap-datetimepicker/datetimepicker.css',
+      'angular-xeditable/dist/css/xeditable.css'
+
       ],
       assets: [
         'ionic/release/fonts/*'

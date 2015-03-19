@@ -25,6 +25,15 @@ angular.module('starter.dash').controller('DashCtrl', ['$scope', 'helloWorldFrom
     //console.log(helloWorldFromFactory.sayHello())
 
 
+$scope.alerts = [
+
+  ];
+
+
+  $scope.closeAlert = function(index) {
+    $scope.alerts.splice(index, 1);
+  };
+
     var onAuthorize = function() {
         updateLoggedIn();
         var now = new Date();
@@ -109,12 +118,26 @@ angular.module('starter.dash').controller('DashCtrl', ['$scope', 'helloWorldFrom
     };
 
     $scope.archiveCard = function(id) {
-        console.log("closing Card with id:" + id)
-        Trello.put("cards/" + id + "/closed", function(cards) {
-            console.log(cards)
-        })
+
+       console.log("closing Card with id:" + id)
+       var path = "cards/"+id+"/closed"
+       var params = {value: true}
+       Trello.put(path, params)
+       $scope.alerts.push( { type: 'warning', msg: 'Archiviert.', reactivate: "true", id: id })
+       onAuthorize();
+
     }
 
+  $scope.reactivate = function(id)  {
+       $scope.alerts = [];
+       console.log("reopening Card with id:" + id)
+       var path = "cards/"+id+"/closed"
+       var params = {value: false}
+       Trello.put(path, params)
+       $scope.alerts.push( { type: 'success', msg: 'Wiederhergestellt.'})
+              onAuthorize();
+
+   }
 
 
 
@@ -124,6 +147,7 @@ angular.module('starter.dash').controller('DashCtrl', ['$scope', 'helloWorldFrom
             return true;
         }
     };
+
 
 
 

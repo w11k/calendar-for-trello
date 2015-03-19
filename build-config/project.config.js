@@ -38,6 +38,7 @@ module.exports = {
         'angular/angular.js',
         'jquery/dist/jquery.js',
         'angular-bootstrap/ui-bootstrap.js',
+        'angular-bootstrap/ui-bootstrap-tpls.js',
         'angular-animate/angular-animate.js',
         'angular-sanitize/angular-sanitize.js',
         'angular-ui-router/release/angular-ui-router.js',

@@ -33,7 +33,6 @@ angular.module('starter.month').controller('monthCtrl', function ($scope) {
     var year = today.getFullYear()
 
 
-
     function getMonthDays (month, year){
         var dayCounter = 31;
         // April, Juni, September, Nov 30 tage
@@ -62,11 +61,11 @@ angular.module('starter.month').controller('monthCtrl', function ($scope) {
 
         // how many days off
         // Immer den Wochentag des 1. des Monats bestimmen
-        console.log("baue date aus :" +year + month)
         var firstOfMonth = new Date(year, month,1,0,0,0,0)
         //var push = firstOfMonth.getDay()
         var push = firstOfMonth.mGetDay()
-        console.log("push "+push)
+        // TODO: wird die mGetDay Version verwendet dann stimmen im Februar die Monatstage nicht mehr.
+
         // Januar abfangen
         if(month == 0){
             var lastMonthDays = 31-push
@@ -74,36 +73,35 @@ angular.module('starter.month').controller('monthCtrl', function ($scope) {
             var yearIn = year -1;
             var monthIn = 11;
         } else {
-            var lastMonthDays = getMonthDays(month,year)-push
+            console.log("übergebe monat:"+month)
+
+            var lastMonthDays = getMonthDays(month-1,year)-push
+            console.log("getMonthDays: "+getMonthDays(month-1, year))
+            console.log(getMonthDays(month,year)-push)
             var yearIn = year;
             var monthIn = month-1;
 
         }
-        console.log("lastMonthDays: " +lastMonthDays+ ", year: " +year)
 
 
-            // Todo Abfangen - was passiert im Januar
+
         for ( var i = 0; i < push; i++) {
             lastMonthDays  = lastMonthDays+1
-               $scope.days.push({dayOff: true, id : lastMonthDays, date: new Date(yearIn,monthIn,lastMonthDays,11,33,30,0)})
-                console.log("dayOff "+$scope.days[i].date)
+               $scope.days.push({dayOff: true, i : lastMonthDays, date: new Date(yearIn,monthIn,lastMonthDays,11,33,30,0)})
 
         }
         // build cal
         for (var d = 0; d < getMonthDays(month, year); d++){
-            $scope.days.push({dayOff: false, id : d+1, date: new Date(year,month,d+1,11,33,30,0)})
-            console.log("dayOn "+$scope.days[i+d].date)
+            $scope.days.push({dayOff: false, i : d+1, date: new Date(year,month,d+1,11,33,30,0)})
+            console.log($scope.days[d+i].date + " d: "+(d+1))
         }
-
-
-
     }
     /* fake date  test
 
-       year = 2013;
-        month = 0;
-        today = new Date(year,month,1,11,33,30,0);
      */
+       year = 2015;
+        month = 4;
+        today = new Date(year,month,1,11,33,30,0);
 
 
 

@@ -6,6 +6,7 @@
       <table class="table">
           <thead>
             <tr>
+
                 <th>Monday</th>
                 <th>Tuesday</th>
                 <th>Wednesday</th>
@@ -18,20 +19,10 @@
           </thead>
 
       </table>
-
-
-
-
       <div id="MonthView" class="clearfix">
           <div ng-repeat="day in days" class="day" ng-class="{'dayOff': day.dayOff, 'dayOn' : !day.dayOff}">
-              <div>{{day.id}}</div>
+              <div>{{day.i}}</div>
           </div>
-
       </div>
-
-
-
-
-
   </ion-content>
 </ion-view>

@@ -58,15 +58,17 @@ i.icon {padding-right:4px;}
 
 
 #MonthView {
-    width:100%;
-    .day  {
-      float:none;
-      width: 100%;
-      min-height:30px;
-      border-left:1px solid #333;
-      border-top:1px solid #333;
-      padding:5px;
-    }
+  width:100%;
+  border-top:1px solid #333;
+  border-left:1px solid #333;
+  .day {
+    float:none;
+    width: 100%;
+    min-height:30px;
+    border-right:1px solid #333;
+    border-bottom:1px solid #333;
+    padding:5px;
+  }
   .dayOff  {
     background: grey;
   }

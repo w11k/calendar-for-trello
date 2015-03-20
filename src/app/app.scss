@@ -70,10 +70,42 @@ i.icon {padding-right:4px;}
     padding:5px;
   }
   .dayOff  {
-    background: grey;
+    background:#dedede;
+
+    .dayCard {
+      opacity: 0.7;
+    }
+
+    .dayCounter {
+      color: #969696;
+    }
   }
   .dayOn {
     background:none;
+  }
+  .dayCounter {margin-bottom:3px;
+  font-size: 18px;
+  color:#333;
+  text-align: right ;}
+
+
+  .dayCards {
+    .dayCard{
+      background: #4a87ee;
+      color:#fff;
+      padding:1px 3px;
+      border: 1px solid #145dd7;
+      border-radius: 2px;
+      font-size: 11px;
+      .title, .board {
+        float:left;
+        width:50%;
+      }
+
+      .board {
+        text-align: right;
+      }
+    }
   }
 }
 
@@ -87,7 +119,29 @@ i.icon {padding-right:4px;}
       width: 14.28%;
       height:120px;
     }
+
+    .dayCards {
+      .board {
+        display: none;
+
+      }
+    }
   }
 
+
+}
+
+
+
+
+@media (min-width: 992px) {
+  #MonthView {
+    .dayCards {
+      .board {
+        display: block;
+
+      }
+    }
+  }
 
 }

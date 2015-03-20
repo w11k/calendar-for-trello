@@ -98,13 +98,11 @@ angular.module('starter.month').controller('monthCtrl', function ($scope) {
     }
     /* fake date  test
 
-     */
+
        year = 2015;
         month = 4;
         today = new Date(year,month,1,11,33,30,0);
-
-
-
+     */
     cal(today, month, year);
 });
 

@@ -46,7 +46,8 @@ module.exports = {
         'ionic/release/js/ionic-angular.js',
         'lodash/lodash.js',
         'angular-ui-bootstrap-datetimepicker/datetimepicker.js',
-        'angular-xeditable/dist/js/xeditable.js'
+        'angular-xeditable/dist/js/xeditable.js',
+        'moment/min/moment-with-locales.js'
       ],
       js_mock: [
       ],

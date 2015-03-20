@@ -5,7 +5,7 @@
             <button class="button  button-assertive" ng-switch-when="true" ng-click="logout()">Logout</button>
         </div>
     </ion-nav-buttons>
-    <ion-content class="has-header padding">
+    <ion-content class="has-header padding" scroll="false">
         <div class="listing" ng-if="login">
             <h1>Hello {{member.fullName}}, <small>your cards:</small></h1>
             <div class="alerts">
@@ -16,13 +16,28 @@
                 <div class="item">
                     <!--<img src="">-->
                     <h2><a href="{{card.shortUrl}}"> {{card.name}}</a> <a class="pull-right"><i class="icon ion-share"></i>open in Trello</a></h2>
-                    <p><small>Board: <a href="{{card.boardUrl}}">{{card.boardName}}</a> |     | last modified: {{ card.dateLastActivity | date:'dd.MM.yyyy  HH:mm'}} <span ng-if="card.due">| <strong >expires: {{card.due | date:'dd.MM.yyyy  HH:mm'}}</strong></span></small></p>
+                    <p>
+                        <small>
+                            Board: <a href="{{card.boardUrl}}">{{card.boardName}}</a>
+
+                            <!--
+                            <a href="#" editable-select="user.status" e-ng-options="s.value as s.text for s in statuses">
+                                {{ showStatus() }}
+                            </a>-->
+
+                            | last modified: {{ card.dateLastActivity |
+                            date:'dd.MM.yyyy  HH:mm'}}
+                            <span ng-if="card.due">|
+                                <strong >expires: {{card.due | date:'dd.MM.yyyy  HH:mm'}}</strong>
+                            </span>
+                        </small>
+                    </p>
                 </div>
 
                 <div class="item item-body" ng-if="card.desc ">
 
 
-                    <a href="#" editable-textarea="card.desc" e-rows="7" e-cols="40" class="editArea">
+                    <a href="#" editable-textarea="card.desc" e-rows="7" e-cols="40" class="editArea" onaftersave="updateDesc(card.id,card.desc)">
                         <p>{{ card.desc || 'no description' }}</p>
                     </a>
 
@@ -56,6 +71,8 @@
                     <a class="tab-item" ng-click="">
                         <i class="icon  ion-person-add"></i> add Members
                     </a>
+
+
                     -->
 
 

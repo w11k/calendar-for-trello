@@ -21,7 +21,7 @@ angular.module('starter').config(function($stateProvider) {
 
 angular.module('starter').run(function() {});
 
-angular.module('starter.dash').controller('DashCtrl', function($scope, helloWorldFromFactory, $modal, $log) {
+angular.module('starter.dash').controller('DashCtrl', function($scope, helloWorldFromFactory, $modal, $log, $filter) {
     //console.log(helloWorldFromFactory.sayHello())
 
 
@@ -208,14 +208,13 @@ angular.module('starter.dash').controller('DashCtrl', function($scope, helloWorl
 
 // select boards
 $scope.user = {
-    status: 2
+    status: "5506a38a0a217bb2aa78c99f"
   };
 
   $scope.statuses = [
-    {value: 1, text: 'status1'},
-    {value: 2, text: 'status2'},
-    {value: 3, text: 'status3'},
-    {value: 4, text: 'status4'}
+    {value: "5506a38a0a217bb2aa78c99f", text: 'Pin'},
+    {value: "5506ad555c7cf44b3c4c57b0", text: 'w11k / Trello Kalender'},
+
   ];
 
   $scope.showStatus = function() {
@@ -223,7 +222,19 @@ $scope.user = {
     return ($scope.user.status && selected.length) ? selected[0].text : 'Not set';
   };
 
+// update desc
 
+    $scope.updateDesc = function(id, desc){
+        console.log(id, desc);
+
+        var path = "cards/" + id
+        var params = {
+            desc: desc
+        }
+        Trello.put(path, params)
+
+
+    }
 
 
 })

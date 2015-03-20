@@ -3,8 +3,7 @@
 angular.module('starter', [
   'ionic',
   'starter.dash',
-  'starter.friends',
-  'starter.account',
+  'starter.month',
   'ui.bootstrap',
   'ui.bootstrap.datetimepicker',
   'xeditable'

@@ -97,10 +97,16 @@ i.icon {padding-right:4px;}
       border: 1px solid #145dd7;
       border-radius: 2px;
       font-size: 11px;
-      .title, .board {
+      margin-bottom: 3px;
+      .title {
         float:left;
-        width:50%;
+        width:65%;
       }
+       .board {
+        float:left;
+        width:35%;
+      }
+
 
       .board {
         text-align: right;

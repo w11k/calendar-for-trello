@@ -97,6 +97,8 @@ angular.module('starter.month').controller('monthCtrl', function ($scope) {
          * ToDo noch ohne dates filtern.
          * 1. date1.setHours(0,0,0,0) um Uhrzeit auf 0 zu setzen
          * 2. date vergleichen
+         *
+         * Prob: er nimmt immer nur eine Karte
          */
 
 
@@ -119,14 +121,16 @@ angular.module('starter.month').controller('monthCtrl', function ($scope) {
                                 var dueDate = entry.due;     // geht nicht.
                                 dueDate.setHours(0,0,0,0);
                                 entry.dueDate = dueDate;
-                                console.log(entry.dueDate)
+                                //console.log(entry.dueDate)
                             }
                         });
                         // ToDo: Einträge ohne due Date löschen
 
 
 
-                         cards = _.indexBy(cards, 'dueDate')
+                         cards = _.groupBy(cards, 'dueDate')
+
+                            //console.log(cards)
 
 
 
@@ -147,7 +151,9 @@ angular.module('starter.month').controller('monthCtrl', function ($scope) {
                         $scope.days.forEach(function(entry){
 
 
-                            entry.cards.push(cards[entry.date])
+                            entry.cards= cards[entry.date]
+
+
                            // console.log(entry.date);
                             //console.log(cards[entry.date]);
 
@@ -157,7 +163,7 @@ angular.module('starter.month').controller('monthCtrl', function ($scope) {
 
 
                         $scope.cards = cards
-                        console.log($scope.days)
+                        //console.log($scope.days)
 
                         $scope.$apply();
                     })

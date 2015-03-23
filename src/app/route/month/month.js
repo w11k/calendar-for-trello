@@ -4,20 +4,29 @@ angular.module('starter.month', []);
 
 angular.module('starter.month').config(function ($stateProvider) {
 
-  $stateProvider
-    .state('tab.month', {
-      url: '/month',
-      views: {
-         'menuContent': {
-         templateUrl: 'route/month/month.html',
-         controller: 'monthCtrl'
-       }
-      }
-    });
+    $stateProvider
+        .state('tab.month', {
+            url: '/month',
+            views: {
+                'menuContent': {
+                    templateUrl: 'route/month/month.html',
+                    controller: 'monthCtrl'
+                }
+            }
+        });
+
+});
+
+
+
+angular.module('starter.month').run(function () {
 
 });
 
 angular.module('starter.month').controller('monthCtrl', function ($scope) {
+
+
+
     var weekdays = new Array(7);
     weekdays[0]=  "Sunday";
     weekdays[1] = "Monday";
@@ -26,7 +35,6 @@ angular.module('starter.month').controller('monthCtrl', function ($scope) {
     weekdays[4] = "Thursday";
     weekdays[5] = "Friday";
     weekdays[6] = "Saturday";
-    $scope.days = []
 
     var today = new Date();
     var month =  today.getMonth();
@@ -85,20 +93,106 @@ angular.module('starter.month').controller('monthCtrl', function ($scope) {
 
 
 
-        for ( var i = 0; i < push; i++) {
-            lastMonthDays  = lastMonthDays+1
-               $scope.days.push({dayOff: true, i : lastMonthDays, date: new Date(yearIn,monthIn,lastMonthDays,11,33,30,0)})
+        /*
+         * ToDo noch ohne dates filtern.
+         * 1. date1.setHours(0,0,0,0) um Uhrzeit auf 0 zu setzen
+         * 2. date vergleichen
+         */
 
-        }
-        // build cal
-        for (var d = 0; d < getMonthDays(month, year); d++){
-            $scope.days.push({dayOff: false, i : d+1, date: new Date(year,month,d+1,11,33,30,0)})
-            console.log($scope.days[d+i].date + " d: "+(d+1))
-        }
+
+
+        var onAuthorize = function() {
+            updateLoggedIn();
+            // get me, get cards, get boards, match
+                Trello.get("members/me/cards", function(cards) {
+                    Trello.get("members/me/boards", function(boards) {
+
+                        var boards = _.indexBy(boards, 'id')
+                        cards.forEach(function(entry) {
+
+
+                            entry.boardName = boards[entry.idBoard].name;
+                            entry.boardUrl = boards[entry.idBoard].url;
+                            entry.due = new Date(entry.due)  // String muss erst in ein Date konvertiert werden!
+
+                            if (entry.due instanceof Date) { // wenn date nicht leer da sonst fehler
+                                var dueDate = entry.due;     // geht nicht.
+                                dueDate.setHours(0,0,0,0);
+                                entry.dueDate = dueDate;
+                                console.log(entry.dueDate)
+                            }
+                        });
+                        // ToDo: Einträge ohne due Date löschen
+
+
+
+                         cards = _.indexBy(cards, 'dueDate')
+
+
+
+
+                        $scope.days = [];
+                        for ( var i = 0; i < push; i++) {
+                            lastMonthDays  = lastMonthDays+1
+                            $scope.days.push({dayOff: true, i : lastMonthDays, date: new Date(yearIn,monthIn,lastMonthDays,0,0,0,0), cards:[]})
+                        }
+                        // build cal
+                        for (var d = 0; d < getMonthDays(month, year); d++){
+                            $scope.days.push({dayOff: false, i : d+1, date: new Date(year,month,d+1,0,0,0,0), cards: []})
+                            //console.log(days[d+i].date + " d: "+(d+1))
+                        }
+                        // ToDO: Bei den Dates werden manche mit CET und CEST ausgegeben- ist das die FEhler QUelle?
+
+
+                        $scope.days.forEach(function(entry){
+
+
+                            entry.cards.push(cards[entry.date])
+                           // console.log(entry.date);
+                            //console.log(cards[entry.date]);
+
+                        });
+
+
+
+
+                        $scope.cards = cards
+                        console.log($scope.days)
+
+                        $scope.$apply();
+                    })
+                })
+        };
+
+        var updateLoggedIn = function() {
+            var isLoggedIn = Trello.authorized();
+            //console.log(isLoggedIn)
+            $scope.login = isLoggedIn;
+            $("#loginPanel").toggle(!isLoggedIn);
+            $("#cardPanel").toggle(isLoggedIn);
+
+        };
+        Trello.authorize({
+            interactive: false,
+            success: onAuthorize
+        });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
     /* fake date  test
-
-
        year = 2015;
         month = 4;
         today = new Date(year,month,1,11,33,30,0);

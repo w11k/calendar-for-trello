@@ -21,7 +21,7 @@
       </table>
       <div id="MonthView" class="clearfix">
           <div ng-repeat="day in days" class="day" ng-class="{'dayOff': day.dayOff, 'dayOn' : !day.dayOff}">
-              <div class="dayCounter">{{day.i}}</div>
+              <div class="dayCounter" ><span tooltip-html-unsafe="{{day.date}}">{{day.i}}</span></div>
               <div class="dayCards">
                   <div class="dayCard clearfix">
                       <div class="title">
@@ -33,6 +33,12 @@
 
 
                   </div>
+{{day.cards[0]}}
+                  <!--<div ng-repeat="card in day.cards">
+                      Eintrag {{card.id}}
+
+                  </div>
+-->
               </div>
           </div>
       </div>

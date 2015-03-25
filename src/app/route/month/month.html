@@ -1,12 +1,16 @@
 <ion-view title="Month">
-  <ion-content class="has-header padding">
-    <h1>Month View</h1>
+    <ion-content class="has-header padding">
+        <div class="calNav">
+                <i class="glyphicon glyphicon-chevron-left" ng-click="move(-1)" ></i>
 
+             {{monthName}},{{year}}
+                <i class="glyphicon glyphicon-chevron-right" ng-click="move(1)"></i>
 
-      <table class="table">
-          <thead>
+        </div>
+
+        <table class="table">
+            <thead>
             <tr>
-
                 <th>Monday</th>
                 <th>Tuesday</th>
                 <th>Wednesday</th>
@@ -14,33 +18,25 @@
                 <th>Friday</th>
                 <th>Saturday</th>
                 <th>Sunday</th>
-
             </tr>
-          </thead>
-
-      </table>
-      <div id="MonthView" class="clearfix">
-          <div ng-repeat="day in days" class="day" ng-class="{'dayOff': day.dayOff, 'dayOn' : !day.dayOff}">
-              <div class="dayCounter" ><span tooltip-html-unsafe="{{day.date}}">{{day.i}}</span></div>
-              <div class="dayCards">
-
-
-                  <div ng-repeat="card in day.cards">
-
-                      <div class="dayCard clearfix">
-                          <div class="title">
-                              {{card.name}}
-                          </div>
-                          <div class="board">
-                              {{card.boardName}}
-                          </div>
-
-
-                      </div>
-                  </div>
-
-              </div>
-          </div>
-      </div>
-  </ion-content>
+            </thead>
+        </table>
+        <div id="MonthView" class="clearfix">
+            <div ng-repeat="day in days" class="day" ng-class="{'dayOff': day.dayOff, 'dayOn' : !day.dayOff}">
+                <div class="dayCounter" ><span tooltip-html-unsafe="{{day.date}}">{{day.i}}</span></div>
+                <div class="dayCards">
+                    <div ng-repeat="card in day.cards">
+                        <div class="dayCard clearfix">
+                            <div class="title">
+                                {{card.name}}
+                            </div>
+                            <div class="board">
+                                {{card.boardName}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ion-content>
 </ion-view>

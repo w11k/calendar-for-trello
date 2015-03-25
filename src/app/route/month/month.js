@@ -1,9 +1,10 @@
 'use strict';
+// ToDo:
+// Trello get in Service
+// Next/Prev
 
 angular.module('starter.month', []);
-
 angular.module('starter.month').config(function ($stateProvider) {
-
     $stateProvider
         .state('tab.month', {
             url: '/month',
@@ -17,28 +18,21 @@ angular.module('starter.month').config(function ($stateProvider) {
 
 });
 
-
-
 angular.module('starter.month').run(function () {
+    moment.locale('de')
+    });
 
-});
-
-angular.module('starter.month').controller('monthCtrl', function ($scope) {
-
-
-
-    var weekdays = new Array(7);
-    weekdays[0]=  "Sunday";
-    weekdays[1] = "Monday";
-    weekdays[2] = "Tuesday";
-    weekdays[3] = "Wednesday";
-    weekdays[4] = "Thursday";
-    weekdays[5] = "Friday";
-    weekdays[6] = "Saturday";
-
+angular.module('starter.month').controller('monthCtrl', function ($scope, $log) {
     var today = new Date();
     var month =  today.getMonth();
+    $scope.monthName = moment.months()[month]
     var year = today.getFullYear()
+    $scope.year = year;
+
+
+    /*
+     * Ermitteln wieviele Tage der Monat hat
+     */
 
 
     function getMonthDays (month, year){
@@ -57,9 +51,9 @@ angular.module('starter.month').controller('monthCtrl', function ($scope) {
     }
 
 
-
-
-
+    /*
+     * Kal aufbauen:
+     */
 
     function cal (today, month, year){
 
@@ -67,8 +61,11 @@ angular.module('starter.month').controller('monthCtrl', function ($scope) {
             return (this.getDay() + 6) %7;
         }
 
-        // how many days off
-        // Immer den Wochentag des 1. des Monats bestimmen
+        /*
+         * Ermitteln an welchem Wochentag der Moant anfängt,
+         * "dayOff" einfügen
+         */
+
         var firstOfMonth = new Date(year, month,1,0,0,0,0)
         //var push = firstOfMonth.getDay()
         var push = firstOfMonth.mGetDay()
@@ -77,67 +74,51 @@ angular.module('starter.month').controller('monthCtrl', function ($scope) {
         // Januar abfangen
         if(month == 0){
             var lastMonthDays = 31-push
-            console.log("jan")
             var yearIn = year -1;
             var monthIn = 11;
         } else {
-            console.log("übergebe monat:"+month)
-
             var lastMonthDays = getMonthDays(month-1,year)-push
-            console.log("getMonthDays: "+getMonthDays(month-1, year))
-            console.log(getMonthDays(month,year)-push)
             var yearIn = year;
             var monthIn = month-1;
-
         }
 
 
-
         /*
-         * ToDo noch ohne dates filtern.
-         * 1. date1.setHours(0,0,0,0) um Uhrzeit auf 0 zu setzen
-         * 2. date vergleichen
-         *
-         * Prob: er nimmt immer nur eine Karte
+         * get cards, get boards, match
          */
-
-
 
         var onAuthorize = function() {
             updateLoggedIn();
-            // get me, get cards, get boards, match
                 Trello.get("members/me/cards", function(cards) {
                     Trello.get("members/me/boards", function(boards) {
 
                         var boards = _.indexBy(boards, 'id')
                         cards.forEach(function(entry) {
 
-
                             entry.boardName = boards[entry.idBoard].name;
                             entry.boardUrl = boards[entry.idBoard].url;
-                            entry.due = new Date(entry.due)  // String muss erst in ein Date konvertiert werden!
 
-                            if (entry.due instanceof Date) { // wenn date nicht leer da sonst fehler
-                                var dueDate = entry.due;     // geht nicht.
+                            if(entry.due == null){
+                                entry.due = null;
+                                return;
+                            }
+
+                            entry.due = new Date(entry.due);
+                            if (entry.due instanceof Date) {
+                                var dueDate = entry.due;
                                 dueDate.setHours(0,0,0,0);
                                 entry.dueDate = dueDate;
-                                //console.log(entry.dueDate)
                             }
                         });
-                        // ToDo: Einträge ohne due Date löschen
 
+                         cards = _.groupBy(cards, 'dueDate');
 
-
-                         cards = _.groupBy(cards, 'dueDate')
-
-                            //console.log(cards)
-
-
-
+                        delete cards.undefined
+                        console.log(cards)
 
                         $scope.days = [];
                         for ( var i = 0; i < push; i++) {
-                            lastMonthDays  = lastMonthDays+1
+                            lastMonthDays  = lastMonthDays+1;
                             $scope.days.push({dayOff: true, i : lastMonthDays, date: new Date(yearIn,monthIn,lastMonthDays,0,0,0,0), cards:[]})
                         }
                         // build cal
@@ -149,11 +130,7 @@ angular.module('starter.month').controller('monthCtrl', function ($scope) {
 
 
                         $scope.days.forEach(function(entry){
-
-
-                            entry.cards= cards[entry.date]
-
-
+                            entry.cards= cards[entry.date];
                            // console.log(entry.date);
                             //console.log(cards[entry.date]);
 
@@ -162,7 +139,7 @@ angular.module('starter.month').controller('monthCtrl', function ($scope) {
 
 
 
-                        $scope.cards = cards
+                        $scope.cards = cards;
                         //console.log($scope.days)
 
                         $scope.$apply();
@@ -187,23 +164,43 @@ angular.module('starter.month').controller('monthCtrl', function ($scope) {
 
 
 
+    }
+    /* fake date  test
+
+       year = 2015;
+        month = 1;
+        today = new Date(year,month,1,11,33,30,0);
+     */
+
+    cal(today, month, year);
 
 
+    $scope.move = function(steps){
+        console.log(month+ "wird plus 1")
+        month = month + steps;
+        console.log(month+ "ist er jetzt")
 
+        if(month == 11){
+            month = 0
+            year++;
 
+        } else if ( month == -1){
+            month = 11
+            year--;
 
-
-
-
+        }
+        $scope.monthName = moment.months()[month]
+        $scope.year = year;
+        cal (today, month, year)
 
 
     }
-    /* fake date  test
-       year = 2015;
-        month = 4;
-        today = new Date(year,month,1,11,33,30,0);
-     */
-    cal(today, month, year);
+
+
+
+
+
+
 });
 
 

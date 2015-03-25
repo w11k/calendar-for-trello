@@ -52,21 +52,16 @@ i.icon {padding-right:4px;}
 
 .editable-click, a.editable-click, a.editable-click:hover {border:none!important; color:#666;}
 
-
-
-
-
-
 #MonthView {
   width:100%;
-  border-top:1px solid #333;
-  border-left:1px solid #333;
+  border-top:1px solid #D5D5D5;
+  border-left:1px solid #D5D5D5;
   .day {
     float:none;
     width: 100%;
     min-height:30px;
-    border-right:1px solid #333;
-    border-bottom:1px solid #333;
+    border-right:1px solid #D5D5D5;
+    border-bottom:1px solid #d5d5d5;
     padding:5px;
   }
   .dayOff  {
@@ -83,26 +78,24 @@ i.icon {padding-right:4px;}
   .dayOn {
     background:none;
   }
-  .dayCounter {margin-bottom:3px;
-  font-size: 18px;
-  color:#333;
-  text-align: right ;}
-
+  .dayCounter {margin:2px 3px 3px 0;
+    font-size: 18px;
+    color:#333;
+    text-align: right ;}
 
   .dayCards {
     .dayCard{
       background: #4a87ee;
       color:#fff;
       padding:1px 3px;
-      border: 1px solid #145dd7;
-      border-radius: 2px;
+      border-radius: 1px;
       font-size: 11px;
       margin-bottom: 3px;
       .title {
         float:left;
         width:65%;
       }
-       .board {
+      .board {
         float:left;
         width:35%;
       }
@@ -113,6 +106,23 @@ i.icon {padding-right:4px;}
       }
     }
   }
+
+
+}
+.calNav {
+  i {
+    padding:5px 20px 10px;
+    cursor: pointer;
+    font-size: 25px;
+
+  }
+
+
+  i:last-child {
+    float: right
+  }
+
+
 }
 
 

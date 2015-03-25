@@ -5,7 +5,6 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/app.scss" afterPath="$PROJECT_DIR$/src/app/app.scss" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/route/month/month.html" afterPath="$PROJECT_DIR$/src/app/route/month/month.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/route/month/month.js" afterPath="$PROJECT_DIR$/src/app/route/month/month.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="et-ka-2014-ionic-tutorial-app.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -33,8 +32,8 @@
       <file leaf-file-name="app.scss" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/app/app.scss">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-5.7413793" vertical-offset="1107" max-vertical-offset="3024">
-              <caret line="80" column="25" selection-start-line="80" selection-start-column="25" selection-end-line="80" selection-end-column="25" />
+            <state vertical-scroll-proportion="-5.7413793" vertical-offset="1647" max-vertical-offset="3960">
+              <caret line="110" column="22" selection-start-line="110" selection-start-column="22" selection-end-line="110" selection-end-column="22" />
               <folding />
             </state>
           </provider>
@@ -43,8 +42,8 @@
       <file leaf-file-name="month.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/app/route/month/month.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.7385475" vertical-offset="2795" max-vertical-offset="3888">
-              <caret line="192" column="20" selection-start-line="192" selection-start-column="20" selection-end-line="192" selection-end-column="20" />
+            <state vertical-scroll-proportion="0.74030554" vertical-offset="1800" max-vertical-offset="3978">
+              <caret line="135" column="0" selection-start-line="135" selection-start-column="0" selection-end-line="135" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -53,8 +52,8 @@
       <file leaf-file-name="month.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/app/route/month/month.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-1.5517242" vertical-offset="0" max-vertical-offset="864">
-              <caret line="5" column="24" selection-start-line="5" selection-start-column="24" selection-end-line="5" selection-end-column="24" />
+            <state vertical-scroll-proportion="-16.814816" vertical-offset="248" max-vertical-offset="1116">
+              <caret line="39" column="76" selection-start-line="39" selection-start-column="69" selection-end-line="39" selection-end-column="76" />
               <folding />
             </state>
           </provider>
@@ -664,12 +663,12 @@
       <updated>1426507141720</updated>
       <workItem from="1426839663251" duration="21785000" />
       <workItem from="1427095623173" duration="5474000" />
-      <workItem from="1427269152975" duration="4175000" />
+      <workItem from="1427269152975" duration="7523000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="31434000" />
+    <option name="totallyTimeSpent" value="34782000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="75" y="52" width="1605" height="998" extended-state="0" />
@@ -1070,8 +1069,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/app/app.scss">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-5.7413793" vertical-offset="1107" max-vertical-offset="3024">
-          <caret line="80" column="25" selection-start-line="80" selection-start-column="25" selection-end-line="80" selection-end-column="25" />
+        <state vertical-scroll-proportion="-5.7413793" vertical-offset="1647" max-vertical-offset="3960">
+          <caret line="110" column="22" selection-start-line="110" selection-start-column="22" selection-end-line="110" selection-end-column="22" />
           <folding />
         </state>
       </provider>
@@ -1086,16 +1085,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/app/route/month/month.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-1.5517242" vertical-offset="0" max-vertical-offset="864">
-          <caret line="5" column="24" selection-start-line="5" selection-start-column="24" selection-end-line="5" selection-end-column="24" />
+        <state vertical-scroll-proportion="-16.814816" vertical-offset="248" max-vertical-offset="1116">
+          <caret line="39" column="76" selection-start-line="39" selection-start-column="69" selection-end-line="39" selection-end-column="76" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/app/route/month/month.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7385475" vertical-offset="2795" max-vertical-offset="3888">
-          <caret line="192" column="20" selection-start-line="192" selection-start-column="20" selection-end-line="192" selection-end-column="20" />
+        <state vertical-scroll-proportion="0.74030554" vertical-offset="1800" max-vertical-offset="3978">
+          <caret line="135" column="0" selection-start-line="135" selection-start-column="0" selection-end-line="135" selection-end-column="0" />
           <folding />
         </state>
       </provider>

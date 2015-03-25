@@ -1,14 +1,18 @@
 <ion-view title="Month">
     <ion-content class="has-header padding">
-        <div class="calNav">
+        <div class="calNav row">
+            <div class="col-xs-1">
                 <i class="glyphicon glyphicon-chevron-left" ng-click="move(-1)" ></i>
-
-             {{monthName}},{{year}}
+            </div>
+            <div class="col-xs-10 text-center monthName">
+                 {{monthName}},{{year}}
+            </div>
+            <div class="col-xs-1">
                 <i class="glyphicon glyphicon-chevron-right" ng-click="move(1)"></i>
-
+            </div>
         </div>
 
-        <table class="table">
+        <!---<table class="table">
             <thead>
             <tr>
                 <th>Monday</th>
@@ -20,10 +24,20 @@
                 <th>Sunday</th>
             </tr>
             </thead>
-        </table>
+        </table>-->
+
+
         <div id="MonthView" class="clearfix">
-            <div ng-repeat="day in days" class="day" ng-class="{'dayOff': day.dayOff, 'dayOn' : !day.dayOff}">
-                <div class="dayCounter" ><span tooltip-html-unsafe="{{day.date}}">{{day.i}}</span></div>
+            <div class="day header"><span class="short">Mon</span><span class="long">Monday</span></div>
+            <div class="day header"><span class="short">Tue</span><span class="long">Tuesday</span></div>
+            <div class="day header"><span class="short">Wed</span><span class="long">Wednesday</span></div>
+            <div class="day header"><span class="short">Thu</span><span class="long">Thursday</span></div>
+            <div class="day header"><span class="short">Fri</span><span class="long">Friday</span></div>
+            <div class="day header"><span class="short">Sat</span><span class="long">Saturday</span></div>
+            <div class="day header"><span class="short">Sun</span><span class="long">Sunday</span></div>
+<div class="clearfix"></div>
+            <div ng-repeat="day in days" class="day" ng-class="{'dayOff': day.dayOff, 'dayOn' : !day.dayOff, 'has' : day.cards}">
+                <div class="dayCounter" ><span class="weekday">{{day.weekday}}</span><span tooltip-html-unsafe="{{day.date}}">{{day.i}}</span></div>
                 <div class="dayCards">
                     <div ng-repeat="card in day.cards">
                         <div class="dayCard clearfix">

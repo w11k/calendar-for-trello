@@ -2,6 +2,7 @@
 // ToDo:
 // Trello get in Service
 // Next/Prev
+// language select?
 
 angular.module('starter.month', []);
 angular.module('starter.month').config(function ($stateProvider) {
@@ -28,7 +29,14 @@ angular.module('starter.month').controller('monthCtrl', function ($scope, $log) 
     $scope.monthName = moment.months()[month]
     var year = today.getFullYear()
     $scope.year = year;
-
+    var weekdays = new Array(7);
+    weekdays[0]=  "Sunday";
+    weekdays[1] = "Monday";
+    weekdays[2] = "Tuesday";
+    weekdays[3] = "Wednesday";
+    weekdays[4] = "Thursday";
+    weekdays[5] = "Friday";
+    weekdays[6] = "Saturday";
 
     /*
      * Ermitteln wieviele Tage der Monat hat
@@ -119,14 +127,11 @@ angular.module('starter.month').controller('monthCtrl', function ($scope, $log) 
                         $scope.days = [];
                         for ( var i = 0; i < push; i++) {
                             lastMonthDays  = lastMonthDays+1;
-                            $scope.days.push({dayOff: true, i : lastMonthDays, date: new Date(yearIn,monthIn,lastMonthDays,0,0,0,0), cards:[]})
+                            $scope.days.push({dayOff: true, i : lastMonthDays, date: new Date(yearIn,monthIn,lastMonthDays,0,0,0,0), cards:[], weekday: "Wochentag" })
                         }
-                        // build cal
                         for (var d = 0; d < getMonthDays(month, year); d++){
-                            $scope.days.push({dayOff: false, i : d+1, date: new Date(year,month,d+1,0,0,0,0), cards: []})
-                            //console.log(days[d+i].date + " d: "+(d+1))
+                            $scope.days.push({dayOff: false, i : d+1, date: new Date(year,month,d+1,0,0,0,0), cards: [], weekday: "Wochentag"})
                         }
-                        // ToDO: Bei den Dates werden manche mit CET und CEST ausgegeben- ist das die FEhler QUelle?
 
 
                         $scope.days.forEach(function(entry){

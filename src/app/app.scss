@@ -56,6 +56,7 @@ i.icon {padding-right:4px;}
   width:100%;
   border-top:1px solid #D5D5D5;
   border-left:1px solid #D5D5D5;
+  margin-top:15px;
   .day {
     float:none;
     width: 100%;
@@ -63,7 +64,25 @@ i.icon {padding-right:4px;}
     border-right:1px solid #D5D5D5;
     border-bottom:1px solid #d5d5d5;
     padding:5px;
+
+
   }
+
+  .day.has .dayCounter{
+    font-weight: bold;
+  }
+
+
+  .day.header {
+    height:auto;
+    padding:5px;
+    text-align: center;
+    overflow: hidden;
+
+    .long {display:none;}
+  }
+
+
   .dayOff  {
     background:#dedede;
 
@@ -73,6 +92,8 @@ i.icon {padding-right:4px;}
 
     .dayCounter {
       color: #969696;
+
+
     }
   }
   .dayOn {
@@ -81,7 +102,17 @@ i.icon {padding-right:4px;}
   .dayCounter {margin:2px 3px 3px 0;
     font-size: 18px;
     color:#333;
-    text-align: right ;}
+    text-align: right ;
+
+
+    .weekday{
+      display: inline-block;
+      float:left;
+      font-size: 11px;
+    }
+  }
+
+  .header {display:none;}
 
   .dayCards {
     .dayCard{
@@ -127,7 +158,6 @@ i.icon {padding-right:4px;}
 
 
 
-
 @media screen and (min-width: 767px) {
   #MonthView {
     .day {
@@ -136,12 +166,23 @@ i.icon {padding-right:4px;}
       height:120px;
     }
 
+    .dayCounter {
+      .weekday {
+
+        display: none;
+      }
+    }
+
     .dayCards {
       .board {
         display: none;
 
       }
+
+
     }
+    .header {display:block;}
+
   }
 
 
@@ -152,6 +193,12 @@ i.icon {padding-right:4px;}
 
 @media (min-width: 992px) {
   #MonthView {
+
+    .day.header {
+      .short {display:none}
+      .long  {display:block;}
+    }
+
     .dayCards {
       .board {
         display: block;
@@ -160,4 +207,9 @@ i.icon {padding-right:4px;}
     }
   }
 
-}
+
+
+
+  }
+
+.monthName  { font-size: 22px; padding-top: 15px;}

@@ -9,7 +9,9 @@
     "angular-ui-bootstrap-datetimepicker": "~0.11.2",
     "angular-xeditable": "~0.1.8",
     "moment": "~2.9.0",
-    "angular-local-storage": "~0.1.5"
+    "angular-local-storage": "~0.1.5",
+    "angular-loading-bar": "~0.7.1",
+    "ngprogress": "~1.0.7"
   },
   "resolutions": {
     "angular": "~1.2.12",

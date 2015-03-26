@@ -213,3 +213,97 @@ i.icon {padding-right:4px;}
   }
 
 .monthName  { font-size: 22px; padding-top: 15px;}
+
+
+
+
+
+
+
+
+
+
+*{
+  -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;
+}
+[ng-drag]{
+  -moz-user-select: -moz-none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+[ng-drag]{
+  width: 100px;
+  height: 100px;
+  background: rgba(255,0,0, 0.5);
+  color:white;
+  text-align: center;
+  padding-top:40px;
+  display: inline-block;
+  margin:0 10px;
+  cursor: move;
+}
+ul.draggable-objects:after{
+  display: block;
+  content:"";
+  clear:both;
+}
+.draggable-objects li{
+  float:left;
+  display: block;
+  width: 120px;
+  height:100px;
+}
+[ng-drag].drag-over{
+  border:solid 1px red;
+}
+[ng-drag].dragging{
+  opacity: 0.5;
+}
+[ng-drop]{
+  background: rgba(0,255,0, 0.5);
+  text-align: center;
+  width: 600px;
+  height: 200px;
+  padding-top:90px;
+  display: block;
+  margin:20px auto;
+  position: relative;
+}
+[ng-drop].drag-enter{
+  border:solid 5px red;
+}
+[ng-drop] span.title{
+  display: block;
+  position: absolute;
+  top:50%;
+  left:50%;
+  width: 200px;
+  height: 20px;
+  margin-left: -100px;
+  margin-top: -10px;
+}
+[ng-drop] div{
+  position: relative;
+  z-index: 2;
+}
+
+#loading-bar .bar {
+  height: 1px;
+  border: none;
+  padding: 1px;
+  top:44px;
+}
+
+
+#loading-bar .bar {
+}
+#loading-bar .peg {
+  box-shadow: 0 0 10px #2c3e50, 0 0 5px #2c3e50;
+}
+#loading-bar-spinner .spinner-icon {
+  border-top-color:  #2c3e50;
+  border-left-color: #2c3e50;
+}
+

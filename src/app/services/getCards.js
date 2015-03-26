@@ -1,4 +1,4 @@
-angular.module('starter.month').factory('getCards', function($q) {
+angular.module('starter.month').factory('getCards', function($q,$location) {
    /* var promise;
     var promise2;
     var getCards = {
@@ -106,15 +106,14 @@ angular.module('starter.month').factory('getCards', function($q) {
         var promise2;
         var getCards = {
             async: function() {
-                if ( !promise ) {
+
+                    if ( !promise ) {
                     promise =  Trello.get("members/me/cards", function (response) {
-                        console.log("received cards");
                         return response;
                     })
                 }
                 if ( !promise2 ) {
                     promise2 =  Trello.get("members/me/boards", function (response) {
-                        console.log("received boards");
                         return response;
                     })
                 }
@@ -122,11 +121,12 @@ angular.module('starter.month').factory('getCards', function($q) {
                     .then(function(responsesArray) {
                         return(responsesArray)
                     });
-                return result;
+                    return result;
             }
+
         };
 
-        deferred.resolve(getCards.async());
+              deferred.resolve(getCards.async());
     return deferred.promise;
 
 

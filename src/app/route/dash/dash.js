@@ -63,13 +63,11 @@ angular.module('starter.dash').controller('DashCtrl', function($scope, helloWorl
                                 entry.status = "open"
                             }
 
-                            console.log(entry.status)
                         }
 
                     });
                     $scope.$apply();
                 })
-                console.log(cards)
                 $scope.cards = cards
 
             })
@@ -83,7 +81,6 @@ angular.module('starter.dash').controller('DashCtrl', function($scope, helloWorl
 
     var updateLoggedIn = function() {
         var isLoggedIn = Trello.authorized();
-        console.log(isLoggedIn)
         $scope.login = isLoggedIn;
         $("#loginPanel").toggle(!isLoggedIn);
         $("#cardPanel").toggle(isLoggedIn);
@@ -91,7 +88,6 @@ angular.module('starter.dash').controller('DashCtrl', function($scope, helloWorl
     };
 
     $scope.logout = function() {
-        console.log("logge aus,")
         Trello.deauthorize();
         updateLoggedIn();
         $scope.cards = '';
@@ -119,7 +115,6 @@ angular.module('starter.dash').controller('DashCtrl', function($scope, helloWorl
 
     $scope.archiveCard = function(id) {
 
-        console.log("closing Card with id:" + id)
         var path = "cards/" + id + "/closed"
         var params = {
             value: true
@@ -137,7 +132,6 @@ angular.module('starter.dash').controller('DashCtrl', function($scope, helloWorl
 
     $scope.reactivate = function(id) {
         $scope.alerts = [];
-        console.log("reopening Card with id:" + id)
         var path = "cards/" + id + "/closed"
         var params = {
             value: false
@@ -167,7 +161,6 @@ angular.module('starter.dash').controller('DashCtrl', function($scope, helloWorl
     $scope.title = "reset due date to:";
 
     $scope.open = function(id, date) {
-        console.log("opened")
 
         var modalInstance = $modal.open({
             templateUrl: 'partial/modal.html',
@@ -187,8 +180,6 @@ angular.module('starter.dash').controller('DashCtrl', function($scope, helloWorl
         });
         modalInstance.result.then(function(data) {
             $scope.data = data;
-            console.log(data)
-                // Send new due date
 
             var path = "cards/" + data[1] + "/"
             var params = {
@@ -225,7 +216,6 @@ $scope.user = {
 // update desc
 
     $scope.updateDesc = function(id, desc){
-        console.log(id, desc);
 
         var path = "cards/" + id
         var params = {
@@ -250,7 +240,6 @@ angular.module('starter.dash').controller('ModalInstanceCtrl', function($scope, 
 
     $scope.dateTimeNow = function() {
         $scope.date = new Date($scope.data.date);
-        console.log($scope.date)
     };
     $scope.dateTimeNow();
 

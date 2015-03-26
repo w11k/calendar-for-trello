@@ -48,7 +48,9 @@ module.exports = {
                 'angular-ui-bootstrap-datetimepicker/datetimepicker.js',
                 'angular-xeditable/dist/js/xeditable.js',
                 'moment/min/moment-with-locales.js',
-                'ngDraggable/ngDraggable.js'
+                'ngDraggable/ngDraggable.js',
+                'angular-loading-bar/build/loading-bar.js'
+               // 'ngprogress/build/ngProgress.js'
 
 
             ],
@@ -61,7 +63,9 @@ module.exports = {
             css: [
                 'angular-bootstrap/bootstrap.css',
                 'angular-ui-bootstrap-datetimepicker/datetimepicker.css',
-                'angular-xeditable/dist/css/xeditable.css'
+                'angular-xeditable/dist/css/xeditable.css',
+                'angular-loading-bar/build/loading-bar.css'
+
 
             ],
             assets: [

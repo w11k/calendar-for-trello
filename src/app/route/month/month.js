@@ -41,7 +41,6 @@ angular.module('starter.month').controller('monthCtrl', function ($scope, getCar
         var short = moment().weekday(i).format("dd");
         $scope.weekdays[i] = [short, long]
         }
-    console.log($scope.weekdays);
 
 
 
@@ -150,6 +149,17 @@ angular.module('starter.month').controller('monthCtrl', function ($scope, getCar
         // Cal neu aufbauen:
         cal (today, month, year)
     }
+
+
+
+
+
+
+
+    // Drag 'n Drop
+
+
+
 });
 
 

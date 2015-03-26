@@ -6,7 +6,8 @@ angular.module('starter', [
   'starter.month',
   'ui.bootstrap',
   'ui.bootstrap.datetimepicker',
-  'xeditable'
+  'xeditable',
+    'ngDraggable'
 ]);
 
 angular.module('starter').run(function ($ionicPlatform, $window,editableOptions) {
@@ -24,6 +25,12 @@ angular.module('starter').run(function ($ionicPlatform, $window,editableOptions)
       $window.StatusBar.styleDefault();
     }
   });
+
+
+    Trello.authorize({
+        interactive: false
+    });
+
 });
 
 angular.module('starter').config(function ($stateProvider, $urlRouterProvider) {

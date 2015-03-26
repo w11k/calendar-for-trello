@@ -1,8 +1,7 @@
 'use strict';
 // ToDo:
-// Trello get in Service
-// Next/Prev
-// language select?
+// Trello get in Service auslagern
+// übergibt Trello die local einstellung des Nutzers?
 
 angular.module('starter.month', []);
 angular.module('starter.month').config(function ($stateProvider) {
@@ -14,33 +13,36 @@ angular.module('starter.month').config(function ($stateProvider) {
                     templateUrl: 'route/month/month.html',
                     controller: 'monthCtrl'
                 }
+            },
+            resolve: {
+                getCards1: "getCards"
             }
         });
-
 });
 
 angular.module('starter.month').run(function () {
-    moment.locale('de')
+    Trello.authorize({
+        interactive: false
     });
+    moment.locale('de')
+});
 
-angular.module('starter.month').controller('monthCtrl', function ($scope, $log) {
+angular.module('starter.month').controller('monthCtrl', function ($scope, getCards1) {
+    var data = getCards1;
     var today = new Date();
     var month =  today.getMonth();
-    $scope.monthName = moment.months()[month]
-    var year = today.getFullYear()
+    $scope.monthName = moment.months()[month];
+    var year = today.getFullYear();
     $scope.year = year;
-    var weekdays = new Array(7);
-    weekdays[0]=  "Sunday";
-    weekdays[1] = "Monday";
-    weekdays[2] = "Tuesday";
-    weekdays[3] = "Wednesday";
-    weekdays[4] = "Thursday";
-    weekdays[5] = "Friday";
-    weekdays[6] = "Saturday";
+    $scope.weekdays = [];
 
-    /*
-     * Ermitteln wieviele Tage der Monat hat
-     */
+    for (var i = 0; i <= 6; i++){
+        var long =  moment().weekday(i).format("dddd");
+        var short = moment().weekday(i).format("dd");
+        $scope.weekdays[i] = [short, long]
+        }
+    console.log($scope.weekdays);
+
 
 
     function getMonthDays (month, year){
@@ -54,159 +56,104 @@ angular.module('starter.month').controller('monthCtrl', function ($scope, $log) 
             if (year % 100 == 0) dayCounter--;
             if (year % 400 == 0) dayCounter++;
         }
-
         return dayCounter;
     }
 
 
-    /*
-     * Kal aufbauen:
-     */
-
     function cal (today, month, year){
-
         Date.prototype.mGetDay = function() {
             return (this.getDay() + 6) %7;
-        }
-
-        /*
-         * Ermitteln an welchem Wochentag der Moant anfängt,
-         * "dayOff" einfügen
-         */
-
-        var firstOfMonth = new Date(year, month,1,0,0,0,0)
-        //var push = firstOfMonth.getDay()
-        var push = firstOfMonth.mGetDay()
-        // TODO: wird die mGetDay Version verwendet dann stimmen im Februar die Monatstage nicht mehr.
-
+        };
+        var cards = data[0];
+        var boards = data[1];
+        var firstOfMonth = new Date(year, month,1,0,0,0,0);
+        var push = firstOfMonth.mGetDay();
         // Januar abfangen
         if(month == 0){
-            var lastMonthDays = 31-push
+            var lastMonthDays = 31-push;
             var yearIn = year -1;
             var monthIn = 11;
         } else {
-            var lastMonthDays = getMonthDays(month-1,year)-push
+            var lastMonthDays = getMonthDays(month-1,year)-push;
             var yearIn = year;
             var monthIn = month-1;
         }
 
-
-        /*
-         * get cards, get boards, match
-         */
-
-        var onAuthorize = function() {
-            updateLoggedIn();
-                Trello.get("members/me/cards", function(cards) {
-                    Trello.get("members/me/boards", function(boards) {
-
-                        var boards = _.indexBy(boards, 'id')
-                        cards.forEach(function(entry) {
-
-                            entry.boardName = boards[entry.idBoard].name;
-                            entry.boardUrl = boards[entry.idBoard].url;
-
-                            if(entry.due == null){
-                                entry.due = null;
-                                return;
-                            }
-
-                            entry.due = new Date(entry.due);
-                            if (entry.due instanceof Date) {
-                                var dueDate = entry.due;
-                                dueDate.setHours(0,0,0,0);
-                                entry.dueDate = dueDate;
-                            }
-                        });
-
-                         cards = _.groupBy(cards, 'dueDate');
-
-                        delete cards.undefined
-                        console.log(cards)
-
-                        $scope.days = [];
-                        for ( var i = 0; i < push; i++) {
-                            lastMonthDays  = lastMonthDays+1;
-                            $scope.days.push({dayOff: true, i : lastMonthDays, date: new Date(yearIn,monthIn,lastMonthDays,0,0,0,0), cards:[], weekday: "Wochentag" })
-                        }
-                        for (var d = 0; d < getMonthDays(month, year); d++){
-                            $scope.days.push({dayOff: false, i : d+1, date: new Date(year,month,d+1,0,0,0,0), cards: [], weekday: "Wochentag"})
-                        }
+        $scope.days = [];
+        for ( var i = 0; i < push; i++) {
+            lastMonthDays  = lastMonthDays+1;
+            $scope.days.push({
+                dayOff: true,
+                i : lastMonthDays,
+                date: new Date(yearIn,monthIn,lastMonthDays,0,0,0,0),
+                cards:[],
+                weekday: moment(new Date(yearIn,monthIn,lastMonthDays,0,0,0,0)).format("dddd")
 
 
-                        $scope.days.forEach(function(entry){
-                            entry.cards= cards[entry.date];
-                           // console.log(entry.date);
-                            //console.log(cards[entry.date]);
+            });
+        }
+        for (var d = 0; d < getMonthDays(month, year); d++){
+            $scope.days.push({
+                dayOff: false,
+                i : d+1,
+                date: new Date(year,month,d+1,0,0,0,0),
+                cards: [],
+                weekday: moment(new Date(year,month,d+1,0,0,0,0)).format("dddd")
+            });
+        }
 
-                        });
 
+        boards = _.indexBy(boards, 'id');
+        cards.forEach(function(entry) {
 
+            entry.boardName = boards[entry.idBoard].name;
+            entry.boardUrl = boards[entry.idBoard].url;
 
+            if(entry.due == null){
+                entry.due = null;
+                return;
+            }
 
-                        $scope.cards = cards;
-                        //console.log($scope.days)
-
-                        $scope.$apply();
-                    })
-                })
-        };
-
-        var updateLoggedIn = function() {
-            var isLoggedIn = Trello.authorized();
-            //console.log(isLoggedIn)
-            $scope.login = isLoggedIn;
-            $("#loginPanel").toggle(!isLoggedIn);
-            $("#cardPanel").toggle(isLoggedIn);
-
-        };
-        Trello.authorize({
-            interactive: false,
-            success: onAuthorize
+            entry.due = new Date(entry.due);
+            if (entry.due instanceof Date) {
+                var dueDate = entry.due;
+                dueDate.setHours(0,0,0,0);
+                entry.dueDate = dueDate;
+            }
         });
 
-
-
-
-
+        cards = _.groupBy(cards, 'dueDate');
+        delete cards.undefined;
+        $scope.days = _.indexBy($scope.days, 'date');
+        $scope.days = _.toArray($scope.days);
+        $scope.days.forEach(function(entry){
+            entry.cards= cards[entry.date];
+        });
     }
-    /* fake date  test
-
-       year = 2015;
-        month = 1;
-        today = new Date(year,month,1,11,33,30,0);
-     */
-
+    // cal erstmals aufbauen.
     cal(today, month, year);
 
 
     $scope.move = function(steps){
-        console.log(month+ "wird plus 1")
         month = month + steps;
-        console.log(month+ "ist er jetzt")
-
         if(month == 11){
-            month = 0
+            month = 0;
             year++;
 
         } else if ( month == -1){
-            month = 11
+            month = 11;
             year--;
 
         }
-        $scope.monthName = moment.months()[month]
+        $scope.monthName = moment.months()[month];
         $scope.year = year;
+        // Cal neu aufbauen:
         cal (today, month, year)
-
-
     }
-
-
-
-
-
-
 });
+
+
+
 
 
 

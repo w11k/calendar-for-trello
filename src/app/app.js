@@ -4,6 +4,7 @@ angular.module('starter', [
     'ionic',
     'starter.dash',
     'starter.month',
+    'starter.friends',
     'ui.bootstrap',
     'ui.bootstrap.datetimepicker',
     'xeditable',
@@ -13,7 +14,7 @@ angular.module('starter', [
 
 ]);
 
-angular.module('starter').run(function ($ionicPlatform, $window,editableOptions, authService, $rootScope, cfpLoadingBar) {
+angular.module('starter').run(function ($ionicPlatform, $window,editableOptions,  $rootScope, cfpLoadingBar) {
     editableOptions.theme = 'bs3'; // bootstrap3 theme. Can be also 'bs2', 'default'
 
 
@@ -29,48 +30,39 @@ angular.module('starter').run(function ($ionicPlatform, $window,editableOptions,
         }
     });
 
-    authService
+
+
+
     Trello.authorize({
-        interactive: false
+        interactive: false,
     });
-
-
-
-
-
-
     $rootScope
         .$on('$stateChangeStart',
-        function(event, toState, toParams, fromState, fromParams){
+        function(){
             cfpLoadingBar.start();
         });
 
     $rootScope
         .$on('$stateChangeSuccess',
-        function(event, toState, toParams, fromState, fromParams){
+        function(){ // Options: event, toState, toParams, fromState, fromParams
             cfpLoadingBar.complete();
         });
-
-
-
-
-
-
-
-
 });
 
 angular.module('starter').config(function ($stateProvider, $urlRouterProvider) {
-
     $stateProvider
         // setup an abstract state for the tabs directive
         .state('tab', {
             url: '/tab',
             abstract: true,
             templateUrl: 'partial/sidemenu.html'
+            //,resolve: {
+            //    getCards1: "getCards"
+            //}
         });
-
     // if none of the above states are matched, use this as the fallback
     $urlRouterProvider.otherwise('/tab/dash');
 
 });
+
+

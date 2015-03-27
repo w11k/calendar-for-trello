@@ -4,11 +4,20 @@ angular.module('starter.friends', []);
 
 angular.module('starter.friends').config(function ($stateProvider) {
 
+
+
+
+
+
+
+
+
+
   $stateProvider
     .state('tab.friends', {
       url: '/friends',
       views: {
-        'tab-friends': {
+        'menuContent': {
           templateUrl: 'route/friends/friends.html',
           controller: 'FriendsCtrl'
         }
@@ -17,7 +26,7 @@ angular.module('starter.friends').config(function ($stateProvider) {
     .state('tab.friend-detail', {
       url: '/friend/:friendId',
       views: {
-        'tab-friends': {
+        'menuContent': {
           templateUrl: 'route/friends/friend-detail.html',
           controller: 'FriendDetailCtrl'
         }

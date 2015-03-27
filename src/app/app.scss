@@ -115,6 +115,12 @@ i.icon {padding-right:4px;}
   .header {display:none;}
 
   .dayCards {
+
+    .waiting {
+      opacity: .7 !important;
+    }
+
+
     .dayCard{
       background: #4a87ee;
       color:#fff;
@@ -122,19 +128,22 @@ i.icon {padding-right:4px;}
       border-radius: 1px;
       font-size: 11px;
       margin-bottom: 3px;
+      cursor: move !important;
       .title {
-        float:left;
-        width:65%;
+        cursor: pointer !important;
+
       }
-      .board {
-        float:left;
-        width:35%;
-      }
+      .title:hover {text-decoration: underline;}
 
 
-      .board {
+      i {
+        float:right;
         text-align: right;
+
       }
+
+
+
     }
   }
 
@@ -223,71 +232,11 @@ i.icon {padding-right:4px;}
 
 
 
-*{
-  -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;
-}
-[ng-drag]{
-  -moz-user-select: -moz-none;
-  -khtml-user-select: none;
-  -webkit-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
-[ng-drag]{
-  width: 100px;
-  height: 100px;
-  background: rgba(255,0,0, 0.5);
-  color:white;
-  text-align: center;
-  padding-top:40px;
-  display: inline-block;
-  margin:0 10px;
-  cursor: move;
-}
-ul.draggable-objects:after{
-  display: block;
-  content:"";
-  clear:both;
-}
-.draggable-objects li{
-  float:left;
-  display: block;
-  width: 120px;
-  height:100px;
-}
-[ng-drag].drag-over{
-  border:solid 1px red;
-}
-[ng-drag].dragging{
-  opacity: 0.5;
-}
-[ng-drop]{
-  background: rgba(0,255,0, 0.5);
-  text-align: center;
-  width: 600px;
-  height: 200px;
-  padding-top:90px;
-  display: block;
-  margin:20px auto;
-  position: relative;
-}
+
 [ng-drop].drag-enter{
-  border:solid 5px red;
+  background:#E8E8E8 !important;
 }
-[ng-drop] span.title{
-  display: block;
-  position: absolute;
-  top:50%;
-  left:50%;
-  width: 200px;
-  height: 20px;
-  margin-left: -100px;
-  margin-top: -10px;
-}
-[ng-drop] div{
-  position: relative;
-  z-index: 2;
-}
+
 
 #loading-bar .bar {
   height: 1px;

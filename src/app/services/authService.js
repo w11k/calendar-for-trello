@@ -1,4 +1,4 @@
-angular.module('starter.month').factory('authService', function($q,$rootScope,getCards) {
+angular.module('starter.month').factory('authService', function($q,$rootScope) {
     var promise;
     var login;
     promise = $q.defer();
@@ -35,15 +35,16 @@ angular.module('starter.month').factory('authService', function($q,$rootScope,ge
             }
 
 
-           // getCards.then(function(){
-//
-  //              return promise.promise;
-    //        })
+
+
+
+
+
+
             return promise.promise;
 
         }
     };
-    $rootScope.$apply
 
     return resourceFactory;
 });

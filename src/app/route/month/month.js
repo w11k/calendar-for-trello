@@ -17,10 +17,18 @@ angular.module('starter.month').config(function ($stateProvider) {
             resolve: {
 
 
-                getCardsFromResolve: "getCards",
-                'authService':function(authService){
+               // getCardsFromResolve: "getCards",
+
+
+
+
+                'authService':function(authService,$q){
                     return authService.async();
                 }
+
+
+
+
             }
 
 
@@ -32,7 +40,7 @@ angular.module('starter.month').run(function () {
     moment.locale('de')
 });
 
-angular.module('starter.month').controller('monthCtrl', function ($scope,$rootScope, $stateParams,$state, changeDate,$location, getCardsFromResolve, deAuthService, archiveCard, Notification, authService) {
+angular.module('starter.month').controller('monthCtrl', function ($scope,$rootScope, $stateParams,$state, changeDate,$location, deAuthService, archiveCard, Notification, authService) {
 
 
 
@@ -71,7 +79,7 @@ angular.module('starter.month').controller('monthCtrl', function ($scope,$rootSc
     };
 
 
-    var data = getCardsFromResolve;
+    var data = [];
 
     var month =  today.getMonth();
 

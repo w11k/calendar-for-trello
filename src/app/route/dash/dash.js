@@ -39,12 +39,16 @@ angular.module('starter.dash').controller('DashCtrl', function($scope,authServic
 $scope.login = $rootScope.login;
 
 
+    $scope.auth = function(){
+        $location.path("/tab/month/")
+    }
+
    // $scope.login = authService.async();
 
 
-    if ($scope.login === true){
-        $location.path("tab/month/")
-    }
+   // if ($scope.login === true){
+   //     $location.path("tab/month/")
+    //}
 
 
     //console.log($scope.login)

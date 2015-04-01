@@ -2,28 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="eaadce51-f369-493d-97ef-849b8b386b2f" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/app/services/archiveCard.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/app/route/month/detail/card.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/app/route/month/detail/card.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/app/services/getAttachments.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/app/services/getComments.js" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/route/friends/friend-detail.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/route/friends/friends.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/route/friends/friends.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/route/month/cardDetail.html" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/app.js" afterPath="$PROJECT_DIR$/src/app/app.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/app.scss" afterPath="$PROJECT_DIR$/src/app/app.scss" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/services/authService.js" afterPath="$PROJECT_DIR$/src/app/services/authService.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bower.json" afterPath="$PROJECT_DIR$/bower.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/services/changeDate.js" afterPath="$PROJECT_DIR$/src/app/services/changeDate.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/route/dash/dash.html" afterPath="$PROJECT_DIR$/src/app/route/dash/dash.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/route/dash/dash.js" afterPath="$PROJECT_DIR$/src/app/route/dash/dash.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/services/getCards.js" afterPath="$PROJECT_DIR$/src/app/services/getCards.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/index.html" afterPath="$PROJECT_DIR$/src/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/route/month/month.html" afterPath="$PROJECT_DIR$/src/app/route/month/month.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/route/month/month.js" afterPath="$PROJECT_DIR$/src/app/route/month/month.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build-config/project.config.js" afterPath="$PROJECT_DIR$/build-config/project.config.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/partial/sidemenu.html" afterPath="$PROJECT_DIR$/src/app/partial/sidemenu.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="et-ka-2014-ionic-tutorial-app.iws" />
@@ -52,18 +33,18 @@
       <file leaf-file-name="authService.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/app/services/authService.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.3900325" vertical-offset="0" max-vertical-offset="1260">
-              <caret line="20" column="32" selection-start-line="20" selection-start-column="32" selection-end-line="20" selection-end-column="32" />
+            <state vertical-scroll-proportion="0.5655471" vertical-offset="0" max-vertical-offset="1278">
+              <caret line="29" column="38" selection-start-line="29" selection-start-column="38" selection-end-line="29" selection-end-column="38" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="getCards.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/app/services/getCards.js">
+      <file leaf-file-name="dash.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/app/route/dash/dash.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="756" max-vertical-offset="2736">
-              <caret line="84" column="19" selection-start-line="84" selection-start-column="11" selection-end-line="84" selection-end-column="19" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="31" max-vertical-offset="1098">
+              <caret line="42" column="32" selection-start-line="42" selection-start-column="32" selection-end-line="42" selection-end-column="32" />
               <folding />
             </state>
           </provider>
@@ -110,9 +91,9 @@
         <option value="$PROJECT_DIR$/src/app/services/archiveCard.js" />
         <option value="$PROJECT_DIR$/src/app/app.scss" />
         <option value="$PROJECT_DIR$/src/app/app.js" />
-        <option value="$PROJECT_DIR$/src/app/route/dash/dash.js" />
-        <option value="$PROJECT_DIR$/src/app/route/month/month.js" />
         <option value="$PROJECT_DIR$/src/app/services/getCards.js" />
+        <option value="$PROJECT_DIR$/src/app/route/month/month.js" />
+        <option value="$PROJECT_DIR$/src/app/route/dash/dash.js" />
         <option value="$PROJECT_DIR$/src/app/services/authService.js" />
       </list>
     </option>
@@ -159,6 +140,7 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
@@ -352,7 +334,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -648,11 +629,12 @@
       <workItem from="1427783754894" duration="19380000" />
       <workItem from="1427871350723" duration="2413000" />
       <workItem from="1427874332683" duration="15022000" />
+      <workItem from="1427894537485" duration="1459000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="168268000" />
+    <option name="totallyTimeSpent" value="169727000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="49" y="24" width="1631" height="1026" extended-state="6" />
@@ -664,6 +646,7 @@
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32843652" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -683,7 +666,6 @@
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32843652" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -754,7 +736,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="615">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -923,7 +904,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.7283237" vertical-offset="0" max-vertical-offset="865">
           <caret line="35" column="29" selection-start-line="35" selection-start-column="29" selection-end-line="35" selection-end-column="29" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -980,7 +960,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-11.333333" vertical-offset="0" max-vertical-offset="594">
           <caret line="17" column="12" selection-start-line="17" selection-start-column="12" selection-end-line="17" selection-end-column="12" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -988,7 +967,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-14.925926" vertical-offset="101" max-vertical-offset="684">
           <caret line="28" column="0" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1004,7 +982,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="15.814815" vertical-offset="949" max-vertical-offset="1872">
           <caret line="29" column="40" selection-start-line="29" selection-start-column="40" selection-end-line="29" selection-end-column="40" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1012,7 +989,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.5460455" vertical-offset="0" max-vertical-offset="923">
           <caret line="28" column="0" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1020,7 +996,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-9.0" vertical-offset="1260" max-vertical-offset="6120">
           <caret line="99" column="20" selection-start-line="99" selection-start-column="20" selection-end-line="99" selection-end-column="20" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1028,15 +1003,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-14.0" vertical-offset="108" max-vertical-offset="1422">
           <caret line="27" column="76" selection-start-line="27" selection-start-column="69" selection-end-line="27" selection-end-column="76" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/app.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="44" max-vertical-offset="1584">
-          <caret line="35" column="0" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1048,42 +1014,49 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/route/month/month.js">
+    <entry file="file://$PROJECT_DIR$/src/app/services/archiveCard.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7373626" vertical-offset="319" max-vertical-offset="6444">
-          <caret line="55" column="21" selection-start-line="55" selection-start-column="12" selection-end-line="55" selection-end-column="21" />
-          <folding />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="558">
+          <caret line="0" column="74" selection-start-line="0" selection-start-column="62" selection-end-line="0" selection-end-column="74" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/route/dash/dash.js">
+    <entry file="file://$PROJECT_DIR$/src/app/app.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.41495124" vertical-offset="103" max-vertical-offset="1026">
-          <caret line="27" column="31" selection-start-line="27" selection-start-column="27" selection-end-line="27" selection-end-column="31" />
+        <state vertical-scroll-proportion="0.67152464" vertical-offset="31" max-vertical-offset="1584">
+          <caret line="35" column="0" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/app/services/getCards.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="756" max-vertical-offset="2736">
-          <caret line="84" column="19" selection-start-line="84" selection-start-column="11" selection-end-line="84" selection-end-column="19" />
+        <state vertical-scroll-proportion="0.5098361" vertical-offset="67" max-vertical-offset="2736">
+          <caret line="21" column="8" selection-start-line="21" selection-start-column="8" selection-end-line="21" selection-end-column="8" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/services/archiveCard.js">
+    <entry file="file://$PROJECT_DIR$/src/app/route/month/month.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="558">
-          <caret line="0" column="74" selection-start-line="0" selection-start-column="62" selection-end-line="0" selection-end-column="74" />
+        <state vertical-scroll-proportion="0.36348408" vertical-offset="1259" max-vertical-offset="6588">
+          <caret line="82" column="0" selection-start-line="82" selection-start-column="0" selection-end-line="82" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/route/dash/dash.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="31" max-vertical-offset="1098">
+          <caret line="42" column="32" selection-start-line="42" selection-start-column="32" selection-end-line="42" selection-end-column="32" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/app/services/authService.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3900325" vertical-offset="0" max-vertical-offset="1260">
-          <caret line="20" column="32" selection-start-line="20" selection-start-column="32" selection-end-line="20" selection-end-column="32" />
+        <state vertical-scroll-proportion="0.5655471" vertical-offset="0" max-vertical-offset="1278">
+          <caret line="29" column="38" selection-start-line="29" selection-start-column="38" selection-end-line="29" selection-end-column="38" />
           <folding />
         </state>
       </provider>

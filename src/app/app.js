@@ -4,17 +4,18 @@ angular.module('starter', [
     'ionic',
     'starter.dash',
     'starter.month',
-    'starter.friends',
     'ui.bootstrap',
     'ui.bootstrap.datetimepicker',
     'xeditable',
     'ngDraggable',
    // 'ngProgress',
-    'angular-loading-bar'
+    'angular-loading-bar',
+    'ui-notification'
 
 ]);
 
 angular.module('starter').run(function ($ionicPlatform, $window,editableOptions,  $rootScope, cfpLoadingBar) {
+    var login;
     editableOptions.theme = 'bs3'; // bootstrap3 theme. Can be also 'bs2', 'default'
 
 
@@ -33,13 +34,11 @@ angular.module('starter').run(function ($ionicPlatform, $window,editableOptions,
 
 
 
-    Trello.authorize({
-        interactive: false,
-    });
     $rootScope
         .$on('$stateChangeStart',
         function(){
             cfpLoadingBar.start();
+
         });
 
     $rootScope
@@ -47,6 +46,8 @@ angular.module('starter').run(function ($ionicPlatform, $window,editableOptions,
         function(){ // Options: event, toState, toParams, fromState, fromParams
             cfpLoadingBar.complete();
         });
+
+
 });
 
 angular.module('starter').config(function ($stateProvider, $urlRouterProvider) {
@@ -55,14 +56,27 @@ angular.module('starter').config(function ($stateProvider, $urlRouterProvider) {
         .state('tab', {
             url: '/tab',
             abstract: true,
-            templateUrl: 'partial/sidemenu.html'
-            //,resolve: {
-            //    getCards1: "getCards"
-            //}
+            templateUrl: 'partial/sidemenu.html',
+            controller:'sidebarCtrl'
         });
     // if none of the above states are matched, use this as the fallback
     $urlRouterProvider.otherwise('/tab/dash');
 
 });
+
+
+angular.module('starter').controller('sidebarCtrl', function ($scope) {
+    $scope.user = "Can Kattwinkel!";
+});
+
+angular.module('starter').controller('archiveCtrl', function ($scope) {
+    $scope.click = function(){
+
+
+    }
+});
+
+
+
 
 

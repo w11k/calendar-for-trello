@@ -6,86 +6,9 @@
         </div>
     </ion-nav-buttons>
     <ion-content class="has-header padding" scroll="false">
-        <div class="listing" ng-if="login">
-            <h1>Hello {{member.fullName}}, <small>your cards:</small></h1>
-            <div class="alerts">
-                <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}} <strong ng-if="alert.reactivate"><a href="" ng-click="reactivate('{{alert.id}}')">Rückgängig?</a></strong></alert>
-            </div>
-            <div class="list card" ng-repeat="card in cards | orderBy:'due':false | filter: filterFn">
-                <!--{{card}}-->
-                <div class="item">
-                    <!--<img src="">-->
-                    <h2><a href="{{card.shortUrl}}"> {{card.name}}</a> <a class="pull-right"><i class="icon ion-share"></i>open in Trello</a></h2>
-                    <p>
-                        <small>
-                            Board: <a href="{{card.boardUrl}}">{{card.boardName}}</a>
 
-                            <!--
-                            <a href="#" editable-select="user.status" e-ng-options="s.value as s.text for s in statuses">
-                                {{ showStatus() }}
-                            </a>-->
-
-                            | last modified: {{ card.dateLastActivity |
-                            date:'dd.MM.yyyy  HH:mm'}}
-                            <span ng-if="card.due">|
-                                <strong >expires: {{card.due | date:'dd.MM.yyyy  HH:mm'}}</strong>
-                            </span>
-                        </small>
-                    </p>
-                </div>
-
-                <div class="item item-body" ng-if="card.desc ">
-
-
-                    <a href="#" editable-textarea="card.desc" e-rows="7" e-cols="40" class="editArea" onaftersave="updateDesc(card.id,card.desc)">
-                        <p>{{ card.desc || 'no description' }}</p>
-                    </a>
-
-
-                </div>
-
-                <div class="item tabs tabs-secondary tabs-icon-left">
-                    <a class="tab-item" href="{{card.shortUrl}}">
-                        <!--ng-if="card.badges.comments"-->
-                        <i class="icon ion-chatbox"></i> {{card.badges.comments}}
-                        <span ng-if="card.badges.comments==1">Comment</span>
-                        <span ng-if="card.badges.comments!=1">Comments</span>
-                    </a>
-                    <a class="tab-item" href="{{card.shortUrl}}">
-                        <!--ng-if="card.badges.attachments"-->
-                        <i class="icon ion-paperclip"></i> {{card.badges.attachments}}
-                        <span ng-if="card.badges.attachments<2">Attachment</span>
-                        <span ng-if="card.badges.attachments>=2">Attachments</span>
-                    </a>
-                    <a class="tab-item" ng-click="archiveCard(card.id)">
-                        <i class="icon ion-trash-b"></i> archive
-                    </a>
-                    <a class="tab-item" ng-click="open(card.id,card.due)">
-                        <i class="icon ion-clock"></i> change due date
-                    </a>
-
-                    <!--
-                    <a class="tab-item" ng-click="">
-                        <i class="icon  ion-arrow-move"></i> move to another Board
-                    </a>
-                    <a class="tab-item" ng-click="">
-                        <i class="icon  ion-person-aWdd"></i> add Members
-                    </a>
-
-
-                    -->
-
-
-                </div>
-            </div>
-
-
-
-
-
-        </div>
-        <div class="auth" ng-if="!login">
-            <h1>Hello, <small>login to use Trello.</small></h1>
+        <div class="auth" > <!--ng-if="login"-->
+            <h1>Welcome to w11k Trello Calendar <small>login to use Trello.</small></h1>
         </div>
     </ion-content>
 </ion-view>

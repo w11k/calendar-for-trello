@@ -84,7 +84,7 @@ i.icon {padding-right:4px;}
 
 
   .dayOff  {
-    background:#dedede;
+    background: #ededed;
 
     .dayCard {
       opacity: 0.7;
@@ -125,9 +125,9 @@ i.icon {padding-right:4px;}
       background: #4a87ee;
       color:#fff;
       padding:1px 3px;
-      border-radius: 1px;
-      font-size: 11px;
-      margin-bottom: 3px;
+      border-radius: 0;
+      font-size: 10px;
+      margin-bottom: 2px;
       cursor: move !important;
       .title {
         cursor: pointer !important;
@@ -219,7 +219,7 @@ i.icon {padding-right:4px;}
 
 
 
-  }
+}
 
 .monthName  { font-size: 22px; padding-top: 15px;}
 
@@ -256,3 +256,80 @@ i.icon {padding-right:4px;}
   border-left-color: #2c3e50;
 }
 
+
+
+
+
+.panelFooter {
+  //border:1px solid #ddd;
+}
+
+
+.badge {padding:2px 6px; margin-left:5px;}
+
+
+.month {
+  .dragOptions {
+
+    background: #333;
+    border:1px solid #D5D5D5;
+    overflow: hidden;
+
+    height: 60px;
+    .option {
+      height: 60px;
+      width: 33.3%;
+      float: left;
+      line-height: 60px;
+      text-align: center;
+      color: #fff;
+      overflow: hidden;
+    }
+
+    .option.has, .option:hover {
+      background: #232323;
+
+
+    }
+
+
+    [ng-drop].drag-enter{
+      background: #4f4f4f !important;
+    }
+  }
+
+
+}
+
+.ui-notification {
+  opacity: 0.8 !important;
+}
+.ui-notification:hover {
+  opacity: 1 !important;
+}
+
+
+
+
+
+
+
+
+.cardSingle {
+  .panel {
+    .panel-heading {
+      font-size:18px;
+      a {
+        color:#fff;
+        text-decoration: underline;
+      }
+
+      small {
+        font-size:12px;
+      }
+    }
+
+    color:#333;
+  }
+
+}

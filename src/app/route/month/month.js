@@ -1,12 +1,13 @@
 'use strict';
-// ToDo:
-// Trello Client.js weg.
+
 
 angular.module('starter.month', []);
 angular.module('starter.month').config(function ($stateProvider) {
     $stateProvider
         .state('tab.month', {
-            url: '/month',
+
+            //             url: '/month/:year/{month}',
+            url: '/month/{date}',
             views: {
                 'menuContent': {
                     templateUrl: 'route/month/month.html',
@@ -14,40 +15,73 @@ angular.module('starter.month').config(function ($stateProvider) {
                 }
             },
             resolve: {
-                getCardsFromResolve: "getCards"
-            }
-        })
 
 
-    .state('tab.month-card', {
-        url: '/month/:cardId',
-        views: {
-            'menuContent': {
-                templateUrl: 'route/month/cardDetail.html',
-                controller: 'detailCtrl',
-                resolve: {
-                    getCardsFromResolve: "getCards"
+                getCardsFromResolve: "getCards",
+                'authService':function(authService){
+                    return authService.async();
                 }
             }
-        }
-    });
 
 
+
+        })
 });
 
 angular.module('starter.month').run(function () {
-    Trello.authorize({
-        interactive: false
-    });
     moment.locale('de')
 });
 
-angular.module('starter.month').controller('monthCtrl', function ($scope, getCardsFromResolve, changeDate,$location) {
+angular.module('starter.month').controller('monthCtrl', function ($scope,$rootScope, $stateParams,$state, changeDate,$location, getCardsFromResolve, deAuthService, archiveCard, Notification, authService) {
+
+
+
+    if ($stateParams.date !== ""){
+        var setDate = $stateParams.date.split('-', 2);
+        today = new Date(setDate[0],setDate[1], 1);
+
+    }else {
+        var today = new Date();
+        $location.path("/tab/month/"+today.getFullYear()+"-"+today.getMonth())
+    }
+
+
+
+    $scope.login = authService;
+
+
+    $scope.logout = function(){
+        Trello.deauthorize();
+        $rootScope.login = false;
+            $location.path("/tab/dash/");
+
+
+
+        /*
+        deAuthService.async()
+
+            .then(function(data){
+            console.log("promise ist da");
+            console.log(data);
+
+                $state.go("tab.dash");
+
+        });
+*/
+    };
+
+
     var data = getCardsFromResolve;
-    var today = new Date();
+
     var month =  today.getMonth();
-    $scope.monthName = moment.months()[month];
+
+    // Ausgabe Werte für View (Monatsname, Jahr ..)
     var year = today.getFullYear();
+
+
+
+
+
     $scope.year = year;
     $scope.weekdays = [];
 
@@ -55,7 +89,7 @@ angular.module('starter.month').controller('monthCtrl', function ($scope, getCar
         var long =  moment().weekday(i).format("dddd");
         var short = moment().weekday(i).format("dd");
         $scope.weekdays[i] = [short, long]
-        }
+    }
 
 
 
@@ -75,13 +109,47 @@ angular.module('starter.month').controller('monthCtrl', function ($scope, getCar
 
 
     function cal (today, month, year){
+
+
+
+        $scope.date = {};
+        $scope.date.iso = new Date(year, month, 1);
+        $scope.date.monthName =  moment.months()[month];
+        $scope.date.prev = [moment.months()[month-1] , year];
+        $scope.date.next = [moment.months()[month+1] , year];
+        $scope.date.month = $scope.date.iso.getMonth();
+        $scope.date.year = year;
+
+
+
+
+
+        if (month == 0){
+            //Januar
+            console.log("jan");
+
+            $scope.date.prev = [moment.months()[11] , year-1];
+            $scope.date.next = [moment.months()[1] , year];
+        }else if (month == 11){
+            // dez
+            console.log("dez");
+            $scope.date.prev = [moment.months()[10], year];
+            $scope.date.next = [moment.months()[0] , year+1];
+        }
+
+
+
         Date.prototype.mGetDay = function() {
             return (this.getDay() + 6) %7;
         };
         var cards = data[1];
-        var boards = data[2];
+        //  var boards = data[2];
         var firstOfMonth = new Date(year, month,1,0,0,0,0);
         var push = firstOfMonth.mGetDay();
+        if (push === 0){
+            console.log("ist null")
+            push = 7;
+        }
         // Januar abfangen
         if(month == 0){
             var lastMonthDays = 31-push;
@@ -94,17 +162,17 @@ angular.module('starter.month').controller('monthCtrl', function ($scope, getCar
         }
 
         $scope.days = [];
-        for ( var i = 0; i < push; i++) {
-            lastMonthDays  = lastMonthDays+1;
+
+        for (var i = 0; i < push; i++) {
+            console.log(monthIn,lastMonthDays)
+            lastMonthDays = lastMonthDays + 1;
             $scope.days.push({
                 dayOff: true,
-                i : lastMonthDays,
-                date: new Date(yearIn,monthIn,lastMonthDays,0,0,0,0),
-                cards:[],
-                weekday: moment(new Date(yearIn,monthIn,lastMonthDays,0,0,0,0)).format("dddd")
+                i: lastMonthDays,
+                date: new Date(yearIn, monthIn, lastMonthDays, 0, 0, 0, 0),
+                cards: [],
+                weekday: moment(new Date(yearIn, monthIn, lastMonthDays, 0, 0, 0, 0)).format("dddd")
                 ///, waiting: false aktiviern wenn day auch waiting zustand haben soll
-
-
             });
         }
         for (var d = 0; d < getMonthDays(month, year); d++){
@@ -119,24 +187,29 @@ angular.module('starter.month').controller('monthCtrl', function ($scope, getCar
         }
 
 
-        boards = _.indexBy(boards, 'id');
-        cards.forEach(function(entry) {
-            entry.waiting = false;
-            entry.boardName = boards[entry.idBoard].name;
-            entry.boardUrl = boards[entry.idBoard].url;
+        var a = $scope.days.length;
 
-            if(entry.due == null){
-                entry.due = null;
-                return;
-            }
+        if (a % 7 != 0) {
 
-            entry.due = new Date(entry.due);
-            if (entry.due instanceof Date) {
-                var dueDate = entry.due;
-                dueDate.setHours(0,0,0,0);
-                entry.dueDate = dueDate;
-            }
-        });
+            a = 7-(a % 7);
+        } else {
+            a = 7;
+        }
+
+        for (var i = 0; i < a; i++) {
+
+            $scope.days.push({
+                dayOff: true,
+                i: i+1,
+                date: new Date(year, month+1, i+1, 0, 0, 0, 0),
+                cards: [],
+                weekday: moment(new Date(year, month+1, i+1, 0, 0, 0, 0)).format("dddd")
+                ///, waiting: false aktiviern wenn day auch waiting zustand haben soll
+            });
+        }
+
+
+        // Jetzt zähle die Tage dann teil durch / und füg an.
 
         cards = _.groupBy(cards, 'dueDate');
         delete cards.undefined;
@@ -160,32 +233,32 @@ angular.module('starter.month').controller('monthCtrl', function ($scope, getCar
             year--;
 
         }
-        $scope.monthName = moment.months()[month];
         $scope.year = year;
         // Cal neu aufbauen:
-        cal (today, month, year)
-    }
+
+
+        $location.path("/tab/month/"+year+"-"+month);
+
+        cal (today, month, year);
+        //$scope.$apply();
+    };
 
 
     $scope.click = function (id){
-        $location.path("tab/month/"+id)
-    }
-
-
-
-
-
+        $location.path("tab/month/detail/"+id)
+    };
 
     // Drag 'n Drop
-
     $scope.onDragSuccess = function(data, evt, from) {
         var index = $scope.days[from].cards.indexOf(data);
         if (index > -1) {
             $scope.days[from].cards.splice(index, 1);
         }
+        //$scope.DragProcess = true;
     };
 
     $scope.onDropComplete = function(data, evt, target,targetDate) {
+        //$scope.DragProcess = false;
         data.waiting = true;
         //$scope.days[target].waiting = true; aktiviern wenn day auch waiting zustand haben soll
         if(typeof  $scope.days[target].cards === 'undefined'){
@@ -193,29 +266,85 @@ angular.module('starter.month').controller('monthCtrl', function ($scope, getCar
             $scope.days[target].cards[0] = data;
 
         } else {
-        var index = $scope.days[target].cards.indexOf(data);
-        if (index == -1)
-            $scope.days[target].cards.push(data);
+            var index = $scope.days[target].cards.indexOf(data);
+            if (index == -1)
+                $scope.days[target].cards.push(data);
         }
-
+        targetDate.setHours(12, 0, 0);
         changeDate.async(data.id, targetDate).then(function(){
-            //$scope.days[target].waiting = false; aktiviern wenn day auch waiting zustand haben soll
-            data.waiting = false;
+                console.log("succes");
+                //$scope.days[target].waiting = false; aktiviern wenn day auch waiting zustand haben soll
+                data.waiting = false;
+                data.due = targetDate;
+                data.dueDate = targetDate;
 
-        })
+
+            },
+            function(){
+                console.log("err");
+            })
     };
 
 
+
+
+
+    $scope.changeMonth = function(data, param, month){
+
+
+        /*
+         * Wenn month > als due.getMonth = die Karte  befindet sich im Monat vor dem angezeigten, 0 Schritte zurück 2 vor (oder?)
+         * wenn month < due.getMonth =
+         *
+         * wenn mont = due = normal (1 step in beide Richtungen)
+         */
+
+
+        // card in day of?
+        console.log(month);
+        console.log(data.due.getMonth());
+
+        if(data.due.getMonth() !== month)      {
+            var targetDate = moment(data.dueDate).add(2, 'month').toISOString();
+            targetDate =new Date(targetDate);
+            targetDate = new Date(targetDate.setDate(1));
+        }else {
+            var targetDate = moment(data.dueDate).add(1, 'month').toISOString();
+            targetDate =new Date(targetDate);
+            targetDate = new Date(targetDate.setDate(1));
+        }
+
+
+        changeDate.async(data.id, targetDate).then(function(){
+                console.log("succes");
+            },
+            function(){
+                console.log("err");
+            });
+
+
+    };
+
+    $scope.archiveCard = function(data){
+        var id = data.id
+
+        archiveCard.async(id).then(function(){
+            var message = '<span ng-controller="archiveCtrl"><br>Archived <br><a ng-click="click('+id+')">Undo</a></span>';
+            Notification.warning({message: message});
+        });
+    };
+
+
+    $scope.reactivate = function(id) {
+        console.log("st")
+
+
+    }
+
 });
 
 
 
-angular.module('starter.month').controller('detailCtrl', function ($scope, $stateParams, getCardsFromResolve) {
-   var data = getCardsFromResolve[1];
-
-       $scope.data = data[_.findKey(data, {id: $stateParams.cardId})];
-
-});
 
 
 

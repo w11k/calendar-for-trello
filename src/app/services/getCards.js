@@ -1,111 +1,89 @@
-angular.module('starter').factory('getCards', function($q,$location) {
-    /* var promise;
-     var promise2;
-     var getCards = {
-     async: function() {
-     if ( !promise ) {
-     promise =  Trello.get("members/me/cards", function (response) {
-     console.log("received cards");
-     return response;
-     })
-     }
-     if ( !promise2 ) {
-     promise2 =  Trello.get("members/me/boards", function (response) {
-     console.log("cards boards");
-     return response;
-     })
-     }
-     var result = $q.all([promise, promise2])
-     .then(function(responsesArray) {
-     return(responsesArray)
-     });
-     return result;
-     }
-     };
-     return getCards;
-     */
+angular.module('starter').factory('getCards', function($q,$timeout,$rootScope) {
 
-    /*
-     var getFunction = function (){
-     return "dab";
-
-     };
+    //promise.$$state.status === 0 // pending
+    //promise.$$state.status === 1 // resolved
+    // promise.$$state.status === 2 // rejected
+    // keine Ausgabe?
 
 
+    var promise =$q.defer();
+    var promise1 =$q.defer();
+    var promise2 =$q.defer();
+    //var promise;
+    //var promise1;
+    //var promise2;
+    var delay;
+//    delay = 3000;
+    var trigger;
+    var trigger1;
+    var trigger2;
+
+
+    var getCards = {
+        async: function(){
+            if (!trigger){
+                trigger = Trello.get("members/me", function(response) {
+                    promise.resolve(response);
+                });
+            }
+
+            if (!trigger1) {
+                trigger1 = Trello.get("members/me/cards", function(response) {
+                    promise1.resolve(response);
+                });
+            }
+
+            if (!trigger2) {
+
+                if(delay) {
+                    $timeout(function() {
+                        trigger2 = Trello.get("members/me/boards", function(response) {
+                            promise2.resolve(response);
+                        });
+                    }, delay);
+                } else {
+                    trigger2 = Trello.get("members/me/boards", function(response) {
+                            promise2.resolve(response);
+                        });
+                }
+
+            }
+
+
+            var result = $q.all([promise.promise, promise1.promise, promise2.promise])
+                .then(function(responsesArray) {
+
+                    var cards = responsesArray[1];
+                    var boards = _.indexBy(responsesArray[2], 'id');
+
+                    cards.forEach(function(entry) {
+                        entry.waiting = false;
+                        entry.boardName = boards[entry.idBoard].name;
+                        entry.boardUrl = boards[entry.idBoard].url;
+
+                        if (entry.due == null) {
+                            entry.due = null;
+                            return;
+                        }
+
+                        entry.due = new Date(entry.due);
+                        if (entry.due instanceof Date) {
+                            var dueDate = entry.due;
+                            dueDate.setHours(0, 0, 0, 0);
+                            entry.dueDate = dueDate;
+                        }
+                    });
+                    return responsesArray
+
+                });
+            return result;
+        }
+    };
 
 
 
-
-     var user;
-
-     function getUser() {
-     // If we've already cached it, return that one.
-     // But return a promise version so it's consistent across invocations
-     if ( angular.isDefined( user ) ) return $q.when( user );
-
-     // Otherwise, let's get it the first time and save it for later.
-     //       $timeout(function () {
-
-     return getFunction()
-     .then( function( data ) {
-     user = data;
-     return user;
-     });
-     //       }, 2000);
-
-     };
-
-     // The public API
-     return {
-     getUser: getUser
-     };
-     */
-
-
-
-    /*
-
-     $timeout(function () {
-     var getCards = function(){
-
-     var api1 = $http.get('https://api.trello.com/1/members/me?key=41485cd87d154168dd6db06cdd3ffd69&token=ff7fe182f66be89dc004016c73bcec86e3fce2a2c4309ffada9e5cdb9293ec3d');
-     var api2 = $http.get('https://api.trello.com/1/members/me?key=41485cd87d154168dd6db06cdd3ffd69&token=ff7fe182f66be89dc004016c73bcec86e3fce2a2c4309ffada9e5cdb9293ec3d');
-
-     return $q.all([api1, api2])
-     .then(function(responsesArray) {
-     console.log(responsesArray);
-
-     return(responsesArray)
-     });
-
-     };
-     return getCards();
-     }, 2000);
-
-
-     */
-
-    /* geht, macht halt nix
-
-     var deferred = $q.defer();
-     $timeout(function () {
-     deferred.resolve('Hello!');
-     }, 1000);
-
-     return deferred.promise;
-
-     */
-
-
+    return getCards.async();
 /*
- * 1. Trello auth -> errFn wenn fehl -> dann Login
- * 2. get me, cards, boards
- * 3. Promise
- *
- */
-
-
-
     var deferred = $q.defer();
     var promise;
     var promise1;
@@ -113,25 +91,50 @@ angular.module('starter').factory('getCards', function($q,$location) {
     var getCards = {
         async: function() {
 
-            if ( !promise) {
-                promise =  Trello.get("members/me", function (response) {
+            if (!promise) {
+                promise = Trello.get("members/me", function(response) {
+                    return response;
+
+                })
+            }
+            if (!promise1) {
+                promise1 = Trello.get("members/me/cards", function(response) {
                     return response;
                 })
             }
-            if ( !promise1 ) {
-                promise1 =  Trello.get("members/me/cards", function (response) {
+            if (!promise2) {
+
+                promise2 = Trello.get("members/me/boards", function(response) {
                     return response;
                 })
-            }
-            if ( !promise2 ) {
-                promise2 =  Trello.get("members/me/boards", function (response) {
-                    return response;
-                })
+
             }
             var result = $q.all([promise, promise1, promise2])
                 .then(function(responsesArray) {
-                    return(responsesArray)
+
+                    var cards = responsesArray[1];
+                    var boards = _.indexBy(responsesArray[2], 'id');
+
+                    cards.forEach(function(entry) {
+                        entry.waiting = false;
+                        entry.boardName = boards[entry.idBoard].name;
+                        entry.boardUrl = boards[entry.idBoard].url;
+
+                        if (entry.due == null) {
+                            entry.due = null;
+                            return;
+                        }
+
+                        entry.due = new Date(entry.due);
+                        if (entry.due instanceof Date) {
+                            var dueDate = entry.due;
+                            dueDate.setHours(0, 0, 0, 0);
+                            entry.dueDate = dueDate;
+                        }
+                    });
+                    return responsesArray
                 });
+            console.log("fetched all");
             return result;
         }
 
@@ -140,6 +143,5 @@ angular.module('starter').factory('getCards', function($q,$location) {
     deferred.resolve(getCards.async());
     return deferred.promise;
 
-
+    */
 });
-

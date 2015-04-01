@@ -16,14 +16,16 @@
             <h1 class="title">w11k Trello</h1>
         </ion-header-bar>
         <ion-content>
+            <div class="padding" ng-controller="sidebarCtrl">
+
+                Hallo {{user}}
+            </div>
+
+
             <ul class="list">
-                <a href="#/tab/dash" class="item">Start</a>
-                <a href="#/tab/month" class="item">Month View</a>
-                <a href="#/tab/friends" class="item">frinds</a>
+                <a href="#/tab/dash" class="item" ng-if="!login">Start</a>
+                <a href="#/tab/month/" class="item" >Calendar</a>
             </ul>
-
-
-
 
         </ion-content>
     </ion-side-menu>

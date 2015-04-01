@@ -11,7 +11,9 @@
     "moment": "~2.9.0",
     "angular-local-storage": "~0.1.5",
     "angular-loading-bar": "~0.7.1",
-    "ngprogress": "~1.0.7"
+    "ngprogress": "~1.0.7",
+    "ng-notify": "~0.5.2",
+    "angular-ui-notification": "~0.0.5"
   },
   "resolutions": {
     "angular": "~1.2.12",

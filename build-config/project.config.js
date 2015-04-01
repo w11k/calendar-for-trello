@@ -49,7 +49,8 @@ module.exports = {
                 'angular-xeditable/dist/js/xeditable.js',
                 'moment/min/moment-with-locales.js',
                 'ngDraggable/ngDraggable.js',
-                'angular-loading-bar/build/loading-bar.js'
+                'angular-loading-bar/build/loading-bar.js',
+                'angular-ui-notification/dist/angular-ui-notification.min.js'
                // 'ngprogress/build/ngProgress.js'
 
 
@@ -64,7 +65,9 @@ module.exports = {
                 'angular-bootstrap/bootstrap.css',
                 'angular-ui-bootstrap-datetimepicker/datetimepicker.css',
                 'angular-xeditable/dist/css/xeditable.css',
-                'angular-loading-bar/build/loading-bar.css'
+                'angular-loading-bar/build/loading-bar.css',
+                'angular-ui-notification/dist/angular-ui-notification.min.css'
+
 
 
             ],

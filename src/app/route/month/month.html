@@ -1,18 +1,22 @@
 <ion-view title="Month">
-    <ion-content class="has-header padding">
+    <ion-nav-buttons side="right">
+        <div ng-switch="login">
+            <button class="button button-positive" ng-switch-default ng-click="auth()">Login</button>
+            <button class="button  button-assertive" ng-switch-when="true" ng-click="logout()">Logout</button>
+        </div>
+    </ion-nav-buttons>
+    <ion-content class="has-header padding month">
         <div class="calNav row">
             <div class="col-xs-1">
-                <i class="glyphicon glyphicon-chevron-left" ng-click="move(-1)" ></i>
+                <i class="ion-chevron-left" ng-click="move(-1)" ></i>
             </div>
             <div class="col-xs-10 text-center monthName">
-                {{monthName}},{{year}}
+                {{date.monthName}}, {{date.year}}
             </div>
             <div class="col-xs-1">
-                <i class="glyphicon glyphicon-chevron-right" ng-click="move(1)"></i>
+                <i class="ion-chevron-right" ng-click="move(1)"></i>
             </div>
         </div>
-
-
         <div id="MonthView" class="clearfix">
             <div class="day header" ng-repeat="wd in weekdays"><span class="short">{{wd.0}}</span><span class="long">{{wd.1}}</span></div>
             <div class="clearfix"></div>
@@ -26,7 +30,7 @@
                     <!--{{day.waiting}}-->
 
 
-                    <div ng-repeat="card in day.cards | orderBy: 'due':false">
+                        <div ng-repeat="card in day.cards | orderBy:['badges.due', 'name'] "> <!--   orderBy: 'due':false"   ['due'] -->
                         <div class="dayCard clearfix"
 
                              ng-drag="true" ng-drag-data="card"
@@ -35,20 +39,35 @@
                              ng-class="{waiting: card.waiting}"
                                 >
                             <span class="title" ng-click="$event.stopPropagation(); click(card.id)">
-                                {{card.name}}
+                                {{card.name}} <!-- {{card.due}} -->
 
                             </span>
                             <!--<div class="board">
                                 {{card.boardName}}
                             </div>-->
-
                             <i class="ion-arrow-move"></i>
-
 
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
+
+
+        <div class="dragOptions" ng-show="$root.DragProcess"> <!--ng-show="$root.DragProcess"-->
+           <div class="prevMonth option"
+                 ng-drop="true"
+                 ng-drop-success="changeMonth($data, 'prev', date.month)"
+                   >Move Card to {{date.prev[0]}}, {{date.prev[1]}}</div>
+            <div class="archive option"
+                 ng-drop="true"
+                 ng-drop-success="archiveCard($data)"
+                    >archive card</div>
+            <div class="nextMonth option"
+                 ng-drop="true"
+                 ng-drop-success="changeMonth($data, 'next', date.month)"
+                    >Move Card to {{date.next[0]}}, {{date.next[1]}}</div>
+
         </div>
     </ion-content>
 </ion-view>

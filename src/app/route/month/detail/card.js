@@ -11,8 +11,11 @@ angular.module('starter.month').config(function($stateProvider) {
                     templateUrl: 'route/month/detail/card.html',
                     controller: 'detailCtrl',
                     resolve: {
-                        getCardsFromResolve: "getCards"
 
+                        'AsDataService':function(dataService) {
+                            console.log("resolve function initiert dataService");
+                            return dataService.promFn();
+                        }
                     }
                 }
             }
@@ -22,8 +25,8 @@ angular.module('starter.month').config(function($stateProvider) {
 
 
 
-angular.module('starter.month').controller('detailCtrl', function($scope, $stateParams, getAttachments, getCardsFromResolve, archiveCard, $location, Notification, getComments) {
-    var data = getCardsFromResolve[1];
+angular.module('starter.month').controller('detailCtrl', function($scope, $stateParams, getAttachments, dataService, archiveCard, $location, Notification, getComments) {
+    var data = dataService.get()[1];
 
     $scope.data = data[_.findKey(data, {
         id: $stateParams.cardId

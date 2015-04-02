@@ -5,8 +5,6 @@ angular.module('starter.month', []);
 angular.module('starter.month').config(function ($stateProvider) {
     $stateProvider
         .state('tab.month', {
-
-            //             url: '/month/:year/{month}',
             url: '/month/{date}',
             views: {
                 'menuContent': {
@@ -15,30 +13,11 @@ angular.module('starter.month').config(function ($stateProvider) {
                 }
             },
             resolve: {
-
-
-               // getCardsFromResolve: "getCards",
-
-
-/*
-
-                'authService':function(authService,$q){
-                    return authService.async();
+                'AsDataService':function(dataService){
+                    console.log("resolve function initiert dataService");
+                    return dataService.promFn();
                 }
-
-*/
-
-                'AsTestService':function(testService,$q){
-                    return testService.promFn();
-                }
-
-
-
-
             }
-
-
-
         })
 });
 
@@ -46,9 +25,7 @@ angular.module('starter.month').run(function () {
     moment.locale('de')
 });
 
-angular.module('starter.month').controller('monthCtrl', function (testService, $scope,$rootScope, $stateParams,$state, changeDate,$location, deAuthService, archiveCard, Notification, authService) {
-
-
+angular.module('starter.month').controller('monthCtrl', function (dataService, $scope, $stateParams,$state, changeDate,$location, deAuthService, archiveCard, Notification, authService) {
 
     if ($stateParams.date !== ""){
         var setDate = $stateParams.date.split('-', 2);
@@ -61,53 +38,24 @@ angular.module('starter.month').controller('monthCtrl', function (testService, $
 
 
 
-    $scope.login = authService;
+    $scope.login = dataService.checkLogin();
 
     $scope.auth = function() {
-        console.log(testService.get());
-        console.log("remove");
-       testService.remove();
-        console.log("lastget:");
-        console.log(testService.get());
-
-    }
+        $loction.path("/tab/month/")
+     };
     $scope.logout = function(){
-        console.log("set:");
-        testService.promFn();
-        console.log("get:");
-        console.log( testService.get());
-        console.log("remove:");
-        console.log( testService.remove());
-
-        //Trello.deauthorize();
-        //$rootScope.login = false;
-           // $location.path("/tab/dash/");
-
-
-
-        /*
-        deAuthService.async()
-
-            .then(function(data){
-            console.log("promise ist da");
-            console.log(data);
-
-                $state.go("tab.dash");
-
-        });
-*/
+        Trello.deauthorize();
+        $location.path("/tab/dash/");
+        dataService.remove();
+        console.log(dataService.get());
     };
 
 
-    var data = [];
-
+    var data = dataService.get();
     var month =  today.getMonth();
 
     // Ausgabe Werte für View (Monatsname, Jahr ..)
     var year = today.getFullYear();
-
-
-
 
 
     $scope.year = year;
@@ -118,8 +66,6 @@ angular.module('starter.month').controller('monthCtrl', function (testService, $
         var short = moment().weekday(i).format("dd");
         $scope.weekdays[i] = [short, long]
     }
-
-
 
     function getMonthDays (month, year){
         var dayCounter = 31;
@@ -137,9 +83,6 @@ angular.module('starter.month').controller('monthCtrl', function (testService, $
 
 
     function cal (today, month, year){
-
-
-
         $scope.date = {};
         $scope.date.iso = new Date(year, month, 1);
         $scope.date.monthName =  moment.months()[month];
@@ -147,10 +90,6 @@ angular.module('starter.month').controller('monthCtrl', function (testService, $
         $scope.date.next = [moment.months()[month+1] , year];
         $scope.date.month = $scope.date.iso.getMonth();
         $scope.date.year = year;
-
-
-
-
 
         if (month == 0){
             //Januar
@@ -165,8 +104,6 @@ angular.module('starter.month').controller('monthCtrl', function (testService, $
             $scope.date.next = [moment.months()[0] , year+1];
         }
 
-
-
         Date.prototype.mGetDay = function() {
             return (this.getDay() + 6) %7;
         };
@@ -175,7 +112,7 @@ angular.module('starter.month').controller('monthCtrl', function (testService, $
         var firstOfMonth = new Date(year, month,1,0,0,0,0);
         var push = firstOfMonth.mGetDay();
         if (push === 0){
-            console.log("ist null")
+            console.log("ist null");
             push = 7;
         }
         // Januar abfangen
@@ -192,7 +129,6 @@ angular.module('starter.month').controller('monthCtrl', function (testService, $
         $scope.days = [];
 
         for (var i = 0; i < push; i++) {
-            console.log(monthIn,lastMonthDays)
             lastMonthDays = lastMonthDays + 1;
             $scope.days.push({
                 dayOff: true,
@@ -214,14 +150,13 @@ angular.module('starter.month').controller('monthCtrl', function (testService, $
             });
         }
 
-
         var a = $scope.days.length;
 
         if (a % 7 != 0) {
 
             a = 7-(a % 7);
         } else {
-            a = 7;
+            a = 0;
         }
 
         for (var i = 0; i < a; i++) {
@@ -235,8 +170,6 @@ angular.module('starter.month').controller('monthCtrl', function (testService, $
                 ///, waiting: false aktiviern wenn day auch waiting zustand haben soll
             });
         }
-
-
         // Jetzt zähle die Tage dann teil durch / und füg an.
 
         cards = _.groupBy(cards, 'dueDate');
@@ -259,7 +192,6 @@ angular.module('starter.month').controller('monthCtrl', function (testService, $
         } else if ( month == -1){
             month = 11;
             year--;
-
         }
         $scope.year = year;
         // Cal neu aufbauen:
@@ -318,22 +250,8 @@ angular.module('starter.month').controller('monthCtrl', function (testService, $
 
 
     $scope.changeMonth = function(data, param, month){
-
-
-        /*
-         * Wenn month > als due.getMonth = die Karte  befindet sich im Monat vor dem angezeigten, 0 Schritte zurück 2 vor (oder?)
-         * wenn month < due.getMonth =
-         *
-         * wenn mont = due = normal (1 step in beide Richtungen)
-         */
-
-
-        // card in day of?
-        console.log(month);
-        console.log(data.due.getMonth());
-
         if(data.due.getMonth() !== month)      {
-            var targetDate = moment(data.dueDate).add(2, 'month').toISOString();
+            var targetDate = moment(data.dueDate).add(0, 'month').toISOString();
             targetDate =new Date(targetDate);
             targetDate = new Date(targetDate.setDate(1));
         }else {
@@ -354,7 +272,7 @@ angular.module('starter.month').controller('monthCtrl', function (testService, $
     };
 
     $scope.archiveCard = function(data){
-        var id = data.id
+        var id = data.id;
 
         archiveCard.async(id).then(function(){
             var message = '<span ng-controller="archiveCtrl"><br>Archived <br><a ng-click="click('+id+')">Undo</a></span>';

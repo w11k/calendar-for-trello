@@ -5,10 +5,25 @@
             <button class="button  button-assertive" ng-switch-when="true" ng-click="logout()">Logout</button>
         </div>
     </ion-nav-buttons>
-    <ion-content class="has-header padding" scroll="false">
+    <ion-content class="has-header padding" scroll="false" ng-switch="login">
 
-        <div class="auth" > <!--ng-if="login"-->
+        <div class="auth" ng-switch-default > <!--ng-if="login"-->
             <h1>Welcome to w11k Trello Calendar <small>login to use Trello.</small></h1>
         </div>
+
+        <div ng-switch-when="true">
+            <h1>Bugs...</h1>
+
+
+
+            <ion-list>
+                <ion-item>direkt nach Logout wieder anmelden -> service noch nicht resettet</ion-item>
+                <ion-item>dashboard neu laden -> falscher inhalt</ion-item>
+                <ion-item>nach verschieben einer Karte ist neu laden erforderlich da noch nicht im Service geupdated wird</ion-item>
+                <ion-item>Arichiveren Rückgängig machen, kein zugriff auf Link in Notifcation. </ion-item>
+            </ion-list>
+
+        </div>
+
     </ion-content>
 </ion-view>

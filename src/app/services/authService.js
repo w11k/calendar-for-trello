@@ -1,4 +1,4 @@
-angular.module('starter.month').factory('authService', function($q,$rootScope) {
+angular.module('starter.month').factory('authService', function($q) {
     var promise;
     var login;
     promise = $q.defer();
@@ -43,6 +43,9 @@ angular.module('starter.month').factory('authService', function($q,$rootScope) {
 
             return promise.promise;
 
+        },
+        kill: function(){
+            return "sth"
         }
     };
 

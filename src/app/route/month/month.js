@@ -20,10 +20,16 @@ angular.module('starter.month').config(function ($stateProvider) {
                // getCardsFromResolve: "getCards",
 
 
-
+/*
 
                 'authService':function(authService,$q){
                     return authService.async();
+                }
+
+*/
+
+                'AsTestService':function(testService,$q){
+                    return testService.promFn();
                 }
 
 
@@ -40,7 +46,7 @@ angular.module('starter.month').run(function () {
     moment.locale('de')
 });
 
-angular.module('starter.month').controller('monthCtrl', function ($scope,$rootScope, $stateParams,$state, changeDate,$location, deAuthService, archiveCard, Notification, authService) {
+angular.module('starter.month').controller('monthCtrl', function (testService, $scope,$rootScope, $stateParams,$state, changeDate,$location, deAuthService, archiveCard, Notification, authService) {
 
 
 
@@ -57,11 +63,25 @@ angular.module('starter.month').controller('monthCtrl', function ($scope,$rootSc
 
     $scope.login = authService;
 
+    $scope.auth = function() {
+        console.log(testService.get());
+        console.log("remove");
+       testService.remove();
+        console.log("lastget:");
+        console.log(testService.get());
 
+    }
     $scope.logout = function(){
-        Trello.deauthorize();
-        $rootScope.login = false;
-            $location.path("/tab/dash/");
+        console.log("set:");
+        testService.promFn();
+        console.log("get:");
+        console.log( testService.get());
+        console.log("remove:");
+        console.log( testService.remove());
+
+        //Trello.deauthorize();
+        //$rootScope.login = false;
+           // $location.path("/tab/dash/");
 
 
 

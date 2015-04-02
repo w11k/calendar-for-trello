@@ -11,7 +11,6 @@ angular.module('starter', [
    // 'ngProgress',
     'angular-loading-bar',
     'ui-notification'
-
 ]);
 
 angular.module('starter').run(function ($ionicPlatform, $window,editableOptions,  $rootScope, cfpLoadingBar) {

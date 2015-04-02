@@ -116,12 +116,13 @@ i.icon {padding-right:4px;}
 
   .dayCards {
 
-    .waiting {
+    .dayCard.waiting {
       opacity: .7 !important;
     }
 
 
     .dayCard{
+      opacity:1;
       background: #4a87ee;
       color:#fff;
       padding:1px 3px;
@@ -333,3 +334,19 @@ i.icon {padding-right:4px;}
   }
 
 }
+
+
+
+button i {
+  font-size:16px;
+}
+.animate i {
+  -webkit-animation:spin 1s linear infinite;
+  -moz-animation:spin 1s linear infinite;
+  animation:spin 1s linear infinite;
+}
+
+
+@-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
+@-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
+@keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }

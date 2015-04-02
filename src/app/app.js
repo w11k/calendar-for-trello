@@ -2,19 +2,16 @@
 
 angular.module('starter', [
     'ionic',
-    'starter.dash',
     'starter.month',
     'ui.bootstrap',
     'ui.bootstrap.datetimepicker',
     'xeditable',
     'ngDraggable',
-   // 'ngProgress',
     'angular-loading-bar',
     'ui-notification'
 ]);
 
 angular.module('starter').run(function ($ionicPlatform, $window,editableOptions,  $rootScope, cfpLoadingBar) {
-    var login;
     editableOptions.theme = 'bs3'; // bootstrap3 theme. Can be also 'bs2', 'default'
 
 
@@ -59,7 +56,7 @@ angular.module('starter').config(function ($stateProvider, $urlRouterProvider) {
             controller:'sidebarCtrl'
         });
     // if none of the above states are matched, use this as the fallback
-    $urlRouterProvider.otherwise('/tab/dash');
+    $urlRouterProvider.otherwise('/tab/month/');
 
 });
 

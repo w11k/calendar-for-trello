@@ -1,11 +1,13 @@
 /**
  * Created by can on 01.04.15.
  */
-angular.module('starter').factory('dataService', function($q) {
+angular.module('starter').factory('dataService', function($q,$timeout) {
 
     var data;
     var promise = $q.defer();
     var loginData;
+
+    var def = $q.defer();
 
     var login = $q.defer();
     var me = $q.defer();
@@ -18,17 +20,21 @@ angular.module('starter').factory('dataService', function($q) {
             loginData = true;
             login.resolve("true");
             console.log("login valid");
+            console.log("marker");
+
         };
 
         var onError = function(){
             Trello.authorize({
-                type: "popup",
+                type: "redirect",
                 name: "w11k Trello",
                 expiration: "never",
                 scope: { read: true, write: true, account: true},
                 success: onAuthorize
+
             })
         };
+        console.log("marker");
 
         Trello.authorize({
             interactive:false,
@@ -40,12 +46,11 @@ angular.module('starter').factory('dataService', function($q) {
 
 
     var getData = function(){
-        doLogin();
 
 
 
 
-        login.promise.then(function(){
+        var getFromApi = function(){
             console.log("get Requests starten");
             Trello.get("members/me", function(response) {
                 me.resolve(response);
@@ -66,27 +71,29 @@ angular.module('starter').factory('dataService', function($q) {
                 boards.reject();
                 console.log("error get me boards")
             });
+        }
 
 
+            doLogin();
+            login.promise.then(function(){
+                getFromApi();
+            });
 
-        });
+
 
         var result = $q.all([me.promise, cards.promise, boards.promise])
             .then(function(result) {
-
+                console.log("marker");
                 var cards = result[1];
                 var boards = _.indexBy(result[2], 'id');
-
                 cards.forEach(function(entry) {
                     entry.waiting = false;
                     entry.boardName = boards[entry.idBoard].name;
                     entry.boardUrl = boards[entry.idBoard].url;
-
                     if (entry.due == null) {
                         entry.due = null;
                         return;
                     }
-
                     entry.due = new Date(entry.due);
                     if (entry.due instanceof Date) {
                         var dueDate = entry.due;
@@ -95,13 +102,18 @@ angular.module('starter').factory('dataService', function($q) {
                     }
                 });
                 data = result;
+                console.log(data);
             });
+
+
+
         return result;
     };
 
 
+        var refresh = function(){
 
-
+        };
 
 
 
@@ -137,9 +149,17 @@ angular.module('starter').factory('dataService', function($q) {
         justLogin: function(){
             // Stellt nur den Login bereit (für Startseite Login/logout button)
             doLogin();
+        },
+        refresh: function(){
+            getData().then(function(){
+                console.log("Daten angekommen")
+                //$timeout(function(){
+                    def.resolve();
+
+                //},0)
+            });
+            return def.promise;
         }
 
     }
-
-
 });

@@ -25,7 +25,7 @@ angular.module('starter.month').run(function () {
     moment.locale('de')
 });
 
-angular.module('starter.month').controller('monthCtrl', function (dataService, $scope, $stateParams,$state, changeDate,$location, deAuthService, archiveCard, Notification, authService) {
+angular.module('starter.month').controller('monthCtrl', function (dataService, $scope, $stateParams,$state, changeDate,$location, archiveCard, Notification) {
 
     if ($stateParams.date !== ""){
         var setDate = $stateParams.date.split('-', 2);
@@ -35,6 +35,24 @@ angular.module('starter.month').controller('monthCtrl', function (dataService, $
         var today = new Date();
         $location.path("/tab/month/"+today.getFullYear()+"-"+today.getMonth())
     }
+
+
+
+    $scope.loading = false;
+    $scope.refresh = function (){
+        if($scope.loading === false){
+            $scope.loading = true;
+            console.log("sss")
+            dataService.refresh()
+                .then(function(){
+                    console.log("resolved from ctrl")
+                    $scope.loading = false;
+
+                    cal(today, month, year);
+
+                });
+        }
+    };
 
 
 
@@ -51,7 +69,7 @@ angular.module('starter.month').controller('monthCtrl', function (dataService, $
     };
 
 
-    var data = dataService.get();
+   // var data = dataService.get();
     var month =  today.getMonth();
 
     // Ausgabe Werte für View (Monatsname, Jahr ..)
@@ -107,7 +125,7 @@ angular.module('starter.month').controller('monthCtrl', function (dataService, $
         Date.prototype.mGetDay = function() {
             return (this.getDay() + 6) %7;
         };
-        var cards = data[1];
+        var cards = dataService.get()[1];
         //  var boards = data[2];
         var firstOfMonth = new Date(year, month,1,0,0,0,0);
         var push = firstOfMonth.mGetDay();
@@ -285,7 +303,10 @@ angular.module('starter.month').controller('monthCtrl', function (dataService, $
         console.log("st")
 
 
-    }
+    };
+
+
+
 
 });
 

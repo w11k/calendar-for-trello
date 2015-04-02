@@ -1,4 +1,4 @@
-'use strict';
+'use strict';/*
 angular.module('starter.dash', []);
 angular.module('starter').config(function($stateProvider) {
     $stateProvider
@@ -21,8 +21,6 @@ angular.module('starter').run(function( ) {
 
 angular.module('starter.dash').controller('DashCtrl', function($scope, $location, $rootScope,dataService) {
 
-
-
     $scope.login = dataService.checkLogin();
     $scope.auth = function(){
                  $location.path("/tab/month/")
@@ -37,4 +35,4 @@ angular.module('starter.dash').controller('DashCtrl', function($scope, $location
         })
     };
 
-});
+});*/

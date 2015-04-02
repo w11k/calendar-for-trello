@@ -55,6 +55,14 @@ angular.module('starter.month').controller('monthCtrl', function (dataService, $
     };
 
 
+   /* $scope.refresh = function (){
+        if($scope.loading === false){
+            dataService.refresh().then(function(){
+                console.log("daten sind da");
+                cal(today, month, year);
+            })
+
+    }};*/
 
     $scope.login = dataService.checkLogin();
 

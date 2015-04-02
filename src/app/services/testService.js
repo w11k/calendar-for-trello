@@ -112,7 +112,55 @@ angular.module('starter').factory('dataService', function($q,$timeout) {
 
 
         var refresh = function(){
+            var me1 = $q.defer();
+            var cards1 = $q.defer();
+            var boards1 = $q.defer();
 
+            console.log("!!! refresh startet");
+            var refresher = $q.defer();
+            Trello.get("members/me", function(response) {
+                me1.resolve(response);
+            },function(){
+                me1.reject();
+                console.log("error get me")
+            });
+            Trello.get("members/me/cards", function(response) {
+                cards1.resolve(response);
+            },function(){
+                cards1.reject();
+                console.log("error get me cards")
+
+            });
+
+            Trello.get("members/me/boards", function(response) {
+                    boards1.resolve(response);
+            },function(){
+                boards1.reject();
+                console.log("error get me boards")
+            });
+
+            var result = $q.all([me1.promise, cards1.promise, boards1.promise])
+                .then(function(result) {
+                    var cards = result[1];
+                    var boards = _.indexBy(result[2], 'id');
+                    cards.forEach(function(entry) {
+                        entry.waiting = false;
+                        entry.boardName = boards[entry.idBoard].name;
+                        entry.boardUrl = boards[entry.idBoard].url;
+                        if (entry.due == null) {
+                            entry.due = null;
+                            return;
+                        }
+                        entry.due = new Date(entry.due);
+                        if (entry.due instanceof Date) {
+                            var dueDate = entry.due;
+                            dueDate.setHours(0, 0, 0, 0);
+                            entry.dueDate = dueDate;
+                        }
+                    });
+                    data = result;
+                });
+            return result;
         };
 
 
@@ -151,14 +199,7 @@ angular.module('starter').factory('dataService', function($q,$timeout) {
             doLogin();
         },
         refresh: function(){
-            getData().then(function(){
-                console.log("Daten angekommen")
-                //$timeout(function(){
-                    def.resolve();
-
-                //},0)
-            });
-            return def.promise;
+            return refresh()
         }
 
     }

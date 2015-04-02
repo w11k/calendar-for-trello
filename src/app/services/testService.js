@@ -43,35 +43,35 @@ angular.module('starter').factory('dataService', function($q,$timeout) {
         });
     };
 
+    var getFromApi = function(){
+        console.log("get Requests starten");
+        Trello.get("members/me", function(response) {
+            me.resolve(response);
+        },function(){
+            me.reject();
+            console.log("error get me")
+        });
+        Trello.get("members/me/cards", function(response) {
+            cards.resolve(response);
+        },function(){
+            cards.reject();
+            console.log("error get me cards")
 
+        });
+        Trello.get("members/me/boards", function(response) {
+            boards.resolve(response);
+        },function(){
+            boards.reject();
+            console.log("error get me boards")
+        });
+    }
 
     var getData = function(){
 
 
 
 
-        var getFromApi = function(){
-            console.log("get Requests starten");
-            Trello.get("members/me", function(response) {
-                me.resolve(response);
-            },function(){
-                me.reject();
-                console.log("error get me")
-            });
-            Trello.get("members/me/cards", function(response) {
-                cards.resolve(response);
-            },function(){
-                cards.reject();
-                console.log("error get me cards")
 
-            });
-            Trello.get("members/me/boards", function(response) {
-                boards.resolve(response);
-            },function(){
-                boards.reject();
-                console.log("error get me boards")
-            });
-        }
 
 
             doLogin();
@@ -102,7 +102,6 @@ angular.module('starter').factory('dataService', function($q,$timeout) {
                     }
                 });
                 data = result;
-                console.log(data);
             });
 
 
@@ -112,34 +111,15 @@ angular.module('starter').factory('dataService', function($q,$timeout) {
 
 
         var refresh = function(){
-            var me1 = $q.defer();
-            var cards1 = $q.defer();
-            var boards1 = $q.defer();
 
-            console.log("!!! refresh startet");
-            var refresher = $q.defer();
-            Trello.get("members/me", function(response) {
-                me1.resolve(response);
-            },function(){
-                me1.reject();
-                console.log("error get me")
-            });
-            Trello.get("members/me/cards", function(response) {
-                cards1.resolve(response);
-            },function(){
-                cards1.reject();
-                console.log("error get me cards")
+            // login entfällt.
+             me = $q.defer();
+             cards = $q.defer();
+             boards = $q.defer();
 
-            });
+           getData();
 
-            Trello.get("members/me/boards", function(response) {
-                    boards1.resolve(response);
-            },function(){
-                boards1.reject();
-                console.log("error get me boards")
-            });
-
-            var result = $q.all([me1.promise, cards1.promise, boards1.promise])
+            var result = $q.all([me.promise, cards.promise, boards.promise])
                 .then(function(result) {
                     var cards = result[1];
                     var boards = _.indexBy(result[2], 'id');
@@ -162,10 +142,6 @@ angular.module('starter').factory('dataService', function($q,$timeout) {
                 });
             return result;
         };
-
-
-
-
 
     return {
         promFn: function(){

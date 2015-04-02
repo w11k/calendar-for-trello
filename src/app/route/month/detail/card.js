@@ -2,7 +2,7 @@
 // ToDo:
 // Trello Client.js weg.
 
-angular.module('starter.month').config(function($stateProvider) {
+angular.module('starter.month').config(function($stateProvider,$urlRouterProvider) {
     $stateProvider
         .state('tab.month-card', {
             url: '/month/detail/:cardId',
@@ -12,10 +12,26 @@ angular.module('starter.month').config(function($stateProvider) {
                     controller: 'detailCtrl',
                     resolve: {
 
-                        'AsDataService':function(dataService) {
-                            console.log("resolve function initiert dataService");
-                            return dataService.promFn();
+                        'AsDataService':function($state, dataService,$stateParams,getMembers,$timeout) {
+                            return dataService.promFn().then(function(){
+
+
+                                console.log($stateParams.cardId);
+                                console.log(dataService.get()[1])
+
+
+
+
+                                getMembers.board(dataService.get()[1][_.findKey(dataService.get()[1], {
+                                    id: $stateParams.cardId
+                                })].idBoard).then(function(data){
+                                    console.log(data);
+                                })
+
+
+                            });
                         }
+
                     }
                 }
             }
@@ -25,12 +41,26 @@ angular.module('starter.month').config(function($stateProvider) {
 
 
 
-angular.module('starter.month').controller('detailCtrl', function($scope, $stateParams, getAttachments, dataService, archiveCard, $location, Notification, getComments) {
+angular.module('starter.month').controller('detailCtrl', function($scope, getMembers, $stateParams, getAttachments, dataService, archiveCard, $location, Notification, getComments) {
     var data = dataService.get()[1];
+
+
+
+
 
     $scope.data = data[_.findKey(data, {
         id: $stateParams.cardId
     })];
+
+
+
+    $scope.getMembers = function(id){
+        getMembers.board(id).then(function(data){
+            console.log(data)
+        });
+    };
+
+
 
 
 

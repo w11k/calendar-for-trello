@@ -2,9 +2,9 @@
 // ToDo:
 // Trello Client.js weg.
 
-angular.module('starter.month').config(function($stateProvider,$urlRouterProvider) {
+angular.module('w11kcal.app.month').config( /*ngInject*/  function($stateProvider,$urlRouterProvider) {
     $stateProvider
-        .state('tab.month-card', {
+        .state('app.month-card', {
             url: '/month/detail/:cardId',
             views: {
                 'menuContent': {
@@ -12,12 +12,21 @@ angular.module('starter.month').config(function($stateProvider,$urlRouterProvide
                     controller: 'detailCtrl',
                     resolve: {
 
-                        'AsDataService':function($state, dataService,$stateParams,getMembers,$timeout) {
+                        'AsDataService':function($state, dataService,$stateParams,getMembers,$timeout,$q) {
+                            // Zusätzlich zur Karte werden noch alle Member des Boardes geladen auf dem die Karte ist und erst dann wird die Ansicht gerendet.
+                            // damit dann ein zuweisen von membern ermöglichen.
+                            // die Member werden im Service gespeichert und müssen hier nicht mal ausgegeben werden.
+
+                            var prom1 = $q.defer();
+                            var prom2 = $q.defer();
+
+
                             return dataService.promFn().then(function(){
+                                prom1.resolve();
 
 
                                 console.log($stateParams.cardId);
-                                console.log(dataService.get()[1])
+                                console.log(dataService.get()[1]);
 
 
 
@@ -25,8 +34,16 @@ angular.module('starter.month').config(function($stateProvider,$urlRouterProvide
                                 getMembers.board(dataService.get()[1][_.findKey(dataService.get()[1], {
                                     id: $stateParams.cardId
                                 })].idBoard).then(function(data){
+
+                                    $timeout(function(){
+                                        prom2.resolve();
+
+                                    },0);
                                     console.log(data);
-                                })
+                                });
+                                return $q.all([prom1.promise, prom2.promise]);
+
+
 
 
                             });
@@ -41,7 +58,7 @@ angular.module('starter.month').config(function($stateProvider,$urlRouterProvide
 
 
 
-angular.module('starter.month').controller('detailCtrl', function($scope, getMembers, $stateParams, getAttachments, dataService, archiveCard, $location, Notification, getComments) {
+angular.module('w11kcal.app.month').controller('detailCtrl', /*ngInject*/  function($scope, getMembers, $stateParams, getAttachments, dataService, archiveCard, $location, Notification, getComments) {
     var data = dataService.get()[1];
 
 
@@ -103,7 +120,7 @@ angular.module('starter.month').controller('detailCtrl', function($scope, getMem
                 message: message
             });
         });
-        $location.path("tab/month");
+        $location.path("/app/month");
     };
 
     $scope.reactivate = function(id) {

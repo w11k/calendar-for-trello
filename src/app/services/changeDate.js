@@ -1,4 +1,5 @@
-angular.module('starter').factory('changeDate', function($q) {
+'use strict';
+angular.module('w11kcal.app').factory('changeDate', /*ngInject*/  function($q) {
 
     var resourceFactory = {
         async: function(id, date) {

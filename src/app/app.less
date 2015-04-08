@@ -15,19 +15,27 @@ $royal:                           #8a6de9 !default;
 $dark:                            #444 !default;
 */
 
-// The path for our ionicons font files, relative to the built CSS in www/css
-$ionicons-font-path: "assets/ionic/release/fonts";
 
-// Include all of Ionic
-
-@import "ionic/scss/ionic";
 
 
 
 @media (min-width: 767px) {
+
+
+
+  #loading-bar-spinner {
+    left: 290px;
+
+  }
+
   .menu-content {
     -webkit-transform: translate3d(270px, 0px, 0px) !important;
-    width: calc(100% - 270px) !important;
+    width: ~"calc(100% - 270px)" !important;
+  }
+
+  .menu {
+    z-index: 2 !important;
+    box-shadow: -1px 0 2px rgba(0,0,0,.2),1px 0 2px rgba(0,0,0,.2);
   }
 
   .bar-header button.ion-navicon {
@@ -45,8 +53,6 @@ input[type="text"].form-control {border: 1px solid #ccc !important;}
 
 
 .editArea .editable-controls textarea {width:100% !important;}
-
-
 i.icon {padding-right:4px;}
 
 
@@ -112,6 +118,7 @@ i.icon {padding-right:4px;}
     }
   }
 
+
   .header {display:none;}
 
   .dayCards {
@@ -155,15 +162,12 @@ i.icon {padding-right:4px;}
     padding:5px 20px 10px;
     cursor: pointer;
     font-size: 25px;
-
   }
 
 
   i:last-child {
     float: right
   }
-
-
 }
 
 
@@ -252,9 +256,15 @@ i.icon {padding-right:4px;}
 #loading-bar .peg {
   box-shadow: 0 0 10px #2c3e50, 0 0 5px #2c3e50;
 }
-#loading-bar-spinner .spinner-icon {
-  border-top-color:  #2c3e50;
-  border-left-color: #2c3e50;
+
+
+#loading-bar-spinner {
+  top:60px;
+  .spinner-icon {
+    border-top-color:  #2c3e50;
+    border-left-color: #2c3e50;
+  }
+
 }
 
 
@@ -279,7 +289,7 @@ i.icon {padding-right:4px;}
     height: 60px;
     .option {
       height: 60px;
-      width: 50%;
+      width: 100%;
       float: left;
       line-height: 60px;
       text-align: center;
@@ -350,3 +360,26 @@ button i {
 @-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
 @-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
 @keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
+
+
+
+.panel-primary.dark {
+  border-color:#444;
+
+  .panel-heading {
+  background:#444;
+  }
+
+  * {
+    border-color:#444;
+  }
+
+
+  button {
+    background:#444;
+  }
+
+  .btn-primary .badge {
+    color:#444;
+  }
+}

@@ -1,4 +1,5 @@
-angular.module('starter').factory('getAttachments', function($q) {
+'use strict';
+angular.module('w11kcal.app').factory('getAttachments', /*ngInject*/  function($q) {
 
     var promise;
     var data;

@@ -1,40 +1,35 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
-    <title>w11k Trello</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <title>w11kcal</title>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <link rel="stylesheet" type="text/css" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css"/>
 
     <% styles.forEach( function ( file ) { %>
     <link rel="stylesheet" type="text/css" href="<%= file %>"/>
     <% }); %>
 
-    <% scripts.forEach( function ( file ) { %>
-    <script type="text/javascript" src="<%= file %>"></script>
-    <% }); %>
-
-    <script src="https://api.trello.com/1/client.js?key=41485cd87d154168dd6db06cdd3ffd69" type="text/javascript"></script>
-
     <!-- cordova script (this will be a 404 during development) -->
     <script src="cordova.js"></script>
 </head>
-<body ng-app="starter" animation="slide-left-right-ios7">
-<!--
-  The nav bar that will be updated as we navigate between views.
--->
-<ion-nav-bar class="bar-stable nav-title-slide-ios7">
-    <ion-nav-back-button class="button-icon icon ion-chevron-left">
-        Back
-    </ion-nav-back-button>
-</ion-nav-bar>
-<!--
-  The views will be rendered in the <ion-nav-view> directive below
-  Templates are in the /templates folder (but you could also
-  have templates inline in this html file if you'd like).
--->
-<ion-nav-view animation="none">
 
-</ion-nav-view>
+<body ng-app="<%= angular_module %>">
+
+<ion-nav-view animation="no-animation"></ion-nav-view>
+
+
+
+<% scripts.forEach( function ( file ) { %>
+<script type="text/javascript" src="<%= file %>"></script>
+<% }); %>
+<script src="https://api.trello.com/1/client.js?key=41485cd87d154168dd6db06cdd3ffd69" type="text/javascript"></script>
+
 </body>
 </html>
+
+
+

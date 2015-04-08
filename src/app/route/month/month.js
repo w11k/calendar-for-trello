@@ -1,10 +1,12 @@
 'use strict';
 
 
-angular.module('starter.month', []);
-angular.module('starter.month').config(function ($stateProvider) {
+angular.module('w11kcal.app.month', []);
+angular.module('w11kcal.app.month').config(/*ngInject*/ function ($stateProvider) {
+    console.log("w11kcal.app.month.config läuft.");
+
     $stateProvider
-        .state('tab.month', {
+        .state('app.month', {
             url: '/month/{date}',
             views: {
                 'menuContent': {
@@ -21,21 +23,29 @@ angular.module('starter.month').config(function ($stateProvider) {
         })
 });
 
-angular.module('starter.month').run(function () {
+angular.module('w11kcal.app.month').run(function () {
+    console.log("w11kcal.app.month.run läuft.");
+
     moment.locale('de')
 });
 
-angular.module('starter.month').controller('monthCtrl', function (dataService, $scope, $stateParams,$state, changeDate,$location, archiveCard, Notification) {
+angular.module('w11kcal.app.month').controller('monthCtrl', /*ngInject*/ function (dataService, $scope, $stateParams,$state, changeDate,$location, archiveCard, Notification, $rootScope) {
+    console.log("w11kcal.app.month.monthCtrl läuft.");
+
+    $rootScope.DragProcess= false;
+
+    console.log($stateParams.date+"x");
+
 
     if ($stateParams.date !== ""){
+        console.log("eingetreten")
         var setDate = $stateParams.date.split('-', 2);
         today = new Date(setDate[0],setDate[1], 1);
 
     }else {
         var today = new Date();
-        $location.path("/tab/month/"+today.getFullYear()+"-"+today.getMonth())
+        $location.path("/app/month/"+today.getFullYear()+"-"+today.getMonth()).replace();
     }
-
 
 
     $scope.loading = false;
@@ -67,11 +77,11 @@ angular.module('starter.month').controller('monthCtrl', function (dataService, $
     $scope.login = dataService.checkLogin();
 
     $scope.auth = function() {
-        $loction.path("/tab/month/")
+        $loction.path("/app/month/")
      };
     $scope.logout = function(){
         Trello.deauthorize();
-        $location.path("/tab/dash/");
+        $location.path("/app/dash/");
         dataService.remove();
         console.log(dataService.get());
     };
@@ -182,7 +192,7 @@ angular.module('starter.month').controller('monthCtrl', function (dataService, $
 
             a = 7-(a % 7);
         } else {
-            a = 0;
+            a = 7;
         }
 
         for (var i = 0; i < a; i++) {
@@ -223,7 +233,7 @@ angular.module('starter.month').controller('monthCtrl', function (dataService, $
         // Cal neu aufbauen:
 
 
-        $location.path("/tab/month/"+year+"-"+month);
+        $location.path("/app/month/"+year+"-"+month);
 
         cal (today, month, year);
         //$scope.$apply();
@@ -231,7 +241,7 @@ angular.module('starter.month').controller('monthCtrl', function (dataService, $
 
 
     $scope.click = function (id){
-        $location.path("tab/month/detail/"+id)
+        $location.path("app/month/detail/"+id)
     };
 
     // Drag 'n Drop

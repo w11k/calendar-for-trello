@@ -1,4 +1,5 @@
-angular.module('starter').factory('getComments', function($q) {
+'use strict';
+angular.module('w11kcal.app').factory('getComments',/*ngInject*/  function($q) {
     var promise;
     var data;
 

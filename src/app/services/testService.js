@@ -1,11 +1,9 @@
-/**
- * Created by can on 01.04.15.
- */
-angular.module('starter').factory('dataService', function($q,$timeout) {
 
-    var data;
+
+angular.module("w11kcal.app").factory("dataService", /*ngInject*/  function ($q) {
+    "use strict";
+    var data, loginData, result;
     var promise = $q.defer();
-    var loginData;
 
     var def = $q.defer();
 
@@ -13,10 +11,9 @@ angular.module('starter').factory('dataService', function($q,$timeout) {
     var me = $q.defer();
     var cards = $q.defer();
     var boards = $q.defer();
+    var doLogin = function (){
 
-    var doLogin = function(){
-
-        var onAuthorize = function(){
+        var onAuthorize = function (){
             loginData = true;
             login.resolve("true");
             console.log("login valid");
@@ -24,7 +21,7 @@ angular.module('starter').factory('dataService', function($q,$timeout) {
 
         };
 
-        var onError = function(){
+        var onError = function (){
             Trello.authorize({
                 type: "redirect",
                 name: "w11k Trello",
@@ -43,50 +40,50 @@ angular.module('starter').factory('dataService', function($q,$timeout) {
         });
     };
 
-    var getFromApi = function(){
+    var getFromApi = function (){
         console.log("get Requests starten");
-        Trello.get("members/me", function(response) {
+        Trello.get("members/me", function (response) {
             me.resolve(response);
-        },function(){
+        },function (){
             me.reject();
             console.log("error get me")
         });
-        Trello.get("members/me/cards", function(response) {
+        Trello.get("members/me/cards", function (response) {
             cards.resolve(response);
-        },function(){
+        },function (){
             cards.reject();
             console.log("error get me cards")
 
         });
-        Trello.get("members/me/boards", function(response) {
+        Trello.get("members/me/boards", function (response) {
             boards.resolve(response);
-        },function(){
+        },function (){
             boards.reject();
             console.log("error get me boards")
         });
-    }
+    };
 
-    var getData = function(){
-
-
+    var getData = function (){
 
 
 
 
 
-            doLogin();
-            login.promise.then(function(){
-                getFromApi();
-            });
+
+
+        doLogin();
+        login.promise.then(function (){
+            getFromApi();
+        });
 
 
 
-        var result = $q.all([me.promise, cards.promise, boards.promise])
-            .then(function(result) {
+         result = $q.all([me.promise, cards.promise, boards.promise])
+            .then(function (result) {
                 console.log("marker");
                 var cards = result[1];
-                var boards = _.indexBy(result[2], 'id');
-                cards.forEach(function(entry) {
+                var boards = _.indexBy(result[2], "id");
+                cards.forEach(function (entry) {
                     entry.waiting = false;
                     entry.boardName = boards[entry.idBoard].name;
                     entry.boardUrl = boards[entry.idBoard].url;
@@ -110,71 +107,71 @@ angular.module('starter').factory('dataService', function($q,$timeout) {
     };
 
 
-        var refresh = function(){
+    var refresh = function (){
 
-            // login entfällt.
-             me = $q.defer();
-             cards = $q.defer();
-             boards = $q.defer();
+        // login entfällt.
+        me = $q.defer();
+        cards = $q.defer();
+        boards = $q.defer();
 
-           getData();
+        getData();
 
-            var result = $q.all([me.promise, cards.promise, boards.promise])
-                .then(function(result) {
-                    var cards = result[1];
-                    var boards = _.indexBy(result[2], 'id');
-                    cards.forEach(function(entry) {
-                        entry.waiting = false;
-                        entry.boardName = boards[entry.idBoard].name;
-                        entry.boardUrl = boards[entry.idBoard].url;
-                        if (entry.due == null) {
-                            entry.due = null;
-                            return;
-                        }
-                        entry.due = new Date(entry.due);
-                        if (entry.due instanceof Date) {
-                            var dueDate = entry.due;
-                            dueDate.setHours(0, 0, 0, 0);
-                            entry.dueDate = dueDate;
-                        }
-                    });
-                    data = result;
+         result = $q.all([me.promise, cards.promise, boards.promise])
+            .then(function (result) {
+                var cards = result[1];
+                var boards = _.indexBy(result[2], "id");
+                cards.forEach(function (entry) {
+                    entry.waiting = false;
+                    entry.boardName = boards[entry.idBoard].name;
+                    entry.boardUrl = boards[entry.idBoard].url;
+                    if (entry.due == null) {
+                        entry.due = null;
+                        return;
+                    }
+                    entry.due = new Date(entry.due);
+                    if (entry.due instanceof Date) {
+                        var dueDate = entry.due;
+                        dueDate.setHours(0, 0, 0, 0);
+                        entry.dueDate = dueDate;
+                    }
                 });
-            return result;
-        };
+                data = result;
+            });
+        return result;
+    };
 
     return {
-        promFn: function(){
+        promFn: function (){
             console.log("PromFN fired");
             if(data){
                 console.log("daten schon da");
                 promise.resolve("yo");
             } else {
-                getData().then(function(){
+                getData().then(function (){
                     console.log("getDataRequets erfolgreich");
                     promise.resolve();
                 });
             }
             return promise.promise;
         },
-        get: function(){
+        get: function (){
             console.log("get fired");
             return data;
         },
-        remove: function(){
+        remove: function (){
             console.log("remove fired");
             data = null;
             loginData = false;
         },
-        checkLogin: function(){
-            console.log("checklogin fired")
+        checkLogin: function (){
+            console.log("checklogin fired");
             return loginData;
         },
-        justLogin: function(){
+        justLogin: function (){
             // Stellt nur den Login bereit (für Startseite Login/logout button)
             doLogin();
         },
-        refresh: function(){
+        refresh: function (){
             return refresh()
         }
 

@@ -1,1 +1,0 @@
-Just a dummy file to ensure www folder exists.

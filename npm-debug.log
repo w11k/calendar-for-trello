@@ -1,0 +1,165 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/bin/node',
+1 verbose cli   '/usr/bin/npm',
+1 verbose cli   'install',
+1 verbose cli   '-g',
+1 verbose cli   'bower-update' ]
+2 info using npm@1.4.28
+3 info using node@v0.10.38
+4 verbose node symlink /usr/bin/node
+5 verbose cache add [ 'bower-update', null ]
+6 verbose cache add name=undefined spec="bower-update" args=["bower-update",null]
+7 verbose parsed url { protocol: null,
+7 verbose parsed url   slashes: null,
+7 verbose parsed url   auth: null,
+7 verbose parsed url   host: null,
+7 verbose parsed url   port: null,
+7 verbose parsed url   hostname: null,
+7 verbose parsed url   hash: null,
+7 verbose parsed url   search: null,
+7 verbose parsed url   query: null,
+7 verbose parsed url   pathname: 'bower-update',
+7 verbose parsed url   path: 'bower-update',
+7 verbose parsed url   href: 'bower-update' }
+8 silly lockFile fa3ba467-bower-update bower-update
+9 verbose lock bower-update /home/can/.npm/fa3ba467-bower-update.lock
+10 silly lockFile fa3ba467-bower-update bower-update
+11 silly lockFile fa3ba467-bower-update bower-update
+12 verbose addNamed [ 'bower-update', '' ]
+13 verbose addNamed [ null, '*' ]
+14 silly lockFile c5c2e415-bower-update bower-update@
+15 verbose lock bower-update@ /home/can/.npm/c5c2e415-bower-update.lock
+16 silly addNameRange { name: 'bower-update', range: '*', hasData: false }
+17 verbose request where is /bower-update
+18 verbose request registry https://registry.npmjs.org/
+19 verbose request id 30464186543232ba
+20 verbose url raw /bower-update
+21 verbose url resolving [ 'https://registry.npmjs.org/', './bower-update' ]
+22 verbose url resolved https://registry.npmjs.org/bower-update
+23 verbose request where is https://registry.npmjs.org/bower-update
+24 info trying registry request attempt 1 at 11:13:07
+25 http GET https://registry.npmjs.org/bower-update
+26 http 200 https://registry.npmjs.org/bower-update
+27 silly registry.get cb [ 200,
+27 silly registry.get   { date: 'Tue, 07 Apr 2015 09:13:07 GMT',
+27 silly registry.get     server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
+27 silly registry.get     etag: '"86LBC10HRCXE9PBXDYWEE9KNU"',
+27 silly registry.get     'content-type': 'application/json',
+27 silly registry.get     'cache-control': 'max-age=60',
+27 silly registry.get     'content-length': '9569',
+27 silly registry.get     'accept-ranges': 'bytes',
+27 silly registry.get     via: '1.1 varnish',
+27 silly registry.get     age: '5',
+27 silly registry.get     'x-served-by': 'cache-fra1227-FRA',
+27 silly registry.get     'x-cache': 'HIT',
+27 silly registry.get     'x-cache-hits': '1',
+27 silly registry.get     'x-timer': 'S1428397987.203606,VS0,VE0',
+27 silly registry.get     vary: 'Accept',
+27 silly registry.get     'keep-alive': 'timeout=10, max=50',
+27 silly registry.get     connection: 'Keep-Alive' } ]
+28 silly addNameRange number 2 { name: 'bower-update', range: '*', hasData: true }
+29 silly addNameRange versions [ 'bower-update',
+29 silly addNameRange   [ '0.0.1', '0.0.2', '0.0.3', '0.0.4', '0.1.0' ] ]
+30 verbose addNamed [ 'bower-update', '0.1.0' ]
+31 verbose addNamed [ '0.1.0', '0.1.0' ]
+32 silly lockFile fefece9a-bower-update-0-1-0 bower-update@0.1.0
+33 verbose lock bower-update@0.1.0 /home/can/.npm/fefece9a-bower-update-0-1-0.lock
+34 silly lockFile 20e5f3e9-er-update-bower-update-0-1-0-tgz https://registry.npmjs.org/bower-update/-/bower-update-0.1.0.tgz
+35 verbose lock https://registry.npmjs.org/bower-update/-/bower-update-0.1.0.tgz /home/can/.npm/20e5f3e9-er-update-bower-update-0-1-0-tgz.lock
+36 verbose addRemoteTarball [ 'https://registry.npmjs.org/bower-update/-/bower-update-0.1.0.tgz',
+36 verbose addRemoteTarball   'eaf84a88765e61566e7d4458b5d8ca90abf5bdbc' ]
+37 info retry fetch attempt 1 at 11:13:07
+38 verbose fetch to= /tmp/npm-13598-zwlFSKeS/registry.npmjs.org/bower-update/-/bower-update-0.1.0.tgz
+39 http GET https://registry.npmjs.org/bower-update/-/bower-update-0.1.0.tgz
+40 http 200 https://registry.npmjs.org/bower-update/-/bower-update-0.1.0.tgz
+41 silly lockFile 20e5f3e9-er-update-bower-update-0-1-0-tgz https://registry.npmjs.org/bower-update/-/bower-update-0.1.0.tgz
+42 silly lockFile 20e5f3e9-er-update-bower-update-0-1-0-tgz https://registry.npmjs.org/bower-update/-/bower-update-0.1.0.tgz
+43 silly lockFile fefece9a-bower-update-0-1-0 bower-update@0.1.0
+44 silly lockFile fefece9a-bower-update-0-1-0 bower-update@0.1.0
+45 silly lockFile c5c2e415-bower-update bower-update@
+46 silly lockFile c5c2e415-bower-update bower-update@
+47 silly resolved [ { name: 'bower-update',
+47 silly resolved     description: 'Updates Bower components to the really latest versions.',
+47 silly resolved     version: '0.1.0',
+47 silly resolved     homepage: 'https://github.com/sapegin/bower-update',
+47 silly resolved     author: { name: 'Artem Sapegin', url: 'http://sapegin.me/' },
+47 silly resolved     repository:
+47 silly resolved      { type: 'git',
+47 silly resolved        url: 'git://github.com/sapegin/bower-update.git' },
+47 silly resolved     bugs: { url: 'https://github.com/sapegin/bower-update/issues' },
+47 silly resolved     licenses: [ [Object] ],
+47 silly resolved     main: 'index.js',
+47 silly resolved     bin: { 'bower-update': 'bin/bower-update' },
+47 silly resolved     preferGlobal: true,
+47 silly resolved     scripts:
+47 silly resolved      { jshint: 'jshint index.js',
+47 silly resolved        jscs: 'jscs index.js',
+47 silly resolved        prepare: 'cd test && rm -f bower.json && cp src/bower.json . && bower install',
+47 silly resolved        mocha: 'mocha --timeout 30000 --reporter spec --compilers coffee:coffee-script/register',
+47 silly resolved        test: 'npm run jshint && npm run jscs && npm run prepare && npm run mocha' },
+47 silly resolved     engines: { node: '>=0.10.0' },
+47 silly resolved     dependencies:
+47 silly resolved      { async: '~0.9.0',
+47 silly resolved        bower: '~1.4.0',
+47 silly resolved        chalk: '~1.0.0',
+47 silly resolved        lodash: '~3.6.0',
+47 silly resolved        nomnom: '~1.8.1',
+47 silly resolved        'readline-sync': '~0.8.0' },
+47 silly resolved     devDependencies:
+47 silly resolved      { mocha: '~2.2.1',
+47 silly resolved        'coffee-script': '~1.9.1',
+47 silly resolved        chai: '~2.2.0',
+47 silly resolved        jshint: '~2.6.3',
+47 silly resolved        jscs: '~1.12.0' },
+47 silly resolved     keywords: [ 'bower' ],
+47 silly resolved     gitHead: '0aa4ee3dcd1c15a71d97b43c095ab3b134490c9f',
+47 silly resolved     _id: 'bower-update@0.1.0',
+47 silly resolved     _shasum: 'eaf84a88765e61566e7d4458b5d8ca90abf5bdbc',
+47 silly resolved     _from: 'bower-update@',
+47 silly resolved     _npmVersion: '2.7.3',
+47 silly resolved     _nodeVersion: '0.10.35',
+47 silly resolved     _npmUser: { name: 'sapegin', email: 'artem@sapegin.ru' },
+47 silly resolved     maintainers: [ [Object] ],
+47 silly resolved     dist:
+47 silly resolved      { shasum: 'eaf84a88765e61566e7d4458b5d8ca90abf5bdbc',
+47 silly resolved        tarball: 'http://registry.npmjs.org/bower-update/-/bower-update-0.1.0.tgz' },
+47 silly resolved     directories: {},
+47 silly resolved     _resolved: 'https://registry.npmjs.org/bower-update/-/bower-update-0.1.0.tgz' } ]
+48 info install bower-update@0.1.0 into /usr/lib
+49 info installOne bower-update@0.1.0
+50 verbose lib/node_modules/bower-update unbuild
+51 verbose tar unpack /home/can/.npm/bower-update/0.1.0/package.tgz
+52 silly lockFile dd8a56cb-sr-lib-node-modules-bower-update tar:///usr/lib/node_modules/bower-update
+53 verbose lock tar:///usr/lib/node_modules/bower-update /home/can/.npm/dd8a56cb-sr-lib-node-modules-bower-update.lock
+54 silly lockFile 3b09059e-m-bower-update-0-1-0-package-tgz tar:///home/can/.npm/bower-update/0.1.0/package.tgz
+55 verbose lock tar:///home/can/.npm/bower-update/0.1.0/package.tgz /home/can/.npm/3b09059e-m-bower-update-0-1-0-package-tgz.lock
+56 silly gunzTarPerm modes [ '775', '664' ]
+57 error Error: EACCES, mkdir '/usr/lib/node_modules/bower-update'
+57 error  { [Error: EACCES, mkdir '/usr/lib/node_modules/bower-update']
+57 error   errno: 3,
+57 error   code: 'EACCES',
+57 error   path: '/usr/lib/node_modules/bower-update',
+57 error   fstream_type: 'Directory',
+57 error   fstream_path: '/usr/lib/node_modules/bower-update',
+57 error   fstream_class: 'DirWriter',
+57 error   fstream_stack:
+57 error    [ '/usr/lib/node_modules/npm/node_modules/fstream/lib/dir-writer.js:36:23',
+57 error      '/usr/lib/node_modules/npm/node_modules/mkdirp/index.js:46:53',
+57 error      'Object.oncomplete (fs.js:108:15)' ] }
+58 error Please try running this command again as root/Administrator.
+59 error System Linux 3.16.0-33-generic
+60 error command "/usr/bin/node" "/usr/bin/npm" "install" "-g" "bower-update"
+61 error cwd /home/can/w11kCal
+62 error node -v v0.10.38
+63 error npm -v 1.4.28
+64 error path /usr/lib/node_modules/bower-update
+65 error fstream_path /usr/lib/node_modules/bower-update
+66 error fstream_type Directory
+67 error fstream_class DirWriter
+68 error code EACCES
+69 error errno 3
+70 error stack Error: EACCES, mkdir '/usr/lib/node_modules/bower-update'
+71 error fstream_stack /usr/lib/node_modules/npm/node_modules/fstream/lib/dir-writer.js:36:23
+71 error fstream_stack /usr/lib/node_modules/npm/node_modules/mkdirp/index.js:46:53
+71 error fstream_stack Object.oncomplete (fs.js:108:15)
+72 verbose exit [ 3, true ]

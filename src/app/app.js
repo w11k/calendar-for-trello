@@ -1,8 +1,8 @@
 'use strict';
 
-angular.module('starter', [
+angular.module('w11kcal.app', [
     'ionic',
-    'starter.month',
+    'w11kcal.app.month',
     'ui.bootstrap',
     'ui.bootstrap.datetimepicker',
     'xeditable',
@@ -11,7 +11,7 @@ angular.module('starter', [
     'ui-notification'
 ]);
 
-angular.module('starter').run(function ($ionicPlatform, $window,editableOptions,  $rootScope, cfpLoadingBar) {
+angular.module('w11kcal.app').run( /*ngInject*/ function ($ionicPlatform, $window,editableOptions,  $rootScope, cfpLoadingBar) {
     editableOptions.theme = 'bs3'; // bootstrap3 theme. Can be also 'bs2', 'default'
 
 
@@ -28,7 +28,7 @@ angular.module('starter').run(function ($ionicPlatform, $window,editableOptions,
     });
 
 
-
+    console.log("w11kcal.app.run läuft.");
 
     $rootScope
         .$on('$stateChangeStart',
@@ -46,30 +46,30 @@ angular.module('starter').run(function ($ionicPlatform, $window,editableOptions,
 
 });
 
-angular.module('starter').config(function ($stateProvider, $urlRouterProvider) {
+angular.module('w11kcal.app').config(/*ngInject*/ function ($stateProvider, $urlRouterProvider,$ionicConfigProvider) {
     $stateProvider
         // setup an abstract state for the tabs directive
-        .state('tab', {
-            url: '/tab',
+        .state('app', {
+            url: '/app',
             abstract: true,
             templateUrl: 'partial/sidemenu.html',
             controller:'sidebarCtrl'
         });
+    $ionicConfigProvider.views.transition('none')
+
+
+
+
+
     // if none of the above states are matched, use this as the fallback
-    $urlRouterProvider.otherwise('/tab/month/');
+    $urlRouterProvider.otherwise('/app/month/');
 
 });
 
 
-angular.module('starter').controller('sidebarCtrl', function ($scope) {
-    $scope.user = "Can Kattwinkel!";
-});
-
-angular.module('starter').controller('archiveCtrl', function ($scope) {
-    $scope.click = function(){
-
-
-    }
+angular.module('w11kcal.app').controller('sidebarCtrl', function ( /*ngInject*/ $scope) {
+    $scope.user = "";
+    console.log("w11kcal.app.sidebarCtrl läuft.");
 });
 
 

@@ -1,4 +1,5 @@
-angular.module('starter').factory('archiveCard', function($q, Notification) {
+'use strict';
+angular.module('w11kcal.app').factory('archiveCard',  /*ngInject*/  function($q, Notification) {
 
     var resourceFactory = {
         async: function(id) {

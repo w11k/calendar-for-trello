@@ -1,12 +1,16 @@
-<ion-view title="Month">
+<ion-view title="Month View">
     <ion-nav-buttons side="right">
         <div ng-switch="login">
-            <button class="button button-positive" ng-switch-default ng-click="auth()">Login</button>
-            <button class="button  button-positive" ng-click="refresh()"  ng-switch-when="true" ng-class="{animate: loading}"><i class="ion-refresh"></i></button>
-            <button class="button  button-assertive" ng-switch-when="true" ng-click="logout()">Logout</button>
+        <button class="button button-positive" ng-switch-default ng-click="auth()">Login</button>
+        <button class="button  button-positive" ng-click="refresh()"  ng-switch-when="true" ng-class="{animate: loading}"><i class="ion-refresh"></i></button>
+        <button class="button  button-assertive" ng-switch-when="true" ng-click="logout()">Logout</button>
         </div>
     </ion-nav-buttons>
-    <ion-content class="has-header padding month">
+
+
+
+
+    <ion-content class="padding month" padding="true">
         <div class="calNav row">
             <div class="col-xs-1">
                 <i class="ion-chevron-left" ng-click="move(-1)" ></i>
@@ -19,7 +23,7 @@
             </div>
         </div>
         <div id="MonthView" class="clearfix">
-            <div class="day header" ng-repeat="wd in weekdays"><span class="short">{{wd.0}}</span><span class="long">{{wd.1}}</span></div>
+            <div class="day header" ng-repeat="wd in weekdays"><span class="short">{{wd[0]}}</span><span class="long">{{wd[1]}}</span></div>
             <div class="clearfix"></div>
             <div ng-repeat="day in days | orderBy: 'date':false "
                  class="day"
@@ -55,11 +59,11 @@
                  ng-drop="true"
                  ng-drop-success="archiveCard($data)"
                     >archive card</div>
-            <div class="nextMonth option"
+           <!-- <div class="nextMonth option"
                  ng-drop="true"
                  ng-drop-success="changeMonth($data, 'next', date.month)">
                 Move Card to {{date.next[0]}}, {{date.next[1]}}
-            </div>
+            </div>-->
         </div>
     </ion-content>
 </ion-view>

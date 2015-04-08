@@ -1,4 +1,6 @@
-angular.module('starter').factory('getMembers', function($q) {
+'use strict';
+
+angular.module('w11kcal.app').factory('getMembers', /*ngInject*/  function($q) {
 
     var d = [];
 

@@ -1,10 +1,14 @@
 {
-  "name": "ionic-project",
-  "version": "1.0.0",
-  "description": "An Ionic project",
-  "dependencies": {
-    "grunt": "0.4.4",
-    "fabs": "0.5.3",
-    "lodash": "2.2.1"
+  "name": "w11kcal",
+  "version": "0.1.0",
+
+  "devDependencies": {
+    "grunt": "0.4.5",
+    "fabs": "0.6.5",
+    "lodash": "2.4.1"
+  },
+
+  "engines": {
+    "node": ">=0.10.29"
   }
 }

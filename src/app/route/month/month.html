@@ -22,9 +22,12 @@
                 <i class="ion-chevron-right" ng-click="move(1)"></i>
             </div>
         </div>
-        <div id="MonthView" class="clearfix">
+        <div id="MonthView">
             <div class="day header" ng-repeat="wd in weekdays"><span class="short">{{wd[0]}}</span><span class="long">{{wd[1]}}</span></div>
-            <div class="clearfix"></div>
+            <!--<div class="clearfix"></div>-->
+
+
+
             <div ng-repeat="day in days | orderBy: 'date':false "
                  class="day"
                  ng-class="{'dayOff': day.dayOff, 'dayOn' : !day.dayOff, 'has' : day.cards.length >= 1}"

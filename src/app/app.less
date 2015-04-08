@@ -63,6 +63,8 @@ i.icon {padding-right:4px;}
   border-top:1px solid #D5D5D5;
   border-left:1px solid #D5D5D5;
   margin-top:15px;
+  display:block;
+
   .day {
     float:none;
     width: 100%;
@@ -70,6 +72,8 @@ i.icon {padding-right:4px;}
     border-right:1px solid #D5D5D5;
     border-bottom:1px solid #d5d5d5;
     padding:5px;
+    display:block;
+
 
 
   }
@@ -174,10 +178,16 @@ i.icon {padding-right:4px;}
 
 @media screen and (min-width: 767px) {
   #MonthView {
+    display:flex;
+    display:-webkit-flex;
+    flex-wrap:wrap;
+    -webkit-flex-wrap:wrap;
+
+
     .day {
-      float:left;
+      //float:left;
       width: 14.28%;
-      height:120px;
+      min-height:80px;
     }
 
     .dayCounter {
@@ -367,7 +377,7 @@ button i {
   border-color:#444;
 
   .panel-heading {
-  background:#444;
+    background:#444;
   }
 
   * {

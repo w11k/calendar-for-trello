@@ -64,6 +64,10 @@ module.exports = {
           'angular-ui-notification/dist/angular-ui-notification.min.js'
           //'ionic/release/js/ionic.js',
           //'ionic/release/js/ionic-angular.js'
+          //'angular-bindonce/bindonce.js',
+          //'w11k-dropdownToggle/dist/w11k-dropdownToggle.js',
+          //'w11k-select/dist/w11k-select.js',
+
       ],
       js_mock: [
         // required to run spec tests
@@ -77,7 +81,8 @@ module.exports = {
           'angular-ui-bootstrap-datetimepicker/datetimepicker.css',
           'angular-xeditable/dist/css/xeditable.css',
           'angular-loading-bar/build/loading-bar.css',
-          'angular-ui-notification/dist/angular-ui-notification.min.css'
+          'angular-ui-notification/dist/angular-ui-notification.min.css',
+       //   'w11k-select/dist/w11k-select.less'
       ],
       assets: [
           //'ionic/release/fonts/*'

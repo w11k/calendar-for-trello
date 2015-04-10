@@ -22,12 +22,22 @@
                 <i class="ion-chevron-right" ng-click="move(1)"></i>
             </div>
         </div>
+<!--
+        <div class="filters">
+            <div class="row">
+                <div class="col-xs-12 col-md-4">Filter</div>
+                <div class="col-xs-12 col-md-4">Filter</div>
+                <div class="col-xs-12 col-md-4" ng-click="logCards()">Console Log Cards</div>
+            </div>
+        </div>
+-->
+
+
+
+        </div>
+
         <div id="MonthView">
             <div class="day header" ng-repeat="wd in weekdays"><span class="short">{{wd[0]}}</span><span class="long">{{wd[1]}}</span></div>
-            <!--<div class="clearfix"></div>-->
-
-
-
             <div ng-repeat="day in days | orderBy: 'date':false "
                  class="day"
                  ng-class="{'dayOff': day.dayOff, 'dayOn' : !day.dayOff, 'has' : day.cards.length >= 1}"
@@ -36,16 +46,21 @@
                 <div class="dayCounter" ><span class="weekday">{{day.weekday}}</span><span>{{day.i}}</span></div>
                 <div class="dayCards">
                     <div ng-repeat="card in day.cards | orderBy:['badges.due', 'name'] ">
-                        <div class="dayCard clearfix"
 
+                        <div class="dayCard"
                              ng-drag="true" ng-drag-data="card"
                              ng-drag-success="onDragSuccess($data,$event,$parent.$index)"
                              ng-center-anchor="{{centerAnchor}}"
                              ng-class="{waiting: card.waiting}">
-                            <span class="title" ng-click="$event.stopPropagation(); click(card.id)">
-                                {{card.name}}
-                            </span>
-                            <i class="ion-arrow-move"></i>
+
+                            <div class="ion-arrow-move dragger"></div>
+
+                            <div class="title" ng-click="$event.stopPropagation(); click(card.id)">{{card.name}}</div>
+<div class="board">Board: <span ng-click="" class="boardName">{{card.boardName}}</span> | <span>{{card.badges.due | date : "HH:mm" : timezone}}</span></div>
+
+
+                          <!--  <div class="time">{{card.due}} | {{card.dueDate}} | {{card.badges.due}}</div>-->
+
                         </div>
                     </div>
                 </div>

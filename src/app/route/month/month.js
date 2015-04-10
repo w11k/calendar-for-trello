@@ -15,13 +15,41 @@ angular.module('w11kcal.app.month').config(/*ngInject*/ function ($stateProvider
                 }
             },
             resolve: {
-                'AsDataService':function(dataService){
+                'AsDataService':function (dataService){
                     console.log("resolve function initiert dataService");
                     return dataService.promFn();
+                },
+                isFreshView: function () {
+                    return false;
                 }
             }
         })
+        .state('app.month-fresh', {
+            url: '/month',
+            views: {
+                'menuContent': {
+                    templateUrl: 'route/month/month.html',
+                    controller: 'monthCtrl'
+                }
+            },
+            resolve: {
+                'AsDataService':function (dataService){
+                    console.log("resolve function initiert dataService");
+                    return dataService.promFn();
+                },
+                isFreshView: function () {
+                    return true;
+                }
+            }
+        })
+
 });
+
+
+
+
+
+
 
 angular.module('w11kcal.app.month').run(function () {
     console.log("w11kcal.app.month.run läuft.");
@@ -31,14 +59,13 @@ angular.module('w11kcal.app.month').run(function () {
 
 angular.module('w11kcal.app.month').controller('monthCtrl', /*ngInject*/ function (dataService, $scope, $stateParams,$state, changeDate,$location, archiveCard, Notification, $rootScope) {
     console.log("w11kcal.app.month.monthCtrl läuft.");
-
     $rootScope.DragProcess= false;
-
     console.log($stateParams.date+"x");
 
 
+
+
     if ($stateParams.date !== ""){
-        console.log("eingetreten")
         var setDate = $stateParams.date.split('-', 2);
         today = new Date(setDate[0],setDate[1], 1);
 
@@ -52,10 +79,9 @@ angular.module('w11kcal.app.month').controller('monthCtrl', /*ngInject*/ functio
     $scope.refresh = function (){
         if($scope.loading === false){
             $scope.loading = true;
-            console.log("sss")
             dataService.refresh()
-                .then(function(){
-                    console.log("resolved from ctrl")
+                .then(function (){
+                    console.log("resolved from ctrl");
                     $scope.loading = false;
 
                     cal(today, month, year);
@@ -65,25 +91,20 @@ angular.module('w11kcal.app.month').controller('monthCtrl', /*ngInject*/ functio
     };
 
 
-   /* $scope.refresh = function (){
-        if($scope.loading === false){
-            dataService.refresh().then(function(){
-                console.log("daten sind da");
-                cal(today, month, year);
-            })
 
-    }};*/
 
     $scope.login = dataService.checkLogin();
 
-    $scope.auth = function() {
+    $scope.auth = function () {
         $loction.path("/app/month/")
      };
-    $scope.logout = function(){
+
+    $scope.logout = function (){
+
         Trello.deauthorize();
-        $location.path("/app/dash/");
+        $location.path("/app/month/");
         dataService.remove();
-        console.log(dataService.get());
+
     };
 
 
@@ -117,7 +138,7 @@ angular.module('w11kcal.app.month').controller('monthCtrl', /*ngInject*/ functio
         return dayCounter;
     }
 
-
+    var cards;
     function cal (today, month, year){
         $scope.date = {};
         $scope.date.iso = new Date(year, month, 1);
@@ -140,10 +161,14 @@ angular.module('w11kcal.app.month').controller('monthCtrl', /*ngInject*/ functio
             $scope.date.next = [moment.months()[0] , year+1];
         }
 
-        Date.prototype.mGetDay = function() {
+        Date.prototype.mGetDay = function () {
             return (this.getDay() + 6) %7;
         };
-        var cards = dataService.get()[1];
+         cards = dataService.get()[1];
+
+        console.log("dataService Get wurde von cal() initiert");
+        console.log(dataService.get()[1]);
+
         //  var boards = data[2];
         var firstOfMonth = new Date(year, month,1,0,0,0,0);
         var push = firstOfMonth.mGetDay();
@@ -208,18 +233,20 @@ angular.module('w11kcal.app.month').controller('monthCtrl', /*ngInject*/ functio
         }
         // Jetzt zähle die Tage dann teil durch / und füg an.
 
+
+
         cards = _.groupBy(cards, 'dueDate');
         delete cards.undefined;
         $scope.days = _.indexBy($scope.days, 'date');
         $scope.days = _.toArray($scope.days);
-        $scope.days.forEach(function(entry){
+        $scope.days.forEach(function (entry){
             entry.cards= cards[entry.date];
         });
     }
     // cal erstmals aufbauen.
     cal(today, month, year);
 
-    $scope.move = function(steps){
+    $scope.move = function (steps){
         month = month + steps;
         if(month == 11){
             month = 0;
@@ -245,7 +272,7 @@ angular.module('w11kcal.app.month').controller('monthCtrl', /*ngInject*/ functio
     };
 
     // Drag 'n Drop
-    $scope.onDragSuccess = function(data, evt, from) {
+    $scope.onDragSuccess = function (data, evt, from) {
         var index = $scope.days[from].cards.indexOf(data);
         if (index > -1) {
             $scope.days[from].cards.splice(index, 1);
@@ -253,7 +280,7 @@ angular.module('w11kcal.app.month').controller('monthCtrl', /*ngInject*/ functio
         //$scope.DragProcess = true;
     };
 
-    $scope.onDropComplete = function(data, evt, target,targetDate) {
+    $scope.onDropComplete = function (data, evt, target,targetDate) {
         //$scope.DragProcess = false;
         data.waiting = true;
         //$scope.days[target].waiting = true; aktiviern wenn day auch waiting zustand haben soll
@@ -267,7 +294,7 @@ angular.module('w11kcal.app.month').controller('monthCtrl', /*ngInject*/ functio
                 $scope.days[target].cards.push(data);
         }
         targetDate.setHours(12, 0, 0);
-        changeDate.async(data.id, targetDate).then(function(){
+        changeDate.async(data.id, targetDate).then(function (){
                 console.log("succes");
                 //$scope.days[target].waiting = false; aktiviern wenn day auch waiting zustand haben soll
                 data.waiting = false;
@@ -276,7 +303,7 @@ angular.module('w11kcal.app.month').controller('monthCtrl', /*ngInject*/ functio
 
 
             },
-            function(){
+            function (){
                 console.log("err");
             })
     };
@@ -285,7 +312,7 @@ angular.module('w11kcal.app.month').controller('monthCtrl', /*ngInject*/ functio
 
 
 
-    $scope.changeMonth = function(data, param, month){
+    $scope.changeMonth = function (data, param, month){
         if(data.due.getMonth() !== month)      {
             var targetDate = moment(data.dueDate).add(0, 'month').toISOString();
             targetDate =new Date(targetDate);
@@ -297,31 +324,41 @@ angular.module('w11kcal.app.month').controller('monthCtrl', /*ngInject*/ functio
         }
 
 
-        changeDate.async(data.id, targetDate).then(function(){
+        changeDate.async(data.id, targetDate).then(function (){
                 console.log("succes");
+
             },
-            function(){
+            function (){
                 console.log("err");
             });
 
 
     };
 
-    $scope.archiveCard = function(data){
+    $scope.archiveCard = function (data){
         var id = data.id;
 
-        archiveCard.async(id).then(function(){
+        archiveCard.async(id).then(function (){
             var message = '<span ng-controller="archiveCtrl"><br>Archived <br><a ng-click="click('+id+')">Undo</a></span>';
             Notification.warning({message: message});
         });
     };
 
 
-    $scope.reactivate = function(id) {
+    $scope.reactivate = function (id) {
         console.log("st")
 
 
     };
+
+    $scope.logCards = function (){
+        var tmpData = dataService.get()[1];
+        console.log(tmpData);
+
+
+
+    };
+
 
 
 

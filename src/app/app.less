@@ -58,11 +58,18 @@ i.icon {padding-right:4px;}
 
 .editable-click, a.editable-click, a.editable-click:hover {border:none!important; color:#666;}
 
+
+
+.filters {
+  background:#ededed;
+  padding:3px;
+}
+
+
 #MonthView {
   width:100%;
   border-top:1px solid #D5D5D5;
   border-left:1px solid #D5D5D5;
-  margin-top:15px;
   display:block;
 
   .day {
@@ -157,7 +164,17 @@ i.icon {padding-right:4px;}
 
 
     }
+
+
+    .dragger {
+      float:right;
+      padding-right: 3px;
+    }
   }
+
+
+
+
 
 
 }
@@ -178,8 +195,11 @@ i.icon {padding-right:4px;}
 
 @media screen and (min-width: 767px) {
   #MonthView {
+    display:-webkit-box;
+    display:-ms-flexbox;
     display:flex;
     display:-webkit-flex;
+    -ms-flex-wrap:wrap;
     flex-wrap:wrap;
     -webkit-flex-wrap:wrap;
 
@@ -205,7 +225,7 @@ i.icon {padding-right:4px;}
 
 
     }
-    .header {display:block;}
+    .header {display:block; min-height: 20px;}
 
   }
 
@@ -227,6 +247,11 @@ i.icon {padding-right:4px;}
       .board {
         display: block;
 
+      }
+
+      .boardName{
+        text-decoration:underline;
+        cursor: pointer;
       }
     }
   }
@@ -393,3 +418,9 @@ button i {
     color:#444;
   }
 }
+
+
+
+
+
+

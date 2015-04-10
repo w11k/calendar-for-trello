@@ -9,6 +9,9 @@ angular.module('w11kcal.app', [
     'ngDraggable',
     'angular-loading-bar',
     'ui-notification'
+    //,
+    //'w11k-dropdownToggle',
+    //'w11k-select'
 ]);
 
 angular.module('w11kcal.app').run( /*ngInject*/ function ($ionicPlatform, $window,editableOptions,  $rootScope, cfpLoadingBar) {
@@ -55,7 +58,7 @@ angular.module('w11kcal.app').config(/*ngInject*/ function ($stateProvider, $url
             templateUrl: 'partial/sidemenu.html',
             controller:'sidebarCtrl'
         });
-    $ionicConfigProvider.views.transition('none')
+    $ionicConfigProvider.views.transition('none');
 
 
 
@@ -71,8 +74,6 @@ angular.module('w11kcal.app').controller('sidebarCtrl', function ( /*ngInject*/ 
     $scope.user = "";
     console.log("w11kcal.app.sidebarCtrl läuft.");
 });
-
-
 
 
 

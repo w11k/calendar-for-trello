@@ -173,6 +173,22 @@ angular.module("w11kcal.app").factory("dataService", /*ngInject*/  function ($q)
         },
         refresh: function (){
             return refresh()
+        },
+
+        update: function(id, name, value){
+            console.log("Going to update Object (ID "+id+") attribute: "+name+" to value "+value+"  (only in service)");
+
+            data[1].forEach(function (obj) {
+                if (obj.id === id) {
+                    obj.due = value; // wegrationalisieren! ;)
+                    obj.dueDate = value; // Zwecks einsortierung
+                    obj.badges.due  = value;
+
+                    console.log("object changed");
+                    console.log(obj)
+                }
+            });
+
         }
 
     }

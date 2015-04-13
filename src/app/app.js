@@ -3,13 +3,14 @@
 angular.module('w11kcal.app', [
     'ionic',
     'w11kcal.app.month',
+    'ngSanitize',
     'ui.bootstrap',
     'ui.bootstrap.datetimepicker',
     'ngDraggable',
     'angular-loading-bar',
     'ui-notification',
     'LocalStorageModule',
-    'isteven-multi-select'
+    'ui.select'
 ]);
 
 angular.module('w11kcal.app').run( /*ngInject*/ function ($ionicPlatform, $window,  $rootScope, cfpLoadingBar) {
@@ -42,8 +43,9 @@ angular.module('w11kcal.app').run( /*ngInject*/ function ($ionicPlatform, $windo
 
 });
 
-angular.module('w11kcal.app').config(/*ngInject*/ function ($stateProvider, $urlRouterProvider,$ionicConfigProvider,localStorageServiceProvider) {
+angular.module('w11kcal.app').config(/*ngInject*/ function ($stateProvider, $urlRouterProvider,$ionicConfigProvider,localStorageServiceProvider, uiSelectConfig) {
     moment.locale('de');
+    uiSelectConfig.theme = 'bootstrap';
 
     $stateProvider
         // setup an abstract state for the sidebar
@@ -97,6 +99,5 @@ angular.module('w11kcal.app').constant('AppKey', '41485cd87d154168dd6db06cdd3ffd
 angular.module('w11kcal.app').controller('sidebarCtrl', function ( /*ngInject*/ $scope, demoSaveService) {
     $scope.name = demoSaveService.print()[0].data["fullName"];
 });
-
 
 

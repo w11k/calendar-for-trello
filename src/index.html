@@ -16,6 +16,21 @@
 
     <!-- cordova script (this will be a 404 during development) -->
     <script src="cordova.js"></script>
+
+    <!--
+  IE8 support, see AngularJS Internet Explorer Compatibility http://docs.angularjs.org/guide/ie
+  For Firefox 3.6, you will also need to include jQuery and ECMAScript 5 shim
+-->
+    <!--[if lt IE 9]>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/es5-shim/2.2.0/es5-shim.js"></script>
+    <script>
+        document.createElement('ui-select');
+        document.createElement('ui-select-match');
+        document.createElement('ui-select-choices');
+    </script>
+    <![endif]-->
+
 </head>
 
 <body ng-app="<%= angular_module %>">
@@ -26,6 +41,7 @@
 
 <% scripts.forEach( function ( file ) { %>
 <script type="text/javascript" src="<%= file %>"></script>
+
 <% }); %>
 <link rel="stylesheet" type="text/css" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css"/>
 

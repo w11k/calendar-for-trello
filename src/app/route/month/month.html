@@ -27,22 +27,20 @@
             <div class="row">
                 <div class="col-xs-12 col-md-12">
 
-                    <div
-                            isteven-multi-select
-                            input-model="boards"
-                            output-model="selectedBoards"
-                            button-label="icon name"
-                            item-label="icon name maker"
-                            tick-property="ticked"
-                            >
-                    </div>
+                    <ui-select multiple ng-model="multipleDemo.selectedBoards"  ng-disabled="disabled" style="width: 800px;">
+                        <ui-select-match placeholder="Select board...">{{$item.name}} &lt;{{$item.email}}&gt;</ui-select-match>
+                        <ui-select-choices repeat="board in boards ">
+                            <div ng-bind-html="board.name | highlight: $select.search"></div>
+                        </ui-select-choices>
+                    </ui-select>
+                    <!--<p>Selected: {{multipleDemo.selectedPeople}}</p>-->
+
                 </div>
             </div>
         </div>
 
 
 
-{{selectedBoards}}
         </div>
 
         <div id="MonthView">

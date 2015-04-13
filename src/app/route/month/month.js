@@ -123,21 +123,32 @@ angular.module('w11kcal.app.month').controller('monthCtrl', /*ngInject*/ functio
 
 
 
+
+
+    $scope.boards = $scope.boards;
+
+
+    $scope.multipleDemo = {};
+    $scope.multipleDemo.selectedBoards = $scope.boards;
+
+
+
+
     $scope.activeBoard = function (card) {
 
-        console.log(card.name);
-        console.log(card.idBoard);
-        console.log($scope.selectedBoards);
+        if(_.find( $scope.boards, function(chr) {
+                console.log("__________________________");
+                console.log(card.idBoard);
 
+                console.log(chr.id);
 
-
-        if(_.find($scope.selectedBoards, function(chr) {
                 return chr.id == card.idBoard;
             })){
-            console.log("true")
+
+            console.log("true");
             return true;
         } else {
-            console.log("false")
+            console.log("false");
             return false;
 
         }
@@ -269,6 +280,14 @@ angular.module('w11kcal.app.month').controller('monthCtrl', /*ngInject*/ functio
     };
 
 
+
+
+
+
+
+
+
+
 });
 
 
@@ -277,4 +296,36 @@ angular.module('w11kcal.app.month').controller('monthCtrl', /*ngInject*/ functio
 
 
 
+
+
+angular.module('w11kcal.app.month').filter('propsFilter', function() {
+    return function(items, props) {
+        var out = [];
+
+        if (angular.isArray(items)) {
+            items.forEach(function(item) {
+                var itemMatches = false;
+
+                var keys = Object.keys(props);
+                for (var i = 0; i < keys.length; i++) {
+                    var prop = keys[i];
+                    var text = props[prop].toLowerCase();
+                    if (item[prop].toString().toLowerCase().indexOf(text) !== -1) {
+                        itemMatches = true;
+                        break;
+                    }
+                }
+
+                if (itemMatches) {
+                    out.push(item);
+                }
+            });
+        } else {
+            // Let the output be the input untouched
+            out = items;
+        }
+
+        return out;
+    };
+});
 

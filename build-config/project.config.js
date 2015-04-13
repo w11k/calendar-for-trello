@@ -44,17 +44,11 @@ module.exports = {
   vendor: {
     files: {
       js: [
-        //'angular/angular.js',
           'ionic/release/js/ionic.bundle.js',
-
+          'angular-sanitize/angular-sanitize.js',
           'jquery/dist/jquery.js',
           'angular-bootstrap/ui-bootstrap.js',
           'angular-bootstrap/ui-bootstrap-tpls.js',
-        //  'angular-animate/angular-animate.js',
-        //  'angular-sanitize/angular-sanitize.js',
-        //  'angular-ui-router/release/angular-ui-router.js',
-
-
           'lodash/lodash.js',
           'angular-bootstrap-datetimepicker/src/js/datetimepicker.js',
           'angular-xeditable/dist/js/xeditable.js',
@@ -63,16 +57,11 @@ module.exports = {
           'angular-loading-bar/build/loading-bar.js',
           'angular-ui-notification/dist/angular-ui-notification.min.js',
           'angular-local-storage/dist/angular-local-storage.js',
-          'angular-multi-select/isteven-multi-select.js'
-          //'ionic/release/js/ionic.js',
-          //'ionic/release/js/ionic-angular.js'
-          //'angular-bindonce/bindonce.js',
-          //'w11k-dropdownToggle/dist/w11k-dropdownToggle.js',
-          //'w11k-select/dist/w11k-select.js',
+          'angular-ui-select/dist/select.js'
+
 
       ],
       js_mock: [
-        // required to run spec tests
         'angular-mocks/angular-mocks.js'
       ],
       js_spec: [],
@@ -84,9 +73,7 @@ module.exports = {
           'angular-xeditable/dist/css/xeditable.css',
           'angular-loading-bar/build/loading-bar.css',
           'angular-ui-notification/dist/angular-ui-notification.min.css',
-          'angular-multi-select/isteven-multi-select.css'
-
-          //   'w11k-select/dist/w11k-select.less'
+          'angular-ui-select/dist/select.css'
       ],
       assets: [
           'ionic/release/fonts/*'

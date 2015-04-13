@@ -20,9 +20,7 @@
     "angular-loading-bar": "~0.7.1",
     "angular-ui-notification": "~0.0.5",
     "angular-bootstrap": "~0.12.1",
-    "w11k-select": "~0.6.1",
-    "angular-bindonce": "~0.3.3",
     "angular-local-storage": "~0.1.5",
-    "angular-multi-select": "~4.0.0"
+    "angular-ui-select": "~0.11.2"
   }
 }

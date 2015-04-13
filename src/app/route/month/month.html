@@ -22,18 +22,27 @@
                 <i class="ion-chevron-right" ng-click="move(1)"></i>
             </div>
         </div>
-<!--
+
         <div class="filters">
             <div class="row">
-                <div class="col-xs-12 col-md-4">Filter</div>
-                <div class="col-xs-12 col-md-4">Filter</div>
-                <div class="col-xs-12 col-md-4" ng-click="logCards()">Console Log Cards</div>
+                <div class="col-xs-12 col-md-12">
+
+                    <div
+                            isteven-multi-select
+                            input-model="boards"
+                            output-model="selectedBoards"
+                            button-label="icon name"
+                            item-label="icon name maker"
+                            tick-property="ticked"
+                            >
+                    </div>
+                </div>
             </div>
         </div>
--->
 
 
 
+{{selectedBoards}}
         </div>
 
         <div id="MonthView">
@@ -45,7 +54,7 @@
                  ng-drop-success="onDropComplete($data,$event, $index, day.date)">
                 <div class="dayCounter" ><span class="weekday">{{day.weekday}}</span><span>{{day.i}}</span></div>
                 <div class="dayCards">
-                    <div ng-repeat="card in day.cards | orderBy:['badges.due', 'name'] ">
+                    <div ng-repeat="card in day.cards | orderBy:['badges.due', 'name'] | filter: activeBoard">
 
                         <div class="dayCard"
                              ng-drag="true" ng-drag-data="card"

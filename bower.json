@@ -22,6 +22,7 @@
     "angular-bootstrap": "~0.12.1",
     "w11k-select": "~0.6.1",
     "angular-bindonce": "~0.3.3",
-    "angular-local-storage": "~0.1.5"
+    "angular-local-storage": "~0.1.5",
+    "angular-multi-select": "~4.0.0"
   }
 }

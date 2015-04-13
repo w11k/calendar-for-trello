@@ -62,7 +62,8 @@ module.exports = {
           'ngDraggable/ngDraggable.js',
           'angular-loading-bar/build/loading-bar.js',
           'angular-ui-notification/dist/angular-ui-notification.min.js',
-          'angular-local-storage/dist/angular-local-storage.js'
+          'angular-local-storage/dist/angular-local-storage.js',
+          'angular-multi-select/isteven-multi-select.js'
           //'ionic/release/js/ionic.js',
           //'ionic/release/js/ionic-angular.js'
           //'angular-bindonce/bindonce.js',
@@ -83,7 +84,9 @@ module.exports = {
           'angular-xeditable/dist/css/xeditable.css',
           'angular-loading-bar/build/loading-bar.css',
           'angular-ui-notification/dist/angular-ui-notification.min.css',
-       //   'w11k-select/dist/w11k-select.less'
+          'angular-multi-select/isteven-multi-select.css'
+
+          //   'w11k-select/dist/w11k-select.less'
       ],
       assets: [
           'ionic/release/fonts/*'

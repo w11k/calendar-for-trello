@@ -8,7 +8,8 @@ angular.module('w11kcal.app', [
     'ngDraggable',
     'angular-loading-bar',
     'ui-notification',
-    'LocalStorageModule'
+    'LocalStorageModule',
+    'isteven-multi-select'
 ]);
 
 angular.module('w11kcal.app').run( /*ngInject*/ function ($ionicPlatform, $window,  $rootScope, cfpLoadingBar) {

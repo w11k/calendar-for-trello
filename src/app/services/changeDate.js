@@ -1,5 +1,5 @@
 'use strict';
-angular.module('w11kcal.app').factory('changeDate', /*ngInject*/  function($q, dataService,demoSaveService, AppKey,localStorageService, $http) {
+angular.module('w11kcal.app').factory('changeDate', /*ngInject*/  function($q,demoSaveService, AppKey,localStorageService, $http) {
 
     var token = localStorageService.get("trello_token");
     var data;
@@ -35,4 +35,3 @@ angular.module('w11kcal.app').factory('changeDate', /*ngInject*/  function($q, d
 
 
 });
-

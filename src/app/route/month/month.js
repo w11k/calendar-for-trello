@@ -94,7 +94,7 @@ angular.module('w11kcal.app.month').controller('monthCtrl', /*ngInject*/ functio
      * Part 2: Build
      */
 
-
+    // top legende
     $scope.weekdays = [];
     for (var i = 0; i <= 6; i++){
         var long =  moment().weekday(i).format("dddd");
@@ -103,6 +103,46 @@ angular.module('w11kcal.app.month').controller('monthCtrl', /*ngInject*/ functio
     }
     // build the Cal
     $scope.days = buildCalService.build(date);
+
+    // Build Filter
+
+
+
+
+    var boards = demoSaveService.print()[2].data;
+
+    $scope.boards = [];
+
+    _.forEach(boards, function (board) {
+        $scope.boards.push({
+            name: board.name,
+            id: board.id,
+            ticked: true
+        })
+    });
+
+
+
+    $scope.activeBoard = function (card) {
+
+        console.log(card.name);
+        console.log(card.idBoard);
+        console.log($scope.selectedBoards);
+
+
+
+        if(_.find($scope.selectedBoards, function(chr) {
+                return chr.id == card.idBoard;
+            })){
+            console.log("true")
+            return true;
+        } else {
+            console.log("false")
+            return false;
+
+        }
+    }
+
 
 
 

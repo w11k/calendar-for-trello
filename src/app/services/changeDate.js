@@ -1,33 +1,32 @@
 'use strict';
-angular.module('w11kcal.app').factory('changeDate', /*ngInject*/  function($q, dataService) {
+angular.module('w11kcal.app').factory('changeDate', /*ngInject*/  function($q, dataService,demoSaveService, AppKey,localStorageService, $http) {
 
+    var token = localStorageService.get("trello_token");
+    var data;
     var resourceFactory = {
         async: function(id, date) {
-            console.log("changeDate for:" + id + "to" + date );
-            var d = $q.defer();
-            var path = "cards/" +id+ "/";
-            var params = {
-                due: date
+
+            data = {
+                due: date,
+                token: token,
+                key:AppKey
             };
-            var result = Trello.put(path, params, function(){
 
-                // ToDo: Hier müssen noch die Daten im Service geupdatet werden
-
-                console.log("succes. date in trello changed.");
-                console.log("now changing in Service...");
-
-                dataService.update(id, "badges.due", date);
-
-
-
-                d.resolve(result);
-            }, function(){
-                console.log("err");
-                d.reject()
-            });
-            return d.promise;
+            return $http({
+                method: "PUT",
+                url: "https://api.trello.com/1/cards/"+id+"?key="+AppKey+"&token="+token,
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                transformRequest: function(obj) {
+                    var str = [];
+                    for(var p in obj)
+                        str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+                    return str.join("&");
+                },
+                data: data
+            })
         }
     };
+
     return resourceFactory;
 
 

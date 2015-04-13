@@ -77,14 +77,6 @@ angular.module('w11kcal.app').config(/*ngInject*/ function ($stateProvider, $url
 
 
 
-
-
-
-
-
-
-
-
     $ionicConfigProvider.views.transition('none');
 
     // if none of the above states are matched, use this as the fallback
@@ -97,9 +89,11 @@ angular.module('w11kcal.app').config(/*ngInject*/ function ($stateProvider, $url
 
 });
 
+angular.module('w11kcal.app').constant('AppKey', '41485cd87d154168dd6db06cdd3ffd69');
+
+
 
 angular.module('w11kcal.app').controller('sidebarCtrl', function ( /*ngInject*/ $scope, demoSaveService) {
-
 console.log(demoSaveService.print());
 //    $scope.name = demoSaveService.print()[0].data["fullName"];
 });

@@ -2,20 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="eaadce51-f369-493d-97ef-849b8b386b2f" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/app/services/buildCalService.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/app/services/calendarService.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/app/services/client.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/app/services/demoSaveService.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/app/services/initService.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/app/services/setToken.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/app.js" afterPath="$PROJECT_DIR$/src/app/app.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bower.json" afterPath="$PROJECT_DIR$/bower.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/index.html" afterPath="$PROJECT_DIR$/src/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/route/month/month.js" afterPath="$PROJECT_DIR$/src/app/route/month/month.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build-config/project.config.js" afterPath="$PROJECT_DIR$/build-config/project.config.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/partial/sidemenu.html" afterPath="$PROJECT_DIR$/src/app/partial/sidemenu.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/services/testService.js" afterPath="$PROJECT_DIR$/src/app/services/testService.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/services/changeDate.js" afterPath="$PROJECT_DIR$/src/app/services/changeDate.js" />
     </list>
     <ignored path="et-ka-2014-ionic-tutorial-app.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -39,88 +27,7 @@
     <favorites_list name="et-ka-2014-ionic-tutorial-app" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="month.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/app/route/month/month.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-16.258064" vertical-offset="432" max-vertical-offset="4338">
-              <caret line="52" column="102" selection-start-line="52" selection-start-column="102" selection-end-line="52" selection-end-column="102" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="buildCalService.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/app/services/buildCalService.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="1034" max-vertical-offset="2700">
-              <caret line="87" column="21" selection-start-line="87" selection-start-column="21" selection-end-line="87" selection-end-column="21" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="calendarService.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/app/services/calendarService.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-4.064516" vertical-offset="0" max-vertical-offset="5814">
-              <caret line="7" column="130" selection-start-line="7" selection-start-column="120" selection-end-line="7" selection-end-column="130" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="testService.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/app/services/testService.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-9.580646" vertical-offset="2331" max-vertical-offset="4230">
-              <caret line="146" column="29" selection-start-line="146" selection-start-column="27" selection-end-line="146" selection-end-column="29" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="changeDate.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/app/services/changeDate.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.468039" vertical-offset="0" max-vertical-offset="923">
-              <caret line="24" column="35" selection-start-line="24" selection-start-column="35" selection-end-line="24" selection-end-column="35" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="initService.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/app/services/initService.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="242" max-vertical-offset="1152">
-              <caret line="45" column="52" selection-start-line="45" selection-start-column="52" selection-end-line="45" selection-end-column="52" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="app.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/app/app.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="1129" max-vertical-offset="2052">
-              <caret line="102" column="35" selection-start-line="102" selection-start-column="12" selection-end-line="102" selection-end-column="35" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="demoSaveService.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/app/services/demoSaveService.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="540">
-              <caret line="1" column="54" selection-start-line="1" selection-start-column="39" selection-end-line="1" selection-end-column="54" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf />
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -160,7 +67,6 @@
         <option value="$PROJECT_DIR$/src/app/services/getAttachments.js" />
         <option value="$PROJECT_DIR$/src/app/services/archiveCard.js" />
         <option value="$PROJECT_DIR$/vendor/ngDraggable/ngDraggable.js" />
-        <option value="$PROJECT_DIR$/src/app/services/changeDate.js" />
         <option value="$PROJECT_DIR$/src/app/app.less" />
         <option value="$PROJECT_DIR$/src/app/route/month/month.html" />
         <option value="$PROJECT_DIR$/src/app/services/testService.js" />
@@ -168,13 +74,14 @@
         <option value="$PROJECT_DIR$/src/app/services/client.js" />
         <option value="$PROJECT_DIR$/build-config/project.config.js" />
         <option value="$PROJECT_DIR$/src/app/services/setToken.js" />
-        <option value="$PROJECT_DIR$/src/app/app.js" />
         <option value="$PROJECT_DIR$/src/app/partial/sidemenu.html" />
         <option value="$PROJECT_DIR$/src/app/services/demoSaveService.js" />
         <option value="$PROJECT_DIR$/src/app/services/initService.js" />
         <option value="$PROJECT_DIR$/src/app/services/buildCalService.js" />
         <option value="$PROJECT_DIR$/src/app/services/calendarService.js" />
         <option value="$PROJECT_DIR$/src/app/route/month/month.js" />
+        <option value="$PROJECT_DIR$/src/app/services/changeDate.js" />
+        <option value="$PROJECT_DIR$/src/app/app.js" />
       </list>
     </option>
   </component>
@@ -691,16 +598,16 @@
       <workItem from="1428649223336" duration="22100000" />
       <workItem from="1428673345815" duration="3427000" />
       <workItem from="1428911230482" duration="66000" />
-      <workItem from="1428911310413" duration="7132000" />
+      <workItem from="1428911310413" duration="10501000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="252853000" />
+    <option name="totallyTimeSpent" value="256222000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="49" y="24" width="1631" height="1026" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -722,7 +629,7 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18945432" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18945432" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -1025,14 +932,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/services/setToken.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="234">
-          <caret line="4" column="57" selection-start-line="4" selection-start-column="52" selection-end-line="4" selection-end-column="57" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/build-config/project.config.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="752" max-vertical-offset="1800">
@@ -1065,33 +964,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/app.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1129" max-vertical-offset="2052">
-          <caret line="102" column="35" selection-start-line="102" selection-start-column="12" selection-end-line="102" selection-end-column="35" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/services/demoSaveService.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="540">
-          <caret line="1" column="54" selection-start-line="1" selection-start-column="39" selection-end-line="1" selection-end-column="54" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/services/initService.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="242" max-vertical-offset="1152">
-          <caret line="45" column="52" selection-start-line="45" selection-start-column="52" selection-end-line="45" selection-end-column="52" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/app/services/calendarService.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-4.064516" vertical-offset="0" max-vertical-offset="5814">
+        <state vertical-scroll-proportion="0.14334472" vertical-offset="0" max-vertical-offset="5814">
           <caret line="7" column="130" selection-start-line="7" selection-start-column="120" selection-end-line="7" selection-end-column="130" />
           <folding />
         </state>
@@ -1099,32 +974,64 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/app/services/buildCalService.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1250" max-vertical-offset="2700">
-          <caret line="87" column="21" selection-start-line="87" selection-start-column="21" selection-end-line="87" selection-end-column="21" />
+        <state vertical-scroll-proportion="0.01978022" vertical-offset="0" max-vertical-offset="2700">
+          <caret line="1" column="96" selection-start-line="1" selection-start-column="81" selection-end-line="1" selection-end-column="96" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/services/demoSaveService.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.019501625" vertical-offset="0" max-vertical-offset="923">
+          <caret line="1" column="100" selection-start-line="1" selection-start-column="81" selection-end-line="1" selection-end-column="100" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/services/setToken.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="234">
+          <caret line="7" column="3" selection-start-line="7" selection-start-column="3" selection-end-line="7" selection-end-column="3" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/app/services/testService.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-9.580646" vertical-offset="2331" max-vertical-offset="4230">
+        <state vertical-scroll-proportion="-75.77419" vertical-offset="279" max-vertical-offset="4230">
           <caret line="146" column="29" selection-start-line="146" selection-start-column="27" selection-end-line="146" selection-end-column="29" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/route/month/month.js">
+    <entry file="file://$PROJECT_DIR$/src/app/app.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-16.258064" vertical-offset="432" max-vertical-offset="4338">
-          <caret line="52" column="102" selection-start-line="52" selection-start-column="102" selection-end-line="52" selection-end-column="102" />
+        <state vertical-scroll-proportion="1.4626219" vertical-offset="0" max-vertical-offset="1944">
+          <caret line="75" column="0" selection-start-line="75" selection-start-column="0" selection-end-line="75" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/services/initService.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.34812286" vertical-offset="0" max-vertical-offset="1152">
+          <caret line="17" column="24" selection-start-line="17" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/app/services/changeDate.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.468039" vertical-offset="0" max-vertical-offset="923">
-          <caret line="24" column="35" selection-start-line="24" selection-start-column="35" selection-end-line="24" selection-end-column="35" />
+        <state vertical-scroll-proportion="0.5070422" vertical-offset="0" max-vertical-offset="923">
+          <caret line="26" column="9" selection-start-line="26" selection-start-column="9" selection-end-line="26" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/route/month/month.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.57337886" vertical-offset="432" max-vertical-offset="4338">
+          <caret line="52" column="102" selection-start-line="52" selection-start-column="102" selection-end-line="52" selection-end-column="102" />
           <folding />
         </state>
       </provider>

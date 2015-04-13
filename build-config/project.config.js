@@ -61,7 +61,8 @@ module.exports = {
           'moment/min/moment-with-locales.js',
           'ngDraggable/ngDraggable.js',
           'angular-loading-bar/build/loading-bar.js',
-          'angular-ui-notification/dist/angular-ui-notification.min.js'
+          'angular-ui-notification/dist/angular-ui-notification.min.js',
+          'angular-local-storage/dist/angular-local-storage.js'
           //'ionic/release/js/ionic.js',
           //'ionic/release/js/ionic-angular.js'
           //'angular-bindonce/bindonce.js',

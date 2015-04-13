@@ -5,19 +5,13 @@ angular.module('w11kcal.app', [
     'w11kcal.app.month',
     'ui.bootstrap',
     'ui.bootstrap.datetimepicker',
-    'xeditable',
     'ngDraggable',
     'angular-loading-bar',
-    'ui-notification'
-    //,
-    //'w11k-dropdownToggle',
-    //'w11k-select'
+    'ui-notification',
+    'LocalStorageModule'
 ]);
 
-angular.module('w11kcal.app').run( /*ngInject*/ function ($ionicPlatform, $window,editableOptions,  $rootScope, cfpLoadingBar) {
-    editableOptions.theme = 'bs3'; // bootstrap3 theme. Can be also 'bs2', 'default'
-
-
+angular.module('w11kcal.app').run( /*ngInject*/ function ($ionicPlatform, $window,  $rootScope, cfpLoadingBar) {
     $ionicPlatform.ready(function () {
         // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
         // for form inputs)
@@ -30,8 +24,6 @@ angular.module('w11kcal.app').run( /*ngInject*/ function ($ionicPlatform, $windo
         }
     });
 
-
-    console.log("w11kcal.app.run läuft.");
 
     $rootScope
         .$on('$stateChangeStart',
@@ -49,30 +41,67 @@ angular.module('w11kcal.app').run( /*ngInject*/ function ($ionicPlatform, $windo
 
 });
 
-angular.module('w11kcal.app').config(/*ngInject*/ function ($stateProvider, $urlRouterProvider,$ionicConfigProvider) {
+angular.module('w11kcal.app').config(/*ngInject*/ function ($stateProvider, $urlRouterProvider,$ionicConfigProvider,localStorageServiceProvider) {
+    moment.locale('de');
+
     $stateProvider
-        // setup an abstract state for the tabs directive
+        // setup an abstract state for the sidebar
         .state('app', {
             url: '/app',
             abstract: true,
             templateUrl: 'partial/sidemenu.html',
             controller:'sidebarCtrl'
+        })
+
+        .state('app.token', {
+            url: '/token?do&token',
+            views: {
+                'menuContent': {
+                    templateUrl: 'route/month/month.html',
+                    controller: 'monthCtrl'
+                }
+            },
+            resolve: {
+                'setToken': function (setToken,$stateParams,$location){
+                     setToken.set($stateParams.token);
+
+                    delete $location.$$search.token;
+                    delete $location.$$search.do;
+
+                    $location.path("/app/month")
+                }
+            }
+
         });
+
+
+
+
+
+
+
+
+
+
+
+
     $ionicConfigProvider.views.transition('none');
-
-
-
-
 
     // if none of the above states are matched, use this as the fallback
     $urlRouterProvider.otherwise('/app/month/');
 
+        localStorageServiceProvider
+            .setPrefix('w11k')
+            .setStorageType('localStorage')
+
+
 });
 
 
-angular.module('w11kcal.app').controller('sidebarCtrl', function ( /*ngInject*/ $scope) {
-    $scope.user = "";
-    console.log("w11kcal.app.sidebarCtrl läuft.");
+angular.module('w11kcal.app').controller('sidebarCtrl', function ( /*ngInject*/ $scope, demoSaveService) {
+
+console.log(demoSaveService.print());
+//    $scope.name = demoSaveService.print()[0].data["fullName"];
 });
 
 

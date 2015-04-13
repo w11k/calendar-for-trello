@@ -28,19 +28,9 @@ $dark:                            #444 !default;
 
   }
 
-  .menu-content {
-    -webkit-transform: translate3d(270px, 0px, 0px) !important;
-    width: ~"calc(100% - 270px)" !important;
-  }
 
-  .menu {
-    z-index: 2 !important;
-    box-shadow: -1px 0 2px rgba(0,0,0,.2),1px 0 2px rgba(0,0,0,.2);
-  }
 
-  .bar-header button.ion-navicon {
-    display: none;
-  }
+
 }
 
 
@@ -148,8 +138,10 @@ i.icon {padding-right:4px;}
       font-size: 10px;
       margin-bottom: 2px;
       cursor: move !important;
-      .title {
+      .title a {
         cursor: pointer !important;
+        color:#fff;
+        font-weight: bold;;
 
       }
       .title:hover {text-decoration: underline;}
@@ -249,10 +241,16 @@ i.icon {padding-right:4px;}
 
       }
 
-      .boardName{
-        text-decoration:underline;
-        cursor: pointer;
+      .boardName {
+        //text-decoration:underline;
+        color:#fff;
+        &:hover {
+          text-decoration:underline;
+
+        }
       }
+
+
     }
   }
 
@@ -424,3 +422,4 @@ button i {
 
 
 
+i {font-style: italic;}

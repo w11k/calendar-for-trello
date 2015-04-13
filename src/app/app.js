@@ -94,8 +94,7 @@ angular.module('w11kcal.app').constant('AppKey', '41485cd87d154168dd6db06cdd3ffd
 
 
 angular.module('w11kcal.app').controller('sidebarCtrl', function ( /*ngInject*/ $scope, demoSaveService) {
-console.log(demoSaveService.print());
-//    $scope.name = demoSaveService.print()[0].data["fullName"];
+    $scope.name = demoSaveService.print()[0].data["fullName"];
 });
 
 

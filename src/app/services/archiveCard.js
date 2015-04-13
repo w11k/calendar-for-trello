@@ -1,27 +1,29 @@
 'use strict';
-angular.module('w11kcal.app').factory('archiveCard',  /*ngInject*/  function($q, Notification) {
+angular.module('w11kcal.app').factory('archiveCard',  /*ngInject*/  function(AppKey, $http,localStorageService) {
 
+    var token = localStorageService.get("trello_token");
+
+    var data = {
+        closed: true,
+        token: token,
+        key:AppKey
+    };
     var resourceFactory = {
         async: function(id) {
-
-            var d = $q.defer();
-            var path = "cards/" + id + "/closed";
-            var params = {
-                value: true
-            };
-            var result = Trello.put(path, params, function() {
-                console.log("archiviert");
-                d.resolve(result);
-            }, function() {
-                console.log("error");
-                d.reject()
+            return $http({
+                method: "PUT",
+                url: "https://api.trello.com/1/cards/"+id,
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                transformRequest: function(obj) {
+                    var str = [];
+                    for(var p in obj)
+                        str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+                    return str.join("&");
+                },
+                data: data
             });
-            return d.promise;
-        }
-    };
+        }};
+
     return resourceFactory;
-
-
-
 
 });

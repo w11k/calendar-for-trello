@@ -86,8 +86,11 @@ module.exports = {
        //   'w11k-select/dist/w11k-select.less'
       ],
       assets: [
-          //'ionic/release/fonts/*'
-      ]
+          'ionic/release/fonts/*'
+      ],
+        fonts: [
+            'ionic/release/fonts/*'
+        ]
     }
   }
 

@@ -12,13 +12,16 @@
         <ion-nav-view name="menuContent" animation="no-animation"></ion-nav-view>
     </ion-side-menu-content>
 
-    <ion-side-menu side="left">
+    <ion-side-menu side="left" expose-aside-when="(min-width:960px)">
         <ion-header-bar class="bar-dark">
             <h1 class="title">w11k Trello Calendar</h1>
         </ion-header-bar>
         <ion-content>
-            <h4>Willkommen {{name}}</h4>
             <ion-list>
+                <ion-item>
+                    <i> Willkommen <strong>{{name}}.</strong></i>
+                </ion-item>
+
                 <ion-item nav-clear menu-close href="#/app/month">
                     Calendar
                 </ion-item>

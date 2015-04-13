@@ -50,7 +50,7 @@ angular.module('w11kcal.app.month').config(/*ngInject*/ function ($stateProvider
 angular.module('w11kcal.app.month').run(function () {
 });
 
-angular.module('w11kcal.app.month').controller('monthCtrl', /*ngInject*/ function ($scope, changeDate, demoSaveService,$window,isFreshView,$stateParams, $location,buildCalService) {
+angular.module('w11kcal.app.month').controller('monthCtrl', /*ngInject*/ function (initService,archiveCard, $scope, changeDate,Notification, demoSaveService,$window,isFreshView,$stateParams, $location,buildCalService) {
 
     /**
      * Part 1: config
@@ -105,18 +105,19 @@ angular.module('w11kcal.app.month').controller('monthCtrl', /*ngInject*/ functio
     $scope.days = buildCalService.build(date);
 
 
+
     /**
      * Part 3: Options:
      */
+
     $scope.loading = false;
     $scope.refresh = function () {
         if($scope.loading === false){
             $scope.loading = true;
-            dataService.refresh()
+            initService.init(1)
                 .then(function () {
-                    console.log("resolved from ctrl");
                     $scope.loading = false;
-                    //cal(today, month, year);
+                    $scope.days = buildCalService.build(date);
                     // !# CalendarBuildService aufrufen.
                 });
         }
@@ -218,7 +219,11 @@ angular.module('w11kcal.app.month').controller('monthCtrl', /*ngInject*/ functio
         var id = data.id;
 
         archiveCard.async(id).then(function (){
-            var message = '<span ng-controller="archiveCtrl"><br>Archived <br><a ng-click="click('+id+')">Undo</a></span>';
+
+            console.log(".then")
+
+
+            var message = '<span ng-controller="archiveCtrl"><br>Archived </span>';
             Notification.warning({message: message});
         });
     };

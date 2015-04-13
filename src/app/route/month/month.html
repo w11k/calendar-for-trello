@@ -55,8 +55,8 @@
 
                             <div class="ion-arrow-move dragger"></div>
 
-                            <div class="title" ng-click="$event.stopPropagation(); click(card.id)">{{card.name}}</div>
-<div class="board">Board: <span ng-click="" class="boardName">{{card.boardName}}</span> | <span>{{card.badges.due | date : "HH:mm" : timezone}}</span></div>
+                            <div class="title" ng-click="$event.stopPropagation();"><a ng-href="{{card.shortUrl}}" target="_blank"> {{card.name}}</a></div>
+<div class="board"><a ng-href="{{card.boardUrl}}" target="_blank"><span class="boardName">{{card.boardName}}</span></a>  | <span>{{card.badges.due | date : "HH:mm" : timezone}}</span></div>
 
 
                           <!--  <div class="time">{{card.due}} | {{card.dueDate}} | {{card.badges.due}}</div>-->

@@ -6,7 +6,12 @@ angular.module("w11kcal.app").factory("buildCalService", /*ngInject*/  function 
      */
     var cards, year, month, days;
 
+
+
     function getMonthDays (month, year){
+
+
+
         var dayCounter = 31;
         // April, Juni, September, Nov 30 tage
         if (month == 3 || month == 5 || month == 8 || month == 10) --dayCounter;
@@ -23,15 +28,14 @@ angular.module("w11kcal.app").factory("buildCalService", /*ngInject*/  function 
 
 
 
-
-
-
-
-
     return {
         build: function (date) {
             year = date.year;
             month = date.month;
+
+            if(new Date().getMonth() == month){
+                console.log("aktueller Monat")
+            }
 
 
             Date.prototype.mGetDay = function () {
@@ -48,15 +52,18 @@ angular.module("w11kcal.app").factory("buildCalService", /*ngInject*/  function 
                 console.log("ist null");
                 push = 7;
             }
+
+            var lastMonthDays, yearIn, monthIn;
+
             // Januar abfangen
             if(month == 0){
-                var lastMonthDays = 31-push;
-                var yearIn = year -1;
-                var monthIn = 11;
+                 lastMonthDays = 31-push;
+                 yearIn = year -1;
+                 monthIn = 11;
             } else {
-                var lastMonthDays = getMonthDays(month-1,year)-push;
-                var yearIn = year;
-                var monthIn = month-1;
+                 lastMonthDays = getMonthDays(month-1,year)-push;
+                 yearIn = year;
+                 monthIn = month-1;
             }
 
             days = [];
@@ -97,7 +104,6 @@ angular.module("w11kcal.app").factory("buildCalService", /*ngInject*/  function 
 
 
             var a = days.length;
-
             if (a % 7 != 0) {
 
                 a = 7-(a % 7);
@@ -127,10 +133,6 @@ angular.module("w11kcal.app").factory("buildCalService", /*ngInject*/  function 
                 //console.log(cards[entry.date]);
                 //console.log(cards)
             });
-
-
-
-
             return days;
         }
     };

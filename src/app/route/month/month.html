@@ -32,10 +32,8 @@
         </div>
 
         <div class="filters">
-            <div class="row">
-                <div class="col-xs-12 col-md-12">
 
-                    <ui-select multiple ng-model="multipleDemo.selectedBoards"  ng-disabled="disabled" style="width: 800px;">
+                    <ui-select multiple ng-model="multipleDemo.selectedBoards"  ng-disabled="disabled">
                         <ui-select-match placeholder="Select board...">{{$item.name}} &lt;{{$item.email}}&gt;</ui-select-match>
                         <ui-select-choices repeat="board in boards ">
                             <div ng-bind-html="board.name | highlight: $select.search"></div>
@@ -43,8 +41,6 @@
                     </ui-select>
                     <!--<p>Selected: {{multipleDemo.selectedPeople}}</p>-->
 
-                </div>
-            </div>
         </div>
 
 

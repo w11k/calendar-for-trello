@@ -45,7 +45,10 @@ angular.module('w11kcal.app').run( /*ngInject*/ function ($ionicPlatform, $windo
 
 angular.module('w11kcal.app').config(/*ngInject*/ function ($stateProvider, $urlRouterProvider,$ionicConfigProvider,localStorageServiceProvider, uiSelectConfig) {
     moment.locale('de');
-    uiSelectConfig.theme = 'bootstrap';
+ //   uiSelectConfig.theme = 'bootstrap';
+ //       uiSelectConfig.resetSearchInput = true;
+        uiSelectConfig.appendToBody = true;
+
 
     $stateProvider
         // setup an abstract state for the sidebar
@@ -93,6 +96,7 @@ angular.module('w11kcal.app').config(/*ngInject*/ function ($stateProvider, $url
 });
 
 angular.module('w11kcal.app').constant('AppKey', '41485cd87d154168dd6db06cdd3ffd69');
+angular.module('w11kcal.app').constant('colors', ["red", "blue", "green", "pink"]);
 
 
 

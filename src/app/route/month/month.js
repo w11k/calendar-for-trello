@@ -104,80 +104,29 @@ angular.module('w11kcal.app.month').controller('monthCtrl', /*ngInject*/ functio
     // build the Cal
     $scope.days = buildCalService.build(date);
 
+
+
+
     // Build Filter
-
-
-
-
-    var boards = demoSaveService.print()[2].data;
-
     $scope.boards = [];
-
-    _.forEach(boards, function (board) {
+    _.forEach(demoSaveService.print()[2].data, function (board) {
         $scope.boards.push({
             name: board.name,
             id: board.id,
             ticked: true
         })
     });
-
-    console.log("boards:");
-    console.log($scope.boards);
-    console.log("-------------------------");
-
-
-
-
-
-
     $scope.multipleDemo = {};
     $scope.multipleDemo.selectedBoards = $scope.boards;
     $scope.activeBoard = function (card) {
-
-
-
-        console.log(_.find( $scope.boards, function(chr) {
-            //console.log("__________________________");
-            //console.log(card.idBoard);
-
-           // console.log(chr.id);
-
-            return chr.id == card.idBoard;
-        }));
-
-
-        return true;
-
-
-        /*
-        if(_.find( $scope.boards, function(chr) {
-                console.log("__________________________");
-                console.log(card.idBoard);
-
-                console.log(chr.id);
-
-                return chr.id == card.idBoard;
-            })){
-
-            console.log("true");
-            return true;
-        } else {
-            console.log("false");
-            return false;
-
-        }
-
-
-        */
+        return _.find($scope.multipleDemo.selectedBoards, { 'id': card.idBoard});
     };
-
 
 
 
     /**
      * Part 3: Options:
      */
-
     $scope.loading = false;
     $scope.refresh = function () {
         if($scope.loading === false){
@@ -187,8 +136,6 @@ angular.module('w11kcal.app.month').controller('monthCtrl', /*ngInject*/ functio
                     $scope.loading = false;
                     $scope.days = buildCalService.build(date);
                     $scope.$broadcast('scroll.refreshComplete');
-
-                    // !# CalendarBuildService aufrufen.
                 });
         }
     };

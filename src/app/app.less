@@ -33,8 +33,8 @@ i.icon {padding-right:4px;}
 
 
 .filters {
-  background:#ededed;
-  padding:3px;
+ // background:#ededed;
+  //padding:5px 10px;
 }
 
 #MonthView {
@@ -56,6 +56,15 @@ i.icon {padding-right:4px;}
   .day.has .dayCounter{
     font-weight: bold;
   }
+
+  .boardName {
+    //text-decoration:underline;
+    color:#fff;
+    &:hover {
+      text-decoration:underline;
+    }
+  }
+
 
 
   .day.header {
@@ -107,7 +116,7 @@ i.icon {padding-right:4px;}
 
     .dayCard{
       opacity:1;
-      background: #4a87ee;
+      background-color: #337ab7;
       color:#fff;
       padding:1px 3px;
       border-radius: 0;
@@ -197,13 +206,6 @@ i.icon {padding-right:4px;}
     .dayCards {
       .board {
         display: block;
-      }
-      .boardName {
-        //text-decoration:underline;
-        color:#fff;
-        &:hover {
-          text-decoration:underline;
-        }
       }
     }
   }
@@ -356,4 +358,48 @@ h5.grey {
   }
 }
 
+.filters {
 
+  .select2 > .select2-choice.ui-select-match {
+    /* Because of the inclusion of Bootstrap */
+    height: 29px !important;
+  }
+
+  .selectize-control > .selectize-dropdown {
+    top: 36px !important;
+  }
+
+
+  .ui-select-match {
+    float:left;
+  }
+
+
+  .ui-select-multiple.form-control {
+    border-radius:0 !important;
+    border:none;
+    background: #e6e6e6;
+    padding: 5px 4px 1px;
+  }
+  .ui-select-match-item {
+    color: #fff;
+    background-color: #337ab7;
+    border-color: #2e6da4;
+  }
+}
+
+
+
+
+
+
+
+
+// allgemein:
+
+
+.button.button-positive {
+  color: #fff;
+  background-color: #337ab7;
+  border-color: #2e6da4;
+}

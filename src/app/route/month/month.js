@@ -121,21 +121,35 @@ angular.module('w11kcal.app.month').controller('monthCtrl', /*ngInject*/ functio
         })
     });
 
+    console.log("boards:");
+    console.log($scope.boards);
+    console.log("-------------------------");
 
 
 
 
-    $scope.boards = $scope.boards;
 
 
     $scope.multipleDemo = {};
     $scope.multipleDemo.selectedBoards = $scope.boards;
-
-
-
-
     $scope.activeBoard = function (card) {
 
+
+
+        console.log(_.find( $scope.boards, function(chr) {
+            //console.log("__________________________");
+            //console.log(card.idBoard);
+
+           // console.log(chr.id);
+
+            return chr.id == card.idBoard;
+        }));
+
+
+        return true;
+
+
+        /*
         if(_.find( $scope.boards, function(chr) {
                 console.log("__________________________");
                 console.log(card.idBoard);
@@ -152,7 +166,10 @@ angular.module('w11kcal.app.month').controller('monthCtrl', /*ngInject*/ functio
             return false;
 
         }
-    }
+
+
+        */
+    };
 
 
 
@@ -169,6 +186,8 @@ angular.module('w11kcal.app.month').controller('monthCtrl', /*ngInject*/ functio
                 .then(function () {
                     $scope.loading = false;
                     $scope.days = buildCalService.build(date);
+                    $scope.$broadcast('scroll.refreshComplete');
+
                     // !# CalendarBuildService aufrufen.
                 });
         }

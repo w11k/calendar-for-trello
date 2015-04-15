@@ -11,6 +11,14 @@
 
 
     <ion-content class="padding month" padding="true">
+        <ion-refresher
+                pulling-text="Pull to refresh..."
+                on-refresh="refresh()"
+                spinner="none"
+                pulling-text=""
+
+                >
+        </ion-refresher>
         <div class="calNav row">
             <div class="col-xs-1">
                 <i class="ion-chevron-left" ng-click="move(-1)" ></i>

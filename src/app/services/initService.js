@@ -1,10 +1,10 @@
 "use strict";
-angular.module("w11kcal.app").factory("initService", /*ngInject*/  function ($q, $http, localStorageService, $window, demoSaveService, colors) {
+angular.module("w11kcal.app").factory("initService", /*ngInject*/  function ($q, $http, localStorageService, $window, demoSaveService) {
 
     var key = "41485cd87d154168dd6db06cdd3ffd69";
     var token = localStorageService.get("trello_token");
     var login, me, boards, cards, data;
-    var i = 0;
+    var i = 1;
 
     return {
         init: function (option) {
@@ -31,18 +31,20 @@ angular.module("w11kcal.app").factory("initService", /*ngInject*/  function ($q,
                 .then(function(responses) {
                     login.resolve(responses);
                     var cards = responses[1].data;
-                    var boards = _.indexBy(responses[2].data, "id");
-/*
+                    var boards = responses[2].data;
                     boards.forEach(function (entry) {
-                        //entry.color = colors.i;
+                        entry.colorCount = i;
                         i++;
-                    });
-*/
 
+                        if(i == 20)
+                            i = 0;
+                    });
+                     boards = _.indexBy(boards, "id");
                     cards.forEach(function (entry) {
                         entry.waiting = false;
                         entry.boardName = boards[entry.idBoard].name;
                         entry.boardUrl = boards[entry.idBoard].url;
+                        entry.colorCount = boards[entry.idBoard].colorCount;
                         if (entry.due == null) {
                             entry.due = null;
                             return;

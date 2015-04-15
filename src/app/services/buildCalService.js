@@ -4,7 +4,7 @@ angular.module("w11kcal.app").factory("buildCalService", /*ngInject*/  function 
     /**
      * returns amount of days for month in year
      */
-    var cards, year, month, days;
+    var cards, year, month, days, day;
 
 
 
@@ -32,6 +32,7 @@ angular.module("w11kcal.app").factory("buildCalService", /*ngInject*/  function 
         build: function (date) {
             year = date.year;
             month = date.month;
+            day = new Date().getUTCDate();
 
             if(new Date().getMonth() == month){
                 console.log("aktueller Monat")
@@ -87,12 +88,21 @@ angular.module("w11kcal.app").factory("buildCalService", /*ngInject*/  function 
              */
 
             for (var d = 0; d < getMonthDays(month, year); d++){
+
+              var isToday = false;
+
+                if((day-1) === d ){
+                    isToday = true;
+                }
+
+
                 days.push({
                     dayOff: false,
                     i : d+1,
                     date: new Date(year,month,d+1,0,0,0,0),
                     cards: [],
-                    weekday: moment(new Date(year,month,d+1,0,0,0,0)).format("dddd")
+                    weekday: moment(new Date(year,month,d+1,0,0,0,0)).format("dddd"),
+                    isToday: isToday
                     ///, waiting: false aktiviern wenn day auch waiting zustand haben soll
                 });
             }

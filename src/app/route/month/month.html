@@ -16,31 +16,28 @@
                 on-refresh="refresh()"
                 spinner="none"
                 pulling-text=""
-
                 >
         </ion-refresher>
         <div class="calNav row">
-            <div class="col-xs-1">
+            <div class="col-xs-2">
                 <i class="ion-chevron-left" ng-click="move(-1)" ></i>
             </div>
-            <div class="col-xs-10 text-center monthName">
+            <div class="col-xs-8 text-center monthName">
                 {{date.monthName}}, {{date.year}}
             </div>
-            <div class="col-xs-1">
+            <div class="col-xs-2 text-right">
                 <i class="ion-chevron-right" ng-click="move(1)"></i>
             </div>
         </div>
 
-        <div class="filters">
+        <div class="filters" ng-class="{'colorize' : boardColors, 'defaultColor' : !boardColors }">
 
-                    <ui-select multiple ng-model="multipleDemo.selectedBoards"  ng-disabled="disabled">
-                        <ui-select-match placeholder="Select board...">{{$item.name}} &lt;{{$item.email}}&gt;</ui-select-match>
-                        <ui-select-choices repeat="board in boards">
-                            <div ng-bind-html="board.name | highlight: $select.search" ></div>
-                        </ui-select-choices>
-                    </ui-select>
-                    <!--<p>Selected: {{multipleDemo.selectedPeople}}</p>-->
-
+            <ui-select multiple ng-model="multipleDemo.selectedBoards"  ng-disabled="disabled">
+                <ui-select-match placeholder="Select board..."> <span class="inner" style="color:{{$item.color}}">{{$item.name}}</span></ui-select-match>
+                <ui-select-choices repeat="board in boards">
+                    <div ng-bind-html="board.name | highlight: $select.search" ></div>
+                </ui-select-choices>
+            </ui-select>
         </div>
 
 
@@ -62,9 +59,12 @@
                              ng-drag="true" ng-drag-data="card"
                              ng-drag-success="onDragSuccess($data,$event,$parent.$index)"
                              ng-center-anchor="{{centerAnchor}}"
-                             ng-class="{waiting: card.waiting}">
+                             ng-class="{waiting: card.waiting, 'stopColor' : !boardColors}"
+                             style="background:{{card.color}}"
+                                >
 
                             <div class="ion-arrow-move dragger"></div>
+                            <div class="ion-help-circled dragger showDetail " ng-click="detail(card.id)"></div>
 
                             <div class="title" ng-click="$event.stopPropagation();"><a ng-href="{{card.shortUrl}}" target="_blank"> {{card.name}}</a></div>
 <div class="board"><a ng-href="{{card.boardUrl}}" target="_blank"><span class="boardName">{{card.boardName}}</span></a>  | <span>{{card.badges.due | date : "HH:mm" : timezone}}</span></div>
@@ -94,5 +94,51 @@
                 Move Card to {{date.next[0]}}, {{date.next[1]}}
             </div>-->
         </div>
+
+
+        <div class="detail padding" ng-if="showDetail">
+            <div class="detailOptions">
+                <a class="" ng-href="{{singleCard.shortUrl}}" target="_blank"><span class="ion-android-open"></span></a>
+                <span class="ion-close " ng-click="closeDetail()"></span>
+            </div>
+
+
+            <div class="row responsive-sm">
+                <div class="col col-20"></div>
+                <div class="col col-80"><h4><strong>   {{singleCard.name}}</strong></h4></div>
+            </div>
+            <div class="row responsive-sm">
+                <div class="col col-20"><strong>Board:</strong></div>
+                <div class="col col-80"><a ng-href="{{singleCard.boardUrl}}" target="_blank"> {{singleCard.boardName}}</a></div>
+            </div>
+            <div class="row responsive-sm">
+                <div class="col col-20"><strong>Due date:</strong></div>
+                <div class="col col-80">{{singleCard.dueDate| date:'dd.MM.yyyy  HH:mm'}}</div>
+            </div>
+            <div class="row responsive-sm">
+                <div class="col col-20"><strong>Latest Activity:</strong></div>
+                <div class="col col-80">{{singleCard.dateLastActivity| date:'dd.MM.yyyy  HH:mm'}}</div>
+            </div>
+            <div class="row responsive-sm" ng-if="singleCard.desc">
+                <div class="col col-20"><strong>Description:</strong></div>
+                <div class="col col-80">
+                    <p>{{singleCard.desc}}</p>
+                </div>
+            </div>
+            <div class="row responsive-sm">
+                <div class="col col-20"><strong>Members:</strong></div>
+                <div class="col col-80">
+                    <p>... / ... / ... </p>
+                </div>
+            </div>
+
+
+            <span ng-if="singleCards.badges.comments">Kommentare:   {{singleCard.badges.comments}}</span>
+            <span ng-if="singleCards.badges.comments">Kommentare:   {{singleCard.comments}}</span>
+
+        </div>
+
+
+
     </ion-content>
 </ion-view>

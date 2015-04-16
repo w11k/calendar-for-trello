@@ -19,17 +19,19 @@
         <ion-content>
             <ion-list>
                 <ion-item>
-                    <i> Willkommen <strong>{{name}}.</strong></i>
+                     <small><i>Willkommen <strong>{{name}}.</strong></i></small>
                 </ion-item>
 
                 <ion-item nav-clear menu-close href="#/app/month">
                     Calendar
                 </ion-item>
+                <ion-item class="disabled">
+                    Week
+                </ion-item>
+                <ion-item nav-clear menu-close ui-sref="app.settings">
+                    Settings
+                </ion-item>
             </ion-list>
-
-
-
-
         </ion-content>
         <ion-footer-bar align-title="left">
             <h5 class=" grey"><i class="ion-ios-calendar"></i> powered by <a href="http://www.w11k.de">w11k</a></h5>

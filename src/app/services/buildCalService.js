@@ -4,7 +4,7 @@ angular.module("w11kcal.app").factory("buildCalService", /*ngInject*/  function 
     /**
      * returns amount of days for month in year
      */
-    var cards, year, month, days, day;
+    var cards, year, month, days, day,setToday;
 
 
 
@@ -34,9 +34,12 @@ angular.module("w11kcal.app").factory("buildCalService", /*ngInject*/  function 
             month = date.month;
             day = new Date().getUTCDate();
 
-            if(new Date().getMonth() == month){
-                console.log("aktueller Monat")
-            }
+           /* if(new Date().getMonth() == month){
+                setToday = true;
+            }else {
+                setToday = false;
+
+            }*/
 
 
             Date.prototype.mGetDay = function () {
@@ -91,7 +94,7 @@ angular.module("w11kcal.app").factory("buildCalService", /*ngInject*/  function 
 
               var isToday = false;
 
-                if((day-1) === d ){
+                if((day-1) === d && new Date().getMonth() == month){
                     isToday = true;
                 }
 

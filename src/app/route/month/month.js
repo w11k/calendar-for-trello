@@ -50,7 +50,9 @@ angular.module('w11kcal.app.month').config(/*ngInject*/ function ($stateProvider
 angular.module('w11kcal.app.month').run(function () {
 });
 
-angular.module('w11kcal.app.month').controller('monthCtrl', /*ngInject*/ function (initService,archiveCard, $scope, changeDate,Notification, demoSaveService,$window,isFreshView,$stateParams, $location,buildCalService) {
+angular.module('w11kcal.app.month').controller('monthCtrl', /*ngInject*/ function (initService, $timeout, $interval, $ionicScrollDelegate,archiveCard, $scope, changeDate,Notification, demoSaveService,$window,isFreshView,$stateParams, $location,buildCalService) {
+
+
 
     /**
      * Part 1: config
@@ -87,6 +89,7 @@ angular.module('w11kcal.app.month').controller('monthCtrl', /*ngInject*/ functio
         month: date.month,
         year: date.year
     };
+    // $scope.boardColors = localStorageService.get("boardColors") == "true";
 
 
 
@@ -94,7 +97,7 @@ angular.module('w11kcal.app.month').controller('monthCtrl', /*ngInject*/ functio
      * Part 2: Build
      */
 
-    // top legende
+        // top legende
     $scope.weekdays = [];
     for (var i = 0; i <= 6; i++){
         var long =  moment().weekday(i).format("dddd");
@@ -113,7 +116,8 @@ angular.module('w11kcal.app.month').controller('monthCtrl', /*ngInject*/ functio
         $scope.boards.push({
             name: board.name,
             id: board.id,
-            ticked: true
+            ticked: true,
+            color: board.prefs.backgroundColor
         })
     });
     $scope.multipleDemo = {};
@@ -140,12 +144,19 @@ angular.module('w11kcal.app.month').controller('monthCtrl', /*ngInject*/ functio
         }
     };
 
+
+
+
     $scope.logout = function (){
         demoSaveService.remove();
         $scope.login = false;
         console.log(demoSaveService.print());
         $window.location.reload();
     };
+
+
+
+
 
     $scope.move = function (steps){
         year = date.year;
@@ -164,9 +175,6 @@ angular.module('w11kcal.app.month').controller('monthCtrl', /*ngInject*/ functio
 
 
 
-    $scope.click = function (id){
-       console.log("click on card" +id)
-    };
 
     // Drag 'n Drop
     $scope.onDragSuccess = function (data, evt, from) {
@@ -220,26 +228,19 @@ angular.module('w11kcal.app.month').controller('monthCtrl', /*ngInject*/ functio
             targetDate = new Date(targetDate.setDate(1));
         }
 
-
         changeDate.async(data.id, targetDate).then(function (){
                 console.log("succes");
-
             },
             function (){
                 console.log("err");
             });
-
-
     };
+
+
 
     $scope.archiveCard = function (data){
         var id = data.id;
-
         archiveCard.async(id).then(function (){
-
-            console.log(".then")
-
-
             var message = '<span ng-controller="archiveCtrl"><br>Archived </span>';
             Notification.warning({message: message});
         });
@@ -248,12 +249,26 @@ angular.module('w11kcal.app.month').controller('monthCtrl', /*ngInject*/ functio
 
 
 
+    $scope.showDetail = false;
+    $scope.detail = function (id) {
+        $scope.showDetail = true;
+        $ionicScrollDelegate.scrollBottom();
+        $scope.singleCard =_.find(demoSaveService.print()[1].data, { 'id': id})
+    };
 
 
 
+    $scope.closeDetail = function () {
+        $scope.showDetail = false;
+    };
 
 
-
+    $interval(function () {
+            if($scope.doRefresh) {
+                $scope.refresh()
+                console.log()
+            }
+        }, 30000, 0, false);
 });
 
 

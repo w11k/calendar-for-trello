@@ -31,20 +31,13 @@ angular.module("w11kcal.app").factory("initService", /*ngInject*/  function ($q,
                 .then(function(responses) {
                     login.resolve(responses);
                     var cards = responses[1].data;
-                    var boards = responses[2].data;
-                    boards.forEach(function (entry) {
-                        entry.colorCount = i;
-                        i++;
 
-                        if(i == 20)
-                            i = 0;
-                    });
-                     boards = _.indexBy(boards, "id");
+                    var  boards = _.indexBy(responses[2].data, "id");
                     cards.forEach(function (entry) {
                         entry.waiting = false;
                         entry.boardName = boards[entry.idBoard].name;
                         entry.boardUrl = boards[entry.idBoard].url;
-                        entry.colorCount = boards[entry.idBoard].colorCount;
+                        entry.color = boards[entry.idBoard].prefs.backgroundColor;
                         if (entry.due == null) {
                             entry.due = null;
                             return;

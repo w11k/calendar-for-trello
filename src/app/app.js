@@ -3,6 +3,7 @@
 angular.module('w11kcal.app', [
     'ionic',
     'w11kcal.app.month',
+    'w11kcal.app.settings',
     'ngSanitize',
     'ui.bootstrap',
     'ui.bootstrap.datetimepicker',
@@ -13,9 +14,23 @@ angular.module('w11kcal.app', [
     'ui.select'
 ]);
 
-angular.module('w11kcal.app').run( /*ngInject*/ function ($ionicPlatform, $window,  $rootScope, cfpLoadingBar) {
+angular.module('w11kcal.app').run( /*ngInject*/ function ($ionicPlatform, $window,  $rootScope, cfpLoadingBar,localStorageService) {
+
+
+    $rootScope.doRefresh = localStorageService.get("refresh") == "true";
+    $rootScope.boardColors = localStorageService.get("boardColors") == "true";
+
+
+    $rootScope.$on('settings-changed', function(event, args) {
+        $rootScope.doRefresh = localStorageService.get("refresh") == "true";
+        $rootScope.boardColors = localStorageService.get("boardColors") == "true";
+
+    });
+
+
+
     $ionicPlatform.ready(function () {
-        // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
+        // Hide the accessory bar by defflt (remove this to show the accessory bar above the keyboard
         // for form inputs)
         if ($window.cordova && $window.cordova.plugins.Keyboard) {
             $window.cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
@@ -45,8 +60,6 @@ angular.module('w11kcal.app').run( /*ngInject*/ function ($ionicPlatform, $windo
 
 angular.module('w11kcal.app').config(/*ngInject*/ function ($stateProvider, $urlRouterProvider,$ionicConfigProvider,localStorageServiceProvider, uiSelectConfig) {
     moment.locale('de');
- //   uiSelectConfig.theme = 'bootstrap';
- //       uiSelectConfig.resetSearchInput = true;
         uiSelectConfig.appendToBody = true;
 
 
@@ -77,7 +90,6 @@ angular.module('w11kcal.app').config(/*ngInject*/ function ($stateProvider, $url
                     $location.path("/app/month")
                 }
             }
-
         });
 
 
@@ -96,12 +108,14 @@ angular.module('w11kcal.app').config(/*ngInject*/ function ($stateProvider, $url
 });
 
 angular.module('w11kcal.app').constant('AppKey', '41485cd87d154168dd6db06cdd3ffd69');
-//angular.module('w11kcal.app').constant('colors', ["red", "blue", "green", "pink"]);
-// entfernt da per css gelöst
 
 
 angular.module('w11kcal.app').controller('sidebarCtrl', function ( /*ngInject*/ $scope, demoSaveService) {
-    $scope.name = demoSaveService.print()[0].data["fullName"];
+    if(demoSaveService.print()){
+        $scope.name = demoSaveService.print()[0].data["fullName"];
+    } else {
+        $scope.name = "- please login to start"
+    }
 });
 
 

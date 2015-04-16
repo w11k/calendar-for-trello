@@ -1,0 +1,24 @@
+<ion-view title="Settings">
+    <ion-nav-buttons side="right">
+        <div ng-switch="login">
+            <button class="button button-positive" ng-switch-default ng-click="auth()">Login</button>
+            <button class="button  button-positive" ng-click="refresh()"  ng-switch-when="true" ng-class="{animate: loading}"><i class="ion-refresh"></i></button>
+            <button class="button  button-assertive" ng-switch-when="true" ng-click="logout()">Logout</button>
+        </div>
+    </ion-nav-buttons>
+    <ion-content class="Week" >
+        <ul class="list">
+            <div class="item">
+                Settings
+            </div>
+            <ion-toggle ng-repeat="item in settingsList"
+                        ng-model="item.checked"
+                        ng-checked="item.checked"
+                        ng-change="pushNotificationChange(item)"
+                        toggle-class="toggle-positive">
+                <i class="{{item.icon}}"></i>
+                {{ item.text }}
+            </ion-toggle>
+        </ul>
+    </ion-content>
+</ion-view>

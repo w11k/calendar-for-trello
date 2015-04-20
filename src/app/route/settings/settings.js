@@ -60,6 +60,26 @@ angular.module('w11kcal.app.settings').controller('settingsCtrl', /*ngInject*/ f
 
 
 
+
+
+    $scope.options = [
+        { label: 'Month', value: false },
+        { label: 'Week', value: true }
+    ];
+
+    if(localStorageService.get("startWithWeek") === "true"){
+        $scope.choice = $scope.options[1];
+    } else {
+        $scope.choice = $scope.options[0];
+    }
+
+    $scope.change = function (el) {
+        localStorageService.set("startWithWeek", el.value)
+    }
+
+
+
+
 });
 
 

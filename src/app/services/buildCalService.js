@@ -4,7 +4,7 @@ angular.module("w11kcal.app").factory("buildCalService", /*ngInject*/  function 
     /**
      * returns amount of days for month in year
      */
-    var cards, year, month, days, day,setToday;
+    var cards, year, month, days, day;
 
 
 
@@ -53,7 +53,6 @@ angular.module("w11kcal.app").factory("buildCalService", /*ngInject*/  function 
             var firstOfMonth = new Date(year, month,1,0,0,0,0);
             var push = firstOfMonth.mGetDay();
             if (push === 0){
-                console.log("ist null");
                 push = 7;
             }
 
@@ -97,8 +96,6 @@ angular.module("w11kcal.app").factory("buildCalService", /*ngInject*/  function 
                 if((day-1) === d && new Date().getMonth() == month){
                     isToday = true;
                 }
-
-
                 days.push({
                     dayOff: false,
                     i : d+1,
@@ -110,7 +107,6 @@ angular.module("w11kcal.app").factory("buildCalService", /*ngInject*/  function 
                 });
             }
 
-
             /**
              * closing Phase - push days of next month
              */
@@ -118,14 +114,11 @@ angular.module("w11kcal.app").factory("buildCalService", /*ngInject*/  function 
 
             var a = days.length;
             if (a % 7 != 0) {
-
                 a = 7-(a % 7);
             } else {
                 a = 7;
             }
-
             for (var i = 0; i < a; i++) {
-
                 days.push({
                     dayOff: true,
                     i: i+1,
@@ -137,16 +130,20 @@ angular.module("w11kcal.app").factory("buildCalService", /*ngInject*/  function 
             }
             // Jetzt zähle die Tage dann teil durch / und füg an.
             cards = _.groupBy(cards, 'dueDate');
-
             delete cards.undefined;
             days = _.indexBy(days, 'date');
             days = _.toArray(days);
             days.forEach(function (entry){
                 entry.cards= cards[entry.date];
-                //console.log(cards[entry.date]);
-                //console.log(cards)
             });
+            // console.log("buildCal gebaut für:" + date.year +", " + date.month );
+            // $rootScope.$broadcast('lastViewChangedTo', date);
             return days;
+        },
+
+
+        lastView: function (){
+            return month;
         }
     };
 

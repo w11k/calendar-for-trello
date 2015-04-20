@@ -4,6 +4,7 @@ angular.module('w11kcal.app', [
     'ionic',
     'w11kcal.app.month',
     'w11kcal.app.settings',
+    'w11kcal.app.week',
     'ngSanitize',
     'ui.bootstrap',
     'ui.bootstrap.datetimepicker',
@@ -19,15 +20,16 @@ angular.module('w11kcal.app').run( /*ngInject*/ function ($ionicPlatform, $windo
 
     $rootScope.doRefresh = localStorageService.get("refresh") == "true";
     $rootScope.boardColors = localStorageService.get("boardColors") == "true";
+    $rootScope.week =  localStorageService.get("startWithWeek") == "true";
 
-
+/*
     $rootScope.$on('settings-changed', function(event, args) {
         $rootScope.doRefresh = localStorageService.get("refresh") == "true";
         $rootScope.boardColors = localStorageService.get("boardColors") == "true";
 
     });
 
-
+*/
 
     $ionicPlatform.ready(function () {
         // Hide the accessory bar by defflt (remove this to show the accessory bar above the keyboard
@@ -54,6 +56,8 @@ angular.module('w11kcal.app').run( /*ngInject*/ function ($ionicPlatform, $windo
         function(){ // Options: event, toState, toParams, fromState, fromParams
             cfpLoadingBar.complete();
         });
+
+
 
 
 });
@@ -110,12 +114,30 @@ angular.module('w11kcal.app').config(/*ngInject*/ function ($stateProvider, $url
 angular.module('w11kcal.app').constant('AppKey', '41485cd87d154168dd6db06cdd3ffd69');
 
 
-angular.module('w11kcal.app').controller('sidebarCtrl', function ( /*ngInject*/ $scope, demoSaveService) {
+angular.module('w11kcal.app').controller('sidebarCtrl', function ( /*ngInject*/ $state, buildCalService, $scope, demoSaveService,$rootScope) {
+
     if(demoSaveService.print()){
         $scope.name = demoSaveService.print()[0].data["fullName"];
     } else {
         $scope.name = "- please login to start"
     }
+
+
+
+    $scope.week = function(){
+
+        $rootScope.week = true;
+        $state.go("app.month");
+    };
+
+
+    $scope.toCal = function() {
+        $rootScope.week = false;
+        $state.go("app.month");
+    }
+
+    $rootScope.weekPosition = 0;
+
 });
 
 

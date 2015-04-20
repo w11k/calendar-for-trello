@@ -53,7 +53,16 @@ i.icon {padding-right:4px;}
   //padding:5px 10px;
 }
 
-#MonthView {
+
+.isWeekView .listView .day {
+  min-height: 500px;
+}
+.isWeekView .listView .day.header {
+  min-height: 30px;
+}
+
+
+.listView {
   width:100%;
   border-top:1px solid #D5D5D5;
   border-left:1px solid #D5D5D5;
@@ -67,6 +76,8 @@ i.icon {padding-right:4px;}
     border-bottom:1px solid #d5d5d5;
     padding:5px;
     display:block;
+
+
   }
 
   .day.has .dayCounter{
@@ -192,7 +203,7 @@ i.icon {padding-right:4px;}
 }
 
 @media screen and (min-width: 767px) {
-  #MonthView {
+  .listView {
     display:-webkit-box;
     display:-ms-flexbox;
     display:flex;
@@ -229,7 +240,7 @@ i.icon {padding-right:4px;}
 
 
 @media (min-width: 992px) {
-  #MonthView {
+  .listView {
 
     .day.header {
       .short {display:none}
@@ -511,3 +522,6 @@ h5.grey {
 
 
 .stopColor {background: #337ab7 !important;}
+
+
+.item-select { padding-top: 11px; padding-bottom: 7px;}

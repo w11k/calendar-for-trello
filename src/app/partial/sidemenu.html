@@ -1,9 +1,6 @@
 <ion-side-menus enable-menu-with-back-views="true">
     <ion-side-menu-content>
         <ion-nav-bar class="bar-dark">
-           <!-- <ion-nav-back-button>
-            </ion-nav-back-button>-->
-
             <ion-nav-buttons side="left">
                 <button class="button button-icon button-clear ion-navicon" menu-toggle="left">
                 </button>
@@ -11,7 +8,6 @@
         </ion-nav-bar>
         <ion-nav-view name="menuContent" animation="no-animation"></ion-nav-view>
     </ion-side-menu-content>
-
     <ion-side-menu side="left" expose-aside-when="(min-width:960px)">
         <ion-header-bar class="bar-dark">
             <h1 class="title">w11k Trello Calendar</h1>
@@ -22,10 +18,10 @@
                      <small><i>Willkommen <strong>{{name}}.</strong></i></small>
                 </ion-item>
 
-                <ion-item nav-clear menu-close href="#/app/month">
+                <ion-item nav-clear menu-close ng-click="toCal()">
                     Calendar
                 </ion-item>
-                <ion-item class="disabled">
+                <ion-item  nav-clear menu-close ng-click="week()">
                     Week
                 </ion-item>
                 <ion-item nav-clear menu-close ui-sref="app.settings">
@@ -34,8 +30,9 @@
             </ion-list>
         </ion-content>
         <ion-footer-bar align-title="left">
-            <h5 class=" grey"><i class="ion-ios-calendar"></i> powered by <a href="http://www.w11k.de">w11k</a></h5>
+            <h5 class="grey"><i class="ion-ios-calendar"></i> powered by <a href="http://www.w11k.de">w11k</a></h5>
         </ion-footer-bar>
 
     </ion-side-menu>
 </ion-side-menus>
+

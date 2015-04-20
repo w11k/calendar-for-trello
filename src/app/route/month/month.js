@@ -50,13 +50,27 @@ angular.module('w11kcal.app.month').config(/*ngInject*/ function ($stateProvider
 angular.module('w11kcal.app.month').run(function () {
 });
 
-angular.module('w11kcal.app.month').controller('monthCtrl', /*ngInject*/ function (initService, $timeout, $interval, $ionicScrollDelegate,archiveCard, $scope, changeDate,Notification, demoSaveService,$window,isFreshView,$stateParams, $location,buildCalService) {
+angular.module('w11kcal.app.month').controller('monthCtrl', /*ngInject*/ function (initService, $timeout, $interval, $ionicScrollDelegate,archiveCard, $scope, changeDate,Notification, demoSaveService,$window,isFreshView,$stateParams, $location,buildCalService,$rootScope) {
+
 
 
 
     /**
      * Part 1: config
      */
+    $scope.view = 'month';
+   // $scope.week = 0;
+
+    $scope.$on('changeToWeek', function(event, args) {
+        console.log("..$on recived: changeToWeek");
+        $scope.view = 'week';
+    });
+
+    $scope.$on('changeToMonth', function(event, args) {
+        console.log("..$on recived: changeToMonth");
+        $scope.view = 'month';
+    });
+
     var today, month, year;
 
     if(demoSaveService.print()){
@@ -159,6 +173,7 @@ angular.module('w11kcal.app.month').controller('monthCtrl', /*ngInject*/ functio
 
 
     $scope.move = function (steps){
+        console.log($rootScope.weekPosition);
         year = date.year;
         month = (date.month + steps);
         if(month >= 12){
@@ -169,6 +184,9 @@ angular.module('w11kcal.app.month').controller('monthCtrl', /*ngInject*/ functio
             year--;
         }
         // year;
+
+        console.log("via Move gebaut für:" + year +", " + month );
+        $rootScope.$broadcast('lastViewChangedTo', {year: year, month: month});
         $location.path("/app/month/"+year+"-"+(month+1));
     };
 
@@ -182,6 +200,7 @@ angular.module('w11kcal.app.month').controller('monthCtrl', /*ngInject*/ functio
         if (index > -1) {
             $scope.days[from].cards.splice(index, 1);
         }
+        console.log("way")
         //$scope.DragProcess = true;
     };
 
@@ -265,11 +284,53 @@ angular.module('w11kcal.app.month').controller('monthCtrl', /*ngInject*/ functio
 
     $interval(function () {
             if($scope.doRefresh) {
-                $scope.refresh()
+                $scope.refresh();
                 console.log()
             }
         }, 30000, 0, false);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /**
+     * Week
+     */
+
+
+
+    $scope.weekFilter = function (day, index) {
+        return index < $rootScope.weekPosition+7 && index >= $rootScope.weekPosition ;
+    };
+
+    $scope.moveWeek = function (steps) {
+        if($rootScope.weekPosition === 0 && steps < 0) {
+            $rootScope.weekPosition = 28;
+            $scope.move(-1);
+        }
+        else if ($rootScope.weekPosition === 28 && steps > 0) {
+            $rootScope.weekPosition = 0;
+            $scope.move(1);
+        }
+        else {
+            $rootScope.weekPosition = $rootScope.weekPosition + steps*7;
+        }
+    }
 });
+
+
+
 
 
 

@@ -1,0 +1,15 @@
+<ion-view title="Week">
+    <ion-nav-buttons side="right">
+        <div ng-switch="login">
+            <button class="button button-positive" ng-switch-default ng-click="auth()">Login</button>
+            <button class="button  button-positive" ng-click="refresh()"  ng-switch-when="true" ng-class="{animate: loading}"><i class="ion-refresh"></i></button>
+            <button class="button  button-assertive" ng-switch-when="true" ng-click="logout()">Logout</button>
+        </div>
+    </ion-nav-buttons>
+    <ion-content class="week" >
+
+
+
+
+    </ion-content>
+</ion-view>

@@ -6,10 +6,10 @@
             <button class="button  button-assertive" ng-switch-when="true" ng-click="logout()">Logout</button>
         </div>
     </ion-nav-buttons>
-    <ion-content class="Week" >
+    <ion-content >
         <ul class="list">
             <div class="item">
-                Settings
+                <strong>Settings</strong>
             </div>
             <ion-toggle ng-repeat="item in settingsList"
                         ng-model="item.checked"
@@ -19,6 +19,20 @@
                 <i class="{{item.icon}}"></i>
                 {{ item.text }}
             </ion-toggle>
+
+
+
+
+
+            <div class="item item-input item-select">
+                <div class="input-label">
+                    Default Calendar View:
+                </div>
+                <select ng-model="choice" ng-options="opt as opt.label for opt in options" ng-change="change(choice)">
+                </select>
+            </div>
+
+
         </ul>
     </ion-content>
 </ion-view>

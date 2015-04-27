@@ -16,8 +16,9 @@ angular.module('w11kcal.app').factory('archiveCard',  /*ngInject*/  function(App
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'},
                 transformRequest: function(obj) {
                     var str = [];
-                    for(var p in obj)
+                    for(var p in obj) {
                         str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+                    }
                     return str.join("&");
                 },
                 data: data
@@ -25,5 +26,4 @@ angular.module('w11kcal.app').factory('archiveCard',  /*ngInject*/  function(App
         }};
 
     return resourceFactory;
-
 });

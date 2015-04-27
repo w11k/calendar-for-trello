@@ -1,31 +1,32 @@
 "use strict";
-angular.module("w11kcal.app").factory("buildCalService", /*ngInject*/  function (demoSaveService) {
+angular.module("w11kcal.app").factory("buildCalService", /*ngInject*/  function (saveService) {
 
     /**
      * returns amount of days for month in year
      */
-    var cards, year, month, days, day;
+    var cards, year, month, days, day, i;
 
-
-
-    function getMonthDays (month, year){
-
-
-
+    function getMonthDays (month, year) {
         var dayCounter = 31;
-        // April, Juni, September, Nov 30 tage
-        if (month == 3 || month == 5 || month == 8 || month == 10) --dayCounter;
-        // Februar Schaltjahre
-        if (month == 1) {
+        // april, june, september, november 30 days
+        if (month === 3 || month === 5 || month === 8 || month === 10) {
+            --dayCounter;
+        }
+        // leap-year
+        if (month === 1) {
             dayCounter = dayCounter-3;
-            if (year  %   4 == 0) dayCounter++;
-            if (year % 100 == 0) dayCounter--;
-            if (year % 400 == 0) dayCounter++;
+            if (year  %   4 === 0) {
+                dayCounter++;
+            }
+            if (year % 100 === 0) {
+                dayCounter--;
+            }
+            if (year % 400 === 0) {
+                dayCounter++;
+            }
         }
         return dayCounter;
     }
-
-
 
 
     return {
@@ -34,32 +35,20 @@ angular.module("w11kcal.app").factory("buildCalService", /*ngInject*/  function 
             month = date.month;
             day = new Date().getUTCDate();
 
-           /* if(new Date().getMonth() == month){
-                setToday = true;
-            }else {
-                setToday = false;
-
-            }*/
-
-
             Date.prototype.mGetDay = function () {
                 return (this.getDay() + 6) %7;
             };
-
-
-            cards = demoSaveService.print()[1].data;
-
-            //  var boards = data[2];
+            cards = saveService.print()[1].data;
             var firstOfMonth = new Date(year, month,1,0,0,0,0);
             var push = firstOfMonth.mGetDay();
-            if (push === 0){
+            if (push === 0) {
                 push = 7;
             }
 
             var lastMonthDays, yearIn, monthIn;
 
-            // Januar abfangen
-            if(month == 0){
+            // fetch January
+            if(month === 0) {
                  lastMonthDays = 31-push;
                  yearIn = year -1;
                  monthIn = 11;
@@ -73,7 +62,7 @@ angular.module("w11kcal.app").factory("buildCalService", /*ngInject*/  function 
             /**
              * pre Phase - push days of last month
              */
-            for (var i = 0; i < push; i++) {
+            for ( i = 0; i < push; i++) {
                 lastMonthDays = lastMonthDays + 1;
                 days.push({
                     dayOff: true,
@@ -86,14 +75,14 @@ angular.module("w11kcal.app").factory("buildCalService", /*ngInject*/  function 
             }
 
             /**
-             * regular Phase - push days of  month
+             * regular Phase - push days of month
              */
 
-            for (var d = 0; d < getMonthDays(month, year); d++){
+            for (var d = 0; d < getMonthDays(month, year); d++) {
 
               var isToday = false;
 
-                if((day-1) === d && new Date().getMonth() == month){
+                if((day-1) === d && new Date().getMonth() === month) {
                     isToday = true;
                 }
                 days.push({
@@ -113,45 +102,34 @@ angular.module("w11kcal.app").factory("buildCalService", /*ngInject*/  function 
 
 
             var a = days.length;
-            if (a % 7 != 0) {
+            if (a % 7 !== 0) {
                 a = 7-(a % 7);
             } else {
                 a = 7;
             }
-            for (var i = 0; i < a; i++) {
+
+            for (i = 0; i < a; i++) {
                 days.push({
                     dayOff: true,
                     i: i+1,
                     date: new Date(year, month+1, i+1, 0, 0, 0, 0),
                     cards: [],
                     weekday: moment(new Date(year, month+1, i+1, 0, 0, 0, 0)).format("dddd")
-                    ///, waiting: false aktiviern wenn day auch waiting zustand haben soll
                 });
             }
-            // Jetzt zähle die Tage dann teil durch / und füg an.
             cards = _.groupBy(cards, 'dueDate');
             delete cards.undefined;
             days = _.indexBy(days, 'date');
             days = _.toArray(days);
-            days.forEach(function (entry){
+            days.forEach(function (entry) {
                 entry.cards= cards[entry.date];
             });
-            // console.log("buildCal gebaut für:" + date.year +", " + date.month );
-            // $rootScope.$broadcast('lastViewChangedTo', date);
             return days;
         },
 
 
-        lastView: function (){
+        lastView: function () {
             return month;
         }
     };
-
-
-
-
-
-
-
-
 });

@@ -1,10 +1,10 @@
 'use strict';
 
+
 angular.module('w11kcal.app', [
     'ionic',
     'w11kcal.app.month',
     'w11kcal.app.settings',
-    'w11kcal.app.week',
     'ngSanitize',
     'ui.bootstrap',
     'ui.bootstrap.datetimepicker',
@@ -15,21 +15,25 @@ angular.module('w11kcal.app', [
     'ui.select'
 ]);
 
+angular.module('w11kcal.app').constant('AppKey', '41485cd87d154168dd6db06cdd3ffd69');
+angular.module('w11kcal.app').constant('baseUrl', 'http://localhost:9000');
+
+
+
 angular.module('w11kcal.app').run( /*ngInject*/ function ($ionicPlatform, $window,  $rootScope, cfpLoadingBar,localStorageService) {
 
 
-    $rootScope.doRefresh = localStorageService.get("refresh") == "true";
-    $rootScope.boardColors = localStorageService.get("boardColors") == "true";
-    $rootScope.week =  localStorageService.get("startWithWeek") == "true";
+    $rootScope.doRefresh = localStorageService.get("refresh") === "true";
+    $rootScope.boardColors = localStorageService.get("boardColors") === "true";
+    $rootScope.week =  localStorageService.get("startWithWeek") === "true";
 
-/*
-    $rootScope.$on('settings-changed', function(event, args) {
-        $rootScope.doRefresh = localStorageService.get("refresh") == "true";
-        $rootScope.boardColors = localStorageService.get("boardColors") == "true";
+
+    $rootScope.$on('settings-changed', function () {
+        $rootScope.doRefresh = localStorageService.get("refresh") === "true";
+        $rootScope.boardColors = localStorageService.get("boardColors") === "true";
 
     });
 
-*/
 
     $ionicPlatform.ready(function () {
         // Hide the accessory bar by defflt (remove this to show the accessory bar above the keyboard
@@ -46,14 +50,14 @@ angular.module('w11kcal.app').run( /*ngInject*/ function ($ionicPlatform, $windo
 
     $rootScope
         .$on('$stateChangeStart',
-        function(){
+        function (){
             cfpLoadingBar.start();
 
         });
 
     $rootScope
         .$on('$stateChangeSuccess',
-        function(){ // Options: event, toState, toParams, fromState, fromParams
+        function () { // Options: event, toState, toParams, fromState, fromParams
             cfpLoadingBar.complete();
         });
 
@@ -91,50 +95,45 @@ angular.module('w11kcal.app').config(/*ngInject*/ function ($stateProvider, $url
                     delete $location.$$search.token;
                     delete $location.$$search.do;
 
-                    $location.path("/app/month")
+                    $location.path("/app/month/"+new Date().getFullYear()+"-"+(new Date().getMonth()+1));
                 }
             }
         });
 
-
-
-
     $ionicConfigProvider.views.transition('none');
-
     // if none of the above states are matched, use this as the fallback
-    $urlRouterProvider.otherwise('/app/month/');
-
+    $urlRouterProvider.otherwise(function ($injector) {
+        var $state = $injector.get('$state');
+        $state.go('app.month', {date: new Date().getFullYear()+"-"+(new Date().getMonth()+1)});
+    });
         localStorageServiceProvider
             .setPrefix('w11k')
-            .setStorageType('localStorage')
-
-
+            .setStorageType('localStorage');
 });
 
-angular.module('w11kcal.app').constant('AppKey', '41485cd87d154168dd6db06cdd3ffd69');
 
 
-angular.module('w11kcal.app').controller('sidebarCtrl', function ( /*ngInject*/ $state, buildCalService, $scope, demoSaveService,$rootScope) {
 
-    if(demoSaveService.print()){
-        $scope.name = demoSaveService.print()[0].data["fullName"];
+angular.module('w11kcal.app').controller('sidebarCtrl', function ( /*ngInject*/ $state, buildCalService, $scope, saveService,$rootScope) {
+
+    if(saveService.print()){
+        $scope.name = saveService.print()[0].data.fullName;
     } else {
-        $scope.name = "- please login to start"
+        $scope.name = "- please login to start";
     }
 
 
-
-    $scope.week = function(){
+    $scope.week = function (){
 
         $rootScope.week = true;
         $state.go("app.month");
     };
 
 
-    $scope.toCal = function() {
+    $scope.toCal = function () {
         $rootScope.week = false;
         $state.go("app.month");
-    }
+    };
 
     $rootScope.weekPosition = 0;
 

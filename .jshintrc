@@ -26,12 +26,13 @@
     "jasmine",
     "spyOn",
     "browser",
-    "element"
+    "element",
+    "moment"
   ],
 
   // Development.
   "debug"         : false,  // Allow debugger statements e.g. browser breakpoints.
-  "devel"         : false,   // Allow development statements e.g. `console.log();`.
+  "devel"         : true,   // Allow development statements e.g. `console.log();`.
 
 
   // EcmaScript 5.
@@ -76,7 +77,7 @@
 
   "indent": 2,
   "camelcase": true,
-  "quotmark": "single",
+  "quotmark": ["single", "double"],
   "unused": true,
   "smarttabs": false
 }

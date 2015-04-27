@@ -90,6 +90,8 @@ angular.module('w11kcal.app.month').controller('monthCtrl', /*ngInject*/ functio
         $scope.weekdays[i] = [short, long];
     }
     // build the Cal
+
+
     $scope.days = buildCalService.build(date);
 
 
@@ -144,6 +146,10 @@ angular.module('w11kcal.app.month').controller('monthCtrl', /*ngInject*/ functio
 
 
     $scope.move = function (steps) {
+
+        console.log("move");
+
+
         console.log($rootScope.weekPosition);
         year = date.year;
         month = (date.month + steps);

@@ -57,29 +57,15 @@
 
             <div class="listView">
                 <div class="day header" ng-repeat="wd in weekdays"><span class="short">{{wd[0]}}</span><span class="long">{{wd[1]}}</span></div>
-                <div ng-repeat="day in days | orderBy: 'date':false "
+
+
+
+                <div ng-repeat="day in days"
                      class="day"
                      ng-class="{'dayOff': day.dayOff, 'dayOn' : !day.dayOff, 'has' : day.cards.length >= 1, 'today' :day.isToday}"
                      ng-drop="true"
                      ng-drop-success="onDropComplete($data,$event, $index, day.date)">
-                    <div class="dayCounter" ><span class="weekday">{{day.weekday}}</span><span>{{day.i}}</span></div>
-                    <div class="dayCards">
-                        <div ng-repeat="card in day.cards | orderBy:['badges.due', 'name'] | filter: activeBoard">
-
-                            <div class="dayCard color{{card.colorCount}}"
-                                 ng-drag="true" ng-drag-data="card"
-                                 ng-drag-success="onDragSuccess($data,$event,$parent.$index)"
-                                 ng-center-anchor="{{centerAnchor}}"
-                                 ng-class="{waiting: card.waiting, 'stopColor' : !boardColors}"
-                                 style="background:{{card.color}}"
-                                    >
-                                <div class="ion-arrow-move dragger"></div>
-                                <div class="ion-help-circled dragger showDetail " ng-click="detail(card.id)"></div>
-                                <div class="title" ng-click="$event.stopPropagation();"><a ng-href="{{card.shortUrl}}" target="_blank"> {{card.name}}</a></div>
-                                <div class="board"> <a ng-href="{{card.boardUrl}}" target="_blank"><span class="boardName">{{card.boardName}}</span></a>  | <span>{{card.badges.due | date : "HH:mm" : timezone}}</span></div>
-                            </div>
-                        </div>
-                    </div>
+                    {{day  | date:'medium'}}
                 </div>
             </div>
         </section>
@@ -115,28 +101,12 @@
             </div>
             <div class="listView">
                 <div class="day header" ng-repeat="wd in weekdays"><span class="short">{{wd[0]}}</span><span class="long">{{wd[1]}}</span></div>
-                <div ng-repeat="day in days | orderBy: 'date' | filter:weekFilter "
+                <div ng-repeat="day in days | filter: weekFilter"
                      class="day"
                      ng-class="{'dayOff': day.dayOff, 'dayOn' : !day.dayOff, 'has' : day.cards.length >= 1, 'today' :day.isToday}"
                      ng-drop="true"
-                     ng-drop-success="onDropComplete($data,$event, (day.i+1), day.date)">
-                    <div class="dayCounter" ><span class="weekday">{{day.weekday}}</span><span>{{day.i}}</span></div>
-                    <div class="dayCards">
-                        <div ng-repeat="card in day.cards | orderBy:['badges.due', 'name'] | filter: activeBoard">
-                            <div class="dayCard color{{card.colorCount}}"
-                                 ng-drag="true" ng-drag-data="card"
-                                 ng-drag-success="onDragSuccess($data,$event,(day.i+1))"
-                                 ng-center-anchor="{{centerAnchor}}"
-                                 ng-class="{waiting: card.waiting, 'stopColor' : !boardColors}"
-                                 style="background:{{card.color}}"
-                                    >
-                                <div class="ion-arrow-move dragger"></div>
-                                <div class="ion-help-circled dragger showDetail " ng-click="detail(card.id)"></div>
-                                <div class="title" ng-click="$event.stopPropagation();"><a ng-href="{{card.shortUrl}}" target="_blank"> {{card.name}}</a></div>
-                                <div class="board"><a ng-href="{{card.boardUrl}}" target="_blank"><span class="boardName">{{card.boardName}}</span></a>  | <span>{{card.badges.due | date : "HH:mm" : timezone}}</span></div>
-                            </div>
-                        </div>
-                    </div>
+                     ng-drop-success="onDropComplete($data,$event, $index, day.date)">
+                    {{day  | date:'medium'}}
                 </div>
             </div>
         </section>

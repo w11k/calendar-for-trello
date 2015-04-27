@@ -2,23 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="eaadce51-f369-493d-97ef-849b8b386b2f" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/LICENSE" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/route/week/week.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/route/week/week.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/app/services/demoSaveService.js" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.jshintrc" afterPath="$PROJECT_DIR$/.jshintrc" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/app.js" afterPath="$PROJECT_DIR$/src/app/app.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/app.less" afterPath="$PROJECT_DIR$/src/app/app.less" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/services/archiveCard.js" afterPath="$PROJECT_DIR$/src/app/services/archiveCard.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/services/buildCalService.js" afterPath="$PROJECT_DIR$/src/app/services/buildCalService.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/services/changeDate.js" afterPath="$PROJECT_DIR$/src/app/services/changeDate.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/services/initService.js" afterPath="$PROJECT_DIR$/src/app/services/initService.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/route/month/month.html" afterPath="$PROJECT_DIR$/src/app/route/month/month.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/route/month/month.js" afterPath="$PROJECT_DIR$/src/app/route/month/month.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/services/setToken.js" afterPath="$PROJECT_DIR$/src/app/services/setToken.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/route/settings/settings.js" afterPath="$PROJECT_DIR$/src/app/route/settings/settings.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="et-ka-2014-ionic-tutorial-app.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -53,21 +37,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="settings.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="settings.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/app/route/settings/settings.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.35102925" vertical-offset="0" max-vertical-offset="1350">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1350">
               <caret line="18" column="3" selection-start-line="18" selection-start-column="3" selection-end-line="18" selection-end-column="3" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="buildCalService.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/app/services/buildCalService.js">
+      <file leaf-file-name="README.md" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="1597" max-vertical-offset="2520">
-              <caret line="14" column="20" selection-start-line="14" selection-start-column="20" selection-end-line="14" selection-end-column="20" />
+            <state vertical-scroll-proportion="0.62138087" vertical-offset="0" max-vertical-offset="898">
+              <caret line="31" column="10" selection-start-line="31" selection-start-column="10" selection-end-line="31" selection-end-column="10" />
               <folding />
             </state>
           </provider>
@@ -195,7 +179,6 @@
         <option value="$PROJECT_DIR$/.jshintrc" />
         <option value="$PROJECT_DIR$/src/app/route/month/month.html" />
         <option value="$PROJECT_DIR$/LICENSE" />
-        <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/src/app/app.js" />
         <option value="$PROJECT_DIR$/src/app/services/demoSaveService.js" />
         <option value="$PROJECT_DIR$/src/app/services/initService.js" />
@@ -204,6 +187,7 @@
         <option value="$PROJECT_DIR$/src/app/services/changeDate.js" />
         <option value="$PROJECT_DIR$/src/app/route/month/month.js" />
         <option value="$PROJECT_DIR$/src/app/route/settings/settings.js" />
+        <option value="$PROJECT_DIR$/README.md" />
       </list>
     </option>
   </component>
@@ -683,12 +667,12 @@
       <workItem from="1429797040062" duration="135000" />
       <workItem from="1429881661999" duration="2478000" />
       <workItem from="1429884307947" duration="2667000" />
-      <workItem from="1430120197715" duration="4608000" />
+      <workItem from="1430120197715" duration="5289000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="347139000" />
+    <option name="totallyTimeSpent" value="347820000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="49" y="24" width="1631" height="1026" extended-state="6" />
@@ -1013,14 +997,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-18.0" vertical-offset="0" max-vertical-offset="666">
-          <caret line="25" column="4" selection-start-line="25" selection-start-column="4" selection-end-line="25" selection-end-column="4" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/LICENSE">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="923">
@@ -1121,8 +1097,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/app/route/settings/settings.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.35102925" vertical-offset="0" max-vertical-offset="1350">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1350">
           <caret line="18" column="3" selection-start-line="18" selection-start-column="3" selection-end-line="18" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.62138087" vertical-offset="0" max-vertical-offset="898">
+          <caret line="31" column="10" selection-start-line="31" selection-start-column="10" selection-end-line="31" selection-end-column="10" />
           <folding />
         </state>
       </provider>

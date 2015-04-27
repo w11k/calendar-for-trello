@@ -29,3 +29,4 @@ while developing your URL will be http://localhost:9000
 
 
 ## License
+Apache 2.0  - see LICENSE file

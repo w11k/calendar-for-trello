@@ -3,8 +3,16 @@
 
 var days = [{
     date: "dateObject",
-    dayoff: "true",
-    cards: []
+    dayOff: "true",
+    cards: [{
+        //...
+        color: "boardcolor",
+        waiting: "true false for changedate with drag and drop",
+        dueDay: " dateobject with time set to = 0"
+
+    }],
+    isToday: "true/false",
+    weekday:"str"
 }];
 
 

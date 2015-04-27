@@ -65,7 +65,11 @@
                      ng-class="{'dayOff': day.dayOff, 'dayOn' : !day.dayOff, 'has' : day.cards.length >= 1, 'today' :day.isToday}"
                      ng-drop="true"
                      ng-drop-success="onDropComplete($data,$event, $index, day.date)">
-                    {{day  | date:'medium'}}
+                    {{day.date | date:'medium'}}
+
+
+                    {{day.cards}}
+
                 </div>
             </div>
         </section>
@@ -106,7 +110,9 @@
                      ng-class="{'dayOff': day.dayOff, 'dayOn' : !day.dayOff, 'has' : day.cards.length >= 1, 'today' :day.isToday}"
                      ng-drop="true"
                      ng-drop-success="onDropComplete($data,$event, $index, day.date)">
-                    {{day  | date:'medium'}}
+                    {{day.date  | date:'medium'}}
+                    {{day.cards}}
+
                 </div>
             </div>
         </section>

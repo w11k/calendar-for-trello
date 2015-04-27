@@ -14,7 +14,7 @@ Hosted Version:
 #####get Trello Application Key:
 <https://trello.com/app-key>
 
-#####edit config
+#####edit config:
     src/app/app.js
     
     angular.module('w11kcal.app').constant('AppKey', 'YOURKEY');
@@ -24,7 +24,7 @@ while developing your URL will be http://localhost:9000
 
 ####fire it up:
     grunt dev
-###deploy with:
+####deploy with:
     grunt dist
 
 

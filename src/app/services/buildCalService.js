@@ -6,26 +6,28 @@ angular.module("w11kcal.app").factory("buildCalService", /*ngInject*/  function 
      */
 
     var config = {
-        startOffset: "",
-        endOffSet:""
+        startOffset: null,
+        endOffSet: null
     };
 
 
 
     var cards = saveService.print()[1].data;
+    cards = _.groupBy(cards, 'dueDay');
+    delete cards.undefined;
+
 
     var buildADay = function (date, dayOff){
+
         var day = {
             date: date,
             dayOff: dayOff,
-            cards: [],
+            cards: cards[date],
            // isToday: "true/false",
             weekday: moment(new Date(date)).format("dddd")
         };
         return  day;
     };
-
-    console.log(cards);
 
 
 
@@ -39,15 +41,18 @@ angular.module("w11kcal.app").factory("buildCalService", /*ngInject*/  function 
                  * get start - offset
                  */
                 var runs = moment(date).isoWeekday();
-                console.log("offset start:"+ runs);
+             //   console.log(runs);
+
+
+
                 if (runs === 1) {
                     // if week starts with monday, add 7 days
                     runs = 7;
                 }
-                config.startOffset = runs;
+                config.startOffset = runs-1;
                 var workDate = new Date(date-1);
                 for (var d = 1; d < runs; ){
-                    days.push(buildADay(new Date(workDate), true));
+                    days.push(buildADay(new Date(workDate).setHours(0,0,0,0), true));
                     workDate.setDate(workDate.getDate() - 1);
 
                     // if weekday is 1 push 7 days:
@@ -72,16 +77,19 @@ angular.module("w11kcal.app").factory("buildCalService", /*ngInject*/  function 
                 } else {
                     a = 7;
                 }
-                config.endOffSet = a;
+               // console.log("a:" +a);
+                config.endOffset = a;
                 for (var i = 0; i < a; i++) {
                     days.push(buildADay(new Date(date), true));
                     date.setDate(date.getDate() + 1);
                 }
 
-                console.log(days);
                 return days;
             }
-            return getDaysInMonth(inDate.year, inDate.month);
+            return {
+                config: config,
+                days: getDaysInMonth(inDate.year, inDate.month)
+            };
         }
     };
 });

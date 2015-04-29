@@ -3,7 +3,6 @@
 
 angular.module('w11kcal.app.month', []);
 angular.module('w11kcal.app.month').config(/*ngInject*/ function ($stateProvider) {
-    console.log("w11kcal.app.month.config läuft");
 
     $stateProvider
         .state('app.month', {
@@ -91,11 +90,25 @@ angular.module('w11kcal.app.month').controller('monthCtrl', /*ngInject*/ functio
     }
     // build the Cal
 
+    //var clear = function (){
+    //    //console.log("startOffset"+$scope.config.startOffset);
+    //    //console.log("endOffset"+$scope.config.endOffset);
+    //    if($scope.config.startOffset === 7 && $rootScope.week === true){
+    //      //  console.log("7 Tage offset davor");
+    //    }
+    //    if($scope.config.endOffset === 7 && $rootScope.week === true){
+    //     //   console.log("7 Tage offset danach");
+    //    }
+    //};
+    $scope.days = buildCalService.build(date).days;
+    $scope.config = buildCalService.build(date).config;
+    //clear();
+    ////console.log("Länge:"+$scope.days.length);
+    //
 
-    $scope.days = buildCalService.build(date);
 
 
-
+    console.log($scope.config.startOffset);
 
     // Build Filter
     $scope.boards = [];
@@ -125,8 +138,10 @@ angular.module('w11kcal.app.month').controller('monthCtrl', /*ngInject*/ functio
             initService.init(1)
                 .then(function () {
                     $scope.loading = false;
-                    $scope.days = buildCalService.build(date);
+                    $scope.days = buildCalService.build(date).days;
+                    $scope.config = buildCalService.build(date).config;
                     $scope.$broadcast('scroll.refreshComplete');
+                    //clear();
                 });
         }
     };
@@ -272,9 +287,6 @@ angular.module('w11kcal.app.month').controller('monthCtrl', /*ngInject*/ functio
 
 
 
-
-
-
     /**
      * Week
      */
@@ -282,16 +294,20 @@ angular.module('w11kcal.app.month').controller('monthCtrl', /*ngInject*/ functio
 
 
     $scope.weekFilter = function (day, index) {
+        if ($scope.config.startOffset === 7){
+            console.log("cutting");
+        index = index-6;
+        }
         return index < $rootScope.weekPosition+7 && index >= $rootScope.weekPosition ;
     };
-
     $scope.moveWeek = function (steps) {
-        if($rootScope.weekPosition === 0 && steps < 0) {
+        console.log($rootScope.weekPosition);
+        if($rootScope.weekPosition <= 0 && steps < 0) {
             $rootScope.weekPosition = 28;
             $scope.move(-1);
         }
-        else if ($rootScope.weekPosition === 28 && steps > 0) {
-            $rootScope.weekPosition = 0;
+        else if ($rootScope.weekPosition >= 28 && steps > 0) {
+            $rootScope.weekPosition = 7;
             $scope.move(1);
         }
         else {

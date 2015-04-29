@@ -1,4 +1,4 @@
-<ion-view title="Month View">
+<ion-view title="Trello Calendar">
     <ion-nav-buttons side="right">
         <div ng-switch="login">
             <button class="button button-positive" ng-switch-default ng-click="auth()">Login</button>
@@ -65,10 +65,10 @@
                      ng-class="{'dayOff': day.dayOff, 'dayOn' : !day.dayOff, 'has' : day.cards.length >= 1, 'today' :day.isToday}"
                      ng-drop="true"
                      ng-drop-success="onDropComplete($data,$event, $index, day.date)">
-                    {{day.date | date:'medium'}}
+                    <!--{{day.date | date:'medium'}}-->
 
 
-                    {{day.cards}}
+                    <div class="dayCard" ng-repeat="card in day.cards">{{card.name}}</div>
 
                 </div>
             </div>
@@ -111,8 +111,11 @@
                      ng-drop="true"
                      ng-drop-success="onDropComplete($data,$event, $index, day.date)">
                     {{day.date  | date:'medium'}}
-                    {{day.cards}}
 
+                    {{day.weekday}}
+
+                    <!--| filter: weekFilter-->
+                    <div class="dayCard" ng-repeat="card in day.cards">{{card.name}}</div>
                 </div>
             </div>
         </section>

@@ -30,23 +30,15 @@ angular.module('w11kcal.app.month').config(/*ngInject*/ function ($stateProvider
 angular.module('w11kcal.app.month').run(function () {
 });
 
-angular.module('w11kcal.app.month').controller('monthCtrl', /*ngInject*/ function (initService, $timeout, $interval, $ionicScrollDelegate,archiveCard, $scope, changeDate,Notification, saveService,$window,$stateParams, $location,buildCalService,$rootScope) {
+angular.module('w11kcal.app.month').controller('monthCtrl', /*ngInject*/ function (initService, $timeout, $interval, $ionicScrollDelegate,archiveCard, $scope, changeDate,Notification, saveService,$window,$stateParams, $location,buildCalService) {
 
 
     /**
      * Part 1: config
      */
-    $scope.view = 'month';
 
-    $scope.$on('changeToWeek', function () {
-        $scope.view = 'week';
-    });
 
-    $scope.$on('changeToMonth', function () {
-        $scope.view = 'month';
-    });
-
-    var today, month, year, targetDate;
+    var Caltoday, month, year, targetDate, today;
 
     if(saveService.print()) {
         $scope.login = true;
@@ -55,26 +47,35 @@ angular.module('w11kcal.app.month').controller('monthCtrl', /*ngInject*/ functio
 
     // set transmitted month
     var setDate = $stateParams.date.split('-', 2);
-    today = new Date(setDate[0],(setDate[1]-1), 1);
+    Caltoday = new Date(setDate[0],(setDate[1]-1), 1);
 
     if(setDate[1] === undefined) {
         // wrong date set in url, redirecting to today
-        today = new Date();
-        $location.path("/app/month/"+today.getFullYear()+"-"+(today.getMonth()+1)).replace();
+        Caltoday = new Date();
+        $location.path("/app/month/"+Caltoday.getFullYear()+"-"+(Caltoday.getMonth()+1)).replace();
     }
 
 
+
     var date = {};
-    date.year = today.getFullYear();
-    date.month = today.getMonth();
+    date.year = Caltoday.getFullYear();
+    date.month = Caltoday.getMonth();
+    today = {};
+    today.year = new Date().getFullYear();
+    today.month = new Date().getMonth();
+    $scope.today = !(date.year === today.year && date.month === today.month);
 
     $scope.date = {
-        iso: today,
+        iso: Caltoday,
         monthName: moment.months()[date.month],
         month: date.month,
         year: date.year
     };
 
+
+    $scope.toToday = function () {
+        $location.path("/app/month/"+today.year+"-"+(today.month+1));
+    };
 
 
     /**
@@ -88,27 +89,11 @@ angular.module('w11kcal.app.month').controller('monthCtrl', /*ngInject*/ functio
         var short = moment().weekday(i).format("dd");
         $scope.weekdays[i] = [short, long];
     }
-    // build the Cal
 
-    //var clear = function (){
-    //    //console.log("startOffset"+$scope.config.startOffset);
-    //    //console.log("endOffset"+$scope.config.endOffset);
-    //    if($scope.config.startOffset === 7 && $rootScope.week === true){
-    //      //  console.log("7 Tage offset davor");
-    //    }
-    //    if($scope.config.endOffset === 7 && $rootScope.week === true){
-    //     //   console.log("7 Tage offset danach");
-    //    }
-    //};
     $scope.days = buildCalService.build(date).days;
     $scope.config = buildCalService.build(date).config;
-    //clear();
-    ////console.log("Länge:"+$scope.days.length);
-    //
 
 
-
-    console.log($scope.config.startOffset);
 
     // Build Filter
     $scope.boards = [];
@@ -141,7 +126,6 @@ angular.module('w11kcal.app.month').controller('monthCtrl', /*ngInject*/ functio
                     $scope.days = buildCalService.build(date).days;
                     $scope.config = buildCalService.build(date).config;
                     $scope.$broadcast('scroll.refreshComplete');
-                    //clear();
                 });
         }
     };
@@ -161,11 +145,6 @@ angular.module('w11kcal.app.month').controller('monthCtrl', /*ngInject*/ functio
 
 
     $scope.move = function (steps) {
-
-        console.log("move");
-
-
-        console.log($rootScope.weekPosition);
         year = date.year;
         month = (date.month + steps);
         if(month >= 12) {
@@ -175,7 +154,6 @@ angular.module('w11kcal.app.month').controller('monthCtrl', /*ngInject*/ functio
             month = 11;
             year--;
         }
-        $rootScope.$broadcast('lastViewChangedTo', {year: year, month: month});
         $location.path("/app/month/"+year+"-"+(month+1));
     };
 
@@ -277,43 +255,6 @@ angular.module('w11kcal.app.month').controller('monthCtrl', /*ngInject*/ functio
 
 
 
-
-
-
-
-
-
-
-
-
-
-    /**
-     * Week
-     */
-
-
-
-    $scope.weekFilter = function (day, index) {
-        if ($scope.config.startOffset === 7){
-            console.log("cutting");
-        index = index-6;
-        }
-        return index < $rootScope.weekPosition+7 && index >= $rootScope.weekPosition ;
-    };
-    $scope.moveWeek = function (steps) {
-        console.log($rootScope.weekPosition);
-        if($rootScope.weekPosition <= 0 && steps < 0) {
-            $rootScope.weekPosition = 28;
-            $scope.move(-1);
-        }
-        else if ($rootScope.weekPosition >= 28 && steps > 0) {
-            $rootScope.weekPosition = 7;
-            $scope.move(1);
-        }
-        else {
-            $rootScope.weekPosition = $rootScope.weekPosition + steps*7;
-        }
-    };
 });
 
 

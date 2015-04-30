@@ -1,16 +1,20 @@
 'use strict';
+moment.locale('en');
 
 
-angular.module('w11kcal.app.month', []);
-angular.module('w11kcal.app.month').config(/*ngInject*/ function ($stateProvider) {
-
+angular.module('w11kcal.app.week', []);
+angular.module('w11kcal.app.week').config(/*ngInject*/ function ($stateProvider) {
     $stateProvider
-        .state('app.month', {
-            url: '/month/{date}',
+        .state('app.week', {
+            url: '/week/:year/:kw',
+            params: {
+                year: new Date().getFullYear(),
+                kw: new Date().getWeekNumber()
+            },
             views: {
                 'menuContent': {
-                    templateUrl: 'route/month/month.html',
-                    controller: 'monthCtrl'
+                    templateUrl: 'route/week/week.html',
+                    controller: 'weekCtrl'
                 }
             },
             resolve: {
@@ -27,10 +31,37 @@ angular.module('w11kcal.app.month').config(/*ngInject*/ function ($stateProvider
 
 
 
-angular.module('w11kcal.app.month').run(function () {
+angular.module('w11kcal.app.week').run(function () {
 });
 
-angular.module('w11kcal.app.month').controller('monthCtrl', /*ngInject*/ function (initService, $timeout, $interval, $ionicScrollDelegate,archiveCard, $scope, changeDate,Notification, saveService,$window,$stateParams, $location,buildCalService) {
+angular.module('w11kcal.app.week').controller('weekCtrl', /*ngInject*/ function ($scope,saveService,$interval,$ionicScrollDelegate,
+                                                                                 initService, buildCalService, $window, $stateParams,
+                                                                                 $state, weekService,changeDate) {
+
+
+
+    var weeksOfYear = function (year) {
+        var date = new Date(year, 11 , 31);
+        var workDate = new Date(date.getTime() + (3-((date.getDay()+6) % 7)) * 86400000);
+        var cwYear = workDate.getFullYear();
+        var doCW = new Date(new Date(cwYear,0,4).getTime() + (3-((new Date(cwYear,0,4).getDay()+6) % 7)) * 86400000);
+        var kw = Math.floor(1.5+(workDate.getTime()-doCW.getTime())/86400000/7);
+        if(kw===1){
+            return 52;
+        }
+        return kw;
+    };
+
+
+
+    $scope.date = {};
+    $scope.date.year = parseInt($stateParams.year);
+    $scope.date.kw = parseInt($stateParams.kw);
+    $scope.date.amountOfKW = {};
+    $scope.date.amountOfKW.prev = weeksOfYear($scope.date.year-1);
+    $scope.date.amountOfKW.this = weeksOfYear($scope.date.year);
+    $scope.date.amountOfKW.next = weeksOfYear($scope.date.year+1);
+
 
 
     /**
@@ -38,7 +69,6 @@ angular.module('w11kcal.app.month').controller('monthCtrl', /*ngInject*/ functio
      */
 
 
-    var Caltoday, month, year,  today;
 
     if(saveService.print()) {
         $scope.login = true;
@@ -46,42 +76,18 @@ angular.module('w11kcal.app.month').controller('monthCtrl', /*ngInject*/ functio
 
 
 
-    // set transmitted month
-    var setDate = $stateParams.date.split('-', 2);
-    Caltoday = new Date(setDate[0],(setDate[1]-1), 1);
-
-    if(setDate[1] === undefined) {
-        // wrong date set in url, redirecting to today
-        Caltoday = new Date();
-        $location.path("/app/month/"+Caltoday.getFullYear()+"-"+(Caltoday.getMonth()+1)).replace();
-    }
 
 
 
-    var date = {};
-    date.year = Caltoday.getFullYear();
-    date.month = Caltoday.getMonth();
-    today = {};
-    today.year = new Date().getFullYear();
-    today.month = new Date().getMonth();
-    $scope.today = !(date.year === today.year && date.month === today.month);
-
-    $scope.date = {
-        iso: Caltoday,
-        monthName: moment.months()[date.month],
-        month: date.month,
-        year: date.year
-    };
 
 
-    $scope.toToday = function () {
-        $location.path("/app/month/"+today.year+"-"+(today.month+1));
-    };
 
 
     /**
      * Part 2: Build
      */
+
+
 
         // top legende
     $scope.weekdays = [];
@@ -90,9 +96,6 @@ angular.module('w11kcal.app.month').controller('monthCtrl', /*ngInject*/ functio
         var short = moment().weekday(i).format("dd");
         $scope.weekdays[i] = [short, long];
     }
-
-    $scope.days = buildCalService.build(date).days;
-    $scope.config = buildCalService.build(date).config;
 
 
 
@@ -113,6 +116,24 @@ angular.module('w11kcal.app.month').controller('monthCtrl', /*ngInject*/ functio
     };
 
 
+
+    var getDays = function( reload) {
+        $scope.allDays = weekService.buildYear($scope.date.year, false);
+
+
+        $scope.days = [];
+        $scope.allDays.forEach(function (entry) {
+            if(entry.kw === $scope.date.kw) {
+                $scope.days.push(entry);
+            }
+        });
+    }
+
+getDays(false);
+
+
+
+
     /**
      * Part 3: Options:
      */
@@ -123,11 +144,16 @@ angular.module('w11kcal.app.month').controller('monthCtrl', /*ngInject*/ functio
             initService.init(1)
                 .then(function () {
                     $scope.loading = false;
-                    $scope.days = buildCalService.build(date).days;
-                    $scope.config = buildCalService.build(date).config;
+                    getDays(true);
+
+
+
+
                 });
         }
     };
+
+
 
 
 
@@ -144,17 +170,20 @@ angular.module('w11kcal.app.month').controller('monthCtrl', /*ngInject*/ functio
 
 
     $scope.move = function (steps) {
-        year = date.year;
-        month = (date.month + steps);
-        if(month >= 12) {
-            month = 0;
-            year++;
-        } else if ( month <= -1) {
-            month = 11;
-            year--;
+        if($scope.date.kw === 1 && steps === -1 ){
+            $state.go("app.week", {year: $scope.date.year-1 , kw:($scope.date.amountOfKW.prev)});
+            return;
         }
-        $location.path("/app/month/"+year+"-"+(month+1));
-    };
+        if($scope.date.kw >= $scope.date.amountOfKW.this && steps === 1){
+            $state.go("app.week", {year: $scope.date.year+1 , kw:(1)});
+            return;
+        }
+        $state.go("app.week", {year: $scope.date.year , kw:($scope.date.kw+steps)});
+     };
+
+
+
+
 
 
 
@@ -172,16 +201,16 @@ angular.module('w11kcal.app.month').controller('monthCtrl', /*ngInject*/ functio
     };
 
     $scope.onDropComplete = function (data, evt, targetDate) {
+       targetDate = new Date(targetDate);
 
         data.waiting = true;
 
 
+
+
         var day = _.findIndex($scope.days, function(chr) {
-            return chr.date === targetDate;
+            return moment(chr.date).hour(0).minute(0).second(0).millisecond(0).isSame(moment(targetDate).hour(0).minute(0).second(0).millisecond(0));
         });
-
-
-
 
         if(typeof $scope.days[day].cards === 'undefined') {
             $scope.days[day].cards = [];
@@ -214,13 +243,14 @@ angular.module('w11kcal.app.month').controller('monthCtrl', /*ngInject*/ functio
 
 
 
-    $scope.archiveCard = function (data) {
-        var id = data.id;
-        archiveCard.async(id).then(function () {
-            var message = '<span ng-controller="archiveCtrl"><br>Archived </span>';
-            Notification.warning({message: message});
-        });
-    };
+
+
+
+
+
+
+
+
 
 
 
@@ -250,38 +280,12 @@ angular.module('w11kcal.app.month').controller('monthCtrl', /*ngInject*/ functio
 });
 
 
-
-
-
-
-
-angular.module('w11kcal.app.month').filter('propsFilter', function () {
-    return function (items, props) {
-        var out = [];
-
-        if (angular.isArray(items)) {
-            items.forEach(function (item) {
-                var itemMatches = false;
-
-                var keys = Object.keys(props);
-                for (var i = 0; i < keys.length; i++) {
-                    var prop = keys[i];
-                    var text = props[prop].toLowerCase();
-                    if (item[prop].toString().toLowerCase().indexOf(text) !== -1) {
-                        itemMatches = true;
-                        break;
-                    }
-                }
-
-                if (itemMatches) {
-                    out.push(item);
-                }
+angular.module('w11kcal.app.week').filter('max', function (){
+        return function (arr, div) {
+            return arr.filter(function (item, index) {
+                return index < div;
             });
-        } else {
-            out = items;
-        }
+        };
+    });
 
-        return out;
-    };
-});
 

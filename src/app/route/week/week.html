@@ -16,10 +16,6 @@
         </ion-refresher>
 
 
-
-
-
-
         <div class="calNav">
             <h1>
                 <div class="btn-group" role="group" aria-label="Month Navigation">
@@ -30,17 +26,10 @@
                         <i class="ion-chevron-right"></i>
                     </button>
                 </div>
-                {{date.monthName}}, {{date.year}}
+                Calendar Week: {{date.kw}}/{{date.amountOfKW.this}}, {{date.year}}
                 <button class="btn btn-default pull-right" ng-if="today" ng-click="toToday()">Today</button>
             </h1>
         </div>
-
-
-
-
-
-
-
 
 
 
@@ -53,26 +42,43 @@
             </ui-select>
         </div>
 
+        <div class="isWeekView">
+            <div class="listView">
+                <div class="day header" ng-repeat="wd in weekdays">
+                    <span class="short">{{wd[0]}}</span><span class="long">{{wd[1]}}</span>
+                </div>
+
+                <div data-ng-repeat="day in days" class="day dayOff"
+                     ng-class="{'dayOff': day.dayOff, 'dayOn' : !day.dayOff, 'has' : day.cards.length >= 1, 'today' :day.isToday}"
+                     ng-drop="true"
+                     ng-drop-success="onDropComplete($data,$event, day.date)">
+
+                    <div class="dayCounter"><span class="weekday ng-binding">{{day.weekDay}}</span><span class="ng-binding">{{day.dateName}}</span></div>
 
 
 
 
-        <div class="listView">
-            <div class="day header" ng-repeat="wd in weekdays"><span class="short">{{wd[0]}}</span><span class="long">{{wd[1]}}</span></div>
-
-            <div ng-repeat="day in days"
-                 class="day"
-                 ng-class="{'dayOff': day.dayOff, 'dayOn' : !day.dayOff, 'has' : day.cards.length >= 1, 'today' :day.isToday}"
-                 ng-drop="true"
-                 ng-drop-success="onDropComplete($data,$event, day.date)">
 
 
-                <div class="dayCounter" ><span class="weekday">{{day.weekday}}</span><span>{{day.date  | date: "d" }}</span></div>
-                <div class="dayCards">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                     <div ng-repeat="card in day.cards | orderBy:['badges.due', 'name'] | filter: activeBoard"
                          ng-drag="true" ng-drag-data="card"
                          ng-drag-success="onDragSuccess($data,$event,day.date)"
-                         ng-center-anchor="{{centerAnchor}}">
+                         ng-center-anchor="{{centerAnchor}}"
+                            class="dayCards">
 
 
 
@@ -87,10 +93,25 @@
                             <div class="board"> <a ng-href="{{card.boardUrl}}" target="_blank"><span class="boardName">{{card.boardName}}</span></a>  | <span>{{card.badges.due | date : "HH:mm" : timezone}}</span></div>
                         </div>
                     </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                 </div>
             </div>
         </div>
-
 
 
 
@@ -129,6 +150,8 @@
                     <p>... / ... / ... </p>
                 </div>
             </div>
+
+            {{singleCard}}
 
             <span ng-if="singleCards.badges.comments">Kommentare:   {{singleCard.badges.comments}}</span>
             <span ng-if="singleCards.badges.comments">Kommentare:   {{singleCard.comments}}</span>

@@ -16,14 +16,22 @@ angular.module("w11kcal.app").factory("buildCalService", /*ngInject*/  function 
     cards = _.groupBy(cards, 'dueDay');
     delete cards.undefined;
 
-
     var buildADay = function (date, dayOff){
+
+
+        var isToday = (new Date(+date).setHours(0,0,0,0) === new Date().setHours(0,0,0,0));
+
+      //  if((day-1) === d && new Date().getMonth() === month) {
+       //     isToday = true;
+       // }
+
+
 
         var day = {
             date: date,
             dayOff: dayOff,
             cards: cards[date],
-           // isToday: "true/false",
+            isToday: isToday,
             weekday: moment(new Date(date)).format("dddd")
         };
         return  day;
@@ -42,9 +50,6 @@ angular.module("w11kcal.app").factory("buildCalService", /*ngInject*/  function 
                  */
                 var runs = moment(date).isoWeekday();
              //   console.log(runs);
-
-
-
                 if (runs === 1) {
                     // if week starts with monday, add 7 days
                     runs = 7;
@@ -52,7 +57,7 @@ angular.module("w11kcal.app").factory("buildCalService", /*ngInject*/  function 
                 config.startOffset = runs-1;
                 var workDate = new Date(date-1);
                 for (var d = 1; d < runs; ){
-                    days.push(buildADay(new Date(workDate).setHours(0,0,0,0), true));
+                    days.push(buildADay(new Date(workDate.setHours(0,0,0,0)), true));
                     workDate.setDate(workDate.getDate() - 1);
 
                     // if weekday is 1 push 7 days:
@@ -62,6 +67,7 @@ angular.module("w11kcal.app").factory("buildCalService", /*ngInject*/  function 
                 /**
                  * get days
                  */
+
 
                 while (date.getMonth() === month) {
                     days.push(buildADay(new Date(date), false));

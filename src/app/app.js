@@ -13,7 +13,8 @@ angular.module('w11kcal.app', [
     'angular-loading-bar',
     'ui-notification',
     'LocalStorageModule',
-    'ui.select'
+    'ui.select',
+    'w11kcal.analytics'
 ]);
 
 angular.module('w11kcal.app').constant('AppKey', '41485cd87d154168dd6db06cdd3ffd69');

@@ -42,10 +42,6 @@ angular.module("w11kcal.app").factory("buildCalService", /*ngInject*/  function 
                  */
                 var runs = moment(date).isoWeekday();
              //   console.log(runs);
-
-
-
-
                 if (runs === 1) {
                     // if week starts with monday, add 7 days
                     runs = 7;

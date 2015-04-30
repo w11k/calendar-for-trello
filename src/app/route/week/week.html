@@ -16,10 +16,6 @@
         </ion-refresher>
 
 
-
-
-
-
         <div class="calNav">
             <h1>
                 <div class="btn-group" role="group" aria-label="Month Navigation">
@@ -37,13 +33,6 @@
 
 
 
-
-
-
-
-
-
-
         <div class="filters" ng-class="{'colorize' : boardColors, 'defaultColor' : !boardColors }">
             <ui-select multiple ng-model="multipleDemo.selectedBoards"  ng-disabled="disabled">
                 <ui-select-match placeholder="Select board..."> <span class="inner" style="color:{{$item.color}}">{{$item.name}}</span></ui-select-match>
@@ -56,16 +45,11 @@
         <div class="isWeekView">
             <div class="listView">
                 <div class="day header" ng-repeat="wd in weekdays"><span class="short">{{wd[0]}}</span><span class="long">{{wd[1]}}</span></div>
-                <div data-ng-repeat="day in days" class="day dayOff">
-                    {{day.date | date :'mediumDate'}}
+                <div data-ng-repeat="day in days | max:7" class="day dayOff">
+                    {{day.date | date :'fullDate'}}
                 </div>
             </div>
         </div>
-
-
-
-
-
 
 
 

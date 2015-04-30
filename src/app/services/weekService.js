@@ -26,7 +26,6 @@ angular.module("w11kcal.app").factory("weekService", /*ngInject*/  function (sav
 
     return {
         buildYear: function (year) {
-            console.log("bulding for year:" + year);
             var days = [];
             var day = new Date(year,0,1);
 
@@ -37,6 +36,14 @@ angular.module("w11kcal.app").factory("weekService", /*ngInject*/  function (sav
                 return Math.ceil((((d-new Date(d.getFullYear(),0,1))/8.64e7)+1)/7);
             };
 
+            /**
+             * Performance: getKW muss nur 1x aufgerufen werden
+             * dann sagt es, 1 datum ist KW 1 oder 52/53
+             * dann ++
+             * bis?
+             *
+             * ggf. am ende nochmal?
+             */
             while(day.getFullYear() === year) {
                 days.push({
                     date: new Date(+day),
@@ -44,14 +51,9 @@ angular.module("w11kcal.app").factory("weekService", /*ngInject*/  function (sav
                 });
                 day.setDate(day.getDate() + 1);
             }
-
+            console.log(days.length);
             years[year] = days;
-
             return years[year];
-
-
-
         }
-
     };
 });

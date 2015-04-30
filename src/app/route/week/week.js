@@ -160,7 +160,6 @@ angular.module('w11kcal.app.week').controller('weekCtrl', /*ngInject*/ function 
     $scope.allDays.forEach(function (entry) {
         if(entry.kw === $scope.date.kw) {
             $scope.days.push(entry);
-            console.log(7);
         }
     });
 
@@ -215,3 +214,14 @@ angular.module('w11kcal.app.week').controller('weekCtrl', /*ngInject*/ function 
 
 
 });
+
+
+angular.module('w11kcal.app.week').filter('max', function (){
+        return function (arr, div) {
+            return arr.filter(function (item, index) {
+                return index < div;
+            });
+        };
+    });
+
+

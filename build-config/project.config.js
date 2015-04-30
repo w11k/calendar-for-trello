@@ -57,7 +57,9 @@ module.exports = {
           'angular-loading-bar/build/loading-bar.js',
           'angular-ui-notification/dist/angular-ui-notification.min.js',
           'angular-local-storage/dist/angular-local-storage.js',
-          'angular-ui-select/dist/select.js'
+          'angular-ui-select/dist/select.js',
+          'angulartics/src/angulartics.js',
+          'angulartics/src/angulartics-ga.js'
 
 
       ],

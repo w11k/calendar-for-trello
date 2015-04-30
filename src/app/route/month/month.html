@@ -2,11 +2,11 @@
     <ion-nav-buttons side="right">
         <div ng-switch="login">
             <button class="button button-positive" ng-switch-default ng-click="auth()">Login</button>
-            <button class="button  button-positive" ng-click="refresh()"  ng-switch-when="true" ng-class="{animate: loading}"><i class="ion-refresh"></i></button>
-            <button class="button  button-assertive" ng-switch-when="true" ng-click="logout()">Logout</button>
+            <button class="button button-positive" ng-click="refresh()"  ng-switch-when="true" ng-class="{animate: loading}"><i class="ion-refresh"></i></button>
+            <button class="button button-assertive" ng-switch-when="true" ng-click="logout()">Logout</button>
         </div>
     </ion-nav-buttons>
-    <ion-content class="padding " padding="true" ng-class="view">
+    <ion-content class="padding " padding="true">
         <ion-refresher
                 pulling-text="Pull to refresh..."
                 on-refresh="refresh()"
@@ -20,67 +20,76 @@
 
 
 
-            <div class="calNav">
-
-<h1>
-                    <div class="btn-group" role="group" aria-label="Month Navigation">
-                        <button type="button" class="btn btn-default"  ng-click="move(-1)" >
-                            <i class="ion-chevron-left"></i>
-                        </button>
-                        <button type="button" class="btn btn-default" ng-click="move(1)">
-                            <i class="ion-chevron-right"></i>
-                        </button>
-                    </div>
-
-                  {{date.monthName}}, {{date.year}}
-
-
-    <button class="btn btn-default pull-right" ng-if="today" ng-click="toToday()">Today</button>
+        <div class="calNav">
+            <h1>
+                <div class="btn-group" role="group" aria-label="Month Navigation">
+                    <button type="button" class="btn btn-default"  ng-click="move(-1)" >
+                        <i class="ion-chevron-left"></i>
+                    </button>
+                    <button type="button" class="btn btn-default" ng-click="move(1)">
+                        <i class="ion-chevron-right"></i>
+                    </button>
+                </div>
+                {{date.monthName}}, {{date.year}}
+                <button class="btn btn-default pull-right" ng-if="today" ng-click="toToday()">Today</button>
+            </h1>
+        </div>
 
 
-</h1>
-            </div>
 
-            <div class="filters" ng-class="{'colorize' : boardColors, 'defaultColor' : !boardColors }">
-                <ui-select multiple ng-model="multipleDemo.selectedBoards"  ng-disabled="disabled">
-                    <ui-select-match placeholder="Select board..."> <span class="inner" style="color:{{$item.color}}">{{$item.name}}</span></ui-select-match>
-                    <ui-select-choices repeat="board in boards">
-                        <div ng-bind-html="board.name | highlight: $select.search" ></div>
-                    </ui-select-choices>
-                </ui-select>
-            </div>
 
-            <div class="listView">
-                <div class="day header" ng-repeat="wd in weekdays"><span class="short">{{wd[0]}}</span><span class="long">{{wd[1]}}</span></div>
 
-                <div ng-repeat="day in days"
-                     class="day"
-                     ng-class="{'dayOff': day.dayOff, 'dayOn' : !day.dayOff, 'has' : day.cards.length >= 1, 'today' :day.isToday}"
-                     ng-drop="true"
-                     ng-drop-success="onDropComplete($data,$event, $index, day.date)">
-                    <!--{{day.date | date:'medium'}}-->
 
-                    <div class="dayCounter" ><span class="weekday">{{day.weekday}}</span><span>{{day.i}}</span></div>
-                    <div class="dayCards">
-                        <div ng-repeat="card in day.cards | orderBy:['badges.due', 'name'] | filter: activeBoard">
 
-                            <div class="dayCard color{{card.colorCount}}"
-                                 ng-class="{waiting: card.waiting, 'stopColor' : !boardColors}"
-                                 style="background:{{card.color}}"
-                                    >
-                                <div class="ion-arrow-move dragger"></div>
-                                <div class="ion-help-circled dragger showDetail " ng-click="detail(card.id)"></div>
-                                <div class="title" ng-click="$event.stopPropagation();"><a ng-href="{{card.shortUrl}}" target="_blank"> {{card.name}}</a></div>
-                                <div class="board"> <a ng-href="{{card.boardUrl}}" target="_blank"><span class="boardName">{{card.boardName}}</span></a>  | <span>{{card.badges.due | date : "HH:mm" : timezone}}</span></div>
-                            </div>
+
+
+
+        <div class="filters" ng-class="{'colorize' : boardColors, 'defaultColor' : !boardColors }">
+            <ui-select multiple ng-model="multipleDemo.selectedBoards"  ng-disabled="disabled">
+                <ui-select-match placeholder="Select board..."> <span class="inner" style="color:{{$item.color}}">{{$item.name}}</span></ui-select-match>
+                <ui-select-choices repeat="board in boards">
+                    <div ng-bind-html="board.name | highlight: $select.search" ></div>
+                </ui-select-choices>
+            </ui-select>
+        </div>
+
+
+
+
+
+        <div class="listView">
+            <div class="day header" ng-repeat="wd in weekdays"><span class="short">{{wd[0]}}</span><span class="long">{{wd[1]}}</span></div>
+
+            <div ng-repeat="day in days"
+                 class="day"
+                 ng-class="{'dayOff': day.dayOff, 'dayOn' : !day.dayOff, 'has' : day.cards.length >= 1, 'today' :day.isToday}"
+                 ng-drop="true"
+                 ng-drop-success="onDropComplete($data,$event, day.date)">
+
+
+                <div class="dayCounter" ><span class="weekday">{{day.weekday}}</span><span>{{day.i}}</span></div>
+                <div class="dayCards">
+                    <div ng-repeat="card in day.cards | orderBy:['badges.due', 'name'] | filter: activeBoard"
+                         ng-drag="true" ng-drag-data="card"
+                         ng-drag-success="onDragSuccess($data,$event,day.date)"
+                         ng-center-anchor="{{centerAnchor}}">
+
+
+
+
+                        <div class="dayCard color{{card.colorCount}}"
+                             ng-class="{waiting: card.waiting, 'stopColor' : !boardColors}"
+                             style="background:{{card.color}}"
+                                >
+                            <div class="ion-arrow-move dragger"></div>
+                            <div class="ion-help-circled dragger showDetail " ng-click="detail(card.id)"></div>
+                            <div class="title" ><a ng-href="{{card.shortUrl}}" target="_blank"> {{card.name}}</a></div>
+                            <div class="board"> <a ng-href="{{card.boardUrl}}" target="_blank"><span class="boardName">{{card.boardName}}</span></a>  | <span>{{card.badges.due | date : "HH:mm" : timezone}}</span></div>
                         </div>
                     </div>
-
-
-                    <div class="dayCard" ng-repeat="card in day.cards">{{card.name}}</div>
-
                 </div>
             </div>
+        </div>
 
 
 

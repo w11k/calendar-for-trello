@@ -45,6 +45,7 @@ angular.module("w11kcal.app").factory("buildCalService", /*ngInject*/  function 
 
 
 
+
                 if (runs === 1) {
                     // if week starts with monday, add 7 days
                     runs = 7;
@@ -52,7 +53,7 @@ angular.module("w11kcal.app").factory("buildCalService", /*ngInject*/  function 
                 config.startOffset = runs-1;
                 var workDate = new Date(date-1);
                 for (var d = 1; d < runs; ){
-                    days.push(buildADay(new Date(workDate).setHours(0,0,0,0), true));
+                    days.push(buildADay(new Date(workDate.setHours(0,0,0,0)), true));
                     workDate.setDate(workDate.getDate() - 1);
 
                     // if weekday is 1 push 7 days:

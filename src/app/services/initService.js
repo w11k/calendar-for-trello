@@ -32,8 +32,6 @@ angular.module("w11kcal.app").factory("initService", /*ngInject*/  function ($q,
                             entry.due = null;
                             return;
                         }
-
-
                         var dueDay = entry.due;
                         entry.dueDay = new Date(new Date(dueDay).setHours(0,0,0,0));
                         entry.due = new Date(entry.due);

@@ -38,11 +38,12 @@ angular.module('w11kcal.app.month').controller('monthCtrl', /*ngInject*/ functio
      */
 
 
-    var Caltoday, month, year, targetDate, today;
+    var Caltoday, month, year,  today;
 
     if(saveService.print()) {
         $scope.login = true;
     }
+
 
 
     // set transmitted month
@@ -112,7 +113,6 @@ angular.module('w11kcal.app.month').controller('monthCtrl', /*ngInject*/ functio
     };
 
 
-
     /**
      * Part 3: Options:
      */
@@ -125,7 +125,6 @@ angular.module('w11kcal.app.month').controller('monthCtrl', /*ngInject*/ functio
                     $scope.loading = false;
                     $scope.days = buildCalService.build(date).days;
                     $scope.config = buildCalService.build(date).config;
-                    $scope.$broadcast('scroll.refreshComplete');
                 });
         }
     };
@@ -162,35 +161,49 @@ angular.module('w11kcal.app.month').controller('monthCtrl', /*ngInject*/ functio
 
 
     // Drag 'n Drop
-    $scope.onDragSuccess = function (data, evt, from) {
-        console.log($scope.days);
-        console.log(from);
-        var index = $scope.days[from].cards.indexOf(data);
+    $scope.onDragSuccess = function (data, evt, date) {
+        var day = _.findIndex($scope.days, function(chr) {
+            return chr.date === date;
+        });
+        var index = $scope.days[day].cards.indexOf(data);
         if (index > -1) {
-            $scope.days[from].cards.splice(index, 1);
+            $scope.days[day].cards.splice(index, 1);
         }
     };
 
-    $scope.onDropComplete = function (data, evt, target,targetDate) {
+    $scope.onDropComplete = function (data, evt, targetDate) {
 
-        console.log("Target:"+target);
         data.waiting = true;
-        if(typeof  $scope.days[target].cards === 'undefined') {
-            $scope.days[target].cards = [];
-            $scope.days[target].cards[0] = data;
+
+
+        var day = _.findIndex($scope.days, function(chr) {
+            return chr.date === targetDate;
+        });
+
+
+
+
+        if(typeof $scope.days[day].cards === 'undefined') {
+            $scope.days[day].cards = [];
+            $scope.days[day].cards[0] = data;
 
         } else {
-            var index = $scope.days[target].cards.indexOf(data);
+            var index = $scope.days[day].cards.indexOf(data);
             if (index === -1) {
-                $scope.days[target].cards.push(data);
+                $scope.days[day].cards.push(data);
             }
         }
-        targetDate.setHours(12, 0, 0);
+
+
+        var time  = new Date (data.badges.due);
+
+        targetDate.setHours(time.getHours(), time.getMinutes(), time.getSeconds());
+
         changeDate.async(data.id, targetDate).then(function () {
                 console.log("succes");
                 data.waiting = false;
                 data.due = targetDate;
-                data.dueDate = targetDate;
+                data.badges.due = targetDate;
             },
             function () {
                 console.log("err");
@@ -198,27 +211,6 @@ angular.module('w11kcal.app.month').controller('monthCtrl', /*ngInject*/ functio
     };
 
 
-
-
-
-    $scope.changeMonth = function (data, param, month) {
-        if(data.due.getMonth() !== month)      {
-            targetDate = moment(data.dueDate).add(0, 'month').toISOString();
-            targetDate =new Date(targetDate);
-            targetDate = new Date(targetDate.setDate(1));
-        }else {
-            targetDate = moment(data.dueDate).add(1, 'month').toISOString();
-            targetDate = new Date(targetDate);
-            targetDate = new Date(targetDate.setDate(1));
-        }
-
-        changeDate.async(data.id, targetDate).then(function () {
-                console.log("succes");
-            },
-            function () {
-                console.log("err");
-            });
-    };
 
 
 

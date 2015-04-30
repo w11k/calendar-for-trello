@@ -44,9 +44,71 @@
 
         <div class="isWeekView">
             <div class="listView">
-                <div class="day header" ng-repeat="wd in weekdays"><span class="short">{{wd[0]}}</span><span class="long">{{wd[1]}}</span></div>
-                <div data-ng-repeat="day in days" class="day dayOff">
-                    {{day.date | date :'fullDate'}}
+                <div class="day header" ng-repeat="wd in weekdays">
+                    <span class="short">{{wd[0]}}</span><span class="long">{{wd[1]}}</span>
+                </div>
+
+                <div data-ng-repeat="day in days" class="day dayOff"
+                     ng-class="{'dayOff': day.dayOff, 'dayOn' : !day.dayOff, 'has' : day.cards.length >= 1, 'today' :day.isToday}"
+                     ng-drop="true"
+                     ng-drop-success="onDropComplete($data,$event, day.date)">
+
+                    <div class="dayCounter"><span class="weekday ng-binding">{{day.weekDay}}</span><span class="ng-binding">{{day.dateName}}</span></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <div ng-repeat="card in day.cards | orderBy:['badges.due', 'name'] | filter: activeBoard"
+                         ng-drag="true" ng-drag-data="card"
+                         ng-drag-success="onDragSuccess($data,$event,day.date)"
+                         ng-center-anchor="{{centerAnchor}}"
+                            class="dayCards">
+
+
+
+
+                        <div class="dayCard color{{card.colorCount}}"
+                             ng-class="{waiting: card.waiting, 'stopColor' : !boardColors}"
+                             style="background:{{card.color}}"
+                                >
+                            <div class="ion-arrow-move dragger"></div>
+                            <div class="ion-help-circled dragger showDetail " ng-click="detail(card.id)"></div>
+                            <div class="title" ><a ng-href="{{card.shortUrl}}" target="_blank"> {{card.name}}</a></div>
+                            <div class="board"> <a ng-href="{{card.boardUrl}}" target="_blank"><span class="boardName">{{card.boardName}}</span></a>  | <span>{{card.badges.due | date : "HH:mm" : timezone}}</span></div>
+                        </div>
+                    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                 </div>
             </div>
         </div>
@@ -88,6 +150,8 @@
                     <p>... / ... / ... </p>
                 </div>
             </div>
+
+            {{singleCard}}
 
             <span ng-if="singleCards.badges.comments">Kommentare:   {{singleCard.badges.comments}}</span>
             <span ng-if="singleCards.badges.comments">Kommentare:   {{singleCard.comments}}</span>

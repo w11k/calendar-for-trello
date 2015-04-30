@@ -36,7 +36,7 @@ angular.module('w11kcal.app.week').run(function () {
 
 angular.module('w11kcal.app.week').controller('weekCtrl', /*ngInject*/ function ($scope,saveService,$interval,$ionicScrollDelegate,
                                                                                  initService, buildCalService, $window, $stateParams,
-                                                                                 $state, weekService) {
+                                                                                 $state, weekService,changeDate) {
 
 
 
@@ -116,20 +116,21 @@ angular.module('w11kcal.app.week').controller('weekCtrl', /*ngInject*/ function 
     };
 
 
-                /**
-                 *  build week matrix..
-                 *
-                 */
-    //            var getThursday = function (date) {
-    //                var d = new Date(date);
-    //                d.setHours(0,0,0);
-    //                d.setDate(d.getDate()+4-(d.getDay()||7));
-    //                return d;
-    //            };
-    //
-    //
-    //console.log(getThursday(new Date(2015,3,26)));
-    //
+
+    var getDays = function( reload) {
+        $scope.allDays = weekService.buildYear($scope.date.year, false);
+
+
+        $scope.days = [];
+        $scope.allDays.forEach(function (entry) {
+            if(entry.kw === $scope.date.kw) {
+                $scope.days.push(entry);
+            }
+        });
+    }
+
+getDays(false);
+
 
 
 
@@ -143,8 +144,11 @@ angular.module('w11kcal.app.week').controller('weekCtrl', /*ngInject*/ function 
             initService.init(1)
                 .then(function () {
                     $scope.loading = false;
-                   // $scope.days = buildCalService.build(date).days;
-                  //  $scope.config = buildCalService.build(date).config;
+                    getDays(true);
+
+
+
+
                 });
         }
     };
@@ -152,16 +156,6 @@ angular.module('w11kcal.app.week').controller('weekCtrl', /*ngInject*/ function 
 
 
 
-    $scope.allDays = weekService.buildYear($scope.date.year,$scope.date.amountOfKW.this);
-
-
-    $scope.days = [];
-
-    $scope.allDays.forEach(function (entry) {
-        if(entry.kw === $scope.date.kw) {
-            $scope.days.push(entry);
-        }
-    });
 
 
     $scope.logout = function () {
@@ -186,6 +180,76 @@ angular.module('w11kcal.app.week').controller('weekCtrl', /*ngInject*/ function 
         }
         $state.go("app.week", {year: $scope.date.year , kw:($scope.date.kw+steps)});
      };
+
+
+
+
+
+
+
+
+
+    // Drag 'n Drop
+    $scope.onDragSuccess = function (data, evt, date) {
+        var day = _.findIndex($scope.days, function(chr) {
+            return chr.date === date;
+        });
+        var index = $scope.days[day].cards.indexOf(data);
+        if (index > -1) {
+            $scope.days[day].cards.splice(index, 1);
+        }
+    };
+
+    $scope.onDropComplete = function (data, evt, targetDate) {
+       targetDate = new Date(targetDate);
+
+        data.waiting = true;
+
+
+
+
+        var day = _.findIndex($scope.days, function(chr) {
+            return moment(chr.date).hour(0).minute(0).second(0).millisecond(0).isSame(moment(targetDate).hour(0).minute(0).second(0).millisecond(0));
+        });
+
+        if(typeof $scope.days[day].cards === 'undefined') {
+            $scope.days[day].cards = [];
+            $scope.days[day].cards[0] = data;
+
+        } else {
+            var index = $scope.days[day].cards.indexOf(data);
+            if (index === -1) {
+                $scope.days[day].cards.push(data);
+            }
+        }
+
+
+        var time  = new Date (data.badges.due);
+
+        targetDate.setHours(time.getHours(), time.getMinutes(), time.getSeconds());
+
+        changeDate.async(data.id, targetDate).then(function () {
+                console.log("succes");
+                data.waiting = false;
+                data.due = targetDate;
+                data.badges.due = targetDate;
+            },
+            function () {
+                console.log("err");
+            });
+    };
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

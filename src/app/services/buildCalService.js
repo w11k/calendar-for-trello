@@ -68,6 +68,7 @@ angular.module("w11kcal.app").factory("buildCalService", /*ngInject*/  function 
                  * get days
                  */
 
+
                 while (date.getMonth() === month) {
                     days.push(buildADay(new Date(date), false));
                     date.setDate(date.getDate() + 1);

@@ -21,7 +21,9 @@ angular.module("w11kcal.app").factory("weekService", /*ngInject*/  function (sav
     //    };
     //    return  day;
     //};
-    //
+    // Today:
+    //         var isToday = (new Date(+date).setHours(0,0,0,0) === new Date().setHours(0,0,0,0));
+
 
 
     return {
@@ -35,7 +37,6 @@ angular.module("w11kcal.app").factory("weekService", /*ngInject*/  function (sav
                 d.setDate(d.getDate()+4-(d.getDay()||7));
                 return Math.ceil((((d-new Date(d.getFullYear(),0,1))/8.64e7)+1)/7);
             };
-
             /**
              * Performance: getKW muss nur 1x aufgerufen werden
              * dann sagt es, 1 datum ist KW 1 oder 52/53

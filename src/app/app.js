@@ -4,6 +4,7 @@
 angular.module('w11kcal.app', [
     'ionic',
     'w11kcal.app.month',
+    'w11kcal.app.week',
     'w11kcal.app.settings',
     'ngSanitize',
     'ui.bootstrap',
@@ -12,11 +13,12 @@ angular.module('w11kcal.app', [
     'angular-loading-bar',
     'ui-notification',
     'LocalStorageModule',
-    'ui.select'
+    'ui.select',
+    'w11kcal.analytics'
 ]);
 
 angular.module('w11kcal.app').constant('AppKey', '41485cd87d154168dd6db06cdd3ffd69');
-angular.module('w11kcal.app').constant('baseUrl', 'http://localhost:9000');
+angular.module('w11kcal.app').constant('baseUrl', 'http://192.168.1.170:9000');
 
 
 
@@ -138,5 +140,20 @@ angular.module('w11kcal.app').controller('sidebarCtrl', function ( /*ngInject*/ 
     $rootScope.weekPosition = 0;
 
 });
+
+
+Date.prototype.getWeekNumber = function () {
+
+    var d = new Date(+this);
+    // use this line to mock date
+   // var d = new Date(2015,2,20);
+    d.setHours(0,0,0);
+    d.setDate(d.getDate()+4-(d.getDay()||7));
+    // D ist jetzt der donnerstag Tag um den herum gebaut werden muss!
+    return Math.ceil((((d-new Date(d.getFullYear(),0,1))/8.64e7)+1)/7);
+
+};
+
+
 
 

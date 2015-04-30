@@ -1,5 +1,5 @@
 # trello-calendar
-Calendar for Trello made with with Ionic, AngularJS and [fabs](https://github.com/w11k/fabs).
+Calendar for Trello made with Ionic, AngularJS and [fabs](https://github.com/w11k/fabs).
 
 
 Hosted Version:

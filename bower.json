@@ -21,6 +21,7 @@
     "angular-ui-notification": "~0.0.5",
     "angular-bootstrap": "~0.12.1",
     "angular-local-storage": "~0.1.5",
-    "angular-ui-select": "~0.11.2"
+    "angular-ui-select": "~0.11.2",
+    "angulartics": "~0.17.2"
   }
 }

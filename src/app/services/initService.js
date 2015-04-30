@@ -32,12 +32,10 @@ angular.module("w11kcal.app").factory("initService", /*ngInject*/  function ($q,
                             entry.due = null;
                             return;
                         }
+                        var dueDay = entry.due;
+                        entry.dueDay = new Date(new Date(dueDay).setHours(0,0,0,0));
                         entry.due = new Date(entry.due);
-                        if (entry.due instanceof Date) {
-                            var dueDate = entry.due;
-                            dueDate.setHours(0, 0, 0, 0);
-                            entry.dueDate = dueDate;
-                        }
+
                     });
                     responses[1].data = cards;
                     responses[2].data = boards;

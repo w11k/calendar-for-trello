@@ -3,7 +3,7 @@ angular.module("w11kcal.app").factory("weekService", /*ngInject*/  function (sav
 
 
 
-    var years = {},  offset = {}, grouped,i;
+    var years = {},  offset = {}, grouped, i, workDate;
 
     var cards = saveService.print()[1].data;
     cards = _.groupBy(cards, 'dueDay');
@@ -28,7 +28,7 @@ angular.module("w11kcal.app").factory("weekService", /*ngInject*/  function (sav
 
 
     return {
-        buildYear: function (year) {
+        buildYear: function (year, kw) {
             var days = [];
             var day = new Date(year,0,1);
 
@@ -56,18 +56,37 @@ angular.module("w11kcal.app").factory("weekService", /*ngInject*/  function (sav
             }
 
 
+             workDate = new Date(+days[1].date);
 
-            grouped = _.groupBy(days, 'kw');
-            offset.before = grouped[1].length;
-            offset.behind = grouped[_.size(grouped)].length;
+            grouped = _.groupBy(days, 'mixed');
 
-            console.log(offset);
 
+
+            // catch overhead
+            // TOdo remove this overhead in days and years[year] !!!
+            if (_.size(grouped) > kw) {
+                console.log("cut");
+                delete grouped[[year, 53]];
+            }
+
+
+            console.log(_.size(grouped));
+            console.log(grouped);
+
+            //offset.before = grouped[1].length;
+            //offset.behind = grouped[_.size(grouped)].length;
+
+            console.log(7-grouped[[year, 1]].length);
+            console.log(7-grouped[[year, kw]].length);
 
 
             for (i = 0; i < offset.before; i++){
-                console.log("1");
-            }
+                workDate.setDate(workDate.getDate() - 1);
+                console.log(workDate);
+                //days.push(buildADay(new Date(days[].setHours(0,0,0,0)), true));
+
+                    // if weekday is 1 push 7 days:
+                }
 
             for (i = 0; i < offset.behind; i++){
                 console.log("1");

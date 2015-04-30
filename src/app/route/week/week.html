@@ -45,7 +45,7 @@
         <div class="isWeekView">
             <div class="listView">
                 <div class="day header" ng-repeat="wd in weekdays"><span class="short">{{wd[0]}}</span><span class="long">{{wd[1]}}</span></div>
-                <div data-ng-repeat="day in days | max:7" class="day dayOff">
+                <div data-ng-repeat="day in days" class="day dayOff">
                     {{day.date | date :'fullDate'}}
                 </div>
             </div>

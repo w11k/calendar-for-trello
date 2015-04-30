@@ -152,7 +152,7 @@ angular.module('w11kcal.app.week').controller('weekCtrl', /*ngInject*/ function 
 
 
 
-    $scope.allDays = weekService.buildYear($scope.date.year);
+    $scope.allDays = weekService.buildYear($scope.date.year,$scope.date.amountOfKW.this);
 
 
     $scope.days = [];

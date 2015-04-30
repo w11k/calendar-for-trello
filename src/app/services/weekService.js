@@ -3,21 +3,22 @@ angular.module("w11kcal.app").factory("weekService", /*ngInject*/  function (sav
 
 
 
-    var years = {};
+    var years = {},  offset = {}, grouped,i;
 
     var cards = saveService.print()[1].data;
     cards = _.groupBy(cards, 'dueDay');
     delete cards.undefined;
 
     //
-    //var buildADay = function (date, dayOff){
+    //var buildADayWeek = function (date, dayOff){
     //
     //    var day = {
     //        date: date,
     //        dayOff: dayOff,
     //        cards: cards[date],
     //        // isToday: "true/false",
-    //        weekday: moment(new Date(date)).format("dddd")
+    //        weekday: moment(new Date(date)).format("dddd"),
+    //        kw: 1231321321312312
     //    };
     //    return  day;
     //};
@@ -45,14 +46,33 @@ angular.module("w11kcal.app").factory("weekService", /*ngInject*/  function (sav
              *
              * ggf. am ende nochmal?
              */
-            while(day.getFullYear() === year) {
+            while (day.getFullYear() === year) {
                 days.push({
                     date: new Date(+day),
-                    kw: getKW(new Date(+day))
+                    kw: getKW(new Date(+day)),
+                    mixed: [new Date (+day).getFullYear(), getKW(new Date(+day))]
                 });
                 day.setDate(day.getDate() + 1);
             }
-            console.log(days.length);
+
+
+
+            grouped = _.groupBy(days, 'kw');
+            offset.before = grouped[1].length;
+            offset.behind = grouped[_.size(grouped)].length;
+
+            console.log(offset);
+
+
+
+            for (i = 0; i < offset.before; i++){
+                console.log("1");
+            }
+
+            for (i = 0; i < offset.behind; i++){
+                console.log("1");
+            }
+
             years[year] = days;
             return years[year];
         }

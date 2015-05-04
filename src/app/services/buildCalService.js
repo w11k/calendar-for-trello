@@ -1,5 +1,5 @@
 "use strict";
-angular.module("w11kcal.app").factory("buildCalService", /*ngInject*/  function (saveService) {
+angular.module("w11kcal.app").factory("buildCalService", /*ngInject*/  function (initService) {
 
     /**
      * returns amount of days for month in year
@@ -18,23 +18,14 @@ angular.module("w11kcal.app").factory("buildCalService", /*ngInject*/  function 
         build: function (inDate) {
 
 
-            var cards = saveService.print()[1].data;
-            console.log("getting cards from saveService..");
+            var cards = initService.print()[1].data;
+            console.log("getting cards from initService..");
             cards = _.groupBy(cards, 'dueDay');
             delete cards.undefined;
 
 
             var buildADay = function (date, dayOff){
-
-
                 var isToday = (new Date(+date).setHours(0,0,0,0) === new Date().setHours(0,0,0,0));
-
-                //  if((day-1) === d && new Date().getMonth() === month) {
-                //     isToday = true;
-                // }
-
-
-
                 var day = {
                     date: date,
                     dayOff: dayOff,
@@ -44,7 +35,6 @@ angular.module("w11kcal.app").factory("buildCalService", /*ngInject*/  function 
                 };
                 return  day;
             };
-
 
 
             var days = [];
@@ -73,7 +63,6 @@ angular.module("w11kcal.app").factory("buildCalService", /*ngInject*/  function 
                 /**
                  * get days
                  */
-
 
                 while (date.getMonth() === month) {
                     days.push(buildADay(new Date(date), false));

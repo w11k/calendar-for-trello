@@ -116,10 +116,10 @@ angular.module('w11kcal.app').config(/*ngInject*/ function ($stateProvider, $url
 
 
 
-angular.module('w11kcal.app').controller('sidebarCtrl', function ( /*ngInject*/ $state, buildCalService, $scope, saveService,$rootScope) {
+angular.module('w11kcal.app').controller('sidebarCtrl', function ( /*ngInject*/ $state, buildCalService, $scope, initService,$rootScope) {
 
-    if(saveService.print()){
-        $scope.name = saveService.print()[0].data.fullName;
+    if(initService.print()){
+        $scope.name = initService.print()[0].data.fullName;
     } else {
         $scope.name = "- please login to start";
     }

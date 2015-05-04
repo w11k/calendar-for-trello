@@ -34,7 +34,7 @@ angular.module('w11kcal.app.week').config(/*ngInject*/ function ($stateProvider)
 angular.module('w11kcal.app.week').run(function () {
 });
 
-angular.module('w11kcal.app.week').controller('weekCtrl', /*ngInject*/ function ($scope,saveService,$interval,$ionicScrollDelegate,
+angular.module('w11kcal.app.week').controller('weekCtrl', /*ngInject*/ function ($scope,$interval,$ionicScrollDelegate,
                                                                                  initService, buildCalService, $window, $stateParams,
                                                                                  $state, weekService,changeDate) {
 
@@ -70,7 +70,7 @@ angular.module('w11kcal.app.week').controller('weekCtrl', /*ngInject*/ function 
 
 
 
-    if(saveService.print()) {
+    if(initService.print()) {
         $scope.login = true;
     }
 
@@ -101,7 +101,7 @@ angular.module('w11kcal.app.week').controller('weekCtrl', /*ngInject*/ function 
 
     // Build Filter
     $scope.boards = [];
-    _.forEach(saveService.print()[2].data, function (board) {
+    _.forEach(initService.print()[2].data, function (board) {
         $scope.boards.push({
             name: board.name,
             id: board.id,
@@ -154,7 +154,7 @@ getDays(false);
 
 
     $scope.logout = function () {
-        saveService.remove();
+        initService.remove();
         $scope.login = false;
         $window.location.reload();
     };
@@ -253,7 +253,7 @@ getDays(false);
     $scope.detail = function (id) {
         $scope.showDetail = true;
         $ionicScrollDelegate.scrollBottom();
-        $scope.singleCard =_.find(saveService.print()[1].data, { 'id': id});
+        $scope.singleCard =_.find(initService.print()[1].data, { 'id': id});
     };
 
 

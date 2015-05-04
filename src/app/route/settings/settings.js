@@ -19,14 +19,14 @@ angular.module('w11kcal.app.settings').config(/*ngInject*/ function ($stateProvi
 });
 
 
-angular.module('w11kcal.app.settings').controller('settingsCtrl', /*ngInject*/ function ($scope, $state,saveService,localStorageService,$rootScope) {
+angular.module('w11kcal.app.settings').controller('settingsCtrl', /*ngInject*/ function ($scope, $state,initService,localStorageService,$rootScope) {
 
     $scope.auth = function () {
         $state.go("app.month");
 
     };
 
-    if(saveService.print()){
+    if(initService.print()){
         $scope.login = true;
     }
 

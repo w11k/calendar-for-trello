@@ -1,5 +1,5 @@
 "use strict";
-angular.module("w11kcal.app").factory("weekService", /*ngInject*/  function (saveService) {
+angular.module("w11kcal.app").factory("weekService", /*ngInject*/  function (initService) {
 
 
     var years = {}, i;
@@ -13,7 +13,7 @@ angular.module("w11kcal.app").factory("weekService", /*ngInject*/  function (sav
     return {
         buildYear: function (year, reload) {
 
-            var cards = saveService.print()[1].data;
+            var cards = initService.print()[1].data;
             cards = _.groupBy(cards, 'dueDay');
             delete cards.undefined;
 

@@ -30,7 +30,7 @@ angular.module('w11kcal.app.month').config(/*ngInject*/ function ($stateProvider
 angular.module('w11kcal.app.month').run(function () {
 });
 
-angular.module('w11kcal.app.month').controller('monthCtrl', /*ngInject*/ function (initService, $timeout, $interval, $ionicScrollDelegate,archiveCard, $scope, changeDate,Notification, saveService,$window,$stateParams, $location,buildCalService) {
+angular.module('w11kcal.app.month').controller('monthCtrl', /*ngInject*/ function (initService, $timeout, $interval, $ionicScrollDelegate,archiveCard, $scope, changeDate,Notification,$window,$stateParams, $location,buildCalService) {
 
 
     /**
@@ -40,7 +40,7 @@ angular.module('w11kcal.app.month').controller('monthCtrl', /*ngInject*/ functio
 
     var Caltoday, month, year,  today;
 
-    if(saveService.print()) {
+    if(initService.print()) {
         $scope.login = true;
     }
 
@@ -98,7 +98,7 @@ angular.module('w11kcal.app.month').controller('monthCtrl', /*ngInject*/ functio
 
     // Build Filter
     $scope.boards = [];
-    _.forEach(saveService.print()[2].data, function (board) {
+    _.forEach(initService.print()[2].data, function (board) {
         $scope.boards.push({
             name: board.name,
             id: board.id,
@@ -121,7 +121,9 @@ angular.module('w11kcal.app.month').controller('monthCtrl', /*ngInject*/ functio
         if($scope.loading === false) {
             $scope.loading = true;
             initService.init(1)
-                .then(function () {
+                .then(function (data) {
+                    console.log("then | frisch?");
+                    console.log(data[1].data[25]);
                     $scope.loading = false;
                     $scope.days = buildCalService.build(date).days;
                  //   $scope.config = buildCalService.build(date).config;
@@ -139,9 +141,8 @@ angular.module('w11kcal.app.month').controller('monthCtrl', /*ngInject*/ functio
 
 
     $scope.logout = function () {
-        saveService.remove();
+        initService.remove();
         $scope.login = false;
-        console.log(saveService.print());
         $window.location.reload();
     };
 
@@ -179,6 +180,9 @@ angular.module('w11kcal.app.month').controller('monthCtrl', /*ngInject*/ functio
 
     $scope.onDropComplete = function (data, evt, targetDate) {
 
+
+        var targetDay = + targetDate;
+
         data.waiting = true;
 
 
@@ -186,6 +190,9 @@ angular.module('w11kcal.app.month').controller('monthCtrl', /*ngInject*/ functio
             return chr.date === targetDate;
         });
 
+
+        console.log("day"+day);
+        console.log("targetDay"+targetDay);
 
 
 
@@ -205,14 +212,17 @@ angular.module('w11kcal.app.month').controller('monthCtrl', /*ngInject*/ functio
 
         targetDate.setHours(time.getHours(), time.getMinutes(), time.getSeconds());
 
+        console.log("target is:"+ targetDate);
+
         changeDate.async(data.id, targetDate).then(function () {
-                console.log("succes");
                 data.waiting = false;
                 data.due = targetDate;
                 data.badges.due = targetDate;
+                data.dueDay = new Date(targetDay);
             },
             function () {
                 console.log("err");
+                $window.location.reload();
             });
     };
 
@@ -235,7 +245,7 @@ angular.module('w11kcal.app.month').controller('monthCtrl', /*ngInject*/ functio
     $scope.detail = function (id) {
         $scope.showDetail = true;
         $ionicScrollDelegate.scrollBottom();
-        $scope.singleCard =_.find(saveService.print()[1].data, { 'id': id});
+        $scope.singleCard =_.find(initService.print()[1].data, { 'id': id});
     };
 
 

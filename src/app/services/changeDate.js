@@ -1,10 +1,12 @@
 'use strict';
-angular.module('w11kcal.app').factory('changeDate', /*ngInject*/  function($q,saveService, AppKey,localStorageService, $http) {
+angular.module('w11kcal.app').factory('changeDate', /*ngInject*/  function($q, AppKey,localStorageService, $http) {
     var token = localStorageService.get("trello_token");
     var data;
     var resourceFactory = {
         async: function(id, date) {
 
+
+            console.log("Setting date to:" +date);
             data = {
                 due: date,
                 token: token,

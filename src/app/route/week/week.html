@@ -27,7 +27,7 @@
                     </button>
                 </div>
                 Calendar Week: {{date.kw}}/{{date.amountOfKW.this}}, {{date.year}}
-                <button class="btn btn-default pull-right" ng-if="!isThisWeek" ng-click="toToday(thisYear,thisKW)">Today</button>
+                <button class="btn btn-default pull-right" ng-if="!isThisWeek" ng-click="toToday(thisYear,thisKW)">to current week</button>
                 <button class="btn btn-primary disabled pull-right" ng-if="isThisWeek">current week</button>
             </h1>
         </div>

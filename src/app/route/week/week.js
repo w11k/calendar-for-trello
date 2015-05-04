@@ -118,7 +118,7 @@ angular.module('w11kcal.app.week').controller('weekCtrl', /*ngInject*/ function 
 
 
     var getDays = function( reload) {
-        $scope.allDays = weekService.buildYear($scope.date.year, false);
+        $scope.allDays = weekService.buildYear($scope.date.year, reload);
 
 
         $scope.days = [];
@@ -127,7 +127,7 @@ angular.module('w11kcal.app.week').controller('weekCtrl', /*ngInject*/ function 
                 $scope.days.push(entry);
             }
         });
-    }
+    };
 
 getDays(false);
 
@@ -145,10 +145,6 @@ getDays(false);
                 .then(function () {
                     $scope.loading = false;
                     getDays(true);
-
-
-
-
                 });
         }
     };

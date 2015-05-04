@@ -139,7 +139,7 @@ getDays(false);
     $scope.refresh = function () {
         if($scope.loading === false) {
             $scope.loading = true;
-            initService.init(1)
+            initService.refresh()
                 .then(function () {
                     $scope.loading = false;
                     getDays(true);

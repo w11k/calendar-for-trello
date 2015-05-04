@@ -120,7 +120,7 @@ angular.module('w11kcal.app.month').controller('monthCtrl', /*ngInject*/ functio
     $scope.refresh = function () {
         if($scope.loading === false) {
             $scope.loading = true;
-            initService.init(1)
+            initService.refresh()
                 .then(function (data) {
                     console.log("then | frisch?");
                     console.log(data[1].data[25]);
@@ -191,11 +191,6 @@ angular.module('w11kcal.app.month').controller('monthCtrl', /*ngInject*/ functio
         });
 
 
-        console.log("day"+day);
-        console.log("targetDay"+targetDay);
-
-
-
         if(typeof $scope.days[day].cards === 'undefined') {
             $scope.days[day].cards = [];
             $scope.days[day].cards[0] = data;
@@ -211,9 +206,6 @@ angular.module('w11kcal.app.month').controller('monthCtrl', /*ngInject*/ functio
         var time  = new Date (data.badges.due);
 
         targetDate.setHours(time.getHours(), time.getMinutes(), time.getSeconds());
-
-        console.log("target is:"+ targetDate);
-
         changeDate.async(data.id, targetDate).then(function () {
                 data.waiting = false;
                 data.due = targetDate;

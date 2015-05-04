@@ -53,7 +53,7 @@
                      ng-drop="true"
                      ng-drop-success="onDropComplete($data,$event, day.date)">
 
-                    <div class="dayCounter"><span class="weekday ng-binding">{{day.weekDay}}</span><span class="ng-binding">{{day.dateName}}</span></div>
+                    <div class="dayCounter"><span class="weekday ng-binding">{{day.weekDay}}</span><span  ng-class="{'label label-primary' :day.isToday}" class="ng-binding">{{day.dateName}}</span></div>
 
 
 

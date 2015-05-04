@@ -62,12 +62,11 @@
 
             <div ng-repeat="day in days"
                  class="day"
-                 ng-class="{'dayOff': day.dayOff, 'dayOn' : !day.dayOff, 'has' : day.cards.length >= 1, 'today' :day.isToday}"
+                 ng-class="{'dayOff': day.dayOff, 'dayOn' : !day.dayOff, 'has' : day.cards.length >= 1}"
                  ng-drop="true"
                  ng-drop-success="onDropComplete($data,$event, day.date)">
 
-
-                <div class="dayCounter" ><span class="weekday">{{day.weekday}}</span><span>{{day.date  | date: "d" }}</span></div>
+                <div class="dayCounter" ><span class="weekday">{{day.weekday}}</span><span  ng-class="{'label label-primary' :day.isToday}">{{day.date  | date: "d" }}</span></div>
                 <div class="dayCards">
                     <div ng-repeat="card in day.cards | orderBy:['badges.due', 'name'] | filter: activeBoard"
                          ng-drag="true" ng-drag-data="card"

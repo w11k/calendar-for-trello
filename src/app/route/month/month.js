@@ -121,15 +121,9 @@ angular.module('w11kcal.app.month').controller('monthCtrl', /*ngInject*/ functio
         if($scope.loading === false) {
             $scope.loading = true;
             initService.refresh()
-                .then(function (data) {
-                    console.log("then | frisch?");
-                    console.log(data[1].data[25]);
+                .then(function () {
                     $scope.loading = false;
                     $scope.days = buildCalService.build(date).days;
-                 //   $scope.config = buildCalService.build(date).config;
-                    $scope.$broadcast('scroll.refreshComplete');
-
-                    $scope.$broadcast('scroll.refreshComplete');
                     $scope.$broadcast('scroll.refreshComplete');
 
 

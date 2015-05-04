@@ -23,7 +23,6 @@ angular.module("w11kcal.app").factory("initService", /*ngInject*/  function ($q,
 
             $q.all([me, cards, boards])
                 .then(function (responses) {
-                    console.log("delay");
                     var cards = responses[1].data;
                     var boards = _.indexBy(responses[2].data, "id");
                     cards.forEach(function (entry) {
@@ -62,7 +61,6 @@ angular.module("w11kcal.app").factory("initService", /*ngInject*/  function ($q,
 
             $q.all([me, cards, boards])
                 .then(function (responses) {
-                    console.log("delay");
                     var cards = responses[1].data;
                     var boards = _.indexBy(responses[2].data, "id");
                     cards.forEach(function (entry) {
@@ -86,7 +84,6 @@ angular.module("w11kcal.app").factory("initService", /*ngInject*/  function ($q,
                 });
 
             return status.promise;
-            //return status.promise;
         },
 
 

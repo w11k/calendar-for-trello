@@ -36,7 +36,7 @@ angular.module('w11kcal.app.week').run(function () {
 
 angular.module('w11kcal.app.week').controller('weekCtrl', /*ngInject*/ function ($scope,$interval,$ionicScrollDelegate,
                                                                                  initService, buildCalService, $window, $stateParams,
-                                                                                 $state, weekService,changeDate) {
+                                                                                 $state, weekService,changeDate, $location) {
 
 
 
@@ -63,7 +63,9 @@ angular.module('w11kcal.app.week').controller('weekCtrl', /*ngInject*/ function 
     $scope.date.amountOfKW.next = weeksOfYear($scope.date.year+1);
 
 
-
+    $scope.thisKW = parseInt(moment().format("w"));
+    $scope.thisYear = parseInt(moment().format("GGGG"));
+    $scope.isThisWeek = $scope.thisKW === $scope.date.kw && $scope.thisYear === $scope.date.year;
     /**
      * Part 1: config
      */
@@ -150,6 +152,9 @@ getDays(false);
 
 
 
+    $scope.toToday = function (year, kw) {
+        $location.path("/app/week/"+year+"/"+kw);
+    };
 
 
 

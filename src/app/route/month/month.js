@@ -92,7 +92,7 @@ angular.module('w11kcal.app.month').controller('monthCtrl', /*ngInject*/ functio
     }
 
     $scope.days = buildCalService.build(date).days;
-    $scope.config = buildCalService.build(date).config;
+    //$scope.config = buildCalService.build(date).config;
 
 
 
@@ -124,7 +124,13 @@ angular.module('w11kcal.app.month').controller('monthCtrl', /*ngInject*/ functio
                 .then(function () {
                     $scope.loading = false;
                     $scope.days = buildCalService.build(date).days;
-                    $scope.config = buildCalService.build(date).config;
+                 //   $scope.config = buildCalService.build(date).config;
+                    $scope.$broadcast('scroll.refreshComplete');
+
+                    $scope.$broadcast('scroll.refreshComplete');
+                    $scope.$broadcast('scroll.refreshComplete');
+
+
                 });
         }
     };

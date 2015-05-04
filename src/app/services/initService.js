@@ -1,5 +1,5 @@
 "use strict";
-angular.module("w11kcal.app").factory("initService", /*ngInject*/  function ($q, $http, localStorageService, $window, saveService,baseUrl) {
+angular.module("w11kcal.app").factory("initService", /*ngInject*/  function ($q, $http, localStorageService, $window, baseUrl, saveService) {
 
     var key = "41485cd87d154168dd6db06cdd3ffd69";
     var token = localStorageService.get("trello_token");
@@ -45,6 +45,16 @@ angular.module("w11kcal.app").factory("initService", /*ngInject*/  function ($q,
             }
             }
             return login.promise;
+        },
+
+
+        echo: function () {
+            return data;
+
+        },
+
+        remove: function () {
+            data = null;
         }
     };
 });

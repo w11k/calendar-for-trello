@@ -12,35 +12,41 @@ angular.module("w11kcal.app").factory("buildCalService", /*ngInject*/  function 
 
 
 
-    var cards = saveService.print()[1].data;
-    cards = _.groupBy(cards, 'dueDay');
-    delete cards.undefined;
-
-    var buildADay = function (date, dayOff){
-
-
-        var isToday = (new Date(+date).setHours(0,0,0,0) === new Date().setHours(0,0,0,0));
-
-      //  if((day-1) === d && new Date().getMonth() === month) {
-       //     isToday = true;
-       // }
-
-
-
-        var day = {
-            date: date,
-            dayOff: dayOff,
-            cards: cards[date],
-            isToday: isToday,
-            weekday: moment(new Date(date)).format("dddd")
-        };
-        return  day;
-    };
-
 
 
     return {
         build: function (inDate) {
+
+
+            var cards = saveService.print()[1].data;
+            console.log("getting cards from saveService..");
+            cards = _.groupBy(cards, 'dueDay');
+            delete cards.undefined;
+
+
+            var buildADay = function (date, dayOff){
+
+
+                var isToday = (new Date(+date).setHours(0,0,0,0) === new Date().setHours(0,0,0,0));
+
+                //  if((day-1) === d && new Date().getMonth() === month) {
+                //     isToday = true;
+                // }
+
+
+
+                var day = {
+                    date: date,
+                    dayOff: dayOff,
+                    cards: cards[date],
+                    isToday: isToday,
+                    weekday: moment(new Date(date)).format("dddd")
+                };
+                return  day;
+            };
+
+
+
             var days = [];
 
             function getDaysInMonth (year, month) {

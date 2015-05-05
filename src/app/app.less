@@ -77,8 +77,10 @@ i.icon {padding-right:4px;}
     padding:5px;
     display:block;
 
-    label {
-      margin-right: -5px;
+    .label {
+      margin-right: -3px;
+      padding:.2em .3em .2em ;
+
     }
 
   }
@@ -121,7 +123,7 @@ i.icon {padding-right:4px;}
   .dayOn {
     background:none;
   }
-  .dayCounter {margin:2px 3px 3px 0;
+  .dayCounter {margin:2px 3px 5px 0;
     font-size: 18px;
     color:#333;
     text-align: right ;
@@ -223,9 +225,6 @@ h1{
       //float:left;
       width: 14.28%;
       min-height:80px;
-      label {
-        margin-right: 0;
-      }
 
     }
 
@@ -363,14 +362,6 @@ button i {
   animation:spin 1s linear infinite;
 }
 
-/*
-
-Spinning animation deaktiviert da doppelt mit der loading bar
-@-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
-@-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
-@keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
-*/
-
 .panel-primary.dark {
   border-color:#444;
 
@@ -381,7 +372,6 @@ Spinning animation deaktiviert da doppelt mit der loading bar
   * {
     border-color:#444;
   }
-
 
   button {
     background:#444;

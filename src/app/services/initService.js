@@ -94,6 +94,7 @@ angular.module("w11kcal.app").factory("initService", /*ngInject*/  function ($q,
 
         remove: function () {
             data = null;
+            localStorageService.set("trello_token" ,null);
         }
     };
 });

@@ -1,5 +1,10 @@
 # trello-calendar
-Calendar for Trello made with Ionic, AngularJS and [fabs](https://github.com/w11k/fabs).
+
+Trello is a productivity tool that helps you to organize your projects by creating individual lists, boards and cards.
+Managing your projects in teams get more flexible and it improves the whole workflow.
+The w11k Trello Calendar allows you to organize all cards of all boards in one calendar.
+
+made with Ionic, AngularJS and [fabs](https://github.com/w11k/fabs).
 
 
 Hosted Version:
@@ -29,4 +34,4 @@ while developing your URL will be http://localhost:9000
 
 
 ## License
-Apache 2.0  - see LICENSE file
+Apache 2.0 - see LICENSE file

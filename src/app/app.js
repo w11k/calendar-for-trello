@@ -18,8 +18,8 @@ angular.module('w11kcal.app', [
 ]);
 
 angular.module('w11kcal.app').constant('AppKey', '41485cd87d154168dd6db06cdd3ffd69');
-angular.module('w11kcal.app').constant('baseUrl', 'http://localhost:9000');
-//angular.module('w11kcal.app').constant('baseUrl', 'http://trello-calendar.w11k.de');
+//angular.module('w11kcal.app').constant('baseUrl', 'http://localhost:9000');
+angular.module('w11kcal.app').constant('baseUrl', 'http://trello-calendar.w11k.de');
 
 
 

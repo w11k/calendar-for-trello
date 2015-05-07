@@ -17,6 +17,7 @@ angular.module("w11kcal.app").factory("initService", /*ngInject*/  function ($q,
                 console.log("data already fetched");
                 login.resolve(data);
             } else {
+
             me = $http.get("https://api.trello.com/1/members/me?key="+key+"&token="+token);
             boards = $http.get("https://api.trello.com/1/members/me/boards?key="+key+"&token="+token);
             cards = $http.get("https://api.trello.com/1/members/me/cards?key="+key+"&token="+token);
@@ -43,6 +44,17 @@ angular.module("w11kcal.app").factory("initService", /*ngInject*/  function ($q,
                     responses[2].data = boards;
                     data = responses;
                     login.resolve(responses);
+                },
+                function (error){
+                    // Something went wrong
+                    console.log(error);
+
+                    // maybe auth?
+                    if (error.status === 401){
+                        //log out, reload.
+                        localStorageService.remove("trello_token");
+                        $window.location.reload();
+                    }
                 });
             }
             }

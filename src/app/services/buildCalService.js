@@ -19,7 +19,6 @@ angular.module("w11kcal.app").factory("buildCalService", /*ngInject*/  function 
 
 
             var cards = initService.print()[1].data;
-            console.log("getting cards from initService..");
             cards = _.groupBy(cards, 'dueDay');
             delete cards.undefined;
 
@@ -45,7 +44,6 @@ angular.module("w11kcal.app").factory("buildCalService", /*ngInject*/  function 
                  * get start - offset
                  */
                 var runs = moment(date).isoWeekday();
-             //   console.log(runs);
                 if (runs === 1) {
                     // if week starts with monday, add 7 days
                     runs = 7;
@@ -78,7 +76,6 @@ angular.module("w11kcal.app").factory("buildCalService", /*ngInject*/  function 
                 } else {
                     a = 7;
                 }
-               // console.log("a:" +a);
                 config.endOffset = a;
                 for (var i = 0; i < a; i++) {
                     days.push(buildADay(new Date(date), true));

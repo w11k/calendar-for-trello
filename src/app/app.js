@@ -39,41 +39,12 @@
 
 
         localStorageServiceProvider
-            .setPrefix('w11k')
+            .setPrefix('w11ktrello')
             .setStorageType('localStorage');
+        console.log(1);
 
         $stateProvider
-            .state('month', {
-                url: '/month',
-                views: {
-                    'header': {
-                        abstract: true,
-                        templateUrl: 'partials/header.html',
-                        controller: 'headerCtrl'
 
-                    },
-                    'sidebar':{
-                        abstract: true,
-                        templateUrl: 'partials/sidebar.html',
-                        controller: 'headerCtrl'
-                    },
-
-                    'content': {
-                        templateUrl: 'route/month/month.html',
-                        controller: 'monthCtrl',
-                        data: {
-                            pageTitle: 'Month View'
-                        }
-                    }
-                }
-                ,
-                resolve: {
-                    'asInitService':function (initService) {
-
-                        return initService.init();
-                    }
-                }
-            })
 
             .state('week', {
                 url: '/week',
@@ -211,17 +182,22 @@
                 }
             });
 
+        console.log(1);
 
-        if(localStorage.getItem('w11k.startMonth') === true || localStorage.getItem('w11k.startMonth') === null) {
+        if(localStorage.getItem('w11ktrello.startMonth') === true || localStorage.getItem('w11ktrello.startMonth') === null) {
+            console.log(1);
+
             $urlRouterProvider.otherwise('/month');
         } else {
+            console.log(1);
+
             $urlRouterProvider.otherwise('/week');
 
         }
 
 
-        if(!localStorage.getItem('w11k.boardColors')) {
-            localStorage.setItem('w11k.boardColors', false);
+        if(!localStorage.getItem('w11ktrello.boardColors')) {
+            localStorage.setItem('w11ktrello.boardColors', false);
         }
 
 
@@ -232,6 +208,8 @@
         if($location.$$protocol !== 'http') {
             $rootScope.mobil = true;
         }
+        console.log(1);
+
     });
 
 

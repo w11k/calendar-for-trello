@@ -64,6 +64,8 @@ angular.module('trelloCal').factory('initService', /*ngInject*/  function ($q, $
 
     return {
         init: function (option) {
+            console.log(3);
+
             if(!token) {
                 /**
                  *  User is not logged in, if $rootScope.mobil = true he is on a mobile device,

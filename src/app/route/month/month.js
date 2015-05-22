@@ -1,6 +1,41 @@
 'use strict';
 var month = angular.module('trelloCal.month', []);
-month.config(/*ngInject*/ function () {
+month.config(/*ngInject*/ function ($stateProvider) {
+    console.log('month config');
+
+    $stateProvider
+    .state('month', {
+        url: '/month',
+        views: {
+            'header': {
+                abstract: true,
+                templateUrl: 'partials/header.html',
+                controller: 'headerCtrl'
+
+            },
+            'sidebar':{
+                abstract: true,
+                templateUrl: 'partials/sidebar.html',
+                controller: 'headerCtrl'
+            },
+
+            'content': {
+                templateUrl: 'route/month/month.html',
+                controller: 'monthCtrl',
+                data: {
+                    pageTitle: 'Month View'
+                }
+            }
+        }
+        ,
+        resolve: {
+            'asInitService':function (initService) {
+                console.log(2);
+                return initService.init();
+            }
+        }
+    });
+
 
 });
 

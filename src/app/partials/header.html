@@ -1,0 +1,12 @@
+<md-toolbar  class="header md-whiteframe-glow-z2" layout="row" class="headBar" md-swipe-right="openSidenav('left')"     md-swipe-left="closeSidenav('left')"  >
+
+    <section class="material-design-hamburger "   flex layout="row" layout-align="space-between center">
+
+        <md-button hide-gt-lg title="Launch Google.com in new window" target="_blank" aria-label="Google.com" class="md-icon-button" ng-click="toggleSidenav('left')">
+            <ng-md-icon icon="menu"  class="md-toolbar-tools" style="fill: #fff" size="32" ></ng-md-icon>
+        </md-button>
+
+        <md-button class="md-raised md-warn" ng-click="logout()" >Logout</md-button>
+
+    </section>
+</md-toolbar>

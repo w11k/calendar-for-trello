@@ -1,116 +1,88 @@
 'use strict';
+var month = angular.module('trelloCal.month', []);
+month.config(/*ngInject*/ function () {
+
+});
+
+month.controller('monthCtrl', function(asInitService, $timeout, $interval,
+                                       archiveCard, $scope, buildCalService, changeDate,$window,
+                                       $stateParams, $location,$mdDialog, localStorageService,orderByFilter,
+                                       ngProgress,initService) {
 
 
-angular.module('w11kcal.app.month', []);
-angular.module('w11kcal.app.month').config(/*ngInject*/ function ($stateProvider) {
+var boards;
 
-    $stateProvider
-        .state('app.month', {
-            url: '/month/{date}',
-            views: {
-                'menuContent': {
-                    templateUrl: 'route/month/month.html',
-                    controller: 'monthCtrl'
-                }
-            },
-            resolve: {
-                'asInitService':function (initService) {
-                    return initService.init();
-                }
-            }
+    var routine = function (date) {
+        $scope.days = buildCalService.build(date).days;
+
+        $scope.date = {
+            iso: new Date(year,month),
+            monthName: moment.months()[date.month],
+            month: date.month,
+            year: date.year
+        };
+
+
+        $scope.isToday = (date.year === today.year && date.month === today.month);
+        boards = buildCalService.boards();
+        $scope.allBoards = [];
+        _.forEach(boards, function (board) {
+            $scope.allBoards.push(board);
         });
-});
+        $scope.resetBoards();
+
+    };
 
 
 
-
-
-
-
-angular.module('w11kcal.app.month').run(function () {
-});
-
-angular.module('w11kcal.app.month').controller('monthCtrl', /*ngInject*/ function (initService, $timeout, $interval, $ionicScrollDelegate,archiveCard, $scope, changeDate,Notification,$window,$stateParams, $location,buildCalService) {
-
-
-    /**
-     * Part 1: config
-     */
-
-
-    var Caltoday, month, year,  today;
-
-    if(initService.print()) {
-        $scope.login = true;
-    }
-
-
-
-    // set transmitted month
-    var setDate = $stateParams.date.split('-', 2);
-    Caltoday = new Date(setDate[0],(setDate[1]-1), 1);
-
-    if(setDate[1] === undefined) {
-        // wrong date set in url, redirecting to today
-        Caltoday = new Date();
-        $location.path("/app/month/"+Caltoday.getFullYear()+"-"+(Caltoday.getMonth()+1)).replace();
-    }
-
-
+    var month, year,  today;
 
     var date = {};
-    date.year = Caltoday.getFullYear();
-    date.month = Caltoday.getMonth();
+    date.year = new Date().getFullYear();
+    date.month = new Date().getMonth();
     today = {};
     today.year = new Date().getFullYear();
     today.month = new Date().getMonth();
-    $scope.today = !(date.year === today.year && date.month === today.month);
+
+
+    $scope.isToday = (date.year === today.year && date.month === today.month);
 
     $scope.date = {
-        iso: Caltoday,
+        iso: new Date(),
         monthName: moment.months()[date.month],
         month: date.month,
         year: date.year
     };
 
-
     $scope.toToday = function () {
-        $location.path("/app/month/"+today.year+"-"+(today.month+1));
+        date = today;
+        routine(date);
     };
 
-
-    /**
-     * Part 2: Build
-     */
 
         // top legende
     $scope.weekdays = [];
     for (var i = 0; i <= 6; i++) {
-        var long =  moment().weekday(i).format("dddd");
-        var short = moment().weekday(i).format("dd");
+        var long =  moment().weekday(i).format('dddd');
+        var short = moment().weekday(i).format('dd');
         $scope.weekdays[i] = [short, long];
     }
 
+
     $scope.days = buildCalService.build(date).days;
-    //$scope.config = buildCalService.build(date).config;
 
-
-
-    // Build Filter
-    $scope.boards = [];
-    _.forEach(initService.print()[2].data, function (board) {
-        $scope.boards.push({
-            name: board.name,
-            id: board.id,
-            ticked: true,
-            color: board.prefs.backgroundColor
+    $scope.$watch('days'   , function () {
+        _.forEach($scope.days, function (day) {
+            day.cards = orderByFilter(day.cards, ['badges.due', 'name']);
         });
-    });
-    $scope.multipleDemo = {};
-    $scope.multipleDemo.selectedBoards = $scope.boards;
-    $scope.activeBoard = function (card) {
-        return _.find($scope.multipleDemo.selectedBoards, { 'id': card.idBoard});
-    };
+    }, true);
+
+
+
+    $scope.$watch('boards', function () {
+       $scope.resetBtn = ($scope.boards.length !== $scope.allBoards.length);
+    }, true);
+
 
 
     /**
@@ -120,13 +92,11 @@ angular.module('w11kcal.app.month').controller('monthCtrl', /*ngInject*/ functio
     $scope.refresh = function () {
         if($scope.loading === false) {
             $scope.loading = true;
-            initService.refresh()
+            asInitService.refresh()
                 .then(function () {
                     $scope.loading = false;
                     $scope.days = buildCalService.build(date).days;
                     $scope.$broadcast('scroll.refreshComplete');
-
-
                 });
         }
     };
@@ -134,15 +104,9 @@ angular.module('w11kcal.app.month').controller('monthCtrl', /*ngInject*/ functio
 
 
 
-    $scope.logout = function () {
-        initService.remove();
-        $scope.login = false;
-        $window.location.reload();
+    $scope.click = function (shortUrl) {
+        $window.open(shortUrl);
     };
-
-
-
-
 
     $scope.move = function (steps) {
         year = date.year;
@@ -154,90 +118,65 @@ angular.module('w11kcal.app.month').controller('monthCtrl', /*ngInject*/ functio
             month = 11;
             year--;
         }
-        $location.path("/app/month/"+year+"-"+(month+1));
+
+        date = {year: year, month:month};
+
+        routine(date);
+
+    };
+
+
+    $scope.sortableOptions = {
+        receive: function (e, ui) {
+            var id = ui.item[0].firstElementChild.id.split('-')[0];
+            var targetDate = new Date(e.target.id+' '+ui.item[0].firstElementChild.id.split('-')[1]);
+            ngProgress.start();
+            changeDate.async(id, targetDate).then(function () {
+                    initService.updateDate(id, targetDate);
+                    ngProgress.complete();
+                },
+                function () {
+                    /**
+                     * ToDo:
+                     * move card back
+                     */
+                    var dialog = function () {
+                        $mdDialog.show(
+                            $mdDialog.alert()
+                                .parent(angular.element(document.body))
+                                .title('Oops, something went wrong.')
+                                .content('please check your connection and reload this page')
+                                .ariaLabel('Connection Error')
+                                .ok('reload')
+                            //  .targetEvent(ev)
+                        ).then(function () {
+                                changeDate.async(ui.item[0].firstElementChild.id.split('-')[0], targetDate).then(function () {
+                                    // user is only, successfull
+                                }, function () {
+                                    dialog();
+                                });
+                            });
+                    };
+                    dialog();
+                });
+        },
+        placeholder: 'card',
+        connectWith: '.dayCards'
     };
 
 
 
-
-
-    // Drag 'n Drop
-    $scope.onDragSuccess = function (data, evt, date) {
-        var day = _.findIndex($scope.days, function(chr) {
-            return chr.date === date;
-        });
-        var index = $scope.days[day].cards.indexOf(data);
-        if (index > -1) {
-            $scope.days[day].cards.splice(index, 1);
-        }
-    };
-
-    $scope.onDropComplete = function (data, evt, targetDate) {
-
-
-        var targetDay = + targetDate;
-
-        data.waiting = true;
-
-
-        var day = _.findIndex($scope.days, function(chr) {
-            return chr.date === targetDate;
-        });
-
-
-        if(typeof $scope.days[day].cards === 'undefined') {
-            $scope.days[day].cards = [];
-            $scope.days[day].cards[0] = data;
-
-        } else {
-            var index = $scope.days[day].cards.indexOf(data);
-            if (index === -1) {
-                $scope.days[day].cards.push(data);
-            }
-        }
-
-
-        var time  = new Date (data.badges.due);
-
-        targetDate.setHours(time.getHours(), time.getMinutes(), time.getSeconds());
-        changeDate.async(data.id, targetDate).then(function () {
-                data.waiting = false;
-                data.due = targetDate;
-                data.badges.due = targetDate;
-                data.dueDay = new Date(targetDay);
-            },
-            function () {
-                console.log("err");
-                $window.location.reload();
-            });
-    };
-
-
-
+    $scope.filter = localStorageService.get('filter') === false;
+    $scope.color = localStorageService.get('boardColors');
 
 
     $scope.archiveCard = function (data) {
         var id = data.id;
         archiveCard.async(id).then(function () {
-            var message = '<span ng-controller="archiveCtrl"><br>Archived </span>';
-            Notification.warning({message: message});
+            //success
+        },function () {
+            //error
         });
-    };
-
-
-
-
-    $scope.showDetail = false;
-    $scope.detail = function (id) {
-        $scope.showDetail = true;
-        $ionicScrollDelegate.scrollBottom();
-        $scope.singleCard =_.find(initService.print()[1].data, { 'id': id});
-    };
-
-
-
-    $scope.closeDetail = function () {
-        $scope.showDetail = false;
     };
 
 
@@ -249,41 +188,58 @@ angular.module('w11kcal.app.month').controller('monthCtrl', /*ngInject*/ functio
 
 
 
-});
 
 
+    /**
+     * Search for boards.
+     */
+    function querySearch (query) {
+        var results = query ?
+            $scope.allBoards.filter(createFilterFor(query)) : [];
+        return results;
+    }
+
+    /**
+     * Create filter function for a query string
+     */
+    function createFilterFor(query) {
+        var lowercaseQuery = angular.lowercase(query);
+
+        return function filterFn(contact) {
+            return (contact._lowername.indexOf(lowercaseQuery) !== -1);
+        };
+
+    }
+
+    boards = buildCalService.boards();
 
 
+    $scope.querySearch = querySearch;
+    $scope.allBoards = [];
+    _.forEach(boards, function (board) {
+        $scope.allBoards.push(board);
+    });
 
 
+    $scope.boards = [];
 
-angular.module('w11kcal.app.month').filter('propsFilter', function () {
-    return function (items, props) {
-        var out = [];
 
-        if (angular.isArray(items)) {
-            items.forEach(function (item) {
-                var itemMatches = false;
-
-                var keys = Object.keys(props);
-                for (var i = 0; i < keys.length; i++) {
-                    var prop = keys[i];
-                    var text = props[prop].toLowerCase();
-                    if (item[prop].toString().toLowerCase().indexOf(text) !== -1) {
-                        itemMatches = true;
-                        break;
-                    }
-                }
-
-                if (itemMatches) {
-                    out.push(item);
-                }
-            });
-        } else {
-            out = items;
-        }
-
-        return out;
+    /**
+     *  has to be trough a for each loop ..
+     */
+    $scope.resetBoards = function () {
+        $scope.boards = [];
+        $scope.allBoards.forEach(function (item) {
+            $scope.boards.push(item);
+        });
     };
-});
 
+    $scope.resetBoards();
+
+    $scope.filterSelected = true;
+
+    $scope.activeBoard = function (card) {
+        return _.find($scope.boards, { 'id': card.idBoard});
+    };
+    
+});

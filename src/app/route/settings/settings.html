@@ -1,38 +1,12 @@
-<ion-view title="Settings">
-    <ion-nav-buttons side="right">
-        <div ng-switch="login">
-            <button class="button button-positive" ng-switch-default ng-click="auth()">Login</button>
-            <button class="button  button-positive" ng-click="refresh()"  ng-switch-when="true" ng-class="{animate: loading}"><i class="ion-refresh"></i></button>
-            <button class="button  button-assertive" ng-switch-when="true" ng-click="logout()">Logout</button>
-        </div>
-    </ion-nav-buttons>
-    <ion-content >
-        <ul class="list">
-            <div class="item">
-                <strong>Settings</strong>
-            </div>
-            <ion-toggle ng-repeat="item in settingsList"
-                        ng-model="item.checked"
-                        ng-checked="item.checked"
-                        ng-change="pushNotificationChange(item)"
-                        toggle-class="toggle-positive">
-                <i class="{{item.icon}}"></i>
-                {{ item.text }}
-            </ion-toggle>
+<md-content class="md-padding settings" layout="column">
+    <md-list>
+        <md-subheader class="md-no-sticky">Selected Settings will be stored on your device</md-subheader>
+        <md-list-item ng-click="setting.disabled || change(setting.id, !setting.enabled) || (setting.enabled = !setting.enabled) " ng-repeat="setting in settings" >
+            <ng-md-icon icon="{{setting.icon}}" style="fill: #666" size="20"></ng-md-icon>
+            <p ng-bind-html="setting.name"></p>
+            <md-switch class="md-secondary" ng-model="setting.enabled" ng-disabled="setting.disabled" ng-change="change(setting.id, setting.enabled)" ></md-switch>
+        </md-list-item>
+    </md-list>
+</md-content>
 
 
-
-
-
-            <div class="item item-input item-select">
-                <div class="input-label">
-                    Default Calendar View:
-                </div>
-                <select ng-model="choice" disabled ng-options="opt as opt.label for opt in options" ng-change="change(choice)">
-                </select>
-            </div>
-
-
-        </ul>
-    </ion-content>
-</ion-view>

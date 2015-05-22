@@ -1,0 +1,7 @@
+vendor
+node_modules
+.sass-cache
+build-output
+mobil/platforms
+
+.idea

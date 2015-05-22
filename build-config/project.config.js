@@ -21,68 +21,54 @@ module.exports = {
       runInDist: true
     },
     spec: {
-      runInDev: true,
-      runInDist: true,
-      browsers: ["PhantomJS"]
+      runInDev: false,
+      runInDist: false
     },
     e2e: {
-      runInDev: true,
-      runInDist: true,
-      browsers: ["PhantomJS"]
+      runInDev: false,
+      runInDist: false
     }
   },
 
   app: {
     angular_module: {
-      regular: 'w11kcal.app',
-      withMocks: 'w11kcal.app.mock',
-      templates: 'w11kcal.app.templates',
-      translations: 'w11kcal.app.translations'
+      regular: 'trelloCal',
+      withMocks: 'trelloCal.mock',
+      templates: 'trelloCal.templates',
+      translations: 'trelloCal.translations'
     }
   },
 
   vendor: {
     files: {
       js: [
-          'ionic/release/js/ionic.bundle.js',
-          'angular-sanitize/angular-sanitize.js',
           'jquery/dist/jquery.js',
-          'angular-bootstrap/ui-bootstrap.js',
-          'angular-bootstrap/ui-bootstrap-tpls.js',
-          'lodash/lodash.js',
-          'angular-bootstrap-datetimepicker/src/js/datetimepicker.js',
-          'angular-xeditable/dist/js/xeditable.js',
-          'moment/min/moment-with-locales.js',
-          'ngDraggable/ngDraggable.js',
-          'angular-loading-bar/build/loading-bar.js',
-          'angular-ui-notification/dist/angular-ui-notification.min.js',
+          'jquery-ui/jquery-ui.js',
+          'angular/angular.js',
+          'angular-sanitize/angular-sanitize.js',
+          'angular-ui-router/release/angular-ui-router.js',
+          'angular-animate/angular-animate.js',
+          'angular-aria/angular-aria.js',
+          'angular-material/angular-material.js',
+          'moment/min/moment-with-locales.min.js',
+          'jquery-ui-touch-punch/jquery.ui.touch-punch.js',
+          'angular-material-icons/angular-material-icons.min.js',
           'angular-local-storage/dist/angular-local-storage.js',
-          'angular-ui-select/dist/select.js',
-          'angulartics/src/angulartics.js',
-          'angulartics/src/angulartics-ga.js'
-
-
+          'lodash/lodash.js',
+          'ngprogress/build/ngProgress.js'
       ],
-      js_mock: [
-        'angular-mocks/angular-mocks.js'
-      ],
+      js_mock: [],
       js_spec: [],
       js_e2e: [],
       css: [
-          'ionic/release/css/ionic.css',
-          'angular-bootstrap/bootstrap.css',
-          'angular-ui-bootstrap-datetimepicker/datetimepicker.css',
-          'angular-xeditable/dist/css/xeditable.css',
-          'angular-loading-bar/build/loading-bar.css',
-          'angular-ui-notification/dist/angular-ui-notification.min.css',
-          'angular-ui-select/dist/select.css'
+          'angular-material/angular-material.css',
+          'ngprogress/ngProgress.css'
+
+          //,'font-awesome/css/font-awesome.min.css'
+
+
       ],
-      assets: [
-          'ionic/release/fonts/*'
-      ],
-        fonts: [
-            'ionic/release/fonts/*'
-        ]
+      assets: []
     }
   }
 

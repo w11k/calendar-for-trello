@@ -1,16 +1,17 @@
 # trello-calendar
 
-Trello is a productivity tool that helps you to organize your projects by creating individual lists, boards and cards.
-Managing your projects in teams get more flexible and it improves the whole workflow.
+Trello is a productivity tool that helps you to organize projects by creating individual lists, boards and cards.
+Manage your projects in teams, get more flexible and improve your workflow.
+
 The w11k Trello Calendar allows you to organize all cards of all boards in one calendar.
 
-made with Ionic, AngularJS and [fabs](https://github.com/w11k/fabs).
+made with ngMaterial, phonegap, AngularJS and [fabs](https://github.com/w11k/fabs).
 
 
 Hosted Version:
 <http://trello-calendar.w11k.de>
 
-## Development
+## development:
 
 #####install components:
     npm install
@@ -33,5 +34,35 @@ while developing your URL will be http://localhost:9000
     grunt dist
 
 
+##mobil
+
+*mobil part is at the very beginning. If the dev/deploy command doesn't work check the symlink (www) or simply use "grunt dist" before running the build/run command.*
+
+### mobil setup:
+    cd mobil/
+    phonegap platform add android
+
+
+
+
+### mobil development:
+    cd mobil/
+    phonegap run [platform]
+
+
+### mobil deploy
+    cd mobil/
+    phonegap build [platform]
+
+
 ## License
 Apache 2.0 - see LICENSE file
+
+
+
+
+
+
+
+
+

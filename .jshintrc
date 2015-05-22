@@ -5,15 +5,16 @@
 
 
   // Predefined globals whom JSHint will ignore.
-  "browser"       : false,   // Standard browser globals e.g. `window`, `document`.
+  "browser"       : true,   // Standard browser globals e.g. `window`, `document`.
   "node"          : false,
-  "jquery"        : true,
+  "jquery"        : false,
 
   "predef"        : [  // Extra globals.
     // application code
     "angular",
     "_",
     "lodash",
+    "moment",
 
     // test code
     "beforeEach",
@@ -27,12 +28,12 @@
     "spyOn",
     "browser",
     "element",
-    "moment"
+    "by"
   ],
 
   // Development.
   "debug"         : false,  // Allow debugger statements e.g. browser breakpoints.
-  "devel"         : true,   // Allow development statements e.g. `console.log();`.
+  "devel"         : true,  // Allow development statements e.g. `console.log();`.
 
 
   // EcmaScript 5.
@@ -42,7 +43,7 @@
 
   // The Good Parts.
   "asi"           : false,  // Tolerate Automatic Semicolon Insertion (no semicolons).
-  "laxbreak"      : false,   // Tolerate unsafe line breaks e.g. `return [\n] x` without semicolons.
+  "laxbreak"      : false,  // Tolerate unsafe line breaks e.g. `return [\n] x` without semicolons.
   "laxcomma"      : true,   // Tolerate line breaking before ','
   "bitwise"       : true,   // Prohibit bitwise operators (&, |, ^, etc.).
   "boss"          : false,  // Tolerate assignments inside if, for & while. Usually conditions & loops are for comparison, not assignments.
@@ -73,11 +74,13 @@
   "plusplus"      : false,  // Prohibit use of `++` & `--`.
   "sub"           : false,  // Tolerate all forms of subscript notation besides dot notation e.g. `dict['key']` instead of `dict.key`.
   "trailing"      : true,   // Prohibit trailing whitespaces.
-  "white"         : true,    // Check against strict whitespace and indentation rules.
+  "white"         : true,   // Check against strict whitespace and indentation rules.
 
   "indent": 2,
   "camelcase": true,
-  "quotmark": ["single", "double"],
+  "quotmark": "single",
   "unused": true,
   "smarttabs": false
 }
+
+

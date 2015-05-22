@@ -1,12 +1,8 @@
-"use strict";
-angular.module("w11kcal.app").factory("weekService", /*ngInject*/  function (initService) {
+'use strict';
+angular.module('trelloCal').factory('weekService', /*ngInject*/  function (initService) {
 
 
     var years = {}, i;
-
-
-
-
 
 
 
@@ -19,19 +15,18 @@ angular.module("w11kcal.app").factory("weekService", /*ngInject*/  function (ini
 
 
 
-
             var buildWeekDay = function (date) {
                 date = moment(+date);
                 var day = {
                     date:  date.format(),
                     cards: cards[new Date(date.format())],
-                    //isToday: date.diff(moment(), "days", false)===0,
+                    //isToday: date.diff(moment(), 'days', false)===0,
                     isToday: date.hour(0).minute(0).second(0).millisecond(0).isSame(moment().hour(0).minute(0).second(0).millisecond(0)),
-                    weekday: date.format("dddd"),
-                    kw: parseInt(date.format("W")),
-                    year: date.format("GGGG"),
-                    dateName: date.format("L"),
-                    weekDay: date.format("dddd")
+                    weekday: date.format('dddd'),
+                    kw: parseInt(date.format('W')),
+                    year: date.format('GGGG'),
+                    dateName: date.format('L'),
+                    weekDay: date.format('dddd')
                 };
                 return day;
             };

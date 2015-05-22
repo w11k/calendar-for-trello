@@ -1,0 +1,20 @@
+<md-content class="md-padding" layout="column">
+    <h1 class="md-display-1">get the latest activity of all your boards</h1>
+    <p class="md-body-1">Comming soon...</p>
+    <section data-ng-repeat="data in data">
+        <md-subheader class="md-primary">Month XY</md-subheader>
+        <md-list layout-padding="">
+            <md-list-item class="md-3-line" ng-repeat="item in data">
+                <div class="md-list-item-text">
+                    <h3>{{message.what}}</h3>
+                    <h4>{{message.who}}</h4>
+                    <p>
+                        {{item}}
+                    </p>
+                </div>
+            </md-list-item>
+        </md-list>
+    </section>
+</md-content>
+
+

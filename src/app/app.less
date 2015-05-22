@@ -1,529 +1,82 @@
-/*
-To customize the look and feel of Ionic, you can override the variables
-in ionic's _variables.scss file.
-
-For example, you might change some of the default colors:
-
-$light:                           #fff !default;
-$stable:                          #f8f8f8 !default;
-$positive:                        #4a87ee !default;
-$calm:                            #43cee6 !default;
-$balanced:                        #66cc33 !default;
-$energized:                       #f0b840 !default;
-$assertive:                       #ef4e3a !default;
-$royal:                           #8a6de9 !default;
-$dark:                            #444 !default;
-*/
-
-
-.menu ion-item {
-  height: 54px;}
-
-
-  #loading-bar-spinner {
-    right: 10px;
-    top:60px;
-    left: auto;
+//body, html {
+//  height: 101%;
+//}
 
 
 
+body {
+  font-size: 17px;
+}
+
+.md-toolbar-tools:focus {
+  outline:none;
+}
 
 
-  .spinner-icon {
-    border-top-color:  #2c3e50;
-    border-left-color: #2c3e50;
-  }
+ng-md-icon {
+  margin:0 8px 0 0;
 
 }
 
 
-
-.item-body {padding-top:0 !important;}
-.modal {background:none; overflow:hidden !important;}
-
-input[type="text"].form-control {border: 1px solid #ccc !important;}
-.editArea .editable-controls textarea {width:100% !important;}
-i.icon {padding-right:4px;}
-.editable-click, a.editable-click, a.editable-click:hover {border:none!important; color:#666;}
-
-
-
-.filters {
- // background:#ededed;
-  //padding:5px 10px;
+md-sidenav {
+  min-width: 280px;
 }
 
 
-.isWeekView .listView .day {
-  min-height: 500px;
+@media (max-width: 360px){
+  md-sidenav {
+    width: 75%;
+  }
 }
-.isWeekView .listView .day.header {
-  min-height: 30px;
+
+
+:focus {
+  outline: none;
 }
 
 
-.listView {
-  width:100%;
-  border-top:1px solid #D5D5D5;
-  border-left:1px solid #D5D5D5;
-  display:block;
 
-  .day {
-    float:none;
-    width: 100%;
-    min-height:50px;
-    border-right:1px solid #D5D5D5;
-    border-bottom:1px solid #d5d5d5;
-    padding:5px;
-    display:block;
 
-    .label {
-      margin-right: -3px;
-      padding:.2em .3em .2em ;
-
-    }
-
-  }
-
-  .day.has .dayCounter{
-    font-weight: bold;
-  }
-
-  .boardName {
-    //text-decoration:underline;
-    color:#fff;
-    &:hover {
-      text-decoration:underline;
-    }
+.header {
+  .md-button.md-icon-button {
+    width:62px;
+    height: auto;
+    margin:0;
   }
 
 
-
-  .day.header {
-    height:auto;
-    padding:5px;
-    text-align: center;
-    overflow: hidden;
-
-    .long {display:none;}
-  }
-
-
-  .dayOff  {
-    background: #ededed;
-
-    .dayCard {
-      opacity: 0.7;
-    }
-
-    .dayCounter {
-      color: #969696;
-    }
-  }
-  .dayOn {
-    background:none;
-  }
-  .dayCounter {margin:2px 3px 5px 0;
-    font-size: 18px;
-    color:#333;
-    text-align: right ;
-
-
-    .weekday{
-      display: inline-block;
-      float:left;
-      font-size: 11px;
-    }
-  }
-
-
-  .header {display:none;}
-
-  .dayCards {
-
-    .dayCard.waiting {
-      opacity: .7 !important;
+    @media (min-width: 1200px){
+      section {
+      -webkit-justify-content: flex-end !important;
+      justify-content: flex-end !important;
     }
 
 
-    .dayCard{
-      opacity:1;
-      background-color: #337ab7;
-      color:#fff;
-      padding:1px 3px;
-      border-radius: 0;
-      font-size: 10px;
-      margin-bottom: 2px;
-      cursor: move !important;
-      .title a {
-        cursor: pointer !important;
-        color:#fff;
-        font-weight: bold;;
-
-      }
-      .title:hover {text-decoration: underline;}
-
-      i {
-        float:right;
-        text-align: right;
-
-      }
-    }
-
-
-    .dragger {
-      float:right;
-      padding-right: 3px;
-    }
-
-
-    .dragger.showDetail {
-      cursor: pointer;
-    }
-  }
-
-
-
-  .today {
-    //background: #e7e7e7 !important;
-    .dayCounter{
-      color:#337ab7;
-      text-decoration: underline;
-      font-weight: bold;
-    }
-  }
-
-
-}
-.calNav {
-  padding:0 ;
-
-h1{
- font-size:26px;
-  width: 100%;
-
-  .btn-group {
-    padding-right:10px;
-  }
-}
-
-
-}
-
-@media screen and (min-width: 767px) {
-  .listView {
-    display:-webkit-box;
-    display:-ms-flexbox;
-    display:flex;
-    display:-webkit-flex;
-    -ms-flex-wrap:wrap;
-    flex-wrap:wrap;
-    -webkit-flex-wrap:wrap;
-
-
-    .day {
-      //float:left;
-      width: 14.28%;
-      min-height:80px;
-
-    }
-
-    .dayCounter {
-      .weekday {
-
-        display: none;
-      }
-    }
-
-    .dayCards {
-      .board {
-        display: none;
-
-      }
-    }
-    .header {display:block; min-height: 20px;}
-  }
-}
-
-
-
-
-@media (min-width: 992px) {
-  .listView {
-
-    .day.header {
-      .short {display:none}
-      .long  {display:block;}
-    }
-    .dayCards {
-      .board {
-        display: block;
-      }
-    }
-  }
-}
-
-.monthName  { font-size: 22px; padding-top: 15px;}
-
-
-
-
-[ng-drop].drag-enter{
-  background:#E8E8E8 !important;
-}
-
-#loading-bar .bar {
-  height: 1px;
-  border: none;
-  padding: 1px;
-  top:44px;
-}
-
-
-#loading-bar .bar {
-}
-#loading-bar .peg {
-  box-shadow: 0 0 10px #2c3e50, 0 0 5px #2c3e50;
-}
-
-
-
-.panelFooter {
-  //border:1px solid #ddd;
-}
-
-.badge {padding:2px 6px; margin-left:5px;}
-
-.month {
-  .dragOptions {
-
-    background: #333;
-    border:1px solid #D5D5D5;
-    overflow: hidden;
-
-    height: 60px;
-    .option {
-      height: 60px;
-      width: 100%;
-      float: left;
-      line-height: 60px;
-      text-align: center;
-      color: #fff;
-      overflow: hidden;
-    }
-
-    .option.has, .option:hover {
-      background: #232323;
-
-
-    }
-
-
-    [ng-drop].drag-enter{
-      background: #4f4f4f !important;
-    }
-  }
-
-
-}
-
-.ui-notification {
-  opacity: 0.8 !important;
-}
-.ui-notification:hover {
-  opacity: 1 !important;
-}
-
-.cardSingle {
-  .panel {
-    .panel-heading {
-      font-size:18px;
-      a {
-        color:#fff;
-        text-decoration: underline;
-      }
-
-      small {
-        font-size:12px;
-      }
-    }
-
-    color:#333;
-  }
-
-}
-
-button i {
-  font-size:16px;
-}
-.animate i {
-  -webkit-animation:spin 1s linear infinite;
-  -moz-animation:spin 1s linear infinite;
-  animation:spin 1s linear infinite;
-}
-
-.panel-primary.dark {
-  border-color:#444;
-
-  .panel-heading {
-    background:#444;
-  }
-
-  * {
-    border-color:#444;
-  }
-
-  button {
-    background:#444;
-  }
-
-  .btn-primary .badge {
-    color:#444;
-  }
-}
-
-
-i {font-style: italic;}
-
-
-h5.grey {
-  color:#333;
-  margin-bottom:15px !important;
-  text-align: center;
-  width:100%;
-
-  i {
-    font-size:16px;
-  }
-}
-
-.filters {
-
-
-  input {
-    background:url('assets/plus.png') no-repeat top left ;
-  }
-
-
-&.colorize {
-  .ui-select-container {
-    .btn.btn-default {
-      background: #fff;
-      border-color: #a3a3a3;
-    }
-  }
-}
-
-
-  &.defaultColor {
-      .inner {
-      color:#fff !important;
-      }
-  }
-
-
-  .select2 > .select2-choice.ui-select-match {
-    /* Because of the inclusion of Bootstrap */
-    height: 29px !important;
-  }
-
-  .selectize-control > .selectize-dropdown {
-    top: 36px !important;
-  }
-
-
-  .ui-select-match {
-    float:left;
-  }
-
-
-  .ui-select-multiple.form-control {
-    border-radius:0 !important;
-    border:none;
-    background: #e6e6e6;
-    padding: 5px 4px 1px;
-  }
-  .btn.btn-default {
-    color: #0079BF;
-    background-color: #337ab7;
-    border-color: #2e6da4;
-    border:none;
-  }
-}
-
-.ui-select-container {
-
-  .btn.btn-default {
-    color: #0079BF;
-    background-color: #337ab7;
-    border-color: #2e6da4;
-    border:none;
-  }
-
-
-  &.open .inner {
-    color:#fff !important;
-
   }
 
 }
 
 
 
-
-
-
-
-// allgemein:
-
-
-.button.button-positive {
-  color: #fff;
-  background-color: #337ab7;
-  border-color: #2e6da4;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-.detail {
-  margin-top:20px;
-  position:relative;
-  background: #efefef;
-  border:1px solid #D5D5D5;
-
-  .detailOptions {
-    position:absolute;
-    right:5px;
-    top:12px;
-
-    span {
-      opacity: .2;
-      font-size:21px;
-      padding:5px;
-      margin:5px;
-      cursor: pointer;
-
-      &:hover {
-        opacity: .4;
-      }
-    }
+md-content {
+  a {
+    color:#3f51b5;
+    text-decoration: none;
   }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
 }
 
 
 
-.stopColor {background: #337ab7 !important;}
+md-content.content {
+  max-width: 800px;
+}
 
 
-.item-select { padding-top: 11px; padding-bottom: 7px;}
+
+

@@ -1,8 +1,8 @@
-"use strict";
-angular.module("w11kcal.app").factory("setToken", /*ngInject*/  function (localStorageService) {
+'use strict';
+angular.module('trelloCal').factory('setToken', /*ngInject*/  function (localStorageService) {
     return {
         set: function (token) {
-            localStorageService.set("trello_token", token);
+            localStorageService.set('trello_token', token);
         }
     };
 });

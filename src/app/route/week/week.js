@@ -1,42 +1,95 @@
 'use strict';
-moment.locale('en');
+var month = angular.module('trelloCal.week', []);
+month.config(/*ngInject*/ function () {
+
+});
+
+month.controller('weekCtrl', function(initService, $timeout, $interval,
+                                       archiveCard, $scope, buildCalService, changeDate,$window,
+                                       $stateParams, $location,$mdDialog,weekService,localStorageService,orderByFilter, ngProgress) {
 
 
-angular.module('w11kcal.app.week', []);
-angular.module('w11kcal.app.week').config(/*ngInject*/ function ($stateProvider) {
-    $stateProvider
-        .state('app.week', {
-            url: '/week/:year/:kw',
-            params: {
-                year: new Date().getFullYear(),
-                kw: new Date().getWeekNumber()
-            },
-            views: {
-                'menuContent': {
-                    templateUrl: 'route/week/week.html',
-                    controller: 'weekCtrl'
+
+    var routine = function (date, reload) {
+        $scope.allBoards = [];
+        $scope.date = {};
+        if(!date){
+            // init
+            $scope.date.year =  parseInt(new Date().getFullYear());
+            $scope.date.kw =  parseInt(moment().format('W'));
+        } else {
+            $scope.date.year = parseInt(date.year);
+            $scope.date.kw = parseInt(date.kw);
+        }
+
+
+
+
+        $scope.date.amountOfKW = {};
+        $scope.date.amountOfKW.prev = weeksOfYear($scope.date.year-1);
+        $scope.date.amountOfKW.this = weeksOfYear($scope.date.year);
+        $scope.date.amountOfKW.next = weeksOfYear($scope.date.year+1);
+        $scope.allDays = weekService.buildYear($scope.date.year, reload);
+        $scope.days = [];
+        $scope.allDays.forEach(function (entry) {
+            if(entry.kw === $scope.date.kw) {
+                $scope.days.push(entry);
+
+                if(entry.cards === undefined) {
+                    entry.cards = [];
                 }
-            },
-            resolve: {
-                'asInitService':function (initService) {
-                    return initService.init();
-                }
+
+                _.forEach(entry.cards, function (card) {
+                    var board = {
+                        name: card.boardName,
+                        _lowername: card.boardName.toLowerCase(),
+                        id: card.idBoard,
+                        image: '#',
+                        email: '#',
+                        color: card.color
+                    };
+                    $scope.allBoards.push(board);
+                });
             }
         });
-});
+
+        // Setup Filter
+       $scope.allBoards = _.uniq($scope.allBoards, function (item) {
+            return 'id:' + item.id + 'name:' + item.name;
+        });
 
 
 
 
 
 
+        $scope.boards = [];
 
-angular.module('w11kcal.app.week').run(function () {
-});
 
-angular.module('w11kcal.app.week').controller('weekCtrl', /*ngInject*/ function ($scope,$interval,$ionicScrollDelegate,
-                                                                                 initService, buildCalService, $window, $stateParams,
-                                                                                 $state, weekService,changeDate, $location) {
+        ///**
+        // *  has to be trough a for each loop ..
+        // */
+        $scope.resetBoards = function () {
+            $scope.boards = [];
+            $scope.allBoards.forEach(function (item) {
+                $scope.boards.push(item);
+            });
+        };
+
+        $scope.resetBoards();
+
+        $scope.filterSelected = true;
+
+        $scope.activeBoard = function (card) {
+            return _.find($scope.boards, { 'id': card.idBoard});
+        };
+
+
+        $scope.isToday = (
+            $scope.date.year === parseInt(moment().format('YYYYY')) && $scope.date.kw === parseInt(moment().format('W'))
+        );
+    };
+
 
 
 
@@ -54,89 +107,37 @@ angular.module('w11kcal.app.week').controller('weekCtrl', /*ngInject*/ function 
 
 
 
-    $scope.date = {};
-    $scope.date.year = parseInt($stateParams.year);
-    $scope.date.kw = parseInt($stateParams.kw);
-    $scope.date.amountOfKW = {};
-    $scope.date.amountOfKW.prev = weeksOfYear($scope.date.year-1);
-    $scope.date.amountOfKW.this = weeksOfYear($scope.date.year);
-    $scope.date.amountOfKW.next = weeksOfYear($scope.date.year+1);
+    $scope.toToday = function () {
+        routine({
+            year: parseInt(moment().format('YYYY')),
+            kw:parseInt(moment().format('W'))
+        }, false);
+
+    };
 
 
-    $scope.thisKW = parseInt(moment().format("w"));
-    $scope.thisYear = parseInt(moment().format("GGGG"));
-    $scope.isThisWeek = $scope.thisKW === $scope.date.kw && $scope.thisYear === $scope.date.year;
-    /**
-     * Part 1: config
-     */
-
-
-
-    if(initService.print()) {
-        $scope.login = true;
-    }
-
-
-
-
-
-
-
-
-
-
-    /**
-     * Part 2: Build
-     */
-
-
-
-        // top legende
     $scope.weekdays = [];
     for (var i = 0; i <= 6; i++) {
-        var long =  moment().weekday(i).format("dddd");
-        var short = moment().weekday(i).format("dd");
+        var long =  moment().weekday(i).format('dddd');
+        var short = moment().weekday(i).format('dd');
         $scope.weekdays[i] = [short, long];
     }
 
 
 
-    // Build Filter
-    $scope.boards = [];
-    _.forEach(initService.print()[2].data, function (board) {
-        $scope.boards.push({
-            name: board.name,
-            id: board.id,
-            ticked: true,
-            color: board.prefs.backgroundColor
+
+    routine($scope.date, false);
+
+    $scope.$watch('days'   , function () {
+        _.forEach($scope.days, function (day) {
+            day.cards = orderByFilter(day.cards, ['badges.due', 'name']);
         });
-    });
-    $scope.multipleDemo = {};
-    $scope.multipleDemo.selectedBoards = $scope.boards;
-    $scope.activeBoard = function (card) {
-        return _.find($scope.multipleDemo.selectedBoards, { 'id': card.idBoard});
-    };
-
-
-
-    var getDays = function(reload) {
-        $scope.allDays = weekService.buildYear($scope.date.year, reload);
-        $scope.days = [];
-        $scope.allDays.forEach(function (entry) {
-            if(entry.kw === $scope.date.kw) {
-                $scope.days.push(entry);
-            }
-        });
-    };
-
-getDays(false);
+    }, true);
 
 
 
 
-    /**
-     * Part 3: Options:
-     */
+
     $scope.loading = false;
     $scope.refresh = function () {
         if($scope.loading === false) {
@@ -144,41 +145,37 @@ getDays(false);
             initService.refresh()
                 .then(function () {
                     $scope.loading = false;
-                    getDays(true);
-                    $scope.$broadcast('scroll.refreshComplete');
                 });
         }
     };
 
 
 
-    $scope.toToday = function (year, kw) {
-        $location.path("/app/week/"+year+"/"+kw);
+
+
+
+
+    $scope.click = function (shortUrl) {
+        $window.open(shortUrl);
     };
-
-
-
-    $scope.logout = function () {
-        initService.remove();
-        $scope.login = false;
-        $window.location.reload();
-    };
-
-
-
 
 
     $scope.move = function (steps) {
         if($scope.date.kw === 1 && steps === -1 ){
-            $state.go("app.week", {year: $scope.date.year-1 , kw:($scope.date.amountOfKW.prev)});
+            $scope.date.year--;
+            $scope.date.kw = $scope.date.amountOfKW.prev;
+            routine($scope.date, false);
             return;
         }
         if($scope.date.kw >= $scope.date.amountOfKW.this && steps === 1){
-            $state.go("app.week", {year: $scope.date.year+1 , kw:(1)});
+            $scope.date.year++;
+            $scope.date.kw = 1;
+            routine($scope.date, false);
             return;
         }
-        $state.go("app.week", {year: $scope.date.year , kw:($scope.date.kw+steps)});
-     };
+        $scope.date.kw = $scope.date.kw+steps;
+        routine($scope.date,false);
+    };
 
 
 
@@ -187,85 +184,64 @@ getDays(false);
 
 
 
+    $scope.sortableOptions = {
+        receive: function (e, ui) {
+            var id = ui.item[0].firstElementChild.id.split('-')[0];
+            var targetDate = new Date(e.target.id+' '+ui.item[0].firstElementChild.id.split('-')[1]);
+            ngProgress.start();
+            changeDate.async(id, targetDate).then(function () {
+                    initService.updateDate(id, targetDate);
+                    ngProgress.complete();
+                },
+                function () {
+                    /**
+                     * ToDo:
+                     * move card back
+                     */
+                    var dialog = function () {
+                        $mdDialog.show(
+                            $mdDialog.alert()
+                                .parent(angular.element(document.body))
+                                .title('Oops, something went wrong.')
+                                .content('please check your connection and reload this page')
+                                .ariaLabel('Connection Error')
+                                .ok('reload')
+                            //  .targetEvent(ev)
+                        ).then(function () {
+                                changeDate.async(ui.item[0].firstElementChild.id.split('-')[0], targetDate).then(function () {
+                                    // user is only, successfull
+                                }, function () {
+                                    dialog();
+                                });
+                            });
+                    };
+                    dialog();
+                });
+        },
+        placeholder: 'card',
+        connectWith: '.dayCards'
+    };
 
-    // Drag 'n Drop
-    $scope.onDragSuccess = function (data, evt, date) {
-        var day = _.findIndex($scope.days, function(chr) {
-            return chr.date === date;
+    $scope.filter = localStorageService.get('filter') === false;
+    $scope.color = localStorageService.get('boardColors');
+
+
+
+
+
+
+
+    $scope.archiveCard = function (data) {
+        var id = data.id;
+        archiveCard.async(id).then(function () {
+            //success
+        },function () {
+            //error
         });
-        var index = $scope.days[day].cards.indexOf(data);
-        if (index > -1) {
-            $scope.days[day].cards.splice(index, 1);
-        }
-    };
-
-    $scope.onDropComplete = function (data, evt, targetDate) {
-       targetDate = new Date(targetDate);
-
-        data.waiting = true;
-
-
-
-
-        var day = _.findIndex($scope.days, function(chr) {
-            return moment(chr.date).hour(0).minute(0).second(0).millisecond(0).isSame(moment(targetDate).hour(0).minute(0).second(0).millisecond(0));
-        });
-
-        if(typeof $scope.days[day].cards === 'undefined') {
-            $scope.days[day].cards = [];
-            $scope.days[day].cards[0] = data;
-
-        } else {
-            var index = $scope.days[day].cards.indexOf(data);
-            if (index === -1) {
-                $scope.days[day].cards.push(data);
-            }
-        }
-
-
-        var time  = new Date (data.badges.due);
-
-        targetDate.setHours(time.getHours(), time.getMinutes(), time.getSeconds());
-
-        changeDate.async(data.id, targetDate).then(function () {
-                console.log("succes");
-                data.waiting = false;
-                data.due = targetDate;
-                data.badges.due = targetDate;
-            },
-            function () {
-                console.log("err");
-            });
     };
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    $scope.showDetail = false;
-    $scope.detail = function (id) {
-        $scope.showDetail = true;
-        $ionicScrollDelegate.scrollBottom();
-        $scope.singleCard =_.find(initService.print()[1].data, { 'id': id});
-    };
-
-
-
-    $scope.closeDetail = function () {
-        $scope.showDetail = false;
-    };
 
 
     $interval(function () {
@@ -276,15 +252,28 @@ getDays(false);
 
 
 
-});
 
 
-angular.module('w11kcal.app.week').filter('max', function (){
-        return function (arr, div) {
-            return arr.filter(function (item, index) {
-                return index < div;
-            });
+    /**
+     * Search for boards.
+     */
+    function querySearch (query) {
+        var results = query ?
+            $scope.allBoards.filter(createFilterFor(query)) : [];
+        return results;
+    }
+
+    /**
+     * Create filter function for a query string
+     */
+    function createFilterFor(query) {
+        var lowercaseQuery = angular.lowercase(query);
+
+        return function filterFn(contact) {
+            return (contact._lowername.indexOf(lowercaseQuery) !== -1);
         };
-    });
 
+    }
 
+    $scope.querySearch = querySearch;
+});

@@ -1,5 +1,5 @@
-"use strict";
-angular.module("w11kcal.app").factory("buildCalService", /*ngInject*/  function (initService) {
+'use strict';
+angular.module('trelloCal').factory('buildCalService', /*ngInject*/  function (initService) {
 
     /**
      * returns amount of days for month in year
@@ -10,32 +10,43 @@ angular.module("w11kcal.app").factory("buildCalService", /*ngInject*/  function 
         endOffSet: null
     };
 
-
-
+    var boards = [];
 
 
     return {
+
         build: function (inDate) {
-
-
+            boards = [];
             var cards = initService.print()[1].data;
             cards = _.groupBy(cards, 'dueDay');
             delete cards.undefined;
-
-
             var buildADay = function (date, dayOff){
                 var isToday = (new Date(+date).setHours(0,0,0,0) === new Date().setHours(0,0,0,0));
                 var day = {
                     date: date,
                     dayOff: dayOff,
-                    cards: cards[date],
+                    cards: [],
                     isToday: isToday,
-                    weekday: moment(new Date(date)).format("dddd")
+                    weekday: moment(new Date(date)).format('dddd')
                 };
+
+                if(cards[date]){
+                    cards[date].forEach( function (item) {
+                        var board = {
+                            name: item.boardName,
+                            _lowername: item.boardName.toLowerCase(),
+                            id: item.idBoard,
+                            image: '#',
+                            email: '#',
+                            color:item.color
+
+                        };
+                        boards.push(board);
+                    day.cards.push(item);
+                });
+                }
                 return  day;
             };
-
-
             var days = [];
 
             function getDaysInMonth (year, month) {
@@ -81,13 +92,22 @@ angular.module("w11kcal.app").factory("buildCalService", /*ngInject*/  function 
                     days.push(buildADay(new Date(date), true));
                     date.setDate(date.getDate() + 1);
                 }
-
                 return days;
             }
+
             return {
                 config: config,
-                days: getDaysInMonth(inDate.year, inDate.month)
+                days: getDaysInMonth(inDate.year, inDate.month),
+                boards: boards
             };
+        },
+        boards: function () {
+            return _.uniq(boards, function (item) {
+                return 'id:' + item.id + 'name:' + item.name;
+            });
+
+
         }
+
     };
 });

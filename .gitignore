@@ -1,8 +1,6 @@
-node_modules/
+vendor
+node_modules
 .sass-cache
 build-output
-platforms
-plugins
-vendor
-ionic-tutorial-app.iml
+mobil/platforms
 .idea

@@ -1,159 +1,353 @@
 'use strict';
 
-
-angular.module('w11kcal.app', [
-    'ionic',
-    'w11kcal.app.month',
-    'w11kcal.app.week',
-    'w11kcal.app.settings',
-    'ngSanitize',
-    'ui.bootstrap',
-    'ui.bootstrap.datetimepicker',
-    'ngDraggable',
-    'angular-loading-bar',
-    'ui-notification',
-    'LocalStorageModule',
-    'ui.select',
-    'w11kcal.analytics'
-]);
-
-angular.module('w11kcal.app').constant('AppKey', '41485cd87d154168dd6db06cdd3ffd69');
-//angular.module('w11kcal.app').constant('baseUrl', 'http://localhost:9000');
-angular.module('w11kcal.app').constant('baseUrl', 'http://trello-calendar.w11k.de');
+(function() {
 
 
 
-angular.module('w11kcal.app').run( /*ngInject*/ function ($ionicPlatform, $window,  $rootScope, cfpLoadingBar,localStorageService) {
+    var module = angular.module('trelloCal', [
+        'ngAnimate',
+        'ngMaterial',
+        'ui.sortable',
+        'ui.router',
+        'ngMdIcons',
+        'LocalStorageModule',
+        'ngSanitize',
+        'ngProgress',
+        'ui.select',
+
+        'trelloCal.month',
+        'trelloCal.week',
+        'trelloCal.stream',
+        'trelloCal.settings'
+
+    ]);
 
 
-    $rootScope.doRefresh = localStorageService.get("refresh") === "true";
-    $rootScope.boardColors = localStorageService.get("boardColors") === "true";
-    $rootScope.week =  localStorageService.get("startWithWeek") === "true";
-
-
-    $rootScope.$on('settings-changed', function () {
-        $rootScope.doRefresh = localStorageService.get("refresh") === "true";
-        $rootScope.boardColors = localStorageService.get("boardColors") === "true";
-
-    });
-
-
-    $ionicPlatform.ready(function () {
-        // Hide the accessory bar by defflt (remove this to show the accessory bar above the keyboard
-        // for form inputs)
-        if ($window.cordova && $window.cordova.plugins.Keyboard) {
-            $window.cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
-        }
-        if ($window.StatusBar) {
-            // org.apache.cordova.statusbar required
-            $window.StatusBar.styleDefault();
-        }
-    });
-
-
-    $rootScope
-        .$on('$stateChangeStart',
-        function (){
-            cfpLoadingBar.start();
-
-        });
-
-    $rootScope
-        .$on('$stateChangeSuccess',
-        function () { // Options: event, toState, toParams, fromState, fromParams
-            cfpLoadingBar.complete();
-        });
+    module.constant('AppKey', '41485cd87d154168dd6db06cdd3ffd69');
+    //module.constant('baseUrl', 'http://localhost:9000');
+     module.constant('baseUrl', 'http://trello-calendar.w11k.de');
 
 
 
 
-});
-
-angular.module('w11kcal.app').config(/*ngInject*/ function ($stateProvider, $urlRouterProvider,$ionicConfigProvider,localStorageServiceProvider, uiSelectConfig) {
-    moment.locale('de');
-        uiSelectConfig.appendToBody = true;
+    module.config(/*ngInject*/ function ( $urlRouterProvider, $stateProvider,localStorageServiceProvider, $mdThemingProvider) {
 
 
-    $stateProvider
-        // setup an abstract state for the sidebar
-        .state('app', {
-            url: '/app',
-            abstract: true,
-            templateUrl: 'partial/sidemenu.html',
-            controller:'sidebarCtrl'
-        })
+        $mdThemingProvider.theme('Indigo')
+            .primaryPalette('blue')
+            .accentPalette('green');
 
-        .state('app.token', {
-            url: '/token?do&token',
-            views: {
-                'menuContent': {
-                    templateUrl: 'route/month/month.html',
-                    controller: 'monthCtrl'
-                }
-            },
-            resolve: {
-                'setToken': function (setToken,$stateParams,$location){
-                     setToken.set($stateParams.token);
 
-                    delete $location.$$search.token;
-                    delete $location.$$search.do;
-
-                    $location.path("/app/month/"+new Date().getFullYear()+"-"+(new Date().getMonth()+1));
-                }
-            }
-        });
-
-    $ionicConfigProvider.views.transition('none');
-    // if none of the above states are matched, use this as the fallback
-    $urlRouterProvider.otherwise(function ($injector) {
-        var $state = $injector.get('$state');
-        $state.go('app.month', {date: new Date().getFullYear()+"-"+(new Date().getMonth()+1)});
-    });
         localStorageServiceProvider
             .setPrefix('w11k')
             .setStorageType('localStorage');
-});
+
+        $stateProvider
+            .state('month', {
+                url: '/month',
+                views: {
+                    'header': {
+                        abstract: true,
+                        templateUrl: 'partials/header.html',
+                        controller: 'headerCtrl'
+
+                    },
+                    'sidebar':{
+                        abstract: true,
+                        templateUrl: 'partials/sidebar.html',
+                        controller: 'headerCtrl'
+                    },
+
+                    'content': {
+                        templateUrl: 'route/month/month.html',
+                        controller: 'monthCtrl',
+                        data: {
+                            pageTitle: 'Month View'
+                        }
+                    }
+                }
+                ,
+                resolve: {
+                    'asInitService':function (initService) {
+
+                        return initService.init();
+                    }
+                }
+            })
+
+            .state('week', {
+                url: '/week',
+                views: {
+                    'header': {
+                        abstract: true,
+                        templateUrl: 'partials/header.html',
+                        controller: 'headerCtrl'
+
+                    },
+                    'sidebar':{
+                        abstract: true,
+                        templateUrl: 'partials/sidebar.html',
+                        controller: 'headerCtrl'
+                    },
+
+                    'content': {
+                        templateUrl: 'route/week/week.html',
+                          controller: 'weekCtrl',
+                        data: {
+                            pageTitle: 'Week View'
+                        }
+                    }
+                }
+                ,
+                resolve: {
+                    'asInitService':function (initService) {
+
+                        return initService.init();
+                    }
+                }
+            })
+            .state('stream', {
+                url: '/stream',
+                views: {
+                    'header': {
+                        abstract: true,
+                        templateUrl: 'partials/header.html',
+                        controller: 'headerCtrl'
+
+                    },
+                    'sidebar':{
+                        abstract: true,
+                        templateUrl: 'partials/sidebar.html',
+                        controller: 'headerCtrl'
+                    },
+
+                    'content': {
+                        templateUrl: 'route/stream/stream.html',
+                        controller: 'streamCtrl',
+                        data: {
+                            pageTitle: 'Week View'
+                        }
+                    }
+                }
+                ,
+                resolve: {
+                    'init':function ( streamService) {
+                        return streamService.get();
+                    }
+
+                }
+            })
+            .state('settings', {
+                url: '/settings',
+                views: {
+                    'header': {
+                        abstract: true,
+                        templateUrl: 'partials/header.html',
+                        controller: 'headerCtrl'
+
+                    },
+                    'sidebar':{
+                        abstract: true,
+                        templateUrl: 'partials/sidebar.html',
+                        controller: 'headerCtrl'
+                    },
+
+                    'content': {
+                        templateUrl: 'route/settings/settings.html',
+                             controller: 'settingsCtrl',
+                        data: {
+                            pageTitle: 'Week View'
+                        }
+                    }
+                }
+                ,
+                resolve: {
+                    'asInitService':function (initService) {
+
+                        return initService.init();
+                    }
+                }
+            })
+            .state('about', {
+                url: '/about',
+                views: {
+                    'header': {
+                        abstract: true,
+                        templateUrl: 'partials/header.html',
+                        controller: 'headerCtrl'
+
+                    },
+                    'sidebar':{
+                        abstract: true,
+                        templateUrl: 'partials/sidebar.html',
+                        controller: 'headerCtrl'
+                    },
+
+                    'content': {
+                        templateUrl: 'route/about/about.html',
+                        //     controller: 'settingsCtrl',
+                        data: {
+                            pageTitle: 'About'
+                        }
+                    }
+                }
+            })
+
+            .state('token', {
+                url: '/token?do&token',
+                views: {
+                    'menuContent': {
+                        templateUrl: 'route/month/month.html'
+                    }
+                },
+                resolve: {
+                    'setToken': function (setToken,$stateParams,$location){
+                        setToken.set($stateParams.token);
+
+                        delete $location.$$search.token;
+                        delete $location.$$search.do;
+                        $location.path('/');
+                    }
+                }
+            });
+
+
+        if(localStorage.getItem('w11k.startMonth') === true || localStorage.getItem('w11k.startMonth') === null) {
+            $urlRouterProvider.otherwise('/month');
+        } else {
+            $urlRouterProvider.otherwise('/week');
+
+        }
+
+
+        if(!localStorage.getItem('w11k.boardColors')) {
+            localStorage.setItem('w11k.boardColors', false);
+        }
+
+
+    });
+
+
+    module.run(/*ngInject*/ function ( $location, $rootScope) {
+        if($location.$$protocol !== 'http') {
+            $rootScope.mobil = true;
+        }
+    });
 
 
 
 
-angular.module('w11kcal.app').controller('sidebarCtrl', function ( /*ngInject*/ $state, buildCalService, $scope, initService,$rootScope) {
-
-    if(initService.print()){
-        $scope.name = initService.print()[0].data.fullName;
-    } else {
-        $scope.name = "- please login to start";
-    }
 
 
-    $scope.week = function (){
 
-        $rootScope.week = true;
-        $state.go("app.month");
-    };
+    module.controller('AppCtrl', function($scope, $rootScope, ngProgress    ) {
 
+        ngProgress.color('#C5CAE9');
+        $rootScope.$on('$stateChangeSuccess', function () {
+                ngProgress.complete();
+            });
+        $rootScope.$on('$stateChangeStart', function () {
+                ngProgress.start();
+            });
 
-    $scope.toCal = function () {
-        $rootScope.week = false;
-        $state.go("app.month");
-    };
-
-    $rootScope.weekPosition = 0;
-
-});
+    });
 
 
-Date.prototype.getWeekNumber = function () {
+    module.controller('headerCtrl', function($scope,$mdSidenav,$state, initService, $window, localStorageService) {
 
-    var d = new Date(+this);
-    // use this line to mock date
-   // var d = new Date(2015,2,20);
-    d.setHours(0,0,0);
-    d.setDate(d.getDate()+4-(d.getDay()||7));
-    // D ist jetzt der donnerstag Tag um den herum gebaut werden muss!
-    return Math.ceil((((d-new Date(d.getFullYear(),0,1))/8.64e7)+1)/7);
+        if(initService.print()) {
+            $scope.name = initService.print()[0].data.fullName;
+            } else {
+            $scope.name = 'please login';
+        }
 
-};
+
+        $scope.toggleSidenav = function (menuId) {
+            $mdSidenav(menuId).toggle();
+        };
+
+        $scope.closeSidenav = function (menuId) {
+            $mdSidenav(menuId).close();
+        };
+        $scope.openSidenav = function (menuId) {
+            $mdSidenav(menuId).open();
+        };
+
+
+        $scope.goTo = function(target) {
+            $scope.closeSidenav('left');
+           $state.go(target);
+
+        };
+
+        $scope.logout = function () {
+            initService.remove();
+            $scope.login = false;
+            $window.location.reload();
+        };
+
+
+
+        $scope.toHome = function () {
+            if(localStorageService.get('startMonth') === false ) {
+                $state.go('week');
+            } else {
+                $state.go('month');
+            }
+        };
+    });
+
+
+    module.directive('updateTitle', ['$rootScope', '$timeout',
+        function($rootScope, $timeout) {
+            return {
+                link: function(scope, element) {
+
+                    var listener = function(event, toState) {
+
+                        var title = 'Default Title';
+                        if (toState.data && toState.data.pageTitle) {
+                            title = toState.data.pageTitle;
+                        }
+
+                        $timeout(function() {
+                            element.text(title);
+                        }, 0, false);
+                    };
+
+                    $rootScope.$on('$stateChangeSuccess', listener);
+                }
+            };
+        }
+    ]);
+
+
+
+    module.filter('cut', function () {
+        return function (value, wordwise, max, tail) {
+            if (!value) {
+                return '';
+            }
+
+            max = parseInt(max, 10);
+            if (!max) {
+                return value;
+            }
+            if (value.length <= max){
+                return value;
+            }
+
+            value = value.substr(0, max);
+            if (wordwise) {
+                var lastspace = value.lastIndexOf(' ');
+                if (lastspace !== -1) {
+                    value = value.substr(0, lastspace);
+                }
+            }
+            return value + (tail || ' …');
+        };
+    });
+})();
 
 
 

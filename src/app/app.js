@@ -5,6 +5,9 @@
 
 
     var module = angular.module('trelloCal', [
+
+        // Dependencies
+
         'ngAnimate',
         'ngMaterial',
         'ui.sortable',
@@ -15,17 +18,26 @@
         'ngProgress',
         'ui.select',
 
+        // Route
+
         'trelloCal.month',
         'trelloCal.week',
         'trelloCal.stream',
-        'trelloCal.settings'
+        'trelloCal.settings',
+
+        // Other
+
+
+        'trelloCal.errorLogging',
+        'trelloCal.analytics'
+
 
     ]);
 
 
     module.constant('AppKey', '41485cd87d154168dd6db06cdd3ffd69');
     //module.constant('baseUrl', 'http://localhost:9000');
-     module.constant('baseUrl', 'http://trello-calendar.w11k.de');
+    module.constant('baseUrl', 'http://trello-calendar.w11k.de');
 
 
 

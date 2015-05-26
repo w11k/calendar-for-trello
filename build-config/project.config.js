@@ -55,7 +55,20 @@ module.exports = {
           'angular-material-icons/angular-material-icons.min.js',
           'angular-local-storage/dist/angular-local-storage.js',
           'lodash/lodash.js',
-          'ngprogress/build/ngProgress.js'
+          'ngprogress/build/ngProgress.js',
+
+          //Error-Logging:
+          'raven-js/dist/raven.js',
+          'stacktrace-js/dist/stacktrace.js',
+          'angular-raven/angular-raven.js',
+
+
+          //Analytics:
+
+          'angulartics/src/angulartics.js',
+          'angulartics/src/angulartics-ga.js'
+
+
       ],
       js_mock: [],
       js_spec: [],

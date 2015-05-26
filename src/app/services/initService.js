@@ -64,8 +64,6 @@ angular.module('trelloCal').factory('initService', /*ngInject*/  function ($q, $
 
     return {
         init: function (option) {
-            console.log(3);
-
             if(!token) {
                 /**
                  *  User is not logged in, if $rootScope.mobil = true he is on a mobile device,
@@ -74,14 +72,11 @@ angular.module('trelloCal').factory('initService', /*ngInject*/  function ($q, $
 
 
                 if($rootScope.mobil){
-                    alert(localStorageService.get('trello_token'));
-                    alert('rdy');
                     var redirect = baseUrl+'/#/token?do=settoken';
-                    var ref = window.open('https://trello.com/1/authorize?response_type=token&key='+key+'&redirect_uri='+ redirect +'&callback_method=fragment&scope=read%2Cwrite%2Caccount&expiration=never&name=w11k+Trello', '_blank', 'location=yes');
-                    ref.addEventListener('loadstop', function(event) {
-                        console.log(event);
-                        if (event.url.indexOf('/token=') > -1){
-                             token = event.url.substring((event.url.indexOf('/token=')+7));
+                    var ref = window.open('https://trello.com/1/authorize?response_type=token&scope=read,write&key='+key+'&redirect_uri='+ redirect +'&callback_method=fragment&expiration=never&name=w11k+Trello', '_blank', 'location=no', 'toolbar=no');
+                    ref.addEventListener('loadstart', function(event) {
+                        if (event.url.indexOf('/#token=') > -1){
+                             token = event.url.substring((event.url.indexOf('/#token=')+8));
                             ref.close();
                             localStorageService.set('trello_token', token);
                             getData();

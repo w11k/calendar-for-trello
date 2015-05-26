@@ -5,7 +5,8 @@
     <meta name="viewport" content="initial-scale=1" />
     <!--
     use for mobile deployment
-    <meta http-equiv="Content-Security-Policy" content="default-src *; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'">-->
+    <meta http-equiv="Content-Security-Policy" content="default-src *; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'">
+    <!---->
     <meta charset="UTF-8">
     <meta name="format-detection" content="telephone=no" />
     <meta name="msapplication-tap-highlight" content="no" />
@@ -34,7 +35,7 @@
     <script>
 
         Raven.config('http://fa6a3d4a6b6f42cf8b66807942105932@sentry.w11k.de/2', {
-          /*  logger: 'javascript',
+            logger: 'javascript',
             ignoreErrors: [
                 // Random plugins/extensions
                 'top.GLOBALS',
@@ -72,7 +73,7 @@
                 /127\.0\.0\.1:4001\/isrunning/i,  // Cacaoweb
                 /webappstoolbarba\.texthelp\.com\//i,
                 /metrics\.itunes\.apple\.com\.edgesuite\.net\//i
-            ]*/
+            ]
         }).install();
 
 

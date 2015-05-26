@@ -1,8 +1,6 @@
 'use strict';
 var month = angular.module('trelloCal.month', []);
 month.config(/*ngInject*/ function ($stateProvider) {
-    console.log('month config');
-
     $stateProvider
     .state('month', {
         url: '/month',
@@ -30,7 +28,6 @@ month.config(/*ngInject*/ function ($stateProvider) {
         ,
         resolve: {
             'asInitService':function (initService) {
-                console.log(2);
                 return initService.init();
             }
         }

@@ -53,7 +53,6 @@
         localStorageServiceProvider
             .setPrefix('w11ktrello')
             .setStorageType('localStorage');
-        console.log(1);
 
         $stateProvider
 
@@ -194,24 +193,17 @@
                 }
             });
 
-        console.log(1);
 
         if(localStorage.getItem('w11ktrello.startMonth') === true || localStorage.getItem('w11ktrello.startMonth') === null) {
-            console.log(1);
-
             $urlRouterProvider.otherwise('/month');
         } else {
-            console.log(1);
-
             $urlRouterProvider.otherwise('/week');
 
         }
 
-
         if(!localStorage.getItem('w11ktrello.boardColors')) {
             localStorage.setItem('w11ktrello.boardColors', false);
         }
-
 
     });
 
@@ -220,8 +212,6 @@
         if($location.$$protocol !== 'http') {
             $rootScope.mobil = true;
         }
-        console.log(1);
-
     });
 
 
@@ -252,21 +242,25 @@
         }
 
 
-        $scope.toggleSidenav = function (menuId) {
+        var toggleSidenav = function (menuId) {
             $mdSidenav(menuId).toggle();
         };
 
-        $scope.closeSidenav = function (menuId) {
+        var closeSidenav = function (menuId) {
             $mdSidenav(menuId).close();
         };
-        $scope.openSidenav = function (menuId) {
+        var openSidenav = function (menuId) {
             $mdSidenav(menuId).open();
         };
 
 
+        $scope.toggleSidenav = toggleSidenav;
+        $scope.closeSidenav = closeSidenav;
+        $scope.openSidenav = openSidenav;
         $scope.goTo = function(target) {
-            $scope.closeSidenav('left');
-           $state.go(target);
+            $state.go(target);
+            toggleSidenav('left');
+
 
         };
 

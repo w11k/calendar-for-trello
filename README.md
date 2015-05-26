@@ -38,6 +38,8 @@ while developing your URL will be http://localhost:9000
 
 *mobil part is at the very beginning. If the dev/deploy command doesn't work check the symlink (www) or simply use "grunt dist" before running the build/run command.*
 
+before running the app make sure to enable the Content-Security-Policy Line in index.html
+
 ### mobil setup:
     cd mobil/
     phonegap platform add android

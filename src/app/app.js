@@ -274,7 +274,7 @@
             if(localStorageService.get('startMonth') === false ) {
                 $location.path('/week');
             } else {
-                $location.path('/month')
+                $location.path('/month');
             }
         };
     });

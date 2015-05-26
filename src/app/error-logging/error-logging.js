@@ -1,11 +1,11 @@
 /* jshint ignore:start */
-//mock
+
 // Create an application module for our demo.
 var app = angular.module( "trelloCal.errorLogging", ['ngRaven'] );
 
 app .config(function($ravenProvider) {
     // There is a development flag to log errors rather than sending it to Sentry
-    $ravenProvider.development(true);
+    $ravenProvider.development(false);
 });
 
 
@@ -51,7 +51,7 @@ app.factory(
         function log( exception, cause ) {
 
             $log.error.apply( $log, arguments );
-            console.log('stringZumWiederfinden');
+
             try {
 
                 var errorMessage = exception.toString();
@@ -64,7 +64,9 @@ app.factory(
                 $log.warn( "Error logging failed" );
                 $log.log( loggingError );
 
+
             }
+
         }
 
         // Return the logging function.
@@ -72,5 +74,6 @@ app.factory(
 
     }
 );
+
 
 /* jshint ignore:end */

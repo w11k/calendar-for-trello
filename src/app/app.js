@@ -233,7 +233,7 @@
     });
 
 
-    module.controller('headerCtrl', function($scope,$mdSidenav,$state, initService, $window, localStorageService) {
+    module.controller('headerCtrl', function($scope,$mdSidenav,$state, initService, $window, localStorageService,$location) {
 
         if(initService.print()) {
             $scope.name = initService.print()[0].data.fullName;
@@ -242,24 +242,22 @@
         }
 
 
-        var toggleSidenav = function (menuId) {
+        $scope.toggleSidenav = function (menuId) {
             $mdSidenav(menuId).toggle();
         };
 
-        var closeSidenav = function (menuId) {
+        $scope.closeSidenav = function (menuId) {
             $mdSidenav(menuId).close();
         };
-        var openSidenav = function (menuId) {
+        $scope.openSidenav = function (menuId) {
             $mdSidenav(menuId).open();
         };
 
 
-        $scope.toggleSidenav = toggleSidenav;
-        $scope.closeSidenav = closeSidenav;
-        $scope.openSidenav = openSidenav;
+
         $scope.goTo = function(target) {
-            $state.go(target);
-            toggleSidenav('left');
+            $location.path('/'+target);
+            $scope.toggleSidenav('left');
 
 
         };

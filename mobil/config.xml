@@ -19,7 +19,6 @@ w11k.de
     <platform name="android">
         <allow-intent href="market:*" />
         <plugin name="InAppBrowser" value="org.apache.cordova.InAppBrowser" />
-
     </platform>
     <platform name="ios">
         <allow-intent href="itms:*" />
@@ -28,4 +27,16 @@ w11k.de
     </platform>
     <preference name="SplashScreen" value="screen" />
     <preference name="SplashScreenDelay" value="10000" />
+    <preference name="SplashMaintainAspectRatio" value="true" />
+
+    <platform name="android">
+        <splash src="platforms/android/ant-build/res/drawable-land-hdpi/screen" density="port-hdpi"/>
+        <splash src="platforms/android/ant-build/res/drawable-land-ldpi/screen" density="port-ldpi"/>
+        <splash src="platforms/android/ant-build/res/drawable-land-mdpi/screen" density="port-mdpi"/>
+        <splash src="platforms/android/ant-build/res/drawable-land-xhdpi/screen" density="port-xhdpi"/>
+        <splash src="platforms/android/ant-build/res/drawable-port-hdpi/screen" density="port-hdpi"/>
+        <splash src="platforms/android/ant-build/res/drawable-port-ldpi/screen" density="port-ldpi"/>
+        <splash src="platforms/android/ant-build/res/drawable-port-mdpi/screen" density="port-mdpi"/>
+        <splash src="platforms/android/ant-build/res/drawable-port-xhdpi/screen" density="port-xhdpi"/>
+    </platform>
 </widget>

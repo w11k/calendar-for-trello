@@ -272,9 +272,9 @@
 
         $scope.toHome = function () {
             if(localStorageService.get('startMonth') === false ) {
-                $state.go('week');
+                $location.path('/week');
             } else {
-                $state.go('month');
+                $location.path('/month')
             }
         };
     });

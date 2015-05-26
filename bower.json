@@ -19,8 +19,5 @@
     "angular-raven": "~0.5.11",
     "stacktrace-js": "~0.6.4",
     "angulartics": "~0.18.0"
-  },
-  "resolutions": {
-    "angular-material": "master"
   }
 }

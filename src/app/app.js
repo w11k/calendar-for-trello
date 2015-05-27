@@ -36,8 +36,8 @@
 
 
     module.constant('AppKey', '41485cd87d154168dd6db06cdd3ffd69');
-    //module.constant('baseUrl', 'http://localhost:9000');
-    module.constant('baseUrl', 'http://trello-calendar.w11k.de');
+    module.constant('baseUrl', 'http://localhost:9000');
+    //module.constant('baseUrl', 'http://trello-calendar.w11k.de');
 
 
 
@@ -220,20 +220,28 @@
 
 
 
-    module.controller('AppCtrl', function($scope, $rootScope, ngProgress    ) {
+    module.controller('AppCtrl', function($scope, $rootScope, ngProgress, initService) {
 
         ngProgress.color('#C5CAE9');
         $rootScope.$on('$stateChangeSuccess', function () {
                 ngProgress.complete();
             });
         $rootScope.$on('$stateChangeStart', function () {
-                ngProgress.start();
+            ngProgress.start();
+        });
+
+
+        $rootScope.$on('reload', function () {
+            initService.refresh().then(function () {
+                $rootScope.$broadcast('rebuild');
             });
+        });
+
 
     });
 
 
-    module.controller('headerCtrl', function($scope,$mdSidenav,$state, initService, $window, localStorageService,$location) {
+    module.controller('headerCtrl', function($scope,$mdSidenav,$state, initService, $window, localStorageService,$location,$mdBottomSheet, $rootScope) {
 
         if(initService.print()) {
             $scope.name = initService.print()[0].data.fullName;
@@ -273,11 +281,67 @@
         $scope.toHome = function () {
             if(localStorageService.get('startMonth') === false ) {
                 $location.path('/week');
+                $scope.toggleSidenav('left');
             } else {
                 $location.path('/month');
+                $scope.toggleSidenav('left');
             }
         };
+
+
+
+
+    var url = 'https://github.com/w11k/trello-calendar';
+        $scope.showListBottomSheet = function() {
+            $mdBottomSheet.show({
+                templateUrl: 'partials/bottomSheet.html',
+                controller: 'ListBottomSheetCtrl'
+            }).then(function(clickedItem) {
+                switch(clickedItem) {
+                    case 'logout':
+                        $scope.logout();
+                        break;
+                    case 'refresh':
+                        $rootScope.$broadcast('reload');
+                        break;
+                    case 'feature':
+                        window.open(url,'_blank');
+                        break;
+                    case 'bug':
+                        window.open(url,'_blank');
+                        break;
+                }
+            });
+        };
+
+
+
     });
+
+
+
+
+
+
+    module.controller('ListBottomSheetCtrl', function($scope, $mdBottomSheet) {
+
+        $scope.actions = [
+            { name: 'Refresh', icon: 'sync', identifier: 'refresh' },
+            { name: 'Logout', icon: 'clear', identifier: 'logout' }
+        ];
+
+        $scope.more = [
+            {name: 'Submit Feature Request', icon: 'wb_incandescent', identifier: 'feature'},
+            {name: 'Report a Problem', icon: 'report_problem', identifier: 'bug'}
+        ];
+
+        $scope.listItemClick = function(identifier) {
+            $mdBottomSheet.hide(identifier);
+        };
+    });
+
+
+
 
 
     module.directive('updateTitle', ['$rootScope', '$timeout',
@@ -329,6 +393,8 @@
             return value + (tail || ' …');
         };
     });
+
+
 })();
 
 

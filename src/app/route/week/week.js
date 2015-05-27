@@ -138,15 +138,13 @@ month.controller('weekCtrl', function(initService, $timeout, $interval,
 
 
 
-    $scope.loading = false;
     $scope.refresh = function () {
-        if($scope.loading === false) {
-            $scope.loading = true;
-            initService.refresh()
-                .then(function () {
-                    $scope.loading = false;
-                });
-        }
+        ngProgress.start();
+        initService.refresh().then(function () {
+                routine($scope.date);
+                ngProgress.complete();
+            }
+        );
     };
 
 
@@ -243,13 +241,11 @@ month.controller('weekCtrl', function(initService, $timeout, $interval,
 
 
 
-
-    $interval(function () {
-        if($scope.doRefresh) {
+    if(localStorageService.get('refresh')) {
+        $interval(function () {
             $scope.refresh();
-        }
     }, 30000, 0, false);
-
+    }
 
 
 
@@ -276,4 +272,11 @@ month.controller('weekCtrl', function(initService, $timeout, $interval,
     }
 
     $scope.querySearch = querySearch;
+
+
+
+    $scope.$on('rebuild', function() {
+        routine($scope.date);
+    });
+
 });

@@ -42,7 +42,8 @@ month.controller('monthCtrl', function(asInitService, $timeout, $interval,
                                        ngProgress,initService) {
 
 
-var boards;
+
+    var boards;
 
     var routine = function (date) {
         $scope.days = buildCalService.build(date).days;
@@ -117,21 +118,17 @@ var boards;
 
 
 
-    /**
-     * Part 3: Options:
-     */
-    $scope.loading = false;
     $scope.refresh = function () {
-        if($scope.loading === false) {
-            $scope.loading = true;
-            asInitService.refresh()
-                .then(function () {
-                    $scope.loading = false;
-                    $scope.days = buildCalService.build(date).days;
-                    $scope.$broadcast('scroll.refreshComplete');
-                });
-        }
+        ngProgress.start();
+        initService.refresh().then(function () {
+                routine($scope.date);
+                ngProgress.complete();
+            }
+        );
     };
+
+
+
 
 
 
@@ -212,12 +209,6 @@ var boards;
     };
 
 
-    $interval(function () {
-        if($scope.doRefresh) {
-            $scope.refresh();
-        }
-    }, 30000, 0, false);
-
 
 
 
@@ -273,5 +264,19 @@ var boards;
     $scope.activeBoard = function (card) {
         return _.find($scope.boards, { 'id': card.idBoard});
     };
-    
+
+
+    if(localStorageService.get('refresh')) {
+        $interval(function () {
+            $scope.refresh();
+        }, 30000, 0, false);
+    }
+
+
+
+    $scope.$on('rebuild', function() {
+        routine($scope.date);
+    });
+
+
 });

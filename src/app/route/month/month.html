@@ -29,8 +29,8 @@
 
     <div layout="column">
         <div class="listView">
-            <div class="day header" ng-repeat="wd in weekdays"><span class="short">{{wd[0]}}</span><span class="long">{{wd[1]}}</span></div>
-            <div ng-repeat="day in days"  class="day" ng-class="{'dayOff': day.dayOff, 'dayOn' : !day.dayOff, 'has' : day.cards.length >= 1}">
+            <div class="day header" ng-repeat="wd in ::weekdays"><span class="short">{{wd[0]}}</span><span class="long">{{wd[1]}}</span></div>
+            <div ng-repeat="day in days track by day.date"  class="day" ng-class="{'dayOff': day.dayOff, 'dayOn' : !day.dayOff, 'has' : day.cards.length >= 1}">
                 <div class="dayCounter">
                     <span class="weekday">{{day.weekday}}</span>
                 <span  ng-class="{'todayBtn' :day.isToday}">
@@ -38,7 +38,8 @@
                 </span>
                 </div>
                 <div class="dayCards" id="{{day.date | date: 'yyyy-MM-dd'}}" ui-sortable="sortableOptions" ng-model="day.cards">
-                    <div ng-repeat="card in day.cards | filter: activeBoard">
+                    <div ng-repeat="card in day.cards  | filter: activeBoard track by card.id">
+
                         <md-toolbar  class="dayCard md-primary" id="{{card.id}}-{{card.badges.due | date : 'HH:mm:ss' : timezone}}" ng-style="card.color">
                             <div class="title"  ng-click="click(card.shortUrl)"> {{card.name |cut:true:25}}</div>
                             <div class="board"> <a ng-href="{{card.boardUrl}}" target="_blank"><span class="boardName">{{card.boardName}}</span></a>  | <span>{{card.badges.due | date : "HH:mm" : timezone}}</span></div>

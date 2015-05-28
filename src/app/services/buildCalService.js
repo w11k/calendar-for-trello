@@ -61,10 +61,8 @@ angular.module('trelloCal').factory('buildCalService', /*ngInject*/  function (i
                     runs = 8;
                 }
                 config.startOffset = runs-1;
-                console.log(runs);
                 var workDate = new Date(date-1);
                 for (var d = 1; d < runs; ){
-                    console.log('iteration');
                     days.push(buildADay(new Date(workDate.setHours(0,0,0,0)), true));
                     workDate.setDate(workDate.getDate() - 1);
 

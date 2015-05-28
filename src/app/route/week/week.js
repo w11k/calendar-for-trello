@@ -6,11 +6,11 @@ month.config(/*ngInject*/ function () {
 
 month.controller('weekCtrl', function(initService, $timeout, $interval,
                                        archiveCard, $scope, buildCalService, changeDate,$window,
-                                       $stateParams, $location,$mdDialog,weekService,localStorageService,orderByFilter, ngProgress) {
+                                       $stateParams, $location,$mdDialog,weekService,localStorageService,orderByFilter, ngProgress, $q) {
 
 
 
-    var routine = function (date, reload) {
+    var routine = function (date, reload, defer) {
         $scope.allBoards = [];
         $scope.date = {};
         if(!date){
@@ -88,6 +88,11 @@ month.controller('weekCtrl', function(initService, $timeout, $interval,
         $scope.isToday = (
             $scope.date.year === parseInt(moment().format('YYYYY')) && $scope.date.kw === parseInt(moment().format('W'))
         );
+
+
+        if(defer) {
+            defer.resolve();
+        }
     };
 
 
@@ -159,6 +164,10 @@ month.controller('weekCtrl', function(initService, $timeout, $interval,
 
 
     $scope.move = function (steps) {
+        ngProgress.start();
+
+
+        var defer = $q.defer();
         if($scope.date.kw === 1 && steps === -1 ){
             $scope.date.year--;
             $scope.date.kw = $scope.date.amountOfKW.prev;
@@ -172,7 +181,11 @@ month.controller('weekCtrl', function(initService, $timeout, $interval,
             return;
         }
         $scope.date.kw = $scope.date.kw+steps;
-        routine($scope.date,false);
+        routine($scope.date,false, defer);
+
+        defer.promise.then( function () {
+            ngProgress.complete();
+        });
     };
 
 

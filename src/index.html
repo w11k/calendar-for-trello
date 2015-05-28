@@ -18,14 +18,15 @@
     <% }); %>
     </head>
 
-<body layout="row" ng-controller="AppCtrl">
+<body layout="row" ng-controller="AppCtrl" flex layout-fill>
 
-    <md-sidenav class="md-sidenav-left md-whiteframe-z2"   ui-view="sidebar" md-is-locked-open="$mdMedia('gt-lg')" md-component-id="left"  md-swipe-left="closeSidenav('left')" ></md-sidenav>
+    <md-sidenav flex class="md-sidenav-left md-whiteframe-z2"   ui-view="sidebar" md-is-locked-open="$mdMedia('gt-lg')" md-component-id="left"  md-swipe-left="closeSidenav('left')" ></md-sidenav>
 
-    <div flex>
-        <div ui-view="header"></div>
-        <div ui-view="content"></div>
+    <div layout="column" flex>
+        <md-toolbar  ui-view="header"  class="header md-whiteframe-glow-z2"  layout="row" class="headBar" md-swipe-right="openSidenav('left')"     md-swipe-left="closeSidenav('left')"  ></md-toolbar>
+        <md-content ui-view="content" class="md-padding"></md-content>
     </div>
+
 
     <script src="cordova.js"></script>
     <% scripts.forEach( function ( file ) { %>

@@ -193,12 +193,10 @@
                 }
             });
 
-
-        if(localStorage.getItem('w11ktrello.startMonth') === true || localStorage.getItem('w11ktrello.startMonth') === null) {
-            $urlRouterProvider.otherwise('/month');
-        } else {
+        if(localStorage.getItem('w11ktrello.startMonth') === 'false') {
             $urlRouterProvider.otherwise('/week');
-
+        } else {
+            $urlRouterProvider.otherwise('/month');
         }
 
         if(!localStorage.getItem('w11ktrello.boardColors')) {
@@ -279,7 +277,7 @@
 
 
         $scope.toHome = function () {
-            if(localStorageService.get('startMonth') === false ) {
+            if(localStorageService.get('startMonth') !== true) {
                 $location.path('/week');
                 $scope.toggleSidenav('left');
             } else {

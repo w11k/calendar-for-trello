@@ -85,12 +85,21 @@
             var domElement = document.querySelector('body');
             angular.bootstrap(domElement, ['<%= angular_module %>']);
         }
-        if (document.URL.indexOf( 'http://' ) === -1
-                && document.URL.indexOf( 'https://' ) === -1) {
-            console.log("URL: Running in Cordova/PhoneGap");
+        if (document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' ) === -1) {
+          // URL: Running in Cordova/PhoneGap
             document.addEventListener("deviceready", bootstrapAngular, false);
-        } else {
-            console.log("URL: Running in browser");
+
+            //start with week when running as app first time
+
+            if(localStorage.getItem('w11ktrello.startMonth') === null) {
+                localStorage.setItem('w11ktrello.startMonth', false)
+
+            }
+
+
+
+            } else {
+            //URL: Running in browser
             bootstrapAngular();
         }
 

@@ -39,13 +39,13 @@ month.config(/*ngInject*/ function ($stateProvider) {
 month.controller('monthCtrl', function(asInitService, $timeout, $interval,
                                        archiveCard, $scope, buildCalService, changeDate,$window,
                                        $stateParams, $location,$mdDialog, localStorageService,orderByFilter,
-                                       ngProgress,initService) {
+                                       ngProgress,initService, $q) {
 
 
 
     var boards;
 
-    var routine = function (date) {
+    var routine = function (date, defer) {
         $scope.days = buildCalService.build(date).days;
 
         $scope.date = {
@@ -63,7 +63,9 @@ month.controller('monthCtrl', function(asInitService, $timeout, $interval,
             $scope.allBoards.push(board);
         });
         $scope.resetBoards();
-
+        if(defer) {
+            defer.resolve();
+        }
     };
 
 
@@ -138,6 +140,11 @@ month.controller('monthCtrl', function(asInitService, $timeout, $interval,
     };
 
     $scope.move = function (steps) {
+        ngProgress.start();
+
+
+        var defer = $q.defer();
+
         year = date.year;
         month = (date.month + steps);
         if(month >= 12) {
@@ -150,7 +157,11 @@ month.controller('monthCtrl', function(asInitService, $timeout, $interval,
 
         date = {year: year, month:month};
 
-        routine(date);
+        routine(date, defer);
+
+        defer.promise.then( function () {
+            ngProgress.complete();
+        });
 
     };
 

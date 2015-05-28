@@ -55,13 +55,16 @@ angular.module('trelloCal').factory('buildCalService', /*ngInject*/  function (i
                  * get start - offset
                  */
                 var runs = moment(date).isoWeekday();
+
                 if (runs === 1) {
                     // if week starts with monday, add 7 days
-                    runs = 7;
+                    runs = 8;
                 }
                 config.startOffset = runs-1;
+                console.log(runs);
                 var workDate = new Date(date-1);
                 for (var d = 1; d < runs; ){
+                    console.log('iteration');
                     days.push(buildADay(new Date(workDate.setHours(0,0,0,0)), true));
                     workDate.setDate(workDate.getDate() - 1);
 

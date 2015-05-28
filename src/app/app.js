@@ -36,8 +36,8 @@
 
 
     module.constant('AppKey', '41485cd87d154168dd6db06cdd3ffd69');
-    module.constant('baseUrl', 'http://192.168.1.170:9000');
-   // module.constant('baseUrl', 'http://trello-calendar.w11k.de');
+    //module.constant('baseUrl', 'http://localhost:9000');
+    module.constant('baseUrl', 'http://trello-calendar.w11k.de');
 
 
 

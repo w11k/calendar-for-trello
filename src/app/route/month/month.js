@@ -57,15 +57,24 @@ month.controller('monthCtrl', function(asInitService, $timeout, $interval,
 
 
         $scope.isToday = (date.year === today.year && date.month === today.month);
-        boards = buildCalService.boards();
-        $scope.allBoards = [];
-        _.forEach(boards, function (board) {
-            $scope.allBoards.push(board);
-        });
+
+
+        $scope.searchText = null;
+        $scope.querySearch = querySearch;
+        $scope.boards = buildCalService.boards();
+        $scope.selectedBoards = [];
+
         $scope.resetBoards();
+
+        $scope.$watch('selectedBoards', function () {
+            $scope.resetBtn = ($scope.selectedBoards.length !== $scope.boards.length);
+        }, true);
+
+
         if(defer) {
             defer.resolve();
         }
+
     };
 
 
@@ -104,8 +113,43 @@ month.controller('monthCtrl', function(asInitService, $timeout, $interval,
     }
 
 
-    $scope.days = buildCalService.build(date).days;
 
+
+
+
+
+    $scope.resetBoards = function () {
+        $scope.selectedBoards = [];
+        $scope.boards.forEach(function (item) {
+            $scope.selectedBoards.push(item);
+        });
+    };
+
+
+    /**
+     * Search for boards.
+     */
+    function querySearch (query) {
+        var results = query ? $scope.boards.filter(createFilterFor(query)) : [];
+        return results;
+    }
+
+    /**
+     * Create filter function for a query string
+     */
+    function createFilterFor(query) {
+        var lowercaseQuery = angular.lowercase(query);
+
+        return function filterFn(board) {
+            return (board._lowername.indexOf(lowercaseQuery) === 0)
+        };
+
+    }
+
+
+
+
+    routine(date);
     $scope.$watch('days'   , function () {
         _.forEach($scope.days, function (day) {
             day.cards = orderByFilter(day.cards, ['badges.due', 'name']);
@@ -114,9 +158,7 @@ month.controller('monthCtrl', function(asInitService, $timeout, $interval,
 
 
 
-    $scope.$watch('boards', function () {
-       $scope.resetBtn = ($scope.boards.length !== $scope.allBoards.length);
-    }, true);
+
 
 
 
@@ -158,6 +200,7 @@ month.controller('monthCtrl', function(asInitService, $timeout, $interval,
         date = {year: year, month:month};
 
         routine(date, defer);
+
 
         defer.promise.then( function () {
             ngProgress.complete();
@@ -220,57 +263,6 @@ month.controller('monthCtrl', function(asInitService, $timeout, $interval,
     };
 
 
-
-
-
-
-    /**
-     * Search for boards.
-     */
-    function querySearch (query) {
-        var results = query ?
-            $scope.allBoards.filter(createFilterFor(query)) : [];
-        return results;
-    }
-
-    /**
-     * Create filter function for a query string
-     */
-    function createFilterFor(query) {
-        var lowercaseQuery = angular.lowercase(query);
-
-        return function filterFn(contact) {
-            return (contact._lowername.indexOf(lowercaseQuery) !== -1);
-        };
-
-    }
-
-    boards = buildCalService.boards();
-
-
-    $scope.querySearch = querySearch;
-    $scope.allBoards = [];
-    _.forEach(boards, function (board) {
-        $scope.allBoards.push(board);
-    });
-
-
-    $scope.boards = [];
-
-
-    /**
-     *  has to be trough a for each loop ..
-     */
-    $scope.resetBoards = function () {
-        $scope.boards = [];
-        $scope.allBoards.forEach(function (item) {
-            $scope.boards.push(item);
-        });
-    };
-
-    $scope.resetBoards();
-
-    $scope.filterSelected = true;
 
     $scope.activeBoard = function (card) {
         return _.find($scope.boards, { 'id': card.idBoard});

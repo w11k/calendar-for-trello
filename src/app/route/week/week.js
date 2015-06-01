@@ -11,7 +11,7 @@ month.controller('weekCtrl', function(initService, $timeout, $interval,
 
 
     var routine = function (date, reload, defer) {
-        $scope.allBoards = [];
+        $scope.boards = [];
         $scope.date = {};
         if(!date){
             // init
@@ -48,45 +48,31 @@ month.controller('weekCtrl', function(initService, $timeout, $interval,
                         email: '#',
                         color: card.color
                     };
-                    $scope.allBoards.push(board);
+                    $scope.boards.push(board);
                 });
             }
         });
 
-        // Setup Filter
-       $scope.allBoards = _.uniq($scope.allBoards, function (item) {
-            return 'id:' + item.id + 'name:' + item.name;
-        });
 
 
 
 
 
 
-        $scope.boards = [];
-
-
-        ///**
-        // *  has to be trough a for each loop ..
-        // */
-        $scope.resetBoards = function () {
-            $scope.boards = [];
-            $scope.allBoards.forEach(function (item) {
-                $scope.boards.push(item);
-            });
-        };
+        $scope.searchText = null;
+        $scope.querySearch = querySearch;
+        $scope.selectedBoards = [];
 
         $scope.resetBoards();
 
-        $scope.filterSelected = true;
+        $scope.$watch('selectedBoards', function () {
+            $scope.resetBtn = ($scope.selectedBoards.length !== $scope.boards.length);
+        }, true);
 
-        $scope.activeBoard = function (card) {
-            return _.find($scope.boards, { 'id': card.idBoard});
-        };
 
 
         $scope.isToday = (
-            $scope.date.year === parseInt(moment().format('YYYYY')) && $scope.date.kw === parseInt(moment().format('W'))
+            $scope.date.year === parseInt(moment().format('YYYY')) && $scope.date.kw === parseInt(moment().format('W'))
         );
 
 
@@ -128,6 +114,33 @@ month.controller('weekCtrl', function(initService, $timeout, $interval,
         $scope.weekdays[i] = [short, long];
     }
 
+
+
+    $scope.resetBoards = function () {
+        $scope.selectedBoards = [];
+        $scope.boards.forEach(function (item) {
+            $scope.selectedBoards.push(item);
+        });
+    };
+
+
+
+    function querySearch (query) {
+        var results = query ? $scope.boards.filter(createFilterFor(query)) : [];
+        return results;
+    }
+
+    /**
+     * Create filter function for a query string
+     */
+    function createFilterFor(query) {
+        var lowercaseQuery = angular.lowercase(query);
+
+        return function filterFn(board) {
+            return (board._lowername.indexOf(lowercaseQuery) === 0)
+        };
+
+    }
 
 
 
@@ -259,33 +272,6 @@ month.controller('weekCtrl', function(initService, $timeout, $interval,
             $scope.refresh();
     }, 30000, 0, false);
     }
-
-
-
-
-    /**
-     * Search for boards.
-     */
-    function querySearch (query) {
-        var results = query ?
-            $scope.allBoards.filter(createFilterFor(query)) : [];
-        return results;
-    }
-
-    /**
-     * Create filter function for a query string
-     */
-    function createFilterFor(query) {
-        var lowercaseQuery = angular.lowercase(query);
-
-        return function filterFn(contact) {
-            return (contact._lowername.indexOf(lowercaseQuery) !== -1);
-        };
-
-    }
-
-    $scope.querySearch = querySearch;
-
 
 
     $scope.$on('rebuild', function() {

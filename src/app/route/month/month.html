@@ -16,11 +16,18 @@
 </div>
 
 
-<div ng-if="!filter">
-    <md-content class="autocomplete" layout="column" flex>
-        <md-contact-chips ng-model="boards" md-boards="querySearch($query)" md-contact-name="name" md-contact-image="image" md-contact-email="email" md-require-match="" filter-selected="ctrl.filterSelected">
-        </md-contact-chips>
-    </md-content>
+<div ng-if="!filter" layout="row">
+     <md-chips ng-model="selectedBoards" md-autocomplete-snap="" md-require-match=""  class="custom-chips" flex>
+        <md-autocomplete  md-search-text="searchText" md-items="item in querySearch(searchText)" md-item-text="item.name">
+            <span md-highlight-text="searchText">{{item.name}}</span>
+        </md-autocomplete>
+        <md-chip-template>
+            <span>{{$chip.name}}</span>
+        </md-chip-template>
+        <button md-chip-remove="" class="md-primary boardChip">
+            <md-icon md-svg-icon="md-close"></md-icon>
+        </button>
+    </md-chips>
     <md-button class="md-flat md-default" ng-if="resetBtn" ng-click="resetBoards()">reset</md-button>
 </div>
 

@@ -76,10 +76,6 @@ module.exports = {
       css: [
           'angular-material/angular-material.css',
           'ngprogress/ngProgress.css'
-
-          //,'font-awesome/css/font-awesome.min.css'
-
-
       ],
       assets: []
     }

@@ -277,12 +277,14 @@
 
 
         $scope.toHome = function () {
-            if(localStorageService.get('startMonth') !== true) {
-                $location.path('/week');
-                $scope.toggleSidenav('left');
+            console.log('called');
+            console.log(localStorageService.get('startMonth'));
+
+            if(localStorageService.get('startMonth') !== false) {
+                              $location.path('/month');
+
             } else {
-                $location.path('/month');
-                $scope.toggleSidenav('left');
+                $location.path('/week');
             }
         };
 

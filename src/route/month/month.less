@@ -1,0 +1,379 @@
+
+h2.md-subhead {
+  line-height: 25px;
+  font-size: 20px;
+  margin-bottom: 5px;
+}
+
+.listView {
+  .dayCards {
+    padding-top: 4px;
+    min-height: 80px;
+  }
+  border-left:1px solid #DFDFDF;
+  display:block;
+  box-sizing: border-box;
+
+
+  * {
+    box-sizing: border-box;
+  }
+
+  md-toolbar {
+    min-height: 44px;
+  }
+
+
+  a {
+    text-decoration: none;
+    color:#fff;
+  }
+
+
+
+
+.day.header {
+ border:none !important;
+  background: #3F51B5; color:#fff;
+}
+
+  .day {
+    float:none;
+    width: 100%;
+    border-right:1px solid #DFDFDF;
+    border-bottom:1px solid #DFDFDF;
+    padding:5px;
+    display:block;
+
+
+
+    a:hover {
+      color:#C5CAE9;
+    }
+
+    .label {
+      margin-right: -3px;
+      padding:.2em .3em .2em ;
+
+    }
+
+  }
+
+  .day.has .dayCounter{
+    font-weight: bold;
+  }
+
+
+
+  .day.header {
+    height:auto;
+    padding:5px;
+    text-align: center;
+    .long {
+      display:none;
+    }
+  }
+
+
+  .dayOff  {
+    background: #ededed;
+    .dayCounter {
+      color: #969696;
+    }
+  }
+
+
+
+  .dayOn {
+    background:none;
+  }
+
+  .dayCounter {margin:2px 3px 0 0;
+    font-size: 16px;
+    color:#A3A3A3;
+    text-align: right ;
+    .weekday{
+      display: inline-block;
+      float:left;
+      font-size: 11px;
+    }
+  }
+
+
+  .header {
+    display:none;
+  }
+
+  .dayCards {
+    .dayCard.waiting {
+      opacity: .7 !important;
+    }
+
+
+    .dayCard{
+      opacity:1;
+      color:#fff;
+      padding:5px 5px 15px 5px;
+      border-radius: 0;
+      font-size: 10px;
+      margin-bottom: 2px;
+      cursor: move !important;
+      .title {
+        cursor: pointer !important;
+        color:#fff;
+        font-weight: bold;
+        padding-bottom: 2px;
+        margin-bottom: 2px;
+      }
+      .title:hover {
+        text-decoration: underline;
+      }
+      i {
+        float:right;
+        text-align: right;
+      }
+    }
+
+
+    .dragger {
+      float:right;
+      padding-right: 3px;
+    }
+
+
+    .dragger.showDetail {
+      cursor: pointer;
+    }
+  }
+
+
+
+
+  .today {
+    .dayCounter{
+      color:#337ab7;
+      text-decoration: underline;
+      font-weight: bold;
+    }
+  }
+
+
+}
+.calNav {
+  padding:0 ;
+  h1{
+    font-size:26px;
+    width: 100%;
+    .btn-group {
+      padding-right:10px;
+    }
+  }
+}
+
+
+
+
+@media screen and (min-width: 768px) {
+  .listView {
+    display:-webkit-box;
+    display:-ms-flexbox;
+    display:flex;
+    display:-webkit-flex;
+    -ms-flex-wrap:wrap;
+    flex-wrap:wrap;
+    -webkit-flex-wrap:wrap;
+    .day {
+      width: 14.28%;
+    }
+    .dayCounter {
+      .weekday {
+        display: none;
+      }
+    }
+
+
+
+
+    .day.header {
+      display:block;
+      height: 25px; line-height: 16px;
+      min-height: 0;
+    }
+
+
+  }
+
+
+}
+
+
+
+
+@media (min-width: 992px) {
+  .listView {
+    .day.header {
+      .short {display:none}
+      .long  {display:block;}
+    }
+    .dayCards {
+      .board {
+        display: block;
+      }
+    }
+  }
+}
+
+.monthName  {
+  font-size: 22px;
+  padding-top: 15px;
+}
+
+
+
+[ng-drop].drag-enter{
+  background:#E8E8E8 !important;
+}
+
+
+
+
+
+
+
+.todayBtn {
+  color:#1A237E;
+}
+
+
+
+button.mini {
+//  width:25px !important;
+  min-width: 0;
+  min-height: 0;
+  margin:2px;
+  line-height: 18px;
+  padding: 5px 3px;
+
+  ng-md-icon {
+    padding-top: 50px;
+
+    margin: 0;
+  }
+
+  &.toToday{
+    padding:5px 7px;
+  }
+}
+
+
+span.month {
+  padding:6px 0 0 15px;
+}
+
+
+
+.md-whiteframe-glow-z2 {
+  box-shadow: 0px 0px 3px 3px rgba(0, 0, 0, 0.2), 0px 0 4px 3px rgba(0, 0, 0, 0.14), 0px 0px 8px 1px rgba(0, 0, 0, 0.12);
+}
+
+
+
+
+
+
+.boardLegende {
+  margin:20px 0 5px;
+  font-size:12px;
+  text-align: right;
+  span {
+    padding:0 3px 0;
+
+  }
+  i {
+    background: rgb(63,81,181);
+    border-radius: 2px;
+    height: 10px;
+    width: 10px;
+    display: inline-block;
+  }
+}
+
+
+
+
+
+
+
+//
+///**************************
+//    Performance
+//****************************/
+//.day, .day * {
+//  -webkit-transform: translate3d(0, 0, 0);
+//  -moz-transform: translate3d(0, 0, 0);
+//  -ms-transform: translate3d(0, 0, 0);
+//  transform: translate3d(0, 0, 0);
+//  /* Other transform properties here */
+//}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ .custom-chips .md-chip {
+  position: relative;
+  padding-right: 35px;
+ line-height: 28px;
+   height: 28px;}
+ .custom-chips .md-chip .md-chip-remove-container {
+  position: absolute;
+  right: 4px;
+  top: 4px;
+  margin-right: 0;
+  height: 24px; }
+ .custom-chips .md-chip .md-chip-remove-container button.boardChip {
+  position: relative;
+  height: 24px;
+  width: 24px;
+  line-height: 30px;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 50%;
+  border: none;
+  box-shadow: none;
+  padding: 0;
+  margin: 0;
+  transition: background 0.15s linear;
+  display: block; }
+ .custom-chips .md-chip .md-chip-remove-container button.boardChip md-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate3d(-50%, -50%, 0) scale(0.7);
+  color: white;
+  fill: white; }
+ .custom-chips .md-chip .md-chip-remove-container button.boardChip:hover,  .custom-chips .md-chip .md-chip-remove-container button.boardChip:focus {
+   background: rgba(0, 0, 0, 0.3);
+
+ }
+
+.custom-chips .md-chip .md-chip-remove-container button.boardChip {
+  width:22px;
+  height: 21px;
+}

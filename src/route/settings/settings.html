@@ -1,0 +1,12 @@
+<md-content class="settings" layout="column">
+    <md-list>
+        <md-subheader class="md-no-sticky">Selected Settings will be stored on your device</md-subheader>
+        <md-list-item ng-click="setting.disabled || change(setting.id, !setting.enabled) || (setting.enabled = !setting.enabled) " ng-repeat="setting in settings" aria-label="setting.name"  >
+            <ng-md-icon icon="{{setting.icon}}" style="fill: #666" size="20"></ng-md-icon>
+            <p ng-bind-html="setting.name"></p>
+            <md-switch class="md-secondary" ng-model="setting.enabled" ng-disabled="setting.disabled" ng-change="change(setting.id, setting.enabled)" ></md-switch>
+        </md-list-item>
+    </md-list>
+</md-content>
+
+

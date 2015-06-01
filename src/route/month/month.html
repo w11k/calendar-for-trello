@@ -1,0 +1,54 @@
+
+
+<div class="calNav" >
+    <h2 layout="row" style="margin-top:10px;" class="md-subhead" layout-align="space-between end">
+        <md-button class="md-raised md-primary mini" aria-label="previous month"  ng-click="move(-1)">
+            <ng-md-icon icon="navigate_before" style="fill: #fff" size="22"></ng-md-icon>
+        </md-button>
+        <md-button class="md-raised md-primary mini" aria-label="next month" ng-click="move(1)">
+            <ng-md-icon icon="navigate_next" style="fill: #fff" size="22"></ng-md-icon>
+        </md-button>
+        <span class="month" flex>{{date.monthName}}, {{date.year}}</span>
+        <md-button class="md-flat md-primary mini toToday"  ng-if="!isToday"  ng-click="toToday()"  aria-label="next month">
+            today
+        </md-button>
+    </h2>
+</div>
+
+
+<div ng-if="!filter" layout="row">
+     <md-chips ng-model="selectedBoards" md-autocomplete-snap="" md-require-match=""  class="custom-chips" flex>
+        <md-autocomplete  md-search-text="searchText" md-items="item in querySearch(searchText)" md-item-text="item.name">
+            <span md-highlight-text="searchText">{{item.name}}</span>
+        </md-autocomplete>
+        <md-chip-template>
+            <span>{{$chip.name}}</span>
+        </md-chip-template>
+        <button md-chip-remove="" class="md-primary boardChip">
+            <md-icon md-svg-icon="md-close"></md-icon>
+        </button>
+    </md-chips>
+    <md-button class="md-flat md-default" ng-if="resetBtn" ng-click="resetBoards()">reset</md-button>
+</div>
+
+<div class="listView">
+    <div class="day header" ng-repeat="wd in ::weekdays"><span class="short">{{wd[0]}}</span><span class="long">{{wd[1]}}</span></div>
+    <div ng-repeat="day in days track by day.date"  class="day" ng-class="{'dayOff': day.dayOff, 'dayOn' : !day.dayOff, 'has' : day.cards.length >= 1}">
+        <div class="dayCounter">
+            <span class="weekday">{{day.weekday}}</span>
+            <span ng-class="{'todayBtn' :day.isToday}">{{day.date  | date: "d" }}</span>
+        </div>
+        <div class="dayCards" id="{{day.date | date: 'yyyy-MM-dd'}}" ui-sortable="sortableOptions" ng-model="day.cards">
+            <div ng-repeat="card in day.cards  | filter: activeBoard track by card.id">
+                <md-toolbar  class="dayCard md-primary" id="{{card.id}}-{{card.badges.due | date : 'HH:mm:ss' : timezone}}" ng-style="card.color">
+                    <div class="title"  ng-click="click(card.shortUrl)"> {{card.name |cut:true:25}}</div>
+                    <div class="board"> <a ng-href="{{card.boardUrl}}" target="_blank"><span class="boardName">{{card.boardName}}</span></a>  | <span>{{card.badges.due | date : "HH:mm" : timezone}}</span></div>
+                </md-toolbar>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="boardLegende" ng-if="color">
+    <span  ng-repeat="board in boards"><i ng-style="board.color"></i> {{board.name}}  </span>
+</div>

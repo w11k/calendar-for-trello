@@ -28,6 +28,8 @@ w11k.de
     <preference name="SplashScreen" value="screen" />
     <preference name="SplashScreenDelay" value="10000" />
     <preference name="SplashMaintainAspectRatio" value="true" />
+    <preference name="android-targetSdkVersion" value="19" />
+    <preference name="android-minSdkVersion" value="19" />
 
     <platform name="android">
         <splash src="platforms/android/ant-build/res/drawable-land-hdpi/screen" density="port-hdpi"/>

@@ -24,9 +24,9 @@
         <md-button class="md-flat md-default" ng-if="resetBtn" ng-click="resetBoards()">reset</md-button>
     </div>
 
-    <div layout="column">
         <div class="listView">
             <div class="day header" ng-repeat="wd in ::weekdays"><span class="short">{{wd[0]}}</span><span class="long">{{wd[1]}}</span></div>
+
             <div ng-repeat="day in days track by day.date"  class="day" ng-class="{'dayOff': day.dayOff, 'dayOn' : !day.dayOff, 'has' : day.cards.length >= 1}">
                 <div class="dayCounter">
                     <span class="weekday">{{day.weekday}}</span>
@@ -49,4 +49,3 @@
         <div class="boardLegende" ng-if="color">
             <span  ng-repeat="board in boards"><i ng-style="board.color"></i> {{board.name}}  </span>
         </div>
-    </div>

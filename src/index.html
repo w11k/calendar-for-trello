@@ -20,7 +20,15 @@
 
 <body layout="row" ng-controller="AppCtrl" flex layout-fill>
 
-    <md-sidenav flex class="md-sidenav-left md-whiteframe-z2"   ui-view="sidebar" md-is-locked-open="$mdMedia('gt-lg')" md-component-id="left"  md-swipe-left="closeSidenav('left')" ></md-sidenav>
+    <md-sidenav flex class="md-sidenav-left md-whiteframe-z2" md-is-locked-open="$mdMedia('gt-lg')" md-component-id="left"  md-swipe-left="closeSidenav('left')" >
+
+        <md-toolbar  layout="row" class="headBar md-whiteframe-glow-z2" >
+            <h2 class="md-toolbar-tools" hide-gt-lg	 ng-click="toHome()">w11k Trello Calendar</h2>
+        </md-toolbar>
+
+        <md-list ui-view="sidebar">
+        </md-list>
+    </md-sidenav>
 
     <div layout="column" flex>
         <md-toolbar  ui-view="header"  class="header md-whiteframe-glow-z2"  layout="row" class="headBar" md-swipe-right="openSidenav('left')"     md-swipe-left="closeSidenav('left')"  ></md-toolbar>

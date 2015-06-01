@@ -1,46 +1,32 @@
 
-    <md-toolbar  layout="row" class="headBar md-whiteframe-glow-z2" >
-        <h2 class="md-toolbar-tools" hide-gt-lg	 ng-click="toHome()">w11k Trello Calendar</h2>
-    </md-toolbar>
 
-    <md-list>
+    <md-subheader class="md-no-sticky"><i>Welcome, <strong style="font-weight: 600;">{{name}}</strong>.</i></md-subheader>
 
-        <md-subheader class="md-no-sticky"><i>Welcome, <strong style="font-weight: 600;">{{name}}</strong>.</i></md-subheader>
+    <md-list-item ng-click="goTo('month')">
+        <ng-md-icon icon="today" style="fill: #666" size="24"></ng-md-icon>
+        <div class="md-list-item-text">
+            <p> Month </p>
+        </div>
+    </md-list-item>
 
-        <md-list-item ng-click="goTo('month')">
-            <ng-md-icon icon="today" style="fill: #666" size="24"></ng-md-icon>
-            <div class="md-list-item-text">
-                <p> Month </p>
-            </div>
-        </md-list-item>
+    <md-list-item ng-click="goTo('week')">
+        <ng-md-icon icon="assignment" style="fill: #666" size="24"></ng-md-icon>
+        <div class="md-list-item-text">
+            <p> Week </p>
+        </div>
+    </md-list-item>
 
-        <md-list-item ng-click="goTo('week')">
-            <ng-md-icon icon="assignment" style="fill: #666" size="24"></ng-md-icon>
-            <div class="md-list-item-text">
-                <p> Week </p>
-            </div>
-        </md-list-item>
+    <md-list-item ng-click="goTo('settings')">
+        <ng-md-icon icon="settings" style="fill: #666" size="24"></ng-md-icon>
+        <div class="md-list-item-text">
+            <p> Settings </p>
+        </div>
+    </md-list-item>
 
-        <!--<md-list-item ng-click="goTo('stream')">-->
-            <!--<ng-md-icon icon="dashboard" style="fill: #666" size="24"></ng-md-icon>-->
-            <!--<div class="md-list-item-text">-->
-                <!--<p> Stream </p>-->
-            <!--</div>-->
-        <!--</md-list-item>-->
+    <md-list-item ng-click="goTo('about')">
+        <ng-md-icon icon="info" style="fill: #666" size="24"></ng-md-icon>
+        <div class="md-list-item-text">
+            <p> About </p>
+        </div>
+    </md-list-item>
 
-        <md-list-item ng-click="goTo('settings')">
-            <ng-md-icon icon="settings" style="fill: #666" size="24"></ng-md-icon>
-            <div class="md-list-item-text">
-                <p> Settings </p>
-            </div>
-        </md-list-item>
-
-        <md-list-item ng-click="goTo('about')">
-            <ng-md-icon icon="info" style="fill: #666" size="24"></ng-md-icon>
-            <div class="md-list-item-text">
-                <p> About </p>
-            </div>
-        </md-list-item>
-
-        </md-list>
-</md-sidenav>

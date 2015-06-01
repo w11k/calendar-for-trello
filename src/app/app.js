@@ -277,14 +277,10 @@
 
 
         $scope.toHome = function () {
-            console.log('called');
-            console.log(localStorageService.get('startMonth'));
-
-            if(localStorageService.get('startMonth') !== false) {
-                              $location.path('/month');
-
+              if(localStorageService.get('startMonth') !== false) {
+                  $location.path('/month');
             } else {
-                $location.path('/week');
+                  $location.path('/week');
             }
         };
 

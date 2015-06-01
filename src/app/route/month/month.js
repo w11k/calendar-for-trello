@@ -43,7 +43,6 @@ month.controller('monthCtrl', function(asInitService, $timeout, $interval,
 
 
 
-    var boards;
 
     var routine = function (date, defer) {
         $scope.days = buildCalService.build(date).days;
@@ -141,7 +140,7 @@ month.controller('monthCtrl', function(asInitService, $timeout, $interval,
         var lowercaseQuery = angular.lowercase(query);
 
         return function filterFn(board) {
-            return (board._lowername.indexOf(lowercaseQuery) === 0)
+            return (board._lowername.indexOf(lowercaseQuery) === 0);
         };
 
     }

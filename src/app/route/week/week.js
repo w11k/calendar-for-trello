@@ -137,7 +137,7 @@ month.controller('weekCtrl', function(initService, $timeout, $interval,
         var lowercaseQuery = angular.lowercase(query);
 
         return function filterFn(board) {
-            return (board._lowername.indexOf(lowercaseQuery) === 0)
+            return (board._lowername.indexOf(lowercaseQuery) === 0);
         };
 
     }

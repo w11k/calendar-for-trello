@@ -16,7 +16,8 @@
     "ngprogress": "~1.0.7",
     "angular-raven": "~0.5.11",
     "stacktrace-js": "~0.6.4",
-    "angulartics": "~0.18.0"
+    "angulartics": "~0.18.0",
+    "underscore": "~1.8.3"
   },
   "resolutions": {
     "angular": "1.3.9"

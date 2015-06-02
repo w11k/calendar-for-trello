@@ -55,8 +55,7 @@ module.exports = {
           'jquery-ui-touch-punch/jquery.ui.touch-punch.js',
           'angular-material-icons/angular-material-icons.js',
           'angular-local-storage/dist/angular-local-storage.js',
-         // 'lodash/lodash.js',
-          'underscore/underscore.js',
+          'lodash/lodash.js',
           'ngprogress/build/ngProgress.js',
 
           //Error-Logging:

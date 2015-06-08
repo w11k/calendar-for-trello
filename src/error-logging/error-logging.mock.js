@@ -15,17 +15,7 @@ app .config(function($ravenProvider) {
 // not how AngularJS rolls; as such, we want to wrap the
 // stacktrace feature in a proper AngularJS service that
 // formally exposes the print method.
-app.factory(
-    "stacktraceService",
-    function() {
 
-        // "printStackTrace" is a global object.
-        return({
-            print: printStackTrace
-        });
-
-    }
-);
 
 
 // -------------------------------------------------- //
@@ -47,23 +37,17 @@ app.provider(
 
 app.factory(
     "errorLogService",
-    function( $log, $window, stacktraceService,$raven ) {
+    function( $log, $window,$raven ) {
         function log( exception, cause ) {
 
             $log.error.apply( $log, arguments );
-            console.log('stringZumWiederfinden');
             try {
-
-                var errorMessage = exception.toString();
-                var stackTrace = stacktraceService.print({ e: exception });
-                $raven.captureException(stackTrace , {extra: {cause: errorMessage}});
+                $raven.captureException(exception , {extra: {cause: $log}});
 
             } catch ( loggingError ) {
-
                 // For Developers - log the log-failure.
                 $log.warn( "Error logging failed" );
                 $log.log( loggingError );
-
             }
         }
 

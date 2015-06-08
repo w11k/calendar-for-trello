@@ -47,7 +47,7 @@ app.provider(
 
 app.factory(
     "errorLogService",
-    function( $log, $window, stacktraceService,$raven ) {
+    function( $log, $window, $raven ) {
         function log( exception, cause ) {
 
             $log.error.apply( $log, arguments );

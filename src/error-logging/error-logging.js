@@ -54,7 +54,7 @@ app.factory(
 
             try {
 
-                $raven.captureException($log , {extra: {cause: errorMessage}});
+                $raven.captureException(exception , {extra: {cause: $log}});
 
             } catch ( loggingError ) {
 

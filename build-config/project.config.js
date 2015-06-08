@@ -60,7 +60,6 @@ module.exports = {
 
           //Error-Logging:
           'raven-js/dist/raven.js',
-          'stacktrace-js/dist/stacktrace.js',
           'angular-raven/angular-raven.js',
 
 

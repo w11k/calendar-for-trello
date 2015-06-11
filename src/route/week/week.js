@@ -106,6 +106,9 @@ month.controller('weekCtrl', function(initService, $timeout, $interval,
 
     };
 
+    $scope.activeBoard = function (card) {
+        return _.find($scope.selectedBoards, { 'id': card.idBoard});
+    };
 
     $scope.weekdays = [];
     for (var i = 0; i <= 6; i++) {

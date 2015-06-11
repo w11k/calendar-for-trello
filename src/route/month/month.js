@@ -264,7 +264,7 @@ month.controller('monthCtrl', function(asInitService, $timeout, $interval,
 
 
     $scope.activeBoard = function (card) {
-        return _.find($scope.boards, { 'id': card.idBoard});
+        return _.find($scope.selectedBoards, { 'id': card.idBoard});
     };
 
 

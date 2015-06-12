@@ -1,15 +1,15 @@
-# trello-calendar
+#calendar for Trello
 
 Trello is a productivity tool that helps you to organize projects by creating individual lists, boards and cards.
 Manage your projects in teams, get more flexible and improve your workflow.
 
-The w11k Trello Calendar allows you to organize all cards of all boards in one calendar.
+The calendar for Trello allows you to organize all cards of all boards in one calendar.
 
-made with ngMaterial, phonegap, AngularJS and [fabs](https://github.com/w11k/fabs).
+made with AngularJS, Angular Material, Phonegap and [fabs](https://github.com/w11k/fabs).
 
 
 Hosted Version:
-<http://trello-calendar.w11k.de>
+<http://calendar-for-trello.com>
 
 ## development:
 

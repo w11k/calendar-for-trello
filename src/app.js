@@ -34,10 +34,13 @@
 
     ]);
 
+    // get current URL with IE FIX
+    if (!window.location.origin) {
+        window.location.origin = window.location.protocol + '//' + window.location.hostname + (window.location.port ? ':' + window.location.port: '');
+    }
 
     module.constant('AppKey', '41485cd87d154168dd6db06cdd3ffd69');
-    //module.constant('baseUrl', 'http://localhost:9000');
-    module.constant('baseUrl', 'http://trello-calendar.w11k.de');
+    module.constant('baseUrl', window.location.origin);
 
 
 

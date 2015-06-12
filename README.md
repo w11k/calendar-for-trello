@@ -24,7 +24,6 @@ Hosted Version:
     src/app/app.js
     
     angular.module('w11kcal.app').constant('AppKey', 'YOURKEY');
-    angular.module('w11kcal.app').constant('baseUrl', 'URL');
 
 while developing your URL will be http://localhost:9000
 

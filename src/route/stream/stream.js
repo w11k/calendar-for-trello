@@ -3,11 +3,11 @@ var stream = angular.module('trelloCal.stream', []);
 stream.config(/*ngInject*/ function () {
 
 });
+/* jshint ignore:start */
 
-stream.controller('streamCtrl', function($scope,init) {
+stream.controller('streamCtrl', function($scope,init,$http ) {
     $scope.data = init;
 
-    /* jshint ignore:start */
 
     $scope.causeError = function (maxMarker) {
 
@@ -20,6 +20,20 @@ stream.controller('streamCtrl', function($scope,init) {
 
 
     };
-    /* jshint ignore:end */
+
+
+    $scope.causeXhrError = function() {
+        $http.get('/someUrl').
+            success(function(data, status, headers, config) {
+                // this callback will be called asynchronously
+                // when the response is available
+            }).
+            error(function(data, status, headers, config) {
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+            });
+
+    };
 
 });
+/* jshint ignore:end */

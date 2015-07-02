@@ -15,7 +15,7 @@ app.config(function($provide,$httpProvider) {
     $httpProvider.interceptors.push(['$q', '$raven', function($q,$raven) {
         return {
             responseError: function(rejection) {
-                $raven.captureException(rejection);
+                $raven.captureException(rejection.data+rejection.status);
                 return $q.reject(rejection);
             }
         };

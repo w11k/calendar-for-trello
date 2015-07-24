@@ -43,9 +43,9 @@
                     {{day.date  | date: "d. MMMM" }}
                 </span>
                 </div>
-                <div class="dayCards" id="{{day.date | date: 'yyyy-MM-dd'}}" ui-sortable="sortableOptions" ng-model="day.cards">
+                <div class="dayCards" id="{{day.date | date: 'yyyy,MM,dd,'}}" ui-sortable="sortableOptions" ng-model="day.cards">
                     <div ng-repeat="card in day.cards | filter: activeBoard">
-                        <md-toolbar  class="dayCard md-primary" id="{{card.id}}-{{card.badges.due | date : 'HH:mm:ss' : timezone}}" ng-style="card.color">
+                        <md-toolbar  class="dayCard md-primary" id="{{card.id}}-{{card.badges.due | date : 'H,m,ss' : timezone}}" ng-style="card.color">
                             <div class="title" ng-click="click(card.shortUrl)">{{card.name |cut:true:25}}</div>
                             <div class="board"> <a ng-href="{{card.boardUrl}}" target="_blank"><span class="boardName">{{card.boardName}}</span></a>  | <span>{{card.badges.due | date : "HH:mm" : timezone}}</span></div>
                         </md-toolbar>

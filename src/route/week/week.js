@@ -214,17 +214,18 @@ month.controller('weekCtrl', function(initService, $timeout, $interval,
     $scope.sortableOptions = {
         receive: function (e, ui) {
             var id = ui.item[0].firstElementChild.id.split('-')[0];
-            var targetDate = new Date(e.target.id+' '+ui.item[0].firstElementChild.id.split('-')[1]);
             ngProgress.start();
+            var str = e.target.id+ui.item[0].firstElementChild.id.split('-')[1];
+            var newStr = [];
+            angular.forEach(str.split(','), function(value) {
+                newStr.push(parseInt(value));
+            });
+            var targetDate = new Date(newStr[0],newStr[1]-1,newStr[2],newStr[3],newStr[4]);
             changeDate.async(id, targetDate).then(function () {
                     initService.updateDate(id, targetDate);
                     ngProgress.complete();
                 },
                 function () {
-                    /**
-                     * ToDo:
-                     * move card back
-                     */
                     var dialog = function () {
                         $mdDialog.show(
                             $mdDialog.alert()
@@ -248,6 +249,7 @@ month.controller('weekCtrl', function(initService, $timeout, $interval,
         placeholder: 'card',
         connectWith: '.dayCards'
     };
+
 
     $scope.filter = localStorageService.get('filter') === false;
     $scope.color = localStorageService.get('boardColors');

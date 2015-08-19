@@ -18,6 +18,7 @@ angular.module('trelloCal').factory('buildCalService', /*ngInject*/  function (i
         build: function (inDate) {
             boards = [];
             var cards = initService.print()[1].data;
+                console.log(cards);
             cards = _.groupBy(cards, 'dueDay');
             delete cards.undefined;
             var buildADay = function (date, dayOff){

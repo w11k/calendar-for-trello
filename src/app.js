@@ -205,6 +205,9 @@
         if(!localStorage.getItem('w11ktrello.boardColors')) {
             localStorage.setItem('w11ktrello.boardColors', false);
         }
+        if(!localStorage.getItem('w11ktrello.onlyMyCards')) {
+            localStorage.setItem('w11ktrello.onlyMyCards', false);
+        }
 
     });
 

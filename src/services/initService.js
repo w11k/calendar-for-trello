@@ -3,7 +3,7 @@ angular.module('trelloCal').factory('initService', /*ngInject*/  function ($q, $
 
     var key = AppKey;
     var token = localStorageService.get('trello_token');
-    var login, me, boards,  data;
+    var login, me, boards, data, cards;
     login = $q.defer();
 
     var allCards = {
@@ -19,10 +19,7 @@ angular.module('trelloCal').factory('initService', /*ngInject*/  function ($q, $
 
 
 
-
-
-
-    var getData = function () {
+    var pullAll = function (){
         me = $http.get('https://api.trello.com/1/members/me?key='+key+'&token='+token);
         boards = $http.get('https://api.trello.com/1/members/me/boards?key='+key+'&token='+token);
         $q.all([me, boards])
@@ -56,11 +53,49 @@ angular.module('trelloCal').factory('initService', /*ngInject*/  function ($q, $
                     data = responses;
                     login.resolve(responses);
                 });
+            },
+            function (error){
+                // Something went wrong
+                console.log(error);
+                // maybe auth?
+                if (error.status === 401){
+                    //log out, reload.
+                    localStorageService.remove('trello_token');
+                    $window.location.reload();
+                }
+            });
+    };
 
-                //var cards = responses[1].data;
+    var pullMy = function () {
+        me = $http.get('https://api.trello.com/1/members/me?key='+key+'&token='+token);
+        boards = $http.get('https://api.trello.com/1/members/me/boards?key='+key+'&token='+token);
+        cards = $http.get('https://api.trello.com/1/members/me/cards?key='+key+'&token='+token);
 
-                //responses[2].data = boards;
+        $q.all([me, cards, boards])
+            .then(function (responses) {
+                var cards = responses[1].data;
+                var boards = _.indexBy(responses[2].data, 'id');
+                cards.forEach(function (entry) {
+                    entry.waiting = false;
+                    entry.boardName = boards[entry.idBoard].name;
+                    entry.boardUrl = boards[entry.idBoard].url;
+                    if (localStorageService.get('boardColors') !== false) {
+                        entry.color = { 'background-color':boards[entry.idBoard].prefs.backgroundColor };
 
+                    }
+                    if (entry.due === null) {
+                        entry.due = null;
+                        return;
+                    }
+                    var dueDay = entry.due;
+                    entry.dueDay = new Date(new Date(dueDay).setHours(0,0,0,0));
+                    entry.due = new Date(entry.due);
+
+                });
+                responses[1].data = cards;
+                responses[2].data = boards;
+                data = responses;
+                login.resolve(responses);
             },
             function (error){
                 // Something went wrong
@@ -73,6 +108,24 @@ angular.module('trelloCal').factory('initService', /*ngInject*/  function ($q, $
                     $window.location.reload();
                 }
             });
+    };
+
+
+
+
+
+
+
+    var getData = function () {
+        allCards = {
+            withDue: [],
+            withoutDue: []
+        };
+        if(localStorage.getItem('w11ktrello.observerMode')==='false'){
+            return pullMy();
+        } else {
+            return pullAll();
+        }
     };
 
 

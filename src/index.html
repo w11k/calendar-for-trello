@@ -35,9 +35,9 @@
         <md-toolbar  ui-view="header"  class="header md-whiteframe-glow-z2"  layout="row" class="headBar" md-swipe-right="openSidenav('left')"     md-swipe-left="closeSidenav('left')"  ></md-toolbar>
         <md-content ui-view="content" class="md-padding"></md-content>
     </div>
-
-
-    <script src="cordova.js"></script>
+    <!--
+    enable before building as mobile app
+    <script src="cordova.js"></script>-->
     <% scripts.forEach( function ( file ) { %>
     <script type="text/javascript" src="<%= file %>"></script>
     <% }); %>

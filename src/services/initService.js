@@ -110,12 +110,6 @@ angular.module('trelloCal').factory('initService', /*ngInject*/  function ($q, $
             });
     };
 
-
-
-
-
-
-
     var getData = function () {
         allCards = {
             withDue: [],
@@ -127,13 +121,6 @@ angular.module('trelloCal').factory('initService', /*ngInject*/  function ($q, $
             return pullAll();
         }
     };
-
-
-
-
-
-
-
 
 
     return {
@@ -175,38 +162,18 @@ angular.module('trelloCal').factory('initService', /*ngInject*/  function ($q, $
 
 
         refresh: function () {
+            login = $q.defer();
+            allCards = {
+                withDue: [],
+                withoutDue: []
+            };
+            if(localStorage.getItem('w11ktrello.observerMode')==='false'){
+                pullMy();
 
-            var status = $q.defer();
-            var me = $http.get('https://api.trello.com/1/members/me?key='+key+'&token='+token);
-            var boards = $http.get('https://api.trello.com/1/members/me/boards?key='+key+'&token='+token);
-            var cards = $http.get('https://api.trello.com/1/members/me/cards?key='+key+'&token='+token);
-
-
-            $q.all([me, cards, boards])
-                .then(function (responses) {
-                    var cards = responses[1].data;
-                    var boards = _.indexBy(responses[2].data, 'id');
-                    cards.forEach(function (entry) {
-                        entry.waiting = false;
-                        entry.boardName = boards[entry.idBoard].name;
-                        entry.boardUrl = boards[entry.idBoard].url;
-                        entry.color = boards[entry.idBoard].prefs.backgroundColor;
-                        if (entry.due === null) {
-                            entry.due = null;
-                            return;
-                        }
-                        var dueDay = entry.due;
-                        entry.dueDay = new Date(new Date(dueDay).setHours(0,0,0,0));
-                        entry.due = new Date(entry.due);
-
-                    });
-                    responses[1].data = cards;
-                    responses[2].data = boards;
-                    data = responses;
-                    status.resolve(responses);
-                });
-
-            return status.promise;
+            } else {
+                pullAll();
+            }
+            return login.promise;
         },
 
 

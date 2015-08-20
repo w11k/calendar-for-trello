@@ -27,6 +27,10 @@ angular.module('trelloCal').factory('initService', /*ngInject*/  function ($q, $
                 var boards = _.indexBy(responses[1].data, 'id');
                 var cardRequests = [];
                 _.forEach(boards, function(board){
+                    if(board.closed){
+                        //filter closed boards:
+                        return;
+                    }
                     cardRequests.push($http.get('https://api.trello.com/1/boards/'+board.id+'/cards/?key='+key+'&token='+token));
                 });
                 $q.all(cardRequests).then(function(response){

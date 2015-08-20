@@ -90,7 +90,6 @@
         moment.locale("en", {week : {dow : 1 }});
 
         function bootstrapAngular() {
-            console.log("Bootstrapping AngularJS");
             var domElement = document.querySelector('body');
             angular.bootstrap(domElement, ['<%= angular_module %>']);
         }

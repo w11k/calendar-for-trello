@@ -187,7 +187,14 @@ angular.module('trelloCal').factory('initService', /*ngInject*/  function ($q, $
         },
 
         boards: function () {
-            return data[2].data;
+
+            if (data[2]){
+                var prom=$q.defer();
+                prom.resolve(data[2]);
+                return prom;
+            }
+
+            else {return $http.get('https://api.trello.com/1/members/me/boards?key='+key+'&token='+token);}
         },
 
         remove: function () {

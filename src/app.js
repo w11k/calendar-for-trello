@@ -23,6 +23,7 @@
         'trelloCal.month',
         'trelloCal.week',
         'trelloCal.stream',
+        'trelloCal.boards',
         'trelloCal.settings',
 
         // Other
@@ -176,6 +177,38 @@
                         }
                     }
                 }
+            })
+            .state('boards',{
+                url: '/boards',
+                views: {
+                    'header': {
+                        abstract: true,
+                        templateUrl: 'partials/header.html',
+                        controller: 'headerCtrl'
+                    },
+                    'sidebar':{
+                        abstract: true,
+                        templateUrl: 'partials/sidebar.html',
+                         controller: 'headerCtrl'
+                    },
+                    'content': {
+                        templateUrl: 'route/boards/boards.html',
+                        controller: 'boardsCtrl',
+                        data: {
+                            pageTitle: 'Boards'
+                        }
+                    }
+                }
+                ,
+                 resolve: {
+                      'asInitService':function (initService) {
+
+                      return initService.init();
+                      },
+                      'boardsResolve': function(initService){
+                        return initService.boards();
+                      }
+                 }
             })
 
             .state('token', {

@@ -205,9 +205,10 @@
 
                       return initService.init();
                       },
-                      'boardsResolve': function(initService){
-                        return initService.boards();
+                      'getExistingBoardColors':function(localStorageService){
+                        return localStorageService.get('boardColorsArray');
                       }
+
                  }
             })
 

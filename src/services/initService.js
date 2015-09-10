@@ -17,8 +17,6 @@ angular.module('trelloCal').factory('initService', /*ngInject*/  function ($q, $
     * sort either in allCards.withDue or allCards.withoutDue
     * */
 
-
-
     var pullAll = function (){
         me = $http.get('https://api.trello.com/1/members/me?key='+key+'&token='+token);
         boards = $http.get('https://api.trello.com/1/members/me/boards?key='+key+'&token='+token);
@@ -39,9 +37,23 @@ angular.module('trelloCal').factory('initService', /*ngInject*/  function ($q, $
                             entry.waiting = false;
                             entry.boardName = boards[entry.idBoard].name;
                             entry.boardUrl = boards[entry.idBoard].url;
+
+                            //Farben aus localtorage holen wenn verfügbar
                             if (localStorageService.get('boardColors') !== false) {
-                                entry.color = { 'background-color':boards[entry.idBoard].prefs.backgroundColor };
+                                if(localStorageService.get('Boards'))
+                                {
+                                    for (var i=0;i< localStorageService.get('Boards').length;i++)
+                                    {
+                                        if(entry.idBoard===localStorageService.get('Boards')[i].id)
+                                        {
+                                            entry.color = {'background-color':localStorageService.get('Boards')[i].color};
+                                        }
+                                    }
+                                }
+
                             }
+
+
                             if (entry.due === null) {
                                 //Card has no due date
                                 allCards.withoutDue.push(entry);
@@ -55,6 +67,8 @@ angular.module('trelloCal').factory('initService', /*ngInject*/  function ($q, $
                     });
                     responses[1].data = allCards.withDue;
                     data = responses;
+                    responses.push(boards);
+
                     login.resolve(responses);
                 });
             },
@@ -83,9 +97,18 @@ angular.module('trelloCal').factory('initService', /*ngInject*/  function ($q, $
                     entry.waiting = false;
                     entry.boardName = boards[entry.idBoard].name;
                     entry.boardUrl = boards[entry.idBoard].url;
+                    //Farben aus localStorage holen wenn verfügbar
                     if (localStorageService.get('boardColors') !== false) {
-                        entry.color = { 'background-color':boards[entry.idBoard].prefs.backgroundColor };
-
+                       if(localStorageService.get('Boards'))
+                       {
+                          for (var i=0;i< localStorageService.get('Boards').length;i++)
+                          {
+                             if(entry.idBoard===localStorageService.get('Boards')[i].id)
+                            {
+                               entry.color = {'background-color':localStorageService.get('Boards')[i].color};
+                            }
+                          }
+                       }
                     }
                     if (entry.due === null) {
                         entry.due = null;
@@ -126,7 +149,6 @@ angular.module('trelloCal').factory('initService', /*ngInject*/  function ($q, $
         }
     };
 
-
     return {
         init: function (option) {
             if(!token) {
@@ -163,8 +185,6 @@ angular.module('trelloCal').factory('initService', /*ngInject*/  function ($q, $
             return login.promise;
         },
 
-
-
         refresh: function () {
             login = $q.defer();
             allCards = {
@@ -179,8 +199,6 @@ angular.module('trelloCal').factory('initService', /*ngInject*/  function ($q, $
             }
             return login.promise;
         },
-
-
 
         print: function () {
             return data;
@@ -209,6 +227,23 @@ angular.module('trelloCal').factory('initService', /*ngInject*/  function ($q, $
             card.badges.due = due;
             card.due = due;
             card.dueDay = new Date(new Date(due).setHours(0,0,0,0));
+        },
+
+        updateColor: function (boardId) {
+            var cards = data[1].data;
+            cards.forEach(function (entry) {
+                if (localStorageService.get('boardColors') !== false) {
+                    if(entry.idBoard===boardId){
+                       for (var i = 0; i<localStorageService.get('Boards').length;i++){
+                          if(localStorageService.get('Boards')[i].id===boardId){
+                          entry.color = { 'background-color':localStorageService.get('Boards')[i].color};
+                          }
+                       }
+//                            entry.color = { 'background-color':localStorageService.get(entry.idBoard)};
+                    }
+                }
+            });
         }
     };
-});
+}
+);

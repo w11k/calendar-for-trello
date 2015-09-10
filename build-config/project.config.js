@@ -57,6 +57,7 @@ module.exports = {
           'angular-local-storage/dist/angular-local-storage.js',
           'lodash/lodash.js',
           'ngprogress/build/ngProgress.js',
+          'array-tools/dist/array-tools.js',
 
           //Error-Logging:
           'raven-js/dist/raven.js',

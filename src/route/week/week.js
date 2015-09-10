@@ -62,7 +62,7 @@ month.controller('weekCtrl', function(initService, $timeout, $interval,
         $scope.searchText = null;
         $scope.querySearch = querySearch;
         $scope.selectedBoards = [];
-
+        localStorage.removeItem('selectedBoards');
         $scope.resetBoards();
 
         $scope.$watch('selectedBoards', function () {
@@ -120,10 +120,24 @@ month.controller('weekCtrl', function(initService, $timeout, $interval,
 
 
     $scope.resetBoards = function () {
-        $scope.selectedBoards = [];
+//        $scope.selectedBoards = [];
+//        $scope.boards.forEach(function (item) {
+//            $scope.selectedBoards.push(item);
+//        });
+        var temp=[];
         $scope.boards.forEach(function (item) {
-            $scope.selectedBoards.push(item);
+           for (var x in localStorageService.get('Boards'))
+           {
+              if (localStorageService.get('Boards')[x].id===item.id && localStorageService.get('Boards')[x].enabled===true)
+              {
+                temp.push(item);
+              }
+           }
         });
+        localStorage.removeItem('selectedBoards');
+        localStorageService.set('selectedBoards',temp);
+        $scope.selectedBoards=localStorageService.get('selectedBoards');
+
     };
 
 

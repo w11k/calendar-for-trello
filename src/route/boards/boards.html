@@ -1,4 +1,24 @@
-<md-content class="settings content" >
-    <h1>Boards</h1>
-    {{boards}}
+<md-content class="boards" >
+    <md-list>
+        <md-subheader class="md-no-sticky">Selected Settings will be stored on your device</md-subheader>
+        <md-list-item ng-repeat="board in ExistingBoards" ng-click="nothing()" aria-label="Board Settings" >
+
+            <ng-md-icon icon="color_lens" size="20"></ng-md-icon>
+
+            <p ng-bind-html="board.name"></p>
+
+            <md-input-container >
+               <md-select ng-model="board.colorName"aria-label="ColorPicker" style="background-color:{{board.color}}; ">
+                   <md-option class="option" ng-repeat="item in colors" ng-click="announceClick($index,board.id)" value="{{item.name}}" style="background-color:{{item.color}};color:#ffffff;padding-left:10px">
+                       {{item.name}}
+                   </md-option>
+               </md-select>
+            </md-input-container>
+
+
+                <md-switch ng-model="board.enabled" ng-change="change($index, board.enabled)"></md-switch>
+
+
+        </md-list-item>
+    </md-list>
 </md-content>

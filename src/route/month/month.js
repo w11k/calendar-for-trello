@@ -41,8 +41,7 @@ month.controller('monthCtrl', function(asInitService, $timeout, $interval,
                                        ngProgress,initService, $q) {
 
 
-
-    var routine = function (date, defer) {
+        var routine = function (date, defer) {
         $scope.days = buildCalService.build(date).days;
 
         $scope.date = {
@@ -59,8 +58,7 @@ month.controller('monthCtrl', function(asInitService, $timeout, $interval,
         $scope.searchText = null;
         $scope.querySearch = querySearch;
         $scope.boards = buildCalService.boards();
-        $scope.selectedBoards = [];
-
+        localStorage.removeItem('selectedBoards');
         $scope.resetBoards();
 
         $scope.$watch('selectedBoards', function () {
@@ -116,10 +114,27 @@ month.controller('monthCtrl', function(asInitService, $timeout, $interval,
 
 
     $scope.resetBoards = function () {
-        $scope.selectedBoards = [];
+//        $scope.selectedBoards = [];
+//        $scope.boards.forEach(function (item) {
+//            $scope.selectedBoards.push(item);
+//
+//        });
+
+        var temp=[];
         $scope.boards.forEach(function (item) {
-            $scope.selectedBoards.push(item);
+            for (var x in localStorageService.get('Boards'))
+            {
+                if (localStorageService.get('Boards')[x].id===item.id && localStorageService.get('Boards')[x].enabled===true)
+                {
+                    temp.push(item);
+                }
+            }
         });
+        localStorage.removeItem('selectedBoards');
+        localStorageService.set('selectedBoards',temp);
+        $scope.selectedBoards=localStorageService.get('selectedBoards');
+
+
     };
 
 
@@ -264,6 +279,8 @@ month.controller('monthCtrl', function(asInitService, $timeout, $interval,
 
     $scope.activeBoard = function (card) {
         return _.find($scope.selectedBoards, { 'id': card.idBoard});
+//        return _.find(localStorageService.get('selectedBoards', { 'id': card.idBoard}));
+
     };
 
 

@@ -206,7 +206,7 @@
                       return initService.init();
                       },
                       'getExistingBoardColors':function(localStorageService){
-                        return localStorageService.get('boardColorsArray');
+                        return localStorageService.get('Boards');
                       }
 
                  }

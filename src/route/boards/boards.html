@@ -1,24 +1,44 @@
-<md-content class="boards" >
-    <md-list>
-        <md-subheader class="md-no-sticky">Selected Settings will be stored on your device</md-subheader>
-        <md-list-item ng-repeat="board in ExistingBoards" ng-click="nothing()" aria-label="Board Settings" >
+<md-content class="boards" layout-align="center center">
 
-            <ng-md-icon icon="color_lens" size="20"></ng-md-icon>
+    <md-whiteframe class="md-whiteframe-z4" flex="55px" layout-align=" center" layout="column">
+        <md-toolbar flex layout="row">
+            <ng-md-icon icon="color_lens" size="35"></ng-md-icon>
 
-            <p ng-bind-html="board.name"></p>
+            <h1 class="md-toolbar-tools" >
+                <span>Board Settings</span>
+            </h1>
+            <span class="checkboxText">
+                colorize:
+            </span>
 
-            <md-input-container >
-               <md-select ng-model="board.colorName"aria-label="ColorPicker" style="background-color:{{board.color}}; ">
-                   <md-option class="option" ng-repeat="item in colors" ng-click="announceClick($index,board.id)" value="{{item.name}}" style="background-color:{{item.color}};color:#ffffff;padding-left:10px">
-                       {{item.name}}
-                   </md-option>
-               </md-select>
-            </md-input-container>
+            <md-checkbox ng-model="colorizeCards" ng-change="changeColorize(colorizeCards)"aria-label="colorize Cards" >
+            </md-checkbox>
+
+        </md-toolbar>
+        <md-content layout-padding ng-repeat="board in ExistingBoards">
+            <md-tooltip>
+                Click to enable the board in your calendar!
+            </md-tooltip>
+            <ng-md-icon icon="assignment" size="30"></ng-md-icon>
+
+            <p> {{board.name}}</p>
+            <div class="right">
+
+                <md-input-container ng-if="colorizeCards" class="animate-if">
+                    <md-select ng-model="board.colorName" aria-label="ColorPicker" style="background-color:{{board.color}}; ">
+                        <md-option class="option" ng-repeat="item in colors" ng-click="announceClick($index,board.id)" value="{{item.name}}" style="background-color:{{item.color}};color:#ffffff;padding-left:10px">
+                            {{item.name}}
+                        </md-option>
+                    </md-select>
+                </md-input-container>
+
+                <md-switch ng-model="board.enabled" ng-change="change($index, board.enabled)" style="float:right;margin:0px;padding:4px;margin-top:3px">
+
+                </md-switch>
+            </div>
+        </md-content>
+    </md-whiteframe>
 
 
-                <md-switch ng-model="board.enabled" ng-change="change($index, board.enabled)"></md-switch>
 
-
-        </md-list-item>
-    </md-list>
 </md-content>

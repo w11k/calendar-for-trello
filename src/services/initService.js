@@ -39,7 +39,7 @@ angular.module('trelloCal').factory('initService', /*ngInject*/  function ($q, $
                             entry.boardUrl = boards[entry.idBoard].url;
 
                             //Farben aus localtorage holen wenn verfügbar
-                            if (localStorageService.get('boardColors') !== false) {
+                            if (localStorageService.get('boardColors' ) !== false) {
                                 if(localStorageService.get('Boards'))
                                 {
                                     for (var i=0;i< localStorageService.get('Boards').length;i++)

@@ -15,10 +15,8 @@
             </md-checkbox>
 
         </md-toolbar>
-        <md-content layout-padding ng-repeat="board in ExistingBoards">
-            <md-tooltip>
-                Click to enable the board in your calendar!
-            </md-tooltip>
+        <md-content layout-padding ng-repeat="board in ExistingBoards | orderBy: 'name'">
+
             <ng-md-icon icon="assignment" size="30"></ng-md-icon>
 
             <p> {{board.name}}</p>
@@ -32,7 +30,7 @@
                     </md-select>
                 </md-input-container>
 
-                <md-switch ng-model="board.enabled" ng-change="change($index, board.enabled)" style="float:right;margin:0px;padding:4px;margin-top:3px">
+                <md-switch ng-model="board.enabled" ng-change="change($index, board.enabled)" aria-label="enable board" style="float:right;margin:0px;padding:4px;margin-top:3px">
 
                 </md-switch>
             </div>

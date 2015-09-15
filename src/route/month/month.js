@@ -23,11 +23,19 @@ month.config(/*ngInject*/ function ($stateProvider) {
                 data: {
                     pageTitle: 'Month View'
                 }
+            },
+            'search':{
+                abstract: true,
+                templateUrl: 'partials/cardSearch.html',
+                controller: 'headerCtrl'
             }
         },
         resolve: {
             'asInitService':function (initService) {
                 return initService.init();
+            },
+            'getExistingBoardColors':function(localStorageService){
+                return localStorageService.get('Boards');
             }
         }
     });
@@ -38,12 +46,105 @@ month.config(/*ngInject*/ function ($stateProvider) {
 month.controller('monthCtrl', function(asInitService, $timeout, $interval,
                                        archiveCard, $scope, buildCalService, changeDate,$window,
                                        $stateParams, $location,$mdDialog, localStorageService,orderByFilter,
-                                       ngProgress,initService, $q) {
+                                       ngProgress,initService, $q,getExistingBoardColors) {
 
+
+        function init(){
+            if (localStorageService.get('observerMode')===true)
+                {
+                    $scope.boards = (initService.print()[2]);
+                }
+                else
+                {
+                    $scope.boards = initService.print()[2].data;
+                }
+                $scope.colors=[
+                        {name: 'Red',color:'#F44336'},
+                        {name: 'Pink',color:'#E91E63'},
+                        {name: 'Purple',color:'#9C27B0'},
+                        {name: 'Deep Purple',color:'#673AB7'},
+                        {name: 'Indigo',color:'#3F51B5'},
+                        {name: 'Blue',color:'#2196F3'},
+                        {name: 'Light Blue',color:'#00BCD4'},
+                        {name: 'Teal',color:'#009688'},
+                        {name: 'Green',color:'#43A047'},
+                        {name: 'Light Green',color:'#689F38'},
+                        {name: 'Lime',color:'#827717'},
+                        {name: 'Orange',color:'#EF6C00'},
+                        {name: 'Deep Orange',color:'#FF5722'},
+                        {name: 'Brown',color:'#795548'},
+                        {name: 'Grey',color:'#757575'},
+                        {name: 'Blue Grey',color:'#607D8B'},
+                    ];
+
+
+                // Init Werte von Datenbank in LocalStorage aktualisieren falls nicht verfügbar
+                for (var board in $scope.boards)
+                {
+                    var ColorIndex=4;
+                    switch ($scope.boards[board].prefs.backgroundColor) {
+                        case '#0079BF':
+                            ColorIndex =4 ;
+                            break;
+                        case '#D29034':
+                            ColorIndex =11 ;
+                            break;
+                        case '#519839':
+                            ColorIndex=7;
+                            break;
+                        case '#B04632':
+                            ColorIndex=0;
+                            break;
+                        case '#89609E':
+                            ColorIndex =3;
+                            break;
+                        case '#CD5A91':
+                            ColorIndex=1;
+                            break;
+                        case '#4BBF6B':
+                            ColorIndex=9;
+                            break;
+                        case '#00AECC':
+                            ColorIndex=6;
+                            break;
+                        case '#838C91':
+                            ColorIndex=14;
+
+
+                    }
+
+            //        $scope.boards[board].prefs.backgroundColor=localStorageService.get($scope.boards[board].id);
+                    var y='{"id":"'+board+'","color":"'+$scope.colors[ColorIndex].color+'","colorName":"'+$scope.colors[ColorIndex].name+'","name":"'+$scope.boards[board].name+'","enabled":true}';
+                    var obj=JSON.parse(y);
+                    if(!getExistingBoardColors){
+                        getExistingBoardColors=[obj];
+                        localStorageService.set('Boards',[obj]);
+                    } // neuen Array in LocalStorage
+                    else{
+                        var exists=false;
+                        for (var i=0;i<getExistingBoardColors.length;i++){
+
+                            if(board===getExistingBoardColors[i].id)
+                            {
+                                exists=true;
+                                if($scope.boards[board].closed===true)
+                                {
+                                    getExistingBoardColors.splice(i, 1);
+                                }
+                            }
+                        }
+                        if (exists===false && $scope.boards[board].closed===false){
+
+                            getExistingBoardColors.push(obj);
+                            localStorageService.set('Boards',getExistingBoardColors);
+                        }
+                    } //dem vorhandenen Array Objekte hinzufügen
+                }
+            }
+            init();
 
         var routine = function (date, defer) {
         $scope.days = buildCalService.build(date).days;
-
         $scope.date = {
             iso: new Date(year,month),
             monthName: moment.months()[date.month],
@@ -224,13 +325,18 @@ month.controller('monthCtrl', function(asInitService, $timeout, $interval,
     $scope.sortableOptions = {
         receive: function (e, ui) {
             var id = ui.item[0].firstElementChild.id.split('-')[0];
+            console.log(ui.item[0].firstElementChild);
             ngProgress.start();
             var str = e.target.id+ui.item[0].firstElementChild.id.split('-')[1];
             var newStr = [];
+            console.log(str);
+
             angular.forEach(str.split(','), function(value) {
                 newStr.push(parseInt(value));
             });
+            if(!newStr[3]){newStr[3]=12;newStr.push(0);newStr.push(0);}
             var targetDate = new Date(newStr[0],newStr[1]-1,newStr[2],newStr[3],newStr[4]);
+
             changeDate.async(id, targetDate).then(function () {
                     initService.updateDate(id, targetDate);
                     ngProgress.complete();
@@ -258,6 +364,7 @@ month.controller('monthCtrl', function(asInitService, $timeout, $interval,
         },
         placeholder: 'card',
         connectWith: '.dayCards'
+
     };
 
 

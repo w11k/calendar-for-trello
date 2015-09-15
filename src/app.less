@@ -6,6 +6,7 @@
 
 body {
   font-size: 17px;
+  overflow:hidden;
 }
 
 .md-toolbar-tools:focus {
@@ -59,9 +60,11 @@ md-sidenav {
 
 
 md-content {
+  overflow:auto;
   a {
     color:#3f51b5;
     text-decoration: none;
+
   }
 
   a:hover {
@@ -80,4 +83,12 @@ md-content.content {
   font-size: 14px;
 }
 
+
+md-backdrop.md-sidenav-backdrop-custom{
+      background-color: transparent !important;
+}
+md-backdrop.disabled,.md-sidenav-right.md-closed
+{
+    display:none !important;
+}
 

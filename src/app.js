@@ -82,6 +82,11 @@
                         data: {
                             pageTitle: 'Week View'
                         }
+                    },
+                    'search':{
+                         abstract: true,
+                         templateUrl: 'partials/cardSearch.html',
+                         controller: 'headerCtrl'
                     }
                 }
                 ,
@@ -92,6 +97,7 @@
                     }
                 }
             })
+
             .state('stream', {
                 url: '/stream',
                 views: {
@@ -113,6 +119,11 @@
                         data: {
                             pageTitle: 'Week View'
                         }
+                    },
+                    'search':{
+                        abstract: true,
+                        templateUrl: 'partials/cardSearch.html',
+                        controller: 'headerCtrl'
                     }
                 }
                 ,
@@ -123,6 +134,7 @@
 
                 }
             })
+
             .state('settings', {
                 url: '/settings',
                 views: {
@@ -144,6 +156,11 @@
                         data: {
                             pageTitle: 'Week View'
                         }
+                    },
+                    'search':{
+                        abstract: true,
+                        templateUrl: 'partials/cardSearch.html',
+                        controller: 'headerCtrl'
                     }
                 }
                 ,
@@ -154,6 +171,7 @@
                     }
                 }
             })
+
             .state('about', {
                 url: '/about',
                 views: {
@@ -175,9 +193,15 @@
                         data: {
                             pageTitle: 'About'
                         }
+                    },
+                    'search':{
+                        abstract: true,
+                        templateUrl: 'partials/cardSearch.html',
+                        controller: 'headerCtrl'
                     }
                 }
             })
+
             .state('boards',{
                 url: '/boards',
                 views: {
@@ -197,6 +221,11 @@
                         data: {
                             pageTitle: 'Boards'
                         }
+                    },
+                    'search':{
+                         abstract: true,
+                         templateUrl: 'partials/cardSearch.html',
+                         controller: 'headerCtrl'
                     }
                 }
                 ,
@@ -252,13 +281,7 @@
         }
     });
 
-
-
-
-
-
-
-    module.controller('AppCtrl', function($scope, $rootScope, ngProgress, initService) {
+    module.controller('AppCtrl', function($scope, $rootScope, ngProgress, initService,$mdSidenav) {
 
         ngProgress.color('#C5CAE9');
         $rootScope.$on('$stateChangeSuccess', function () {
@@ -274,12 +297,112 @@
                 $rootScope.$broadcast('rebuild');
             });
         });
+        $scope.keepOpen = false;
 
+
+          function toggleRight(){
+              $mdSidenav('right').toggle().then(function () {
+                      $scope.keepOpen = !$scope.keepOpen;
+                      if ($scope.keepOpen)
+                          {angular.element('md-backdrop.md-sidenav-backdrop-custom').removeClass('disabled');}
+                      else
+                         {angular.element('md-backdrop.md-sidenav-backdrop-custom').addClass('disabled');}
+                  });
+            }
+
+            $scope.toggleRight = toggleRight;
+
+            $scope.checkClosingForm = function(){
+                  if(true){
+                       toggleRight();
+                  }
+              };
+
+//          function drag(){
+//                $scope.checkClosingForm();
+//          }
 
     });
 
-
     module.controller('headerCtrl', function($scope,$mdSidenav,$state, initService, $window, localStorageService,$location,$mdBottomSheet, $rootScope) {
+
+            $scope.cards=initService.getCards().withDue.concat(initService.getCards().withoutDue);
+
+                $scope.actions = [
+                    { name: 'Refresh', icon: 'sync', identifier: 'refresh' },
+                    { name: 'Logout', icon: 'clear', identifier: 'logout' }
+                ];
+
+                $scope.more = [
+                    {name: 'Submit Feature Request', icon: 'wb_incandescent', identifier: 'feature'},
+                    {name: 'Report a Problem', icon: 'report_problem', identifier: 'bug'}
+                ];
+
+//                    $scope.sortableOptions = {
+//                        receive: function (e, ui) {
+//                            $scope.checkClosingForm();
+//                            console.log('x');
+//                            console.log(e,ui);
+//                            var id = ui.item[0].firstElementChild.id.split('-')[0];
+//                            ngProgress.start();
+//                            var str = e.target.id+ui.item[0].firstElementChild.id.split('-')[1];
+//
+//                            var newStr = [];
+//                            angular.forEach(str.split(','), function(value) {
+//                                newStr.push(parseInt(value));
+//                            });
+//                            console.log(newStr);
+//                            if(!newStr[3]){newStr[3]=12;newStr.push(0);newStr.push(0);}
+//                            console.log(newStr);
+//                            var targetDate = new Date(newStr[0],newStr[1]-1,newStr[2],newStr[3],newStr[4]);
+//                            changeDate.async(id, targetDate).then(function () {
+//                                    initService.updateDate(id, targetDate);
+//                                    ngProgress.complete();
+//                                },
+//                                function () {
+//                                    var dialog = function () {
+//                                        $mdDialog.show(
+//                                            $mdDialog.alert()
+//                                                .parent(angular.element(document.body))
+//                                                .title('Oops, something went wrong.')
+//                                                .content('please check your connection and reload this page')
+//                                                .ariaLabel('Connection Error')
+//                                                .ok('reload')
+//                                            //  .targetEvent(ev)
+//                                        ).then(function () {
+//                                                changeDate.async(ui.item[0].firstElementChild.id.split('-')[0], targetDate).then(function () {
+//                                                    // user is only, successfull
+//                                                }, function () {
+//                                                    dialog();
+//                                                });
+//                                            });
+//                                    };
+//                                    dialog();
+//                                });
+//                        },
+//                        placeholder: 'card',
+//                        connectWith: '.dayCards'
+//                    };
+
+                $scope.listItemClick = function(identifier) {
+                    var url = 'https://github.com/w11k/trello-calendar';
+
+                    switch(identifier) {
+                                        case 'logout':
+                                            $scope.logout();
+                                            break;
+                                        case 'refresh':
+                                            $rootScope.$broadcast('reload');
+                                            break;
+                                        case 'feature':
+                                            window.open(url,'_blank');
+                                            break;
+                                        case 'bug':
+                                            window.open(url,'_blank');
+                                            break;
+                                    }
+                    $mdBottomSheet.hide(identifier);
+                };
 
         if(initService.print()) {
             $scope.name = initService.print()[0].data.fullName;
@@ -299,8 +422,6 @@
             $mdSidenav(menuId).open();
         };
 
-
-
         $scope.goTo = function(target) {
             $location.path('/'+target);
             $scope.toggleSidenav('left');
@@ -314,8 +435,6 @@
             $window.location.reload();
         };
 
-
-
         $scope.toHome = function () {
               if(localStorageService.get('startMonth') !== false) {
                   $location.path('/month');
@@ -323,8 +442,6 @@
                   $location.path('/week');
             }
         };
-
-
 
 
     var url = 'https://github.com/w11k/trello-calendar';
@@ -350,14 +467,7 @@
             });
         };
 
-
-
     });
-
-
-
-
-
 
     module.controller('ListBottomSheetCtrl', function($scope, $mdBottomSheet) {
 
@@ -375,9 +485,6 @@
             $mdBottomSheet.hide(identifier);
         };
     });
-
-
-
 
 
     module.directive('updateTitle', ['$rootScope', '$timeout',
@@ -403,8 +510,6 @@
         }
     ]);
 
-
-
     module.filter('cut', function () {
         return function (value, wordwise, max, tail) {
             if (!value) {
@@ -429,7 +534,6 @@
             return value + (tail || ' …');
         };
     });
-
 
 })();
 

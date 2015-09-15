@@ -12,10 +12,38 @@
         <span flex></span>
 
 
-        <md-button title="Options" target="_blank" aria-label="open Options Menu" class="md-icon-button top" ng-click="showListBottomSheet()">
-            <ng-md-icon icon="more_vert"  class="md-toolbar-tools" style="fill: #fff" size="32" ></ng-md-icon>
+        <!--<md-button title="Options" target="_blank" aria-label="open Options Menu" class="md-icon-button top" ng-click="showListBottomSheet()">-->
+            <!--<ng-md-icon icon="more_vert"  class="md-toolbar-tools" style="fill: #fff" size="32" ></ng-md-icon>-->
+        <!--</md-button>-->
+
+        <md-menu md-position-mode="target-right target" style="padding:0px">
+            <md-button aria-label="Open demo menu" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+                <ng-md-icon icon="more_vert"  class="md-toolbar-tools" style="fill: #fff" size="32" ></ng-md-icon></md-button>
+            <md-menu-content width="4" >
+
+                <md-menu-item ng-repeat="item in actions">
+                    <md-button ng-click="listItemClick(item.identifier)">
+                        <div layout="row">
+                            <p flex>{{item.name}}</p>
+                            <ng-md-icon icon="{{item.icon}}" style="fill: #666" size="24"></ng-md-icon>
+                        </div>
+                    </md-button>
+                </md-menu-item>
+                <md-menu-divider></md-menu-divider>
+                <md-menu-item ng-repeat="item in more">
+                    <md-button ng-click="listItemClick(item.identifier)">
+                        <div layout="row">
+                            <p flex>{{item.name}}</p>
+                            <ng-md-icon icon="{{item.icon}}" style="fill: #666" size="24"></ng-md-icon>
+                        </div>
+                    </md-button>
+                </md-menu-item>
+            </md-menu-content>
+
+        </md-menu>
+
+        <md-button title="Open Search" aria-label="Open Search" class="md-icon-button" ng-click="toggleRight()">
+            <ng-md-icon icon="search"  class="md-toolbar-tools" style="fill: #fff" size="32" ></ng-md-icon>
         </md-button>
-
-
 
     </section>

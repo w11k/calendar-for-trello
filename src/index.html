@@ -20,7 +20,7 @@
     </head>
 
 <body layout="row" ng-controller="AppCtrl" flex layout-fill>
-
+    <md-backdrop class="md-sidenav-backdrop md-opaque md-default-theme md-sidenav-backdrop-custom disabled" ng-click="checkClosingForm()"></md-backdrop>
     <md-sidenav flex class="md-sidenav-left md-whiteframe-z2" md-is-locked-open="$mdMedia('gt-lg')" md-component-id="left"  md-swipe-left="closeSidenav('left')" >
 
         <md-toolbar  layout="row" class="headBar md-whiteframe-glow-z2" >
@@ -30,6 +30,20 @@
         <md-list ui-view="sidebar">
         </md-list>
     </md-sidenav>
+
+    <md-sidenav class="md-sidenav-right md-whiteframe-z2" md-component-id="right">
+        <md-toolbar class="md-theme-light">
+            <h1 class="md-toolbar-tools">Search</h1>
+        </md-toolbar>
+        <div layout-padding>
+
+
+            <div ui-view="search"></div>
+
+
+        </div>
+    </md-sidenav>
+
 
     <div layout="column" flex>
         <md-toolbar  ui-view="header"  class="header md-whiteframe-glow-z2"  layout="row" class="headBar" md-swipe-right="openSidenav('left')"     md-swipe-left="closeSidenav('left')"  ></md-toolbar>

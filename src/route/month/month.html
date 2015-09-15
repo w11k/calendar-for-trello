@@ -38,11 +38,11 @@
             <span class="weekday">{{::day.weekday}}</span>
             <span ng-class="{'todayBtn' :day.isToday}">{{::day.date  | date: "d" }}</span>
         </div>
-        <div class="dayCards" id="{{day.date | date: 'yyyy,MM,dd,'}}" ui-sortable="sortableOptions" ng-model="day.cards">
-            <div ng-repeat="card in day.cards  | filter: activeBoard track by card.id">
-                <md-toolbar  class="dayCard md-primary" id="{{::card.id}}-{{card.badges.due | date : 'H,m,s' : timezone}}" ng-style="card.color">
+        <div class="dayCards" id="{{day.date | date: 'yyyy,MM,dd,'}}" ui-sortable="sortableOptions" ng-model="day.cards" >
+            <div ng-repeat="card in day.cards  | filter: activeBoard track by card.id" >
+                <md-toolbar  class="dayCard md-primary" id="{{::card.id}}-{{card.badges.due | date : 'H,m,s' : timezone}}" ng-style="card.color" style="padding:5px;">
                     <div class="title"  ng-click="click(card.shortUrl)"> {{::card.name |cut:true:25}}</div>
-                    <div class="board"> <a ng-href="{{::card.boardUrl}}" target="_blank"><span class="boardName">{{::card.boardName}}</span></a>  | <span>{{card.badges.due | date : "HH:mm" : timezone}}</span></div>
+                    <div class="board"> <a ng-href="{{::card.boardUrl}}" target="_blank"><span class="boardName">{{::card.boardName|cut:true:30}}</span></a>  | <span>{{card.badges.due | date : "HH:mm" : timezone}}</span></div>
                 </md-toolbar>
             </div>
         </div>

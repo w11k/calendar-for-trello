@@ -1,45 +1,6 @@
 'use strict';
 var month = angular.module('trelloCal.month', []);
-month.config(/*ngInject*/ function ($stateProvider) {
-    $stateProvider
-    .state('month', {
-        url: '/month',
-        views: {
-            'header': {
-                abstract: true,
-                templateUrl: 'partials/header.html',
-                controller: 'headerCtrl'
-
-            },
-            'sidebar':{
-                abstract: true,
-                templateUrl: 'partials/sidebar.html',
-                controller: 'headerCtrl'
-            },
-
-            'content': {
-                templateUrl: 'route/month/month.html',
-                controller: 'monthCtrl',
-                data: {
-                    pageTitle: 'Month View'
-                }
-            },
-            'search':{
-                abstract: true,
-                templateUrl: 'partials/cardSearch.html',
-                controller: 'headerCtrl'
-            }
-        },
-        resolve: {
-            'asInitService':function (initService) {
-                return initService.init();
-            },
-            'getExistingBoardColors':function(localStorageService){
-                return localStorageService.get('Boards');
-            }
-        }
-    });
-
+month.config(/*ngInject*/ function () {
 
 });
 

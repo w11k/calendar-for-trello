@@ -58,6 +58,7 @@ module.exports = {
           'lodash/lodash.js',
           'ngprogress/build/ngProgress.js',
           'array-tools/dist/array-tools.js',
+          'w11k.angular-seo-header/angular-seo-header.js',
 
           //Error-Logging:
           'raven-js/dist/raven.js',

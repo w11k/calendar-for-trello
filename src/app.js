@@ -318,10 +318,6 @@
                   }
               };
 
-//          function drag(){
-//                $scope.checkClosingForm();
-//          }
-
     });
 
     module.controller('headerCtrl', function($scope,$mdSidenav,$state, initService, $window, localStorageService,$location,$mdBottomSheet, $rootScope) {
@@ -338,51 +334,7 @@
                     {name: 'Report a Problem', icon: 'report_problem', identifier: 'bug'}
                 ];
 
-//                    $scope.sortableOptions = {
-//                        receive: function (e, ui) {
-//                            $scope.checkClosingForm();
-//                            console.log('x');
-//                            console.log(e,ui);
-//                            var id = ui.item[0].firstElementChild.id.split('-')[0];
-//                            ngProgress.start();
-//                            var str = e.target.id+ui.item[0].firstElementChild.id.split('-')[1];
-//
-//                            var newStr = [];
-//                            angular.forEach(str.split(','), function(value) {
-//                                newStr.push(parseInt(value));
-//                            });
-//                            console.log(newStr);
-//                            if(!newStr[3]){newStr[3]=12;newStr.push(0);newStr.push(0);}
-//                            console.log(newStr);
-//                            var targetDate = new Date(newStr[0],newStr[1]-1,newStr[2],newStr[3],newStr[4]);
-//                            changeDate.async(id, targetDate).then(function () {
-//                                    initService.updateDate(id, targetDate);
-//                                    ngProgress.complete();
-//                                },
-//                                function () {
-//                                    var dialog = function () {
-//                                        $mdDialog.show(
-//                                            $mdDialog.alert()
-//                                                .parent(angular.element(document.body))
-//                                                .title('Oops, something went wrong.')
-//                                                .content('please check your connection and reload this page')
-//                                                .ariaLabel('Connection Error')
-//                                                .ok('reload')
-//                                            //  .targetEvent(ev)
-//                                        ).then(function () {
-//                                                changeDate.async(ui.item[0].firstElementChild.id.split('-')[0], targetDate).then(function () {
-//                                                    // user is only, successfull
-//                                                }, function () {
-//                                                    dialog();
-//                                                });
-//                                            });
-//                                    };
-//                                    dialog();
-//                                });
-//                        },
-//                        placeholder: 'card',
-//                        connectWith: '.dayCards'
-//                    };
+
 
                 $scope.listItemClick = function(identifier) {
                     var url = 'https://github.com/w11k/trello-calendar';
@@ -485,7 +437,6 @@
             $mdBottomSheet.hide(identifier);
         };
     });
-
 
     module.directive('updateTitle', ['$rootScope', '$timeout',
         function($rootScope, $timeout) {

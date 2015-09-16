@@ -77,8 +77,8 @@
             '700': 'D9B51C',
             '800': 'CCA42B',
             '900': 'BD903C',
-            'A100': 'FAF3C0',
-            'A200': 'F5EA92',
+            'A100': 'F5DD29',
+            'A200': 'F2D600',
             'A400': 'F5DD29',
             'A700': 'D9B51C',
             'contrastDefaultColor': 'dark',    // whether, by default, text (contrast)

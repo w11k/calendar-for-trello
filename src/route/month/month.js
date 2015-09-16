@@ -19,6 +19,7 @@ month.controller('monthCtrl', function(asInitService, $timeout, $interval,
                 {
                     $scope.boards = initService.print()[2].data;
                 }
+
                 $scope.colors=[
                         {name: 'Red',color:'#F44336'},
                         {name: 'Pink',color:'#E91E63'},
@@ -176,12 +177,6 @@ month.controller('monthCtrl', function(asInitService, $timeout, $interval,
 
 
     $scope.resetBoards = function () {
-//        $scope.selectedBoards = [];
-//        $scope.boards.forEach(function (item) {
-//            $scope.selectedBoards.push(item);
-//
-//        });
-
         var temp=[];
         $scope.boards.forEach(function (item) {
             for (var x in localStorageService.get('Boards'))
@@ -195,7 +190,6 @@ month.controller('monthCtrl', function(asInitService, $timeout, $interval,
         localStorage.removeItem('selectedBoards');
         localStorageService.set('selectedBoards',temp);
         $scope.selectedBoards=localStorageService.get('selectedBoards');
-
 
     };
 
@@ -327,13 +321,8 @@ month.controller('monthCtrl', function(asInitService, $timeout, $interval,
         connectWith: '.dayCards'
 
     };
-
-
-
     $scope.filter = localStorageService.get('filter') === false;
     $scope.color = localStorageService.get('boardColors');
-
-
     $scope.archiveCard = function (data) {
         var id = data.id;
         archiveCard.async(id).then(function () {
@@ -342,9 +331,6 @@ month.controller('monthCtrl', function(asInitService, $timeout, $interval,
             //error
         });
     };
-
-
-
     $scope.activeBoard = function (card) {
         return _.find($scope.selectedBoards, { 'id': card.idBoard});
 //        return _.find(localStorageService.get('selectedBoards', { 'id': card.idBoard}));

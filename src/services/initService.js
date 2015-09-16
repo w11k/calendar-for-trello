@@ -71,6 +71,7 @@ angular.module('trelloCal').factory('initService', /*ngInject*/  function ($q, $
 
                     login.resolve(responses);
                 });
+                console.log(allCards);
             },
             function (error){
                 // Something went wrong
@@ -123,7 +124,9 @@ angular.module('trelloCal').factory('initService', /*ngInject*/  function ($q, $
                 responses[2].data = boards;
                 data = responses;
                 login.resolve(responses);
+                console.log(allCards);
             },
+
             function (error){
                 // Something went wrong
                 console.log(error);

@@ -40,10 +40,15 @@
         </div>
         <div class="dayCards" id="{{day.date | date: 'yyyy,MM,dd,'}}" ui-sortable="sortableOptions" ng-model="day.cards" >
             <div ng-repeat="card in day.cards  | filter: activeBoard track by card.id" layout="row">
-                <div style="background-color:black;width5px;margin-bottom:4px;display:block "ng-style="card.color">&nbsp&nbsp</div>
+                <div style="background-color:#42548E;margin-bottom:4px;display:block "ng-style="card.color">&nbsp&nbsp</div>
                 <md-toolbar  class="dayCard md-primary" id="{{::card.id}}-{{card.badges.due | date : 'H,m,s' : timezone}}"  style="margin-bottom:4px;padding:5px;float:right;">
-                    <div class="title"  ng-click="click(card.shortUrl)"> {{::card.name |cut:true:25}}</div>
-                    <div class="board"> <a ng-href="{{::card.boardUrl}}" target="_blank"><span class="boardName">{{::card.boardName|cut:true:30}}</span></a>  | <span>{{card.badges.due | date : "HH:mm" : timezone}}</span></div>
+                    <div class="title"  ng-click="click(card.shortUrl)"> {{::card.name |cut:true:27}}
+                    <md-tooltip>{{::card.name }}</md-tooltip>
+                    </div>
+                    <div class="board"> <a ng-href="{{::card.boardUrl}}" target="_blank"><span class="boardName">
+                                            <md-tooltip>{{::card.boardName }}</md-tooltip>
+
+                        {{::card.boardName|cut:true:20}}</span></a>  | <span>{{card.badges.due | date : "HH:mm" : timezone}}</span></div>
                 </md-toolbar>
             </div>
         </div>

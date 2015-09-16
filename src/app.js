@@ -45,10 +45,74 @@
 
     module.config(/*ngInject*/ function ($urlRouterProvider, $stateProvider, localStorageServiceProvider, $mdThemingProvider) {
 
+        $mdThemingProvider.definePalette('TrelloBusinessBlue', {
+            '50': 'EDEFF4',
+            '100': 'D2D7E5',
+            '200': 'B2B9D0',
+            '300': '838FB5',
+            '400': '6170A1',
+            '500': '42548E',
+            '600': '3E4D80',
+            '700': '3A476F',
+            '800': 'c62828',
+            '900': '36405F',
+            'A100': 'D2D7E5',
+            'A200': 'B2B9D0',
+            'A400': '6170A1',
+            'A700': '3A476F',
+            'contrastDefaultColor': 'light',    // whether, by default, text (contrast)
+                                                // on this palette should be dark or light
+            'contrastDarkColors': ['50', '100', //hues which contrast should be 'dark' by default
+                '200', '300', '400', 'A100'],
+            'contrastLightColors': undefined    // could also specify this if default was 'dark'
+        });
+        $mdThemingProvider.definePalette('TrelloYellow', {
+            '50': 'FDFAE5',
+            '100': 'FAF3C0',
+            '200': 'F5EA92',
+            '300': 'F3E260',
+            '400': 'F5DD29',
+            '500': 'F2D600',
+            '600': 'E6C60D',
+            '700': 'D9B51C',
+            '800': 'CCA42B',
+            '900': 'BD903C',
+            'A100': 'FAF3C0',
+            'A200': 'F5EA92',
+            'A400': 'F5DD29',
+            'A700': 'D9B51C',
+            'contrastDefaultColor': 'dark',    // whether, by default, text (contrast)
+                                                // on this palette should be dark or light
+            'contrastDarkColors': ['50', '100', //hues which contrast should be 'dark' by default
+                '200', '300', '400', 'A100'],
+            'contrastLightColors': undefined    // could also specify this if default was 'dark'
+        });
+        $mdThemingProvider.definePalette('TrelloGrey', {
+            '50': 'F8F9F9',
+            '100': 'EDEFF0',
+            '200': 'E2E4E6',
+            '300': 'D6DADC',
+            '400': 'CDD2D4',
+            '500': 'C4C9CC',
+            '600': 'B6BBBF',
+            '700': 'A5ACB0',
+            '800': '959DA1',
+            '900': '838C91',
+            'A100': 'F8F9F9',
+            'A200': 'EDEFF0',
+            'A400': 'CDD2D4',
+            'A700': 'A5ACB0',
+            'contrastDefaultColor': 'dark',    // whether, by default, text (contrast)
+                                                // on this palette should be dark or light
+            'contrastDarkColors': ['50', '100', //hues which contrast should be 'dark' by default
+                '200', '300', '400', 'A100'],
+            'contrastLightColors': undefined    // could also specify this if default was 'dark'
+        });
 
-        $mdThemingProvider.theme('Indigo')
-            .primaryPalette('blue')
-            .accentPalette('green');
+        $mdThemingProvider.theme('default')
+            .primaryPalette('TrelloBusinessBlue')
+            .accentPalette('TrelloYellow')
+            .backgroundPalette('TrelloGrey');
 
 
         localStorageServiceProvider

@@ -263,7 +263,7 @@
 
 
     module.run(/*ngInject*/ function ($location, $rootScope) {
-        if ($location.$$protocol !== 'http'||$location.$$protocol !== 'https') {
+        if ($location.$$protocol !== 'http'&&$location.$$protocol !== 'https') {
             $rootScope.mobil = true;
         }
     });

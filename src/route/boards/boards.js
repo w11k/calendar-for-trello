@@ -7,7 +7,7 @@ boards.config(/*ngInject*/ function () {
 boards.controller('boardsCtrl', function($scope,asInitService,localStorageService,$window,getExistingBoardColors,initService) {
 //    updateBoardsService.update();
     function init(){
-    if (localStorageService.get('observerMode')===true)
+        if (localStorageService.get('observerMode')===true)
         {
             $scope.boards = (initService.print()[2]);
         }
@@ -16,23 +16,16 @@ boards.controller('boardsCtrl', function($scope,asInitService,localStorageServic
             $scope.boards = initService.print()[2].data;
         }
         $scope.colors=[
-                {name: 'Red',color:'#F44336'},
-                {name: 'Pink',color:'#E91E63'},
-                {name: 'Purple',color:'#9C27B0'},
-                {name: 'Deep Purple',color:'#673AB7'},
-                {name: 'Indigo',color:'#3F51B5'},
-                {name: 'Blue',color:'#2196F3'},
-                {name: 'Light Blue',color:'#00BCD4'},
-                {name: 'Teal',color:'#009688'},
-                {name: 'Green',color:'#43A047'},
-                {name: 'Light Green',color:'#689F38'},
-                {name: 'Lime',color:'#827717'},
-                {name: 'Orange',color:'#EF6C00'},
-                {name: 'Deep Orange',color:'#FF5722'},
-                {name: 'Brown',color:'#795548'},
-                {name: 'Grey',color:'#757575'},
-                {name: 'Blue Grey',color:'#607D8B'},
-            ];
+            {name: 'Blue',color:'#0079BF'},
+            {name: 'Yellow',color:'#D29034'},
+            {name: 'Green',color:'#519839'},
+            {name: 'Red',color:'#B04632'},
+            {name: 'Purple',color:'#89609E'},
+            {name: 'Pink',color:'#CD5A91'},
+            {name: 'Light Green',color:'#00BCD4'},
+            {name: 'Sky',color:'#00AECC'},
+            {name: 'Grey',color:'#838C91'}
+        ];
 
 
         // Init Werte von Datenbank in LocalStorage aktualisieren falls nicht verfügbar
@@ -41,36 +34,36 @@ boards.controller('boardsCtrl', function($scope,asInitService,localStorageServic
             var ColorIndex=4;
             switch ($scope.boards[board].prefs.backgroundColor) {
                 case '#0079BF':
-                    ColorIndex =4 ;
+                    ColorIndex =0 ;
                     break;
                 case '#D29034':
-                    ColorIndex =11 ;
+                    ColorIndex =1 ;
                     break;
                 case '#519839':
-                    ColorIndex=7;
+                    ColorIndex=2;
                     break;
                 case '#B04632':
-                    ColorIndex=0;
+                    ColorIndex=3;
                     break;
                 case '#89609E':
-                    ColorIndex =3;
+                    ColorIndex =4;
                     break;
                 case '#CD5A91':
-                    ColorIndex=1;
+                    ColorIndex=5;
                     break;
                 case '#4BBF6B':
-                    ColorIndex=9;
-                    break;
-                case '#00AECC':
                     ColorIndex=6;
                     break;
+                case '#00AECC':
+                    ColorIndex=7;
+                    break;
                 case '#838C91':
-                    ColorIndex=14;
+                    ColorIndex=8;
 
 
             }
 
-    //        $scope.boards[board].prefs.backgroundColor=localStorageService.get($scope.boards[board].id);
+            //        $scope.boards[board].prefs.backgroundColor=localStorageService.get($scope.boards[board].id);
             var y='{"id":"'+board+'","color":"'+$scope.colors[ColorIndex].color+'","colorName":"'+$scope.colors[ColorIndex].name+'","name":"'+$scope.boards[board].name+'","enabled":true}';
             var obj=JSON.parse(y);
             if(!getExistingBoardColors){
@@ -146,5 +139,4 @@ boards.controller('boardsCtrl', function($scope,asInitService,localStorageServic
 
 
 });
-
 

@@ -53,20 +53,20 @@
 </div>
 
 
-<div ng-if="!filter" layout="row">
-     <md-chips ng-model="selectedBoards" md-autocomplete-snap="" md-require-match=""  class="custom-chips" flex>
-        <md-autocomplete  md-search-text="searchText" md-items="item in querySearch(searchText)" md-item-text="item.name">
-            <span md-highlight-text="searchText">{{item.name}}</span>
-        </md-autocomplete>
-        <md-chip-template>
-            <span>{{$chip.name}}</span>
-        </md-chip-template>
-        <button md-chip-remove="" class="md-primary boardChip">
-            <md-icon md-svg-icon="md-close"></md-icon>
-        </button>
-    </md-chips>
-    <md-button class="md-flat md-default" ng-if="resetBtn" ng-click="resetBoards()">reset</md-button>
-</div>
+<!--<div ng-if="!filter" layout="row">-->
+<!--<md-chips ng-model="selectedBoards" md-autocomplete-snap="" md-require-match=""  class="custom-chips" flex>-->
+<!--<md-autocomplete  md-search-text="searchText" md-items="item in querySearch(searchText)" md-item-text="item.name">-->
+<!--<span md-highlight-text="searchText">{{item.name}}</span>-->
+<!--</md-autocomplete>-->
+<!--<md-chip-template>-->
+<!--<span>{{$chip.name}}</span>-->
+<!--</md-chip-template>-->
+<!--<button md-chip-remove="" class="md-primary boardChip">-->
+<!--<md-icon md-svg-icon="md-close"></md-icon>-->
+<!--</button>-->
+<!--</md-chips>-->
+<!--<md-button class="md-flat md-default" ng-if="resetBtn" ng-click="resetBoards()">reset</md-button>-->
+<!--</div>-->
 
 <div class="listView">
     <div class="day header" ng-repeat="wd in ::weekdays"><span class="short">{{::wd[0]}}</span><span class="long">{{::wd[1]}}</span></div>

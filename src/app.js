@@ -158,7 +158,7 @@
                 },
                 data: {
                     head: {
-                        title: 'Month - TrelloCalendar',
+                        title: 'Month',
                         robots: 'index,follow',
                         canonical: 'https://www.calendar-for-trello.com/#/month',
                     }
@@ -200,7 +200,7 @@
                 },
                 data: {
                     head: {
-                        title: 'Settings - TrelloCalendar',
+                        title: 'Settings',
                         robots: 'index,follow',
                         canonical: 'https://www.calendar-for-trello.com/#/settings',
                     }
@@ -238,7 +238,7 @@
                 },
                 data: {
                     head: {
-                        title: 'About - TrelloCalendar',
+                        title: 'About',
                         robots: 'index,follow',
                         canonical: 'https://www.calendar-for-trello.com/#/about',
                     }
@@ -274,7 +274,7 @@
                 },
                 data: {
                     head: {
-                        title: 'Board Settings - TrelloCalendar',
+                        title: 'Board Settings',
                         robots: 'index,follow',
                         canonical: 'https://www.calendar-for-trello.com/#/boards',
                     }

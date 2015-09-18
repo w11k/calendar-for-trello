@@ -10,10 +10,9 @@ h2.md-subhead {
     padding-top: 4px;
     min-height: 80px;
   }
-  border-left:1px solid #DFDFDF;
-  display:block;
+  border-left: 1px solid #DFDFDF;
+  display: block;
   box-sizing: border-box;
-
 
   * {
     box-sizing: border-box;
@@ -23,85 +22,75 @@ h2.md-subhead {
     min-height: 44px;
   }
 
-
   a {
     text-decoration: none;
-    color:#fff;
+    color: #fff;
   }
 
-
-
-
-.day.header {
- border:none !important;
-  background: #42548E; color:#fff;
-}
+  .day.header {
+    border: none !important;
+    background: #42548E;
+    color: #fff;
+  }
 
   .day {
-    float:none;
+    float: none;
     width: 100%;
-    border-right:1px solid #DFDFDF;
-    border-bottom:1px solid #DFDFDF;
-    padding:5px;
-    display:block;
-
-
+    border-right: 1px solid #DFDFDF;
+    border-bottom: 1px solid #DFDFDF;
+    padding: 5px;
+    display: block;
 
     a:hover {
-      color:#C5CAE9;
+      color: #C5CAE9;
     }
 
     .label {
       margin-right: -3px;
-      padding:.2em .3em .2em ;
+      padding: .2em .3em .2em;
 
     }
 
   }
 
-  .day.has .dayCounter{
+  .day.has .dayCounter {
     font-weight: bold;
   }
 
-
-
   .day.header {
-    height:auto;
-    padding:5px;
+    height: auto;
+    padding: 5px;
     text-align: center;
     .long {
-      display:none;
+      display: none;
     }
   }
 
-
-  .dayOff  {
+  .dayOff {
     background: #EDEFF4;
     .dayCounter {
       color: #969696;
     }
   }
 
-
-
   .dayOn {
-    background:none;
+    background: none;
   }
 
-  .dayCounter {margin:2px 3px 0 0;
+  .dayCounter {
+    margin: 2px 3px 0 0;
     font-size: 16px;
-    color:#A3A3A3;
-    text-align: right ;
-    .weekday{
+    color: #A3A3A3;
+    text-align: right;
+    .weekday {
       display: inline-block;
-      float:left;
+      float: left;
       font-size: 11px;
     }
   }
 
-
   .header {
-    display:none;
+    display: none;
   }
 
   .dayCards {
@@ -109,19 +98,18 @@ h2.md-subhead {
       opacity: .7 !important;
     }
 
-
-    .dayCard{
-      opacity:1;
-      color:#30364C;
-      padding:5px 5px 15px 5px;
+    .dayCard {
+      opacity: 1;
+      color: #30364C;
+      padding: 5px 5px 15px 5px;
       border-radius: 0;
       font-size: 10px;
       margin-bottom: 2px;
       cursor: move !important;
-      background-color: #E2E4E6 ;
+      background-color: #E2E4E6;
       .title {
         cursor: pointer !important;
-        color:#30364C;
+        color: #30364C;
         font-weight: bold;
         padding-bottom: 2px;
         margin-bottom: 2px;
@@ -129,64 +117,56 @@ h2.md-subhead {
       .title:hover {
         text-decoration: underline;
       }
-      a{
+      a {
 
-        color:#30364C;
+        color: #30364C;
       }
       i {
-        float:right;
+        float: right;
         text-align: right;
       }
     }
 
-
     .dragger {
-      float:right;
+      float: right;
       padding-right: 3px;
     }
-
 
     .dragger.showDetail {
       cursor: pointer;
     }
   }
 
-
-
-
   .today {
-    .dayCounter{
-      color:#42548E;
+    .dayCounter {
+      color: #42548E;
       text-decoration: underline;
       font-weight: bold;
     }
   }
 
-
 }
+
 .calNav {
-  padding:0 ;
-  h1{
-    font-size:26px;
+  padding: 0;
+  h1 {
+    font-size: 26px;
     width: 100%;
     .btn-group {
-      padding-right:10px;
+      padding-right: 10px;
     }
   }
 }
 
-
-
-
 @media screen and (min-width: 768px) {
   .listView {
-    display:-webkit-box;
-    display:-ms-flexbox;
-    display:flex;
-    display:-webkit-flex;
-    -ms-flex-wrap:wrap;
-    flex-wrap:wrap;
-    -webkit-flex-wrap:wrap;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    display: -webkit-flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -webkit-flex-wrap: wrap;
     .day {
       width: 14.28%;
     }
@@ -196,29 +176,29 @@ h2.md-subhead {
       }
     }
 
-    .day:hover{}
-
+    .day:hover {
+    }
 
     .day.header {
-      display:block;
-      height: 25px; line-height: 16px;
+      display: block;
+      height: 25px;
+      line-height: 16px;
       min-height: 0;
     }
 
-
   }
 
-
 }
-
-
-
 
 @media (min-width: 992px) {
   .listView {
     .day.header {
-      .short {display:none}
-      .long  {display:block;}
+      .short {
+        display: none
+      }
+      .long {
+        display: block;
+      }
     }
     .dayCards {
       .board {
@@ -228,34 +208,24 @@ h2.md-subhead {
   }
 }
 
-.monthName  {
+.monthName {
   font-size: 22px;
   padding-top: 15px;
 }
 
-
-
-[ng-drop].drag-enter{
-  background:#E8E8E8 !important;
+[ng-drop].drag-enter {
+  background: #E8E8E8 !important;
 }
-
-
-
-
-
-
 
 .todayBtn {
-  color:#42548E;
+  color: #42548E;
 }
 
-
-
 button.mini {
-//  width:25px !important;
+  //  width:25px !important;
   min-width: 0;
   min-height: 0;
-  margin:2px;
+  margin: 2px;
   line-height: 18px;
   padding: 5px 3px;
 
@@ -265,33 +235,25 @@ button.mini {
     margin: 0;
   }
 
-  &.toToday{
-    padding:5px 7px;
+  &.toToday {
+    padding: 5px 7px;
   }
 }
 
-
 span.month {
-  padding:6px 0 0 15px;
+  padding: 6px 0 5px 15px;
 }
-
-
 
 .md-whiteframe-glow-z2 {
   box-shadow: 0px 0px 3px 3px rgba(0, 0, 0, 0.2), 0px 0 4px 3px rgba(0, 0, 0, 0.14), 0px 0px 8px 1px rgba(0, 0, 0, 0.12);
 }
 
-
-
-
-
-
 .boardLegende {
-  margin:20px 0 5px;
-  font-size:12px;
+  margin: 20px 0 5px;
+  font-size: 12px;
   text-align: right;
   span {
-    padding:0 3px 0;
+    padding: 0 3px 0;
 
   }
   i {
@@ -302,12 +264,6 @@ span.month {
     display: inline-block;
   }
 }
-
-
-
-
-
-
 
 //
 ///**************************
@@ -321,38 +277,22 @@ span.month {
 //  /* Other transform properties here */
 //}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- .custom-chips .md-chip {
+.custom-chips .md-chip {
   position: relative;
   padding-right: 35px;
- line-height: 28px;
-   height: 28px;}
- .custom-chips .md-chip .md-chip-remove-container {
+  line-height: 28px;
+  height: 28px;
+}
+
+.custom-chips .md-chip .md-chip-remove-container {
   position: absolute;
   right: 4px;
   top: 4px;
   margin-right: 0;
-  height: 24px; }
- .custom-chips .md-chip .md-chip-remove-container button.boardChip {
+  height: 24px;
+}
+
+.custom-chips .md-chip .md-chip-remove-container button.boardChip {
   position: relative;
   height: 24px;
   width: 24px;
@@ -365,20 +305,49 @@ span.month {
   padding: 0;
   margin: 0;
   transition: background 0.15s linear;
-  display: block; }
- .custom-chips .md-chip .md-chip-remove-container button.boardChip md-icon {
+  display: block;
+}
+
+.custom-chips .md-chip .md-chip-remove-container button.boardChip md-icon {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate3d(-50%, -50%, 0) scale(0.7);
   color: white;
-  fill: white; }
- .custom-chips .md-chip .md-chip-remove-container button.boardChip:hover,  .custom-chips .md-chip .md-chip-remove-container button.boardChip:focus {
-   background: rgba(0, 0, 0, 0.3);
+  fill: white;
+}
 
- }
+.custom-chips .md-chip .md-chip-remove-container button.boardChip:hover, .custom-chips .md-chip .md-chip-remove-container button.boardChip:focus {
+  background: rgba(0, 0, 0, 0.3);
+
+}
 
 .custom-chips .md-chip .md-chip-remove-container button.boardChip {
-  width:22px;
+  width: 22px;
   height: 21px;
+}
+
+.calendarOption {
+
+  padding-top: 6px
+}
+
+.calendarOption-icon {
+  fill: #42548E;
+  margin-left: 8px;
+  margin-top: 8px;
+}
+
+.filterMenu {
+  .colorPicker {
+    background-color: #42548E;
+    margin-bottom: 4px;
+    display: block;
+    padding: 0px;
+    margin: 0px;
+    margin-bottom: 2px;
+    margin-top: 2px;
+    margin-left: 5px;
+    width: 12px;
+  }
 }

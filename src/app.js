@@ -82,7 +82,7 @@
             'A400': 'F5DD29',
             'A700': 'D9B51C',
             'contrastDefaultColor': 'dark',    // whether, by default, text (contrast)
-                                                // on this palette should be dark or light
+            // on this palette should be dark or light
             'contrastDarkColors': ['50', '100', //hues which contrast should be 'dark' by default
                 '200', '300', '400', 'A100'],
             'contrastLightColors': undefined    // could also specify this if default was 'dark'
@@ -103,7 +103,7 @@
             'A400': 'CDD2D4',
             'A700': 'A5ACB0',
             'contrastDefaultColor': 'dark',    // whether, by default, text (contrast)
-                                                // on this palette should be dark or light
+            // on this palette should be dark or light
             'contrastDarkColors': ['50', '100', //hues which contrast should be 'dark' by default
                 '200', '300', '400', 'A100'],
             'contrastLightColors': undefined    // could also specify this if default was 'dark'
@@ -199,11 +199,11 @@
                     }
                 },
                 data: {
-                   head: {
-                   title: 'Settings - TrelloCalendar',
-                   robots: 'index,follow',
-                   canonical: 'https://www.calendar-for-trello.com/#/settings',
-                   }
+                    head: {
+                        title: 'Settings - TrelloCalendar',
+                        robots: 'index,follow',
+                        canonical: 'https://www.calendar-for-trello.com/#/settings',
+                    }
                 }
 
             })
@@ -237,11 +237,11 @@
                     }
                 },
                 data: {
-                   head: {
-                   title: 'About - TrelloCalendar',
-                   robots: 'index,follow',
-                   canonical: 'https://www.calendar-for-trello.com/#/about',
-                   }
+                    head: {
+                        title: 'About - TrelloCalendar',
+                        robots: 'index,follow',
+                        canonical: 'https://www.calendar-for-trello.com/#/about',
+                    }
                 }
 
             })
@@ -273,12 +273,12 @@
                     }
                 },
                 data: {
-                     head: {
-                     title: 'Board Settings - TrelloCalendar',
-                     robots: 'index,follow',
-                     canonical: 'https://www.calendar-for-trello.com/#/boards',
-                     }
-                } ,
+                    head: {
+                        title: 'Board Settings - TrelloCalendar',
+                        robots: 'index,follow',
+                        canonical: 'https://www.calendar-for-trello.com/#/boards',
+                    }
+                },
                 resolve: {
                     'asInitService': function (initService) {
 
@@ -374,20 +374,20 @@
     });
 
     module.controller('headerCtrl', function ($scope, $mdSidenav, $state, initService, $window, localStorageService, $location, $mdBottomSheet, $rootScope) {
-
         $scope.cards = initService.getCards().withDue.concat(initService.getCards().withoutDue);
+
+        $scope.click = function (shortUrl) {
+            $window.open(shortUrl);
+        };
 
         $scope.actions = [
             {name: 'Refresh', icon: 'sync', identifier: 'refresh'},
             {name: 'Logout', icon: 'clear', identifier: 'logout'}
         ];
-
         $scope.more = [
             {name: 'Submit Feature Request', icon: 'wb_incandescent', identifier: 'feature'},
             {name: 'Report a Problem', icon: 'report_problem', identifier: 'bug'}
         ];
-
-
         $scope.listItemClick = function (identifier) {
             var url = 'https://github.com/w11k/trello-calendar';
 
@@ -446,31 +446,6 @@
                 $location.path('/week');
             }
         };
-
-
-        var url = 'https://github.com/w11k/trello-calendar';
-        $scope.showListBottomSheet = function () {
-            $mdBottomSheet.show({
-                templateUrl: 'partials/bottomSheet.html',
-                controller: 'ListBottomSheetCtrl'
-            }).then(function (clickedItem) {
-                switch (clickedItem) {
-                    case 'logout':
-                        $scope.logout();
-                        break;
-                    case 'refresh':
-                        $rootScope.$broadcast('reload');
-                        break;
-                    case 'feature':
-                        window.open(url, '_blank');
-                        break;
-                    case 'bug':
-                        window.open(url, '_blank');
-                        break;
-                }
-            });
-        };
-
     });
 
     module.controller('ListBottomSheetCtrl', function ($scope, $mdBottomSheet) {

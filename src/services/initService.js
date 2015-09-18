@@ -71,7 +71,6 @@ angular.module('trelloCal').factory('initService', /*ngInject*/  function ($q, $
 
                     login.resolve(responses);
                 });
-                console.log(allCards);
             },
             function (error){
                 // Something went wrong
@@ -200,6 +199,7 @@ angular.module('trelloCal').factory('initService', /*ngInject*/  function ($q, $
             } else {
                 pullAll();
             }
+
             return login.promise;
         },
 
@@ -246,7 +246,6 @@ angular.module('trelloCal').factory('initService', /*ngInject*/  function ($q, $
                           entry.color = { 'background-color':localStorageService.get('Boards')[i].color};
                           }
                        }
-//                            entry.color = { 'background-color':localStorageService.get(entry.idBoard)};
                     }
                 }
             });

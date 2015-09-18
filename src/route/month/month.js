@@ -133,9 +133,9 @@ month.controller('monthCtrl', function (asInitService, $timeout, $interval,
     today.month = new Date().getMonth();
     $scope.sortableOptions = {
         receive: function (e, ui) {
-            var id = ui.item[0].firstElementChild.id.split('-')[0];
+            var id = ui.item[0].children[1].id.split('-')[0];
             ngProgress.start();
-            var str = e.target.id + ui.item[0].firstElementChild.id.split('-')[1];
+            var str = e.target.id + ui.item[0].children[1].id.split('-')[1];
             var newStr = [];
 
             angular.forEach(str.split(','), function (value) {

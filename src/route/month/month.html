@@ -18,7 +18,7 @@
             <md-button aria-label="Open demo menu" class="calendarOption md-icon-button" ng-click="$mdOpenMenu($event)">
                 <ng-md-icon icon="filter_list" class="calendarOption-icon" size="22"></ng-md-icon>
             </md-button>
-            <md-menu-content width="4" style="overflow: hidden;">
+            <md-menu-content width="4" style="overflow: auto;">
 
                 <md-menu-item ng-repeat="board in ExistingBoards" class="filterMenu">
                     <div class="colorPicker" style="background-color: {{board.color}}"></div>
@@ -51,23 +51,6 @@
     </h2>
 
 </div>
-
-
-<!--<div ng-if="!filter" layout="row">-->
-<!--<md-chips ng-model="selectedBoards" md-autocomplete-snap="" md-require-match=""  class="custom-chips" flex>-->
-<!--<md-autocomplete  md-search-text="searchText" md-items="item in querySearch(searchText)" md-item-text="item.name">-->
-<!--<span md-highlight-text="searchText">{{item.name}}</span>-->
-<!--</md-autocomplete>-->
-<!--<md-chip-template>-->
-<!--<span>{{$chip.name}}</span>-->
-<!--</md-chip-template>-->
-<!--<button md-chip-remove="" class="md-primary boardChip">-->
-<!--<md-icon md-svg-icon="md-close"></md-icon>-->
-<!--</button>-->
-<!--</md-chips>-->
-<!--<md-button class="md-flat md-default" ng-if="resetBtn" ng-click="resetBoards()">reset</md-button>-->
-<!--</div>-->
-
 <div class="listView">
     <div class="day header" ng-repeat="wd in ::weekdays"><span class="short">{{::wd[0]}}</span><span class="long">{{::wd[1]}}</span></div>
     <div ng-repeat="day in days track by day.date"  class="day" ng-class="{'dayOff': day.dayOff, 'dayOn' : !day.dayOff, 'has' : day.cards.length >= 1}">

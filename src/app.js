@@ -309,16 +309,16 @@
                 }
             });
 
-
+        if (!localStorage.getItem('w11ktrello.boardColors')) {
+            localStorage.setItem('w11ktrello.boardColors', true);
+        }
         if (localStorage.getItem('w11ktrello.startMonth') === 'false') {
             $urlRouterProvider.otherwise('/week');
         } else {
             $urlRouterProvider.otherwise('/month');
         }
 
-        if (!localStorage.getItem('w11ktrello.boardColors')) {
-            localStorage.setItem('w11ktrello.boardColors', true);
-        }
+
         if (!localStorage.getItem('w11ktrello.observerMode')) {
             localStorage.setItem('w11ktrello.observerMode', false);
         }
@@ -327,12 +327,19 @@
 
 
     module.run(/*ngInject*/ function ($location, $rootScope) {
-        if ($location.$$protocol !== 'http'&&$location.$$protocol !== 'https') {
+        if ($location.$$protocol !== 'http' && $location.$$protocol !== 'https') {
             $rootScope.mobil = true;
         }
     });
 
-    module.controller('AppCtrl', function ($scope, $rootScope, ngProgress, initService, $mdSidenav) {
+    module.controller('AppCtrl', function ($scope, $rootScope, ngProgress, initService, $mdSidenav, localStorageService) {
+        if (!localStorageService.get('version') || localStorageService.get('version') !== '0.1.19') {
+            localStorageService.set('version', '0.1.19');
+            localStorageService.remove('Boards');
+            localStorageService.remove('selectedBoards');
+
+
+        }
 
         ngProgress.color('#C5CAE9');
         $rootScope.$on('$stateChangeSuccess', function () {

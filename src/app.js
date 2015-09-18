@@ -317,7 +317,7 @@
         }
 
         if (!localStorage.getItem('w11ktrello.boardColors')) {
-            localStorage.setItem('w11ktrello.boardColors', false);
+            localStorage.setItem('w11ktrello.boardColors', true);
         }
         if (!localStorage.getItem('w11ktrello.observerMode')) {
             localStorage.setItem('w11ktrello.observerMode', false);

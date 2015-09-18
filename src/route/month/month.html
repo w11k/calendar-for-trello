@@ -5,14 +5,51 @@
         <md-button class="md-raised md-primary mini" aria-label="previous month"  ng-click="move(-1)">
             <ng-md-icon icon="navigate_before" style="fill: #fff" size="22"></ng-md-icon>
         </md-button>
+        <md-button class="md-flat md-primary mini toToday" ng-click="toToday()" aria-label="next month">
+            today
+        </md-button>
         <md-button class="md-raised md-primary mini" aria-label="next month" ng-click="move(1)">
             <ng-md-icon icon="navigate_next" style="fill: #fff" size="22"></ng-md-icon>
         </md-button>
         <span class="month" flex>{{date.monthName}}, {{date.year}}</span>
-        <md-button class="md-flat md-primary mini toToday"  ng-if="!isToday"  ng-click="toToday()"  aria-label="next month">
-            today
+
+
+        <md-menu md-position-mode="target-right target" style="padding:0px;margin:0px;">
+            <md-button aria-label="Open demo menu" class="calendarOption md-icon-button" ng-click="$mdOpenMenu($event)">
+                <ng-md-icon icon="filter_list" class="calendarOption-icon" size="22"></ng-md-icon>
+            </md-button>
+            <md-menu-content width="4" style="overflow: hidden;">
+
+                <md-menu-item ng-repeat="board in ExistingBoards" class="filterMenu">
+                    <div class="colorPicker" style="background-color: {{board.color}}"></div>
+
+                    <md-button ng-click="filterClick(board.id)">
+                        <div layout="row">
+                            <p flex>{{board.name}}</p>
+                            <ng-md-icon ng-if="!board.enabled" icon="check_box_outline_blank"
+                                        class="calendarOption-icon" size="22"></ng-md-icon>
+                            <ng-md-icon ng-if="board.enabled" icon="check_box" class="calendarOption-icon"
+                                        size="22"></ng-md-icon>
+                        </div>
+                    </md-button>
+                </md-menu-item>
+            </md-menu-content>
+        </md-menu>
+
+        <md-button aria-label="observer mode" class="calendarOption md-icon-button launch" ng-model="observe"
+                   ng-click="observe = !observe;observeClick();">
+
+            <ng-md-icon ng-if="observe" icon="people" class="calendarOption-icon" size="22">
+                <md-tooltip>show cards of all members</md-tooltip>
+            </ng-md-icon>
+            <ng-md-icon ng-if="!observe" icon="person" class="calendarOption-icon" size="22">
+                <md-tooltip>show cards of all members</md-tooltip>
+            </ng-md-icon>
+
         </md-button>
+
     </h2>
+
 </div>
 
 
@@ -39,10 +76,14 @@
             <span ng-class="{'todayBtn' :day.isToday}">{{::day.date  | date: "d" }}</span>
         </div>
         <div class="dayCards" id="{{day.date | date: 'yyyy,MM,dd,'}}" ui-sortable="sortableOptions" ng-model="day.cards" >
-            <div ng-repeat="card in day.cards  | filter: activeBoard track by card.id" >
-                <md-toolbar  class="dayCard md-primary" id="{{::card.id}}-{{card.badges.due | date : 'H,m,s' : timezone}}" ng-style="card.color" style="padding:5px;">
-                    <div class="title"  ng-click="click(card.shortUrl)"> {{::card.name |cut:true:25}}</div>
-                    <div class="board"> <a ng-href="{{::card.boardUrl}}" target="_blank"><span class="boardName">{{::card.boardName|cut:true:30}}</span></a>  | <span>{{card.badges.due | date : "HH:mm" : timezone}}</span></div>
+            <div ng-repeat="card in day.cards  | filter: activeBoard track by card.id" layout="row">
+                <div style="background-color:#42548E;margin-bottom:4px;display:block "ng-style="card.color">&nbsp&nbsp</div>
+                <md-toolbar  class="dayCard md-primary" id="{{::card.id}}-{{card.badges.due | date : 'H,m,s' : timezone}}"  style="margin-bottom:4px;padding:5px;float:right;overflow:hidden;white-space: nowrap;">
+                    <div class="title"  ng-click="click(card.shortUrl)" style="width: 100%;overflow:hidden;white-space: nowrap;text-overflow: ellipsis;">
+                        {{::card.name}}
+                    </div>
+                    <div class="board"> <a ng-href="{{::card.boardUrl}}" target="_blank">
+                        <span class="boardName">{{::card.boardName|cut:true:25}}</span></a><span style="float: right;">{{card.badges.due | date : "HH:mm" : timezone}}</span></div>
                 </md-toolbar>
             </div>
         </div>

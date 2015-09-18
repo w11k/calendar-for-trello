@@ -4,110 +4,99 @@ month.config(/*ngInject*/ function () {
 
 });
 
-month.controller('monthCtrl', function(asInitService, $timeout, $interval,
-                                       archiveCard, $scope, buildCalService, changeDate,$window,
-                                       $stateParams, $location,$mdDialog, localStorageService,orderByFilter,
-                                       ngProgress,initService, $q,getExistingBoardColors) {
+month.controller('monthCtrl', function (asInitService, $timeout, $interval,
+                                        archiveCard, $scope, buildCalService, changeDate, $window,
+                                        $stateParams, $location, $mdDialog, localStorageService, orderByFilter,
+                                        ngProgress, initService, $q, getExistingBoardColors) {
 
 
-        function init(){
-            if (localStorageService.get('observerMode')===true)
-                {
-                    $scope.boards = (initService.print()[2]);
-                }
-                else
-                {
-                    $scope.boards = initService.print()[2].data;
-                }
-                $scope.colors=[
-                        {name: 'Red',color:'#F44336'},
-                        {name: 'Pink',color:'#E91E63'},
-                        {name: 'Purple',color:'#9C27B0'},
-                        {name: 'Deep Purple',color:'#673AB7'},
-                        {name: 'Indigo',color:'#3F51B5'},
-                        {name: 'Blue',color:'#2196F3'},
-                        {name: 'Light Blue',color:'#00BCD4'},
-                        {name: 'Teal',color:'#009688'},
-                        {name: 'Green',color:'#43A047'},
-                        {name: 'Light Green',color:'#689F38'},
-                        {name: 'Lime',color:'#827717'},
-                        {name: 'Orange',color:'#EF6C00'},
-                        {name: 'Deep Orange',color:'#FF5722'},
-                        {name: 'Brown',color:'#795548'},
-                        {name: 'Grey',color:'#757575'},
-                        {name: 'Blue Grey',color:'#607D8B'},
-                    ];
+    function init() {
+        if (localStorageService.get('observerMode') === true) {
+            $scope.boards = (initService.print()[2]);
+        }
+        else {
+            $scope.boards = initService.print()[2].data;
+        }
+        $scope.colors = [
+            {name: 'Blue', color: '#0079BF'},
+            {name: 'Yellow', color: '#D29034'},
+            {name: 'Green', color: '#519839'},
+            {name: 'Red', color: '#B04632'},
+            {name: 'Purple', color: '#89609E'},
+            {name: 'Pink', color: '#CD5A91'},
+            {name: 'Light Green', color: '#00BCD4'},
+            {name: 'Sky', color: '#00AECC'},
+            {name: 'Grey', color: '#838C91'}
+        ];
 
 
-                // Init Werte von Datenbank in LocalStorage aktualisieren falls nicht verfügbar
-                for (var board in $scope.boards)
-                {
-                    var ColorIndex=4;
-                    switch ($scope.boards[board].prefs.backgroundColor) {
-                        case '#0079BF':
-                            ColorIndex =4 ;
-                            break;
-                        case '#D29034':
-                            ColorIndex =11 ;
-                            break;
-                        case '#519839':
-                            ColorIndex=7;
-                            break;
-                        case '#B04632':
-                            ColorIndex=0;
-                            break;
-                        case '#89609E':
-                            ColorIndex =3;
-                            break;
-                        case '#CD5A91':
-                            ColorIndex=1;
-                            break;
-                        case '#4BBF6B':
-                            ColorIndex=9;
-                            break;
-                        case '#00AECC':
-                            ColorIndex=6;
-                            break;
-                        case '#838C91':
-                            ColorIndex=14;
+        // Init Werte von Datenbank in LocalStorage aktualisieren falls nicht verfügbar
+        for (var board in $scope.boards) {
+            var ColorIndex = 4;
+            switch ($scope.boards[board].prefs.backgroundColor) {
+                case '#0079BF':
+                    ColorIndex = 0;
+                    break;
+                case '#D29034':
+                    ColorIndex = 1;
+                    break;
+                case '#519839':
+                    ColorIndex = 2;
+                    break;
+                case '#B04632':
+                    ColorIndex = 3;
+                    break;
+                case '#89609E':
+                    ColorIndex = 4;
+                    break;
+                case '#CD5A91':
+                    ColorIndex = 5;
+                    break;
+                case '#4BBF6B':
+                    ColorIndex = 6;
+                    break;
+                case '#00AECC':
+                    ColorIndex = 7;
+                    break;
+                case '#838C91':
+                    ColorIndex = 8;
 
 
-                    }
+            }
 
             //        $scope.boards[board].prefs.backgroundColor=localStorageService.get($scope.boards[board].id);
-                    var y='{"id":"'+board+'","color":"'+$scope.colors[ColorIndex].color+'","colorName":"'+$scope.colors[ColorIndex].name+'","name":"'+$scope.boards[board].name+'","enabled":true}';
-                    var obj=JSON.parse(y);
-                    if(!getExistingBoardColors){
-                        getExistingBoardColors=[obj];
-                        localStorageService.set('Boards',[obj]);
-                    } // neuen Array in LocalStorage
-                    else{
-                        var exists=false;
-                        for (var i=0;i<getExistingBoardColors.length;i++){
+            var y = '{"id":"' + board + '","color":"' + $scope.colors[ColorIndex].color + '","colorName":"' + $scope.colors[ColorIndex].name + '","name":"' + $scope.boards[board].name + '","enabled":true}';
+            var obj = JSON.parse(y);
+            if (!getExistingBoardColors) {
+                getExistingBoardColors = [obj];
+                localStorageService.set('Boards', [obj]);
+            } // neuen Array in LocalStorage
+            else {
+                var exists = false;
+                for (var i = 0; i < getExistingBoardColors.length; i++) {
 
-                            if(board===getExistingBoardColors[i].id)
-                            {
-                                exists=true;
-                                if($scope.boards[board].closed===true)
-                                {
-                                    getExistingBoardColors.splice(i, 1);
-                                }
-                            }
+                    if (board === getExistingBoardColors[i].id) {
+                        exists = true;
+                        if ($scope.boards[board].closed === true) {
+                            getExistingBoardColors.splice(i, 1);
                         }
-                        if (exists===false && $scope.boards[board].closed===false){
-
-                            getExistingBoardColors.push(obj);
-                            localStorageService.set('Boards',getExistingBoardColors);
-                        }
-                    } //dem vorhandenen Array Objekte hinzufügen
+                    }
                 }
-            }
-            init();
+                if (exists === false && $scope.boards[board].closed === false) {
 
-        var routine = function (date, defer) {
+                    getExistingBoardColors.push(obj);
+                    localStorageService.set('Boards', getExistingBoardColors);
+                }
+            } //dem vorhandenen Array Objekte hinzufügen
+        }
+    }
+
+    init();
+
+    var routine = function (date, defer) {
         $scope.days = buildCalService.build(date).days;
         $scope.date = {
-            iso: new Date(year,month),
+            iso: new Date(year, month),
             monthName: moment.months()[date.month],
             month: date.month,
             year: date.year
@@ -128,15 +117,13 @@ month.controller('monthCtrl', function(asInitService, $timeout, $interval,
         }, true);
 
 
-        if(defer) {
+        if (defer) {
             defer.resolve();
         }
 
     };
 
-
-
-    var month, year,  today;
+    var month, year, today;
 
     var date = {};
     date.year = new Date().getFullYear();
@@ -144,159 +131,22 @@ month.controller('monthCtrl', function(asInitService, $timeout, $interval,
     today = {};
     today.year = new Date().getFullYear();
     today.month = new Date().getMonth();
-
-
-    $scope.isToday = (date.year === today.year && date.month === today.month);
-
-    $scope.date = {
-        iso: new Date(),
-        monthName: moment.months()[date.month],
-        month: date.month,
-        year: date.year
-    };
-
-    $scope.toToday = function () {
-        date = today;
-        routine(date);
-    };
-
-
-        // top legende
-    $scope.weekdays = [];
-    for (var i = 0; i <= 6; i++) {
-        var long =  moment().weekday(i).format('dddd');
-        var short = moment().weekday(i).format('dd');
-        $scope.weekdays[i] = [short, long];
-    }
-
-
-
-
-
-
-
-    $scope.resetBoards = function () {
-//        $scope.selectedBoards = [];
-//        $scope.boards.forEach(function (item) {
-//            $scope.selectedBoards.push(item);
-//
-//        });
-
-        var temp=[];
-        $scope.boards.forEach(function (item) {
-            for (var x in localStorageService.get('Boards'))
-            {
-                if (localStorageService.get('Boards')[x].id===item.id && localStorageService.get('Boards')[x].enabled===true)
-                {
-                    temp.push(item);
-                }
-            }
-        });
-        localStorage.removeItem('selectedBoards');
-        localStorageService.set('selectedBoards',temp);
-        $scope.selectedBoards=localStorageService.get('selectedBoards');
-
-
-    };
-
-
-    /**
-     * Search for boards.
-     */
-    function querySearch (query) {
-        var results = query ? $scope.boards.filter(createFilterFor(query)) : [];
-        return results;
-    }
-
-    /**
-     * Create filter function for a query string
-     */
-    function createFilterFor(query) {
-        var lowercaseQuery = angular.lowercase(query);
-
-        return function filterFn(board) {
-            return (board._lowername.indexOf(lowercaseQuery) === 0);
-        };
-
-    }
-
-
-
-
-    routine(date);
-    $scope.$watch('days'   , function () {
-        _.forEach($scope.days, function (day) {
-            day.cards = orderByFilter(day.cards, ['badges.due', 'name']);
-        });
-    }, true);
-
-
-
-
-
-
-
-    $scope.refresh = function () {
-        ngProgress.start();
-        initService.refresh().then(function () {
-                routine($scope.date);
-                ngProgress.complete();
-            }
-        );
-    };
-
-
-
-
-
-
-
-    $scope.click = function (shortUrl) {
-        $window.open(shortUrl);
-    };
-
-    $scope.move = function (steps) {
-        ngProgress.start();
-
-
-        var defer = $q.defer();
-
-        year = date.year;
-        month = (date.month + steps);
-        if(month >= 12) {
-            month = 0;
-            year++;
-        } else if ( month <= -1) {
-            month = 11;
-            year--;
-        }
-
-        date = {year: year, month:month};
-
-        routine(date, defer);
-
-
-        defer.promise.then( function () {
-            ngProgress.complete();
-        });
-
-    };
-
-
     $scope.sortableOptions = {
         receive: function (e, ui) {
             var id = ui.item[0].firstElementChild.id.split('-')[0];
-            console.log(ui.item[0].firstElementChild);
             ngProgress.start();
-            var str = e.target.id+ui.item[0].firstElementChild.id.split('-')[1];
+            var str = e.target.id + ui.item[0].firstElementChild.id.split('-')[1];
             var newStr = [];
-            console.log(str);
 
-            angular.forEach(str.split(','), function(value) {
+            angular.forEach(str.split(','), function (value) {
                 newStr.push(parseInt(value));
             });
-            if(!newStr[3]){newStr[3]=12;newStr.push(0);newStr.push(0);}
-            var targetDate = new Date(newStr[0],newStr[1]-1,newStr[2],newStr[3],newStr[4]);
+            if (!newStr[3]) {
+                newStr[3] = 12;
+                newStr.push(0);
+                newStr.push(0);
+            }
+            var targetDate = new Date(newStr[0], newStr[1] - 1, newStr[2], newStr[3], newStr[4]);
 
             changeDate.async(id, targetDate).then(function () {
                     initService.updateDate(id, targetDate);
@@ -327,42 +177,184 @@ month.controller('monthCtrl', function(asInitService, $timeout, $interval,
         connectWith: '.dayCards'
 
     };
-
-
-
     $scope.filter = localStorageService.get('filter') === false;
     $scope.color = localStorageService.get('boardColors');
+    $scope.observe = localStorageService.get('observerMode') === true;
+    $scope.ExistingBoards = getExistingBoardColors;
+    $scope.isToday = (date.year === today.year && date.month === today.month);
+    $scope.date = {
+        iso: new Date(),
+        monthName: moment.months()[date.month],
+        month: date.month,
+        year: date.year
+    };
 
+    $scope.toToday = function () {
+        date = today;
+        routine(date);
+    };
+
+    // top legende
+    $scope.weekdays = [];
+    for (var i = 0; i <= 6; i++) {
+        var long = moment().weekday(i).format('dddd');
+        var short = moment().weekday(i).format('dd');
+        $scope.weekdays[i] = [short, long];
+    }
+
+    $scope.announceClick = function (index, id) {
+
+        var y = '{"id":"' + id + '","color":"' + $scope.colors[index].color + '","colorName":"' + $scope.colors[index].name + '","name":"' + $scope.boards[id].name + '","enabled":true}';
+        var obj = JSON.parse(y);
+        if (!getExistingBoardColors) {
+            getExistingBoardColors = [obj];
+            localStorageService.set('Boards', getExistingBoardColors);
+        }
+        else {
+            var exists = false;
+            for (var i = 0; i < getExistingBoardColors.length; i++) {
+
+                if (id === getExistingBoardColors[i].id) {
+                    getExistingBoardColors[i].color = $scope.colors[index].color;
+                    getExistingBoardColors[i].colorName = $scope.colors[index].name;
+                    localStorageService.set('Boards', getExistingBoardColors);
+                    exists = true;
+                }
+            }
+            if (exists === false) {
+                getExistingBoardColors.push(obj);
+                localStorageService.set('Boards', getExistingBoardColors);
+            }
+
+        }
+        //localStorageService.set(id,$scope.colors[index].color);
+
+
+        initService.updateColor(id);
+
+
+    };
+
+    $scope.resetBoards = function () {
+        var temp = [];
+        $scope.boards.forEach(function (item) {
+            for (var x in localStorageService.get('Boards')) {
+                if (localStorageService.get('Boards')[x].id === item.id && localStorageService.get('Boards')[x].enabled === true) {
+                    temp.push(item);
+                }
+            }
+        });
+        localStorage.removeItem('selectedBoards');
+        localStorageService.set('selectedBoards', temp);
+        $scope.selectedBoards = localStorageService.get('selectedBoards');
+
+    };
+
+    /**
+     * Search for boards.
+     */
+    function querySearch(query) {
+        var results = query ? $scope.boards.filter(createFilterFor(query)) : [];
+        return results;
+    }
+
+    /**
+     * Create filter function for a query string
+     */
+    function createFilterFor(query) {
+        var lowercaseQuery = angular.lowercase(query);
+
+        return function filterFn(board) {
+            return (board._lowername.indexOf(lowercaseQuery) === 0);
+        };
+
+    }
+
+
+    routine(date);
+
+    $scope.$watch('days', function () {
+        _.forEach($scope.days, function (day) {
+            day.cards = orderByFilter(day.cards, ['badges.due', 'name']);
+        });
+    }, true);
+
+    $scope.refresh = function () {
+        ngProgress.start();
+        initService.refresh().then(function () {
+                routine($scope.date);
+                ngProgress.complete();
+            }
+        );
+    };
+
+    $scope.click = function (shortUrl) {
+        $window.open(shortUrl);
+    };
+
+    $scope.move = function (steps) {
+        ngProgress.start();
+
+
+        var defer = $q.defer();
+
+        year = date.year;
+        month = (date.month + steps);
+        if (month >= 12) {
+            month = 0;
+            year++;
+        } else if (month <= -1) {
+            month = 11;
+            year--;
+        }
+
+        date = {year: year, month: month};
+
+        routine(date, defer);
+
+
+        defer.promise.then(function () {
+            ngProgress.complete();
+        });
+
+    };
 
     $scope.archiveCard = function (data) {
         var id = data.id;
         archiveCard.async(id).then(function () {
             //success
-        },function () {
+        }, function () {
             //error
         });
     };
 
-
-
     $scope.activeBoard = function (card) {
-        return _.find($scope.selectedBoards, { 'id': card.idBoard});
-//        return _.find(localStorageService.get('selectedBoards', { 'id': card.idBoard}));
+        return _.find($scope.selectedBoards, {'id': card.idBoard});
 
     };
 
-
-    if(localStorageService.get('refresh')) {
+    if (localStorageService.get('refresh')) {
         $interval(function () {
             $scope.refresh();
         }, 30000, 0, false);
     }
 
-
-
-    $scope.$on('rebuild', function() {
+    $scope.$on('rebuild', function () {
         routine($scope.date);
     });
 
+    $scope.filterClick = function (id) {
+        var temp = _.find(getExistingBoardColors, {'id': id}).enabled;
+        _.find(getExistingBoardColors, {'id': id}).enabled = !temp;
+        localStorageService.set('Boards', getExistingBoardColors);
+        $scope.refresh();
+    };
+
+    $scope.observeClick = function () {
+        localStorageService.set('observerMode', !localStorageService.get('observerMode'));
+        $scope.refresh();
+        $window.location.reload();
+
+    };
 
 });

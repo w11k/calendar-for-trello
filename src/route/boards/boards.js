@@ -131,9 +131,10 @@ boards.controller('boardsCtrl', function($scope,asInitService,localStorageServic
       };
 
     $scope.change=function(index,state){
-        getExistingBoardColors[index].enabled=state;
-        localStorageService.set('Boards',getExistingBoardColors);
 
+        var temp = localStorageService.get('Boards');
+        temp[index].enabled = state;
+        localStorageService.set('Boards', temp);
     };
 
 

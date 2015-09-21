@@ -1,6 +1,4 @@
-
-
-<div class="calNav" >
+<div class="calNav" ng-init="init()">
     <h2 layout="row" style="margin-top:10px;" class="md-subhead" layout-align="space-between end">
         <md-button class="md-raised md-primary mini" aria-label="previous month"  ng-click="move(-1)">
             <ng-md-icon icon="navigate_before" style="fill: #fff" size="22"></ng-md-icon>
@@ -20,7 +18,7 @@
             </md-button>
             <md-menu-content width="4" style="overflow: auto;">
 
-                <md-menu-item ng-repeat="board in ExistingBoards" class="filterMenu">
+                <md-menu-item ng-repeat="board in ExistingBoards |orderBy: 'name'" class="filterMenu">
                     <div class="colorPicker" style="background-color: {{board.color}}"></div>
 
                     <md-button ng-click="filterClick(board.id)">

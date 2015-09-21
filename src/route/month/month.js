@@ -10,6 +10,15 @@ month.controller('monthCtrl', function (asInitService, $timeout, $interval,
                                         ngProgress, initService, $q, getExistingBoardColors) {
 
 
+    $scope.refresh = function () {
+
+        ngProgress.start();
+        initService.refresh().then(function () {
+                routine($scope.date);
+                ngProgress.complete();
+            }
+        );
+    };
     function init() {
         if (localStorageService.get('observerMode') === true) {
             $scope.boards = (initService.print()[2]);
@@ -89,10 +98,10 @@ month.controller('monthCtrl', function (asInitService, $timeout, $interval,
                 }
             } //dem vorhandenen Array Objekte hinzufügen
         }
+        $scope.refresh();
     }
 
     init();
-
     var routine = function (date, defer) {
         $scope.days = buildCalService.build(date).days;
         $scope.date = {
@@ -101,7 +110,6 @@ month.controller('monthCtrl', function (asInitService, $timeout, $interval,
             month: date.month,
             year: date.year
         };
-
 
         $scope.isToday = (date.year === today.year && date.month === today.month);
 
@@ -279,14 +287,7 @@ month.controller('monthCtrl', function (asInitService, $timeout, $interval,
         });
     }, true);
 
-    $scope.refresh = function () {
-        ngProgress.start();
-        initService.refresh().then(function () {
-                routine($scope.date);
-                ngProgress.complete();
-            }
-        );
-    };
+
 
     $scope.click = function (shortUrl) {
         $window.open(shortUrl);
@@ -353,7 +354,7 @@ month.controller('monthCtrl', function (asInitService, $timeout, $interval,
     $scope.observeClick = function () {
         localStorageService.set('observerMode', !localStorageService.get('observerMode'));
         $scope.refresh();
-        $window.location.reload();
+        //$window.location.reload();
 
     };
 

@@ -1,0 +1,64 @@
+<md-dialog aria-label="Mango (Fruit)" flex="50">
+    <form>
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>
+                    <div class="md-breadcrumb-page  md-title" style="margin-top:15px">Calendar for
+                        <img style="float:right;padding-left:10px;margin-top:-5px"
+                             src="https://d78fikflryjgj.cloudfront.net/images/50b4ebc64391dc394a38e73aed57f0e2/header-logo.png"/>
+                    </div>
+                </h2>
+            </div>
+        </md-toolbar>
+        <md-dialog-content layout="row">
+            <div style="padding:10px">
+                <h1 class="md-headline">Calendar for Trello</h1>
+
+                <div layout="row">
+                    <span style="padding-top:6px;">By&nbsp&nbsp</span>
+                    <a href="http://www.w11k.de">
+                        <img style="padding-top:5px;height: 20px"
+                             src="http://www.w11k.de/2.0.7/assets/img/w11k_logo_navbar.png">
+                    </a>
+                    <span style="padding-top:6px;">&nbsp and &nbsp</span>
+                    <a href="http://www.thecodecampus.de">
+                        <img style="height: 30px;filter: invert(1);-webkit-filter: invert(1);"
+                             src="http://www.thecodecampus.de/1.0.11/assets/thecodecampus_w.png">
+                    </a>
+
+                </div>
+                <h6>(vers.: 0.1.19)</h6>
+
+                <p>Trello is a productivity tool that helps you to organize projects by creating individual lists,
+                    boards and cards.
+                    Manage your projects in teams, get more flexible and improve your workflow.</p>
+
+                <p>The w11k Trello Calendar allows you to organize all cards of all boards in one calendar.
+                    Trello Calendar is Open Source and available at <a href="https://github.com/w11k/trello-calendar"
+                                                                       rel="_blank">GitHub.</a></p>
+            </div>
+            <div flex="33" style="padding:10px">
+                <h1 class="md-headline">What's New</h1>
+                <ul>
+                    <li>Startscreen</li>
+
+                    <li>Bugfixes:
+                        <ul>
+                            <li>ObserverMode</li>
+                            <li>Board Settings (ColorPicker)</li>
+                        </ul>
+
+                    </li>
+
+
+                </ul>
+            </div>
+
+        </md-dialog-content>
+        <div class="md-actions" layout="row">
+            <md-button ng-click="answer('connect')" style="margin-right:20px;">
+                Connect to Trello
+            </md-button>
+        </div>
+    </form>
+</md-dialog>

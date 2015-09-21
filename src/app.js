@@ -111,7 +111,7 @@
 
         $mdThemingProvider.theme('default')
             .primaryPalette('TrelloBusinessBlue')
-            .accentPalette('TrelloYellow')
+            .accentPalette('TrelloBusinessBlue')
             .backgroundPalette('TrelloGrey');
 
 
@@ -207,7 +207,6 @@
                 }
 
             })
-
             .state('about', {
                 url: '/about',
                 views: {
@@ -245,7 +244,6 @@
                 }
 
             })
-
             .state('boards', {
                 url: '/boards',
                 views: {
@@ -290,7 +288,6 @@
 
                 }
             })
-
             .state('token', {
                 url: '/token?do&token',
                 views: {
@@ -305,6 +302,13 @@
                         delete $location.$$search.token;
                         delete $location.$$search.do;
                         $location.path('/');
+                    }
+                },
+                data: {
+                    head: {
+                        title: 'token',
+                        robots: 'index,follow',
+                        canonical: 'https://www.calendar-for-trello.com/#/month',
                     }
                 }
             });
@@ -332,15 +336,7 @@
         }
     });
 
-    module.controller('AppCtrl', function ($scope, $rootScope, ngProgress, initService, $mdSidenav, localStorageService) {
-        if (!localStorageService.get('version') || localStorageService.get('version') !== '0.1.19') {
-            localStorageService.set('version', '0.1.19');
-            localStorageService.remove('Boards');
-            localStorageService.remove('selectedBoards');
-
-
-        }
-
+    module.controller('AppCtrl', function ($scope, $rootScope, ngProgress, initService, $mdSidenav) {
         ngProgress.color('#C5CAE9');
         $rootScope.$on('$stateChangeSuccess', function () {
             ngProgress.complete();
@@ -455,22 +451,6 @@
         };
     });
 
-    module.controller('ListBottomSheetCtrl', function ($scope, $mdBottomSheet) {
-
-        $scope.actions = [
-            {name: 'Refresh', icon: 'sync', identifier: 'refresh'},
-            {name: 'Logout', icon: 'clear', identifier: 'logout'}
-        ];
-
-        $scope.more = [
-            {name: 'Submit Feature Request', icon: 'wb_incandescent', identifier: 'feature'},
-            {name: 'Report a Problem', icon: 'report_problem', identifier: 'bug'}
-        ];
-
-        $scope.listItemClick = function (identifier) {
-            $mdBottomSheet.hide(identifier);
-        };
-    });
 
     module.directive('updateTitle', ['$rootScope', '$timeout',
         function ($rootScope, $timeout) {

@@ -398,10 +398,11 @@
 
     });
 
-    module.controller('headerCtrl', function ($q, $scope, $mdSidenav, $state, initService, $window, localStorageService, $location, $mdBottomSheet, $rootScope, AppKey, $http) {
+    module.controller('headerCtrl', function ($q, $scope, $mdSidenav, $state, initService, $window, localStorageService, $location, $mdBottomSheet, $rootScope) {
 
         $rootScope.$on('reload', function () {
             $scope.cards = initService.getCards().withDue.concat(initService.getCards().withoutDue);
+            console.log($scope.cards);
         });
         $scope.cards = initService.getCards().withDue.concat(initService.getCards().withoutDue);
 

@@ -143,7 +143,7 @@
         $stateProvider
 
             .state('month', {
-                url: '/month',
+                url: '',
                 views: {
                     'header': {
                         abstract: true,
@@ -182,7 +182,7 @@
                     head: {
                         title: 'Month',
                         robots: 'index,follow',
-                        canonical: 'https://www.calendar-for-trello.com/#/month',
+                        canonical: 'https://www.calendar-for-trello.com/',
                     }
                 },
             })
@@ -338,12 +338,6 @@
         if (!localStorage.getItem('w11ktrello.boardColors')) {
             localStorage.setItem('w11ktrello.boardColors', true);
         }
-        if (localStorage.getItem('w11ktrello.startMonth') === 'false') {
-            $urlRouterProvider.otherwise('/week');
-        } else {
-            $urlRouterProvider.otherwise('/month');
-        }
-
 
         if (!localStorage.getItem('w11ktrello.observerMode')) {
             localStorage.setItem('w11ktrello.observerMode', false);
@@ -401,6 +395,7 @@
     module.controller('headerCtrl', function ($q, $scope, $mdSidenav, $state, initService, $window, localStorageService, $location, $mdBottomSheet, $rootScope) {
 
         $rootScope.$on('reload', function () {
+            console.log($scope.cards);
             $scope.cards = initService.getCards().withDue.concat(initService.getCards().withoutDue);
             console.log($scope.cards);
         });

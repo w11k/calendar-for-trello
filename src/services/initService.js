@@ -170,8 +170,8 @@ angular.module('trelloCal').factory('initService', /*ngInject*/  function ($q, $
             init: function (option) {
 
 
-                if (!localStorageService.get('trello_token') || localStorageService.get('version') !== '0.1.20') {
-                    localStorageService.set('version', '0.1.20');
+                if (!localStorageService.get('trello_token') || localStorageService.get('version') !== '0.1.21') {
+                    localStorageService.set('version', '0.1.21');
                     $mdDialog.show({
                         controller: DialogController,
                         templateUrl: 'partials/StartDialog.html',

@@ -108,10 +108,32 @@
                 '200', '300', '400', 'A100'],
             'contrastLightColors': undefined    // could also specify this if default was 'dark'
         });
+        $mdThemingProvider.definePalette('TrelloRed', {
+            '50': 'FBEDEB',
+            '100': 'F5D3CE',
+            '200': 'EFB3AB',
+            '300': 'EC9488',
+            '400': 'EF7564',
+            '500': 'CF513D',
+            '600': 'CF513D',
+            '700': 'B04632',
+            '800': '933B27',
+            '900': '6E2F1A',
+            'A100': 'F5D3CE',
+            'A200': 'EFB3AB',
+            'A400': 'EF7564',
+            'A700': 'B04632',
+            'contrastDefaultColor': 'light',    // whether, by default, text (contrast)
+            // on this palette should be dark or light
+            'contrastDarkColors': ['50', '100', //hues which contrast should be 'dark' by default
+                '200', '300', '400', 'A100'],
+            'contrastLightColors': undefined    // could also specify this if default was 'dark'
+        });
 
         $mdThemingProvider.theme('default')
             .primaryPalette('TrelloBusinessBlue')
             .accentPalette('TrelloBusinessBlue')
+            .warnPalette('TrelloRed')
             .backgroundPalette('TrelloGrey');
 
 
@@ -376,8 +398,47 @@
 
     });
 
-    module.controller('headerCtrl', function ($scope, $mdSidenav, $state, initService, $window, localStorageService, $location, $mdBottomSheet, $rootScope) {
+    module.controller('headerCtrl', function ($q, $scope, $mdSidenav, $state, initService, $window, localStorageService, $location, $mdBottomSheet, $rootScope, AppKey, $http) {
+
+        $rootScope.$on('reload', function () {
+            $scope.cards = initService.getCards().withDue.concat(initService.getCards().withoutDue);
+        });
         $scope.cards = initService.getCards().withDue.concat(initService.getCards().withoutDue);
+
+        $scope.isOverdue = function (card) {
+            if (card.dueDay < new Date()) {
+                for (var i = 0; i <= card.idMembers.length; i++) {
+                    if (card.idMembers[i] === $scope.id) {
+                        return true;
+                    }
+                }
+
+            }
+            return false;
+        };
+
+        $scope.isNoduedate = function (card) {
+            if (!card.due) {
+                for (var i = 0; i <= card.idMembers.length; i++) {
+                    if (card.idMembers[i] === $scope.id) {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        };
+
+        $scope.isComing = function (card) {
+            if (card.dueDay > new Date()) {
+                for (var i = 0; i <= card.idMembers.length; i++) {
+                    if (card.idMembers[i] === $scope.id) {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+        };
 
         $scope.click = function (shortUrl) {
             $window.open(shortUrl);
@@ -413,10 +474,10 @@
 
         if (initService.print()) {
             $scope.name = initService.print()[0].data.fullName;
+            $scope.id = initService.print()[0].data.id;
         } else {
             $scope.name = 'please login';
         }
-
 
         $scope.toggleSidenav = function (menuId) {
             $mdSidenav(menuId).toggle();
@@ -449,6 +510,7 @@
                 $location.path('/week');
             }
         };
+
     });
 
 

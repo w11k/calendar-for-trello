@@ -1,64 +1,127 @@
+<md-subheader class="md-no-sticky"><i>Welcome, <strong style="font-weight: 600;">{{name}}</strong>.</i></md-subheader>
+
+<md-list-item ng-click="goTo('month')">
+    <ng-md-icon icon="today" style="fill: #666" size="24"></ng-md-icon>
+    <div class="md-list-item-text">
+        <p> Month </p>
+    </div>
+</md-list-item>
+
+<md-list-item ng-click="goTo('settings')">
+    <ng-md-icon icon="settings" style="fill: #666" size="24"></ng-md-icon>
+    <div class="md-list-item-text">
+        <p> Settings </p>
+    </div>
+</md-list-item>
 
 
-    <md-subheader class="md-no-sticky"><i>Welcome, <strong style="font-weight: 600;">{{name}}</strong>.</i></md-subheader>
+<md-list-item ng-click="goTo('boards')">
+    <ng-md-icon icon="my_library_books" style="fill: #666" size="24"></ng-md-icon>
+    <div class="md-list-item-text">
+        <p> Board Settings </p>
+    </div>
+</md-list-item>
 
-    <md-list-item ng-click="goTo('month')">
-        <ng-md-icon icon="today" style="fill: #666" size="24"></ng-md-icon>
-        <div class="md-list-item-text">
-            <p> Month </p>
-        </div>
-    </md-list-item>
+<md-list-item ng-click="goTo('about')">
+    <ng-md-icon icon="info" style="fill: #666" size="24"></ng-md-icon>
+    <div class="md-list-item-text">
+        <p> About </p>
+    </div>
+</md-list-item>
 
-    <md-list-item ng-click="goTo('settings')">
-        <ng-md-icon icon="settings" style="fill: #666" size="24"></ng-md-icon>
-        <div class="md-list-item-text">
-            <p> Settings </p>
-        </div>
-    </md-list-item>
+<md-tabs md-center-tabs class="md-primary" md-selected="data.selectedIndex"
+         style="position: absolute;bottom: 0px;width:100%">
+    <md-tab id="tab1">
+        <md-tab-label>
+            <ng-md-icon icon="assignment_late" style="fill: #fff;padding:0px;margin:0px;" size="25">
 
+            </ng-md-icon>
+        </md-tab-label>
+        <md-tab-body>
+            <md-subheader>overdued</md-subheader>
+            <md-grid-list md-cols-sm="1" md-cols-md="2" md-cols-gt-md="4"
+                          md-row-height-gt-md="54px" md-row-height="54px"
+                          md-gutter="8px" md-gutter-gt-sm="4px" style="margin-top:4px;">
 
-    <md-list-item ng-click="goTo('boards')">
-        <ng-md-icon icon="my_library_books" style="fill: #666" size="24"></ng-md-icon>
-        <div class="md-list-item-text">
-            <p> Board Settings </p>
-        </div>
-    </md-list-item>
+                <md-grid-tile ng-repeat="card in cards |filter: isOverdue|orderBy:'due'" md-rowspan="1" md-colspan="2"
+                              style="background-color: {{board.color}}" class="overdue">
+                    <div style="background-color:#42548E;display:block; height:54px" ng-style="card.color">&nbsp&nbsp
+                    </div>
+                    <md-toolbar class="dayCard md-primary"
+                                id="{{::card.id}}-{{card.badges.due | date : 'H,m,s' : timezone}}"
+                                style="margin-bottom:4px;padding:5px;float:right;overflow:hidden;white-space: nowrap;">
+                        <div class="title" ng-click="click(card.shortUrl)"
+                             style="width: 100%;overflow:hidden;white-space: nowrap;text-overflow: ellipsis;">
+                            {{::card.name}}
+                        </div>
+                        <div class="board" style="overflow:hidden"><a ng-href="{{::card.boardUrl}}" target="_blank">
+                            <span class="boardName">{{::card.boardName|cut:true:25}}</span></a><br>
+                            <span style="float: right;color:black;">{{card.badges.due | date : "HH:mm | dd.MM.yyyy" : timezone}}</span>
+                        </div>
+                    </md-toolbar>
+                </md-grid-tile>
+            </md-grid-list>
+        </md-tab-body>
+    </md-tab>
+    <md-tab id="tab2">
+        <md-tab-label>
+            <ng-md-icon icon="access_time" style="fill: #fff;padding:0px;margin:0px;" size="25">
+            </ng-md-icon>
 
-    <md-list-item ng-click="goTo('about')">
-        <ng-md-icon icon="info" style="fill: #666" size="24"></ng-md-icon>
-        <div class="md-list-item-text">
-            <p> About </p>
-        </div>
-    </md-list-item>
+        </md-tab-label>
+        <md-subheader>Coming Soon</md-subheader>
 
-    <md-tabs class="md-warn" md-selected="data.selectedIndex" style="height: 100%">
-        <md-tab id="tab1">
-            <md-tab-label>overdue</md-tab-label>
-            <md-tab-body>
-                View for Item #1 <br/>View for Item #1 <br/>View for Item #1 <br/>View for Item #1 <br/>View for Item #1
-                <br/>View for Item #1 <br/>View for Item #1 <br/>View for Item #1 <br/>View for Item #1 <br/>View for
-                Item #1 <br/>View for Item #1 <br/>View for Item #1 <br/>View for Item #1 <br/>View for Item #1 <br/>View
-                for Item #1 <br/>View for Item #1 <br/>View for Item #1 <br/>View for Item #1 <br/>View for Item #1
-                <br/>View for Item #1 <br/>View for Item #1 <br/>View for Item #1 <br/>View for Item #1 <br/>View for
-                Item #1 <br/>View for Item #1 <br/>View for Item #1 <br/>View for Item #1 <br/>View for Item #1 <br/>View
-                for Item #1 <br/>View for Item #1 <br/>View for Item #1 <br/>View for Item #1 <br/>View for Item #1
-                <br/>View for Item #1 <br/>View for Item #1 <br/>View for Item #1 <br/>View for Item #1 <br/>View for
-                Item #1 <br/>View for Item #1 <br/>View for Item #1 <br/>View for Item #1 <br/>View for Item #1 <br/>View
-                for Item #1 <br/>View for Item #1 <br/>View for Item #1 <br/>View for Item #1 <br/>View for Item #1
-                <br/>View for Item #1 <br/>View for Item #1 <br/>View for Item #1 <br/>View for Item #1 <br/>View for
-                Item #1 <br/>View for Item #1 <br/>View for Item #1 <br/>View for Item #1 <br/>View for Item #1 <br/>View
-                for Item #1 <br/>View for Item #1 <br/>View for Item #1 <br/>View for Item #1 <br/>View for Item #1
-                <br/>View for Item #1 <br/>View for Item #1 <br/>View for Item #1 <br/>View for Item #1 <br/>View for
-                Item #1 <br/>View for Item #1 <br/>View for Item #1 <br/>View for Item #1 <br/>
-                data.selectedIndex = 0;
-            </md-tab-body>
-        </md-tab>
+        <md-grid-list md-cols-sm="1" md-cols-md="2" md-cols-gt-md="4"
+                      md-row-height-gt-md="54px" md-row-height="54px"
+                      md-gutter="8px" md-gutter-gt-sm="4px" style="margin-top:5px">
 
-        <md-tab id="tab3">
-            <md-tab-label>coming</md-tab-label>
-            <md-tab-body>
-                View for Item #3 <br/>
-                data.selectedIndex = 2;
-            </md-tab-body>
-        </md-tab>
-    </md-tabs>
+            <md-grid-tile ng-repeat="card in cards |filter: isComing|orderBy:'due'" md-rowspan="1" md-colspan="2"
+                          style="background-color: {{board.color}}" class="overdue">
+                <div style="background-color:#42548E;display:block; height:54px" ng-style="card.color">&nbsp&nbsp
+                </div>
+                <md-toolbar class="dayCard md-primary"
+                            id="{{::card.id}}-{{card.badges.due | date : 'H,m,s' : timezone}}"
+                            style="margin-bottom:4px;padding:5px;float:right;overflow:hidden;white-space: nowrap;">
+                    <div class="title" ng-click="click(card.shortUrl)"
+                         style="width: 100%;overflow:hidden;white-space: nowrap;text-overflow: ellipsis;">
+                        {{::card.name}}
+                    </div>
+                    <div class="board" style="overflow:hidden"><a ng-href="{{::card.boardUrl}}" target="_blank">
+                        <span class="boardName">{{::card.boardName|cut:true:25}}</span></a><br>
+                        <span style="float: right;color:black;">{{card.badges.due | date : "HH:mm | dd.MM.yyyy" : timezone}}</span>
+                    </div>
+                </md-toolbar>
+            </md-grid-tile>
+        </md-grid-list>
+    </md-tab>
+    <md-tab id="tab3">
+        <md-tab-label>
+            <ng-md-icon icon="assignment" style="fill: #fff;padding:0px;margin:0px;" size="25">
+            </ng-md-icon>
+        </md-tab-label>
+        <md-subheader>no due date</md-subheader>
+
+        <md-grid-list md-cols-sm="1" md-cols-md="2" md-cols-gt-md="4"
+                      md-row-height-gt-md="54px" md-row-height="54px"
+                      md-gutter="8px" md-gutter-gt-sm="4px" style="margin-top:5px">
+
+            <md-grid-tile ng-repeat="card in cards |filter: isNoduedate|orderBy:'dateLastActivity'" md-rowspan="1"
+                          md-colspan="2" class="overdue">
+                <div style="background-color:#42548E;display:block; height:54px" ng-style="card.color">&nbsp&nbsp
+                </div>
+                <md-toolbar class="dayCard md-primary"
+                            id="{{::card.id}}-{{card.badges.due | date : 'H,m,s' : timezone}}"
+                            style="margin-bottom:4px;padding:5px;float:right;overflow:hidden;white-space: nowrap;">
+                    <div class="title" ng-click="click(card.shortUrl)"
+                         style="width: 100%;overflow:hidden;white-space: nowrap;text-overflow: ellipsis;">
+                        {{::card.name}}
+                    </div>
+                    <div class="board" style="overflow:hidden"><a ng-href="{{::card.boardUrl}}" target="_blank">
+                        <span class="boardName">{{::card.boardName|cut:true:25}}</span></a><br>
+                        <span style="float: right;color:black;">{{card.badges.due | date : "HH:mm | dd.MM.yyyy" : timezone}}</span>
+                    </div>
+                </md-toolbar>
+            </md-grid-tile>
+        </md-grid-list>
+    </md-tab>
+</md-tabs>

@@ -140,10 +140,11 @@
         localStorageServiceProvider
             .setPrefix('w11ktrello')
             .setStorageType('localStorage');
+        $urlRouterProvider.otherwise('/');
         $stateProvider
 
             .state('month', {
-                url: '',
+                url: '/',
                 views: {
                     'header': {
                         abstract: true,
@@ -394,10 +395,8 @@
 
     module.controller('headerCtrl', function ($q, $scope, $mdSidenav, $state, initService, $window, localStorageService, $location, $mdBottomSheet, $rootScope) {
 
-        $rootScope.$on('reload', function () {
-            console.log($scope.cards);
+        $rootScope.$on('rebuild', function () {
             $scope.cards = initService.getCards().withDue.concat(initService.getCards().withoutDue);
-            console.log($scope.cards);
         });
         $scope.cards = initService.getCards().withDue.concat(initService.getCards().withoutDue);
 
@@ -487,6 +486,7 @@
         };
 
         $scope.goTo = function (target) {
+
             $location.path('/' + target);
             $scope.toggleSidenav('left');
 

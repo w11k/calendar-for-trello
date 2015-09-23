@@ -56,7 +56,7 @@
                         </div>
                         <div class="board" style="overflow:hidden"><a ng-href="{{::card.boardUrl}}" target="_blank">
                             <span class="boardName">{{::card.boardName|cut:true:25}}</span></a><br>
-                            <span style="float: right;color:black;">{{card.badges.due | date : "HH:mm | dd.MM.yyyy" : timezone}}</span>
+                            <span style="float: right;color:#30364C;">{{card.badges.due | date : "MMM d, y" : timezone}}</span>
                         </div>
                     </md-toolbar>
                 </md-grid-tile>
@@ -88,7 +88,7 @@
                     </div>
                     <div class="board" style="overflow:hidden"><a ng-href="{{::card.boardUrl}}" target="_blank">
                         <span class="boardName">{{::card.boardName|cut:true:25}}</span></a><br>
-                        <span style="float: right;color:black;">{{card.badges.due | date : "HH:mm | dd.MM.yyyy" : timezone}}</span>
+                        <span style="float: right;color:black;">{{card.badges.due | date : "MMM d, y" : timezone}}</span>
                     </div>
                 </md-toolbar>
             </md-grid-tile>

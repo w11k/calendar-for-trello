@@ -43,7 +43,7 @@
     module.constant('baseUrl', window.location.origin);
 
 
-    module.config(/*ngInject*/ function ($urlRouterProvider, $stateProvider, localStorageServiceProvider, $mdThemingProvider) {
+    module.config(/*ngInject*/ function ($urlRouterProvider, $stateProvider, localStorageServiceProvider, $mdThemingProvider, $locationProvider) {
 
         $mdThemingProvider.definePalette('TrelloBusinessBlue', {
             '50': 'EDEFF4',
@@ -141,6 +141,7 @@
             .setPrefix('w11ktrello')
             .setStorageType('localStorage');
         $urlRouterProvider.otherwise('/');
+        $locationProvider.html5Mode(true);
         $stateProvider
 
             .state('month', {
@@ -489,7 +490,6 @@
 
             $location.path('/' + target);
             $scope.toggleSidenav('left');
-
 
         };
 

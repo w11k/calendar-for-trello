@@ -21,10 +21,12 @@
 </head>
 
 <body layout="row" flex layout-fill>
+<base href='/'>
+
 <md-backdrop class="md-sidenav-backdrop md-opaque md-default-theme md-sidenav-backdrop-custom disabled"
              ng-click="checkClosingForm()"></md-backdrop>
-<md-sidenav flex class="md-sidenav-left md-whiteframe-z2" md-is-locked-open="$mdMedia('gt-lg')" md-component-id="left"
-            style="position:relative;"
+<md-sidenav flex class="md-sidenav-left " md-is-locked-open="$mdMedia('gt-md')" md-component-id="left"
+            style="position:relative;background-color: whitesmoke"
             md-swipe-left="closeSidenav('left')">
 
     <md-toolbar layout="row" class="headBar md-whiteframe-glow-z2">
@@ -55,7 +57,7 @@
 <div layout="column" flex>
     <md-toolbar ui-view="header" class="header md-whiteframe-glow-z2" layout="row" class="headBar"
                 md-swipe-right="openSidenav('left')" md-swipe-left="closeSidenav('left')"></md-toolbar>
-    <md-content ui-view="content" class="md-padding"></md-content>
+    <md-content ui-view="content" class="md-padding" style="padding:0px;margin:0px"></md-content>
 </div>
 <!--
 enable before building as mobile app

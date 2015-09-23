@@ -1,4 +1,5 @@
-<md-subheader class="md-no-sticky"><i>Welcome, <strong style="font-weight: 600;">{{name}}</strong>.</i></md-subheader>
+<md-subheader class="md-no-sticky" style="background-color: whitesmoke"><i>Welcome, <strong style="font-weight: 600;">{{name}}</strong>.</i>
+</md-subheader>
 
 <md-list-item ng-click="goTo('month')">
     <ng-md-icon icon="today" style="fill: #666" size="24"></ng-md-icon>
@@ -30,7 +31,7 @@
 </md-list-item>
 
 <md-tabs md-center-tabs class="md-primary" md-selected="data.selectedIndex"
-         style="position: absolute;bottom: 0px;width:100%">
+         style="position: absolute;bottom: 0px;width:100%;margin-left:10px">
     <md-tab id="tab1">
         <md-tab-label>
             <ng-md-icon icon="assignment_late" style="fill: #fff;padding:0px;margin:0px;" size="25">

@@ -6,7 +6,7 @@
         <div style="margin-top: 0px">
             <ng-md-icon ng-style="overduedIcon" icon="warning" size="24"></ng-md-icon>
         </div>
-        <div ng-style="overduedTitle" style="margin-top:4px">There are overdued Cards!</div>
+        <div ng-style="overduedTitle" style="margin-top:4px">overdued Cards</div>
     </div>
     <div ng-style="overduedContent" class=" nav card-content" id="{{day.date | date: 'yyyy,MM,dd,'}}"
          ui-sortable="sortableOptions" ng-model="cards">
@@ -16,7 +16,7 @@
             </div>
             <md-toolbar class="dayCard md-primary" id="{{::card.id}}-{{card.badges.due | date : 'H,m,s' : timezone}}"
                         style="margin-bottom:4px;padding:8px;float:right;overflow:hidden;white-space: nowrap;padding-top: 10px">
-                <div class="title" ng-click="click(card.shortUrl)"
+                <div class="title" title="{{::card.name}}" ng-click="click(card.shortUrl)"
                      style="width: 100%;overflow:hidden;white-space: nowrap;text-overflow: ellipsis;">
                     {{::card.name}}
                 </div>
@@ -42,7 +42,7 @@
             </div>
             <md-toolbar class="dayCard md-primary" id="{{::card.id}}-{{card.badges.due | date : 'H,m,s' : timezone}}"
                         style="margin-bottom:4px;padding:8px;float:right;overflow:hidden;white-space: nowrap;padding-top: 10px">
-                <div class="title" ng-click="click(card.shortUrl)"
+                <div class="title" title="{{::card.name}}" ng-click="click(card.shortUrl)"
                      style="width: 100%;overflow:hidden;white-space: nowrap;text-overflow: ellipsis;">
                     {{::card.name}}
                 </div>
@@ -53,8 +53,8 @@
         </div>
     </div>
 </div>
-<md-subheader class="md-no-sticky" style="background-color: whitesmoke"><i>Notifications</i>
-</md-subheader>
+<!--<md-subheader class="md-no-sticky" style="background-color: whitesmoke"><i>Notifications</i>-->
+<!--</md-subheader>-->
 
 <md-list-item ng-click="goTo('month')">
     <ng-md-icon icon="today" style="fill: #666" size="24"></ng-md-icon>

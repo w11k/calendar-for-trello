@@ -574,7 +574,7 @@
                 $scope.overduedIcon = {fill: 'white'};
                 $scope.overduedTitle = {color: 'white'};
                 $scope.overduedContent = {height: 'auto'};
-
+                //$scope.overduedContent = {'max-height': '160px',height:'auto','overflow-y':'scroll'};
             }
             else {
                 $scope.overduedHeader = null;

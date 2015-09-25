@@ -26,11 +26,11 @@
 <md-backdrop class="md-sidenav-backdrop md-opaque md-default-theme md-sidenav-backdrop-custom disabled"
              ng-click="checkClosingForm()"></md-backdrop>
 
-<md-sidenav flex class="md-sidenav-left " md-is-locked-open="$mdMedia('gt-md')" md-component-id="left"
-            style="background-color: whitesmoke; overflow:visible;"
+<md-sidenav flex class="md-sidenav-left md-whiteframe-z2" md-is-locked-open="$mdMedia('gt-md')" md-component-id="left"
+            style="background-color: whitesmoke;overflow: visible;"
             md-swipe-left="closeSidenav('left')">
-    <div style="overflow-x:hidden;overflow-y: visible">
-        <md-toolbar layout="row" class="headBar md-whiteframe-glow-z2" style="margin-bottom: 5px;overflow: hidden;">
+    <div>
+        <md-toolbar layout="row" class="headBar md-whiteframe-z2" style="margin-bottom: 5px;">
             <h2 class="md-toolbar-tools" style="position: relative" hide-gt-lg ng-click="toHome()">Calendar for
                 <img style="float:right;padding-left:10px;"
                      src="https://d78fikflryjgj.cloudfront.net/images/50b4ebc64391dc394a38e73aed57f0e2/header-logo.png"/>
@@ -39,11 +39,12 @@
         </md-toolbar>
     </div>
 
-    <div style="position: fixed;height: -moz-calc(100% - 72px);height: -webkit-calc(100% - 72px);height: calc(100% - 72px);width: 100%;overflow:visible;">
-        <md-list ui-view="sidebar" style="overflow-x: visible;">
-        </md-list>
 
+    <div ui-view="sidebar"
+         style="overflow-x:hidden;overflow-y: scroll;height: -moz-calc(100% - 100px);height: -webkit-calc(100% - 100px);height: calc(100% - 100px);width: 100%;">
     </div>
+
+
 </md-sidenav>
 
 <md-sidenav class="md-sidenav-right md-whiteframe-z2" md-component-id="right">

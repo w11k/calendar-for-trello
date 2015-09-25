@@ -11,9 +11,14 @@ body {
   height:100%
 }
 
+.test {
+  overflow: -moz-scrollbars-none;
+  -ms-overflow-style: none;
+}
 
-
-
+.test::-webkit-scrollbar {
+  display: none;
+}
 
 
 md-bottom-sheet {

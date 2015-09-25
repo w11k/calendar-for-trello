@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html ng-controller="AppCtrl">
 <head>
+    <base href='/'>
     <!--<title>w11k Trello Calendar</title>-->
     <meta name="viewport" content="initial-scale=1"/>
     <!--
@@ -21,23 +22,28 @@
 </head>
 
 <body layout="row" flex layout-fill>
-<base href='/'>
 
 <md-backdrop class="md-sidenav-backdrop md-opaque md-default-theme md-sidenav-backdrop-custom disabled"
              ng-click="checkClosingForm()"></md-backdrop>
+
 <md-sidenav flex class="md-sidenav-left " md-is-locked-open="$mdMedia('gt-md')" md-component-id="left"
-            style="position:relative;background-color: whitesmoke"
+            style="background-color: whitesmoke; overflow:visible;"
             md-swipe-left="closeSidenav('left')">
+    <div style="overflow-x:hidden;overflow-y: visible">
+        <md-toolbar layout="row" class="headBar md-whiteframe-glow-z2" style="margin-bottom: 5px;overflow: hidden;">
+            <h2 class="md-toolbar-tools" style="position: relative" hide-gt-lg ng-click="toHome()">Calendar for
+                <img style="float:right;padding-left:10px;"
+                     src="https://d78fikflryjgj.cloudfront.net/images/50b4ebc64391dc394a38e73aed57f0e2/header-logo.png"/>
+            </h2>
 
-    <md-toolbar layout="row" class="headBar md-whiteframe-glow-z2">
-        <h2 class="md-toolbar-tools" style="position: relative" hide-gt-lg ng-click="toHome()">Calendar for
-            <img style="float:right;padding-left:10px;" src="https://d78fikflryjgj.cloudfront.net/images/50b4ebc64391dc394a38e73aed57f0e2/header-logo.png"/>
-        </h2>
-    </md-toolbar>
+        </md-toolbar>
+    </div>
 
-    <md-list ui-view="sidebar">
-    </md-list>
+    <div style="position: fixed;height: -moz-calc(100% - 72px);height: -webkit-calc(100% - 72px);height: calc(100% - 72px);width: 100%;overflow:visible;">
+        <md-list ui-view="sidebar" style="overflow-x: visible;">
+        </md-list>
 
+    </div>
 </md-sidenav>
 
 <md-sidenav class="md-sidenav-right md-whiteframe-z2" md-component-id="right">
@@ -45,18 +51,15 @@
         <h1 class="md-toolbar-tools">Search</h1>
     </md-toolbar>
     <div layout-padding>
-
-
         <div ui-view="search"></div>
-
-
     </div>
 </md-sidenav>
 
 
 <div layout="column" flex>
     <md-toolbar ui-view="header" class="header md-whiteframe-glow-z2" layout="row" class="headBar"
-                md-swipe-right="openSidenav('left')" md-swipe-left="closeSidenav('left')"></md-toolbar>
+                md-swipe-right="openSidenav('left')" md-swipe-left="closeSidenav('left')"
+                style="height: 62px"></md-toolbar>
     <md-content ui-view="content" class="md-padding" style="padding:0px;margin:0px"></md-content>
 </div>
 <!--

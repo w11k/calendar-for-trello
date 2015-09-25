@@ -141,7 +141,6 @@ angular.module('trelloCal').factory('initService', /*ngInject*/  function ($q, $
                     }
                 });
         };
-
         var getData = function () {
 
             allCards = {
@@ -170,8 +169,8 @@ angular.module('trelloCal').factory('initService', /*ngInject*/  function ($q, $
             init: function (option) {
 
 
-                if (!localStorageService.get('trello_token') || localStorageService.get('version') !== '0.1.21') {
-                    localStorageService.set('version', '0.1.21');
+                if (!localStorageService.get('trello_token') || localStorageService.get('version') !== '0.1.22') {
+                    localStorageService.set('version', '0.1.22');
                     $mdDialog.show({
                         controller: DialogController,
                         templateUrl: 'partials/StartDialog.html',
@@ -264,6 +263,7 @@ angular.module('trelloCal').factory('initService', /*ngInject*/  function ($q, $
                 card.badges.due = due;
                 card.due = due;
                 card.dueDay = new Date(new Date(due).setHours(0, 0, 0, 0));
+                $rootScope.$broadcast('rebuild');
             },
 
             getCards: function () {

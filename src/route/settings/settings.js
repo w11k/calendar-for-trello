@@ -4,7 +4,7 @@ settings.config(/*ngInject*/ function () {
 
 });
 
-settings.controller('settingsCtrl', function($scope, localStorageService,$window) {
+settings.controller('settingsCtrl', function ($scope, localStorageService, $window, initService) {
 
     $scope.settings = [
         {id: 'refresh', name: 'auto refresh',  icon: 'sync', enabled: localStorageService.get('refresh') === true, disabled: false },
@@ -17,7 +17,8 @@ settings.controller('settingsCtrl', function($scope, localStorageService,$window
 
         localStorageService.set(id, opt);
         if(id === 'boardColors' || id === 'observerMode') {
-            $window.location.reload();
+            //$window.location.reload();
+            initService.refresh();
         }
     };
 });

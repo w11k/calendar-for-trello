@@ -1,6 +1,61 @@
 <md-subheader class="md-no-sticky" style="background-color: whitesmoke"><i>Welcome, <strong style="font-weight: 600;">{{name}}</strong>.</i>
 </md-subheader>
 
+<div class="md-whiteframe-z2" style="margin:15px;background-color: white">
+    <div class="overdued" ng-style="overduedHeader" layout="row" ng-click="openCardOverdued();">
+        <div style="margin-top: 0px">
+            <ng-md-icon ng-style="overduedIcon" icon="warning" size="24"></ng-md-icon>
+        </div>
+        <div ng-style="overduedTitle" style="margin-top:4px">There are overdued Cards!</div>
+    </div>
+    <div ng-style="overduedContent" class=" nav card-content" id="{{day.date | date: 'yyyy,MM,dd,'}}"
+         ui-sortable="sortableOptions" ng-model="cards">
+        <div style="height: 4px;"></div>
+        <div ng-repeat="card in cards |filter: isOverdue|orderBy:'due'" layout="row">
+            <div style="background-color:#42548E;margin-bottom:4px;display:block;" ng-style="card.color">&nbsp&nbsp
+            </div>
+            <md-toolbar class="dayCard md-primary" id="{{::card.id}}-{{card.badges.due | date : 'H,m,s' : timezone}}"
+                        style="margin-bottom:4px;padding:8px;float:right;overflow:hidden;white-space: nowrap;padding-top: 10px">
+                <div class="title" ng-click="click(card.shortUrl)"
+                     style="width: 100%;overflow:hidden;white-space: nowrap;text-overflow: ellipsis;">
+                    {{::card.name}}
+                </div>
+                <div class="board"><a ng-href="{{::card.boardUrl}}" target="_blank">
+                    <span class="boardName">{{::card.boardName|cut:true:25}}</span></a><span
+                        style="float: right;color:black">{{card.badges.due | date : "MMM d, y" : timezone}}</span></div>
+            </md-toolbar>
+        </div>
+    </div>
+</div>
+<div class="md-whiteframe-z2" style="margin:15px;background-color: white">
+    <div class="nodue" ng-style="nodueHeader" layout="row" ng-click="openCardnoDue();">
+        <div style="margin-top: 0px">
+            <ng-md-icon ng-style="nodueIcon" icon="access_time" size="24"></ng-md-icon>
+        </div>
+        <div ng-style="nodueTitle" style="margin-top:4px">Cards without due date</div>
+    </div>
+    <div ng-style="nodueContent" class=" nav card-content" id="{{day.date | date: 'yyyy,MM,dd,'}}"
+         ui-sortable="sortableOptions" ng-model="cards">
+        <div style="height: 4px;"></div>
+        <div ng-repeat="card in cards |filter: isNoduedate|orderBy:'dateLastActivity'" layout="row">
+            <div style="background-color:#42548E;margin-bottom:4px;display:block " ng-style="card.color">&nbsp&nbsp
+            </div>
+            <md-toolbar class="dayCard md-primary" id="{{::card.id}}-{{card.badges.due | date : 'H,m,s' : timezone}}"
+                        style="margin-bottom:4px;padding:8px;float:right;overflow:hidden;white-space: nowrap;padding-top: 10px">
+                <div class="title" ng-click="click(card.shortUrl)"
+                     style="width: 100%;overflow:hidden;white-space: nowrap;text-overflow: ellipsis;">
+                    {{::card.name}}
+                </div>
+                <div class="board"><a ng-href="{{::card.boardUrl}}" target="_blank">
+                    <span class="boardName">{{::card.boardName|cut:true:25}}</span></a><span
+                        style="float: right;color:black">{{card.badges.due | date : "MMM d, y" : timezone}}</span></div>
+            </md-toolbar>
+        </div>
+    </div>
+</div>
+<md-subheader class="md-no-sticky" style="background-color: whitesmoke"><i>Notifications</i>
+</md-subheader>
+
 <md-list-item ng-click="goTo('month')">
     <ng-md-icon icon="today" style="fill: #666" size="24"></ng-md-icon>
     <div class="md-list-item-text">
@@ -30,99 +85,6 @@
     </div>
 </md-list-item>
 
-<md-tabs md-center-tabs class="md-primary" md-selected="data.selectedIndex"
-         style="position: absolute;bottom: 0px;width:100%;">
-    <md-tab id="tab1">
-        <md-tab-label>
-            <ng-md-icon icon="assignment_late" style="fill: #fff;padding:0px;margin:0px;" size="25">
 
-            </ng-md-icon>
-        </md-tab-label>
-        <md-tab-body>
-            <md-subheader>overdued cards</md-subheader>
-            <md-grid-list md-cols-sm="1" md-cols-md="2" md-cols-gt-md="4"
-                          md-row-height-gt-md="54px" md-row-height="54px"
-                          md-gutter="8px" md-gutter-gt-sm="4px" style="margin-top:4px;">
 
-                <md-grid-tile ng-repeat="card in cards |filter: isOverdue|orderBy:'due'" md-rowspan="1" md-colspan="2"
-                              style="background-color: {{board.color}}" class="overdue">
-                    <div style="background-color:#42548E;display:block; height:54px" ng-style="card.color">&nbsp&nbsp
-                    </div>
-                    <md-toolbar class="dayCard md-primary"
-                                id="{{::card.id}}-{{card.badges.due | date : 'H,m,s' : timezone}}"
-                                style="margin-bottom:4px;padding:5px;float:right;overflow:hidden;white-space: nowrap;">
-                        <div class="title" ng-click="click(card.shortUrl)"
-                             style="width: 100%;overflow:hidden;white-space: nowrap;text-overflow: ellipsis;">
-                            {{::card.name}}
-                        </div>
-                        <div class="board" style="overflow:hidden"><a ng-href="{{::card.boardUrl}}" target="_blank">
-                            <span class="boardName">{{::card.boardName|cut:true:25}}</span></a><br>
-                            <span style="float: right;color:#30364C;">{{card.badges.due | date : "MMM d, y" : timezone}}</span>
-                        </div>
-                    </md-toolbar>
-                </md-grid-tile>
-            </md-grid-list>
-        </md-tab-body>
-    </md-tab>
-    <md-tab id="tab2">
-        <md-tab-label>
-            <ng-md-icon icon="access_time" style="fill: #fff;padding:0px;margin:0px;" size="25">
-            </ng-md-icon>
 
-        </md-tab-label>
-        <md-subheader>upcoming cards</md-subheader>
-
-        <md-grid-list md-cols-sm="1" md-cols-md="2" md-cols-gt-md="4"
-                      md-row-height-gt-md="54px" md-row-height="54px"
-                      md-gutter="8px" md-gutter-gt-sm="4px" style="margin-top:5px">
-
-            <md-grid-tile ng-repeat="card in cards |filter: isComing|orderBy:'due'" md-rowspan="1" md-colspan="2"
-                          style="background-color: {{board.color}}" class="overdue">
-                <div style="background-color:#42548E;display:block; height:54px" ng-style="card.color">&nbsp&nbsp
-                </div>
-                <md-toolbar class="dayCard md-primary"
-                            id="{{::card.id}}-{{card.badges.due | date : 'H,m,s' : timezone}}"
-                            style="margin-bottom:4px;padding:5px;float:right;overflow:hidden;white-space: nowrap;">
-                    <div class="title" ng-click="click(card.shortUrl)"
-                         style="width: 100%;overflow:hidden;white-space: nowrap;text-overflow: ellipsis;">
-                        {{::card.name}}
-                    </div>
-                    <div class="board" style="overflow:hidden"><a ng-href="{{::card.boardUrl}}" target="_blank">
-                        <span class="boardName">{{::card.boardName|cut:true:25}}</span></a><br>
-                        <span style="float: right;color:black;">{{card.badges.due | date : "MMM d, y" : timezone}}</span>
-                    </div>
-                </md-toolbar>
-            </md-grid-tile>
-        </md-grid-list>
-    </md-tab>
-    <md-tab id="tab3">
-        <md-tab-label>
-            <ng-md-icon icon="assignment" style="fill: #fff;padding:0px;margin:0px;" size="25">
-            </ng-md-icon>
-        </md-tab-label>
-        <md-subheader>cards without due date</md-subheader>
-
-        <md-grid-list md-cols-sm="1" md-cols-md="2" md-cols-gt-md="4"
-                      md-row-height-gt-md="54px" md-row-height="54px"
-                      md-gutter="8px" md-gutter-gt-sm="4px" style="margin-top:5px">
-
-            <md-grid-tile ng-repeat="card in cards |filter: isNoduedate|orderBy:'dateLastActivity'" md-rowspan="1"
-                          md-colspan="2" class="overdue">
-                <div style="background-color:#42548E;display:block; height:54px" ng-style="card.color">&nbsp&nbsp
-                </div>
-                <md-toolbar class="dayCard md-primary"
-                            id="{{::card.id}}-{{card.badges.due | date : 'H,m,s' : timezone}}"
-                            style="margin-bottom:4px;padding:5px;float:right;overflow:hidden;white-space: nowrap;">
-                    <div class="title" ng-click="click(card.shortUrl)"
-                         style="width: 100%;overflow:hidden;white-space: nowrap;text-overflow: ellipsis;">
-                        {{::card.name}}
-                    </div>
-                    <div class="board" style="overflow:hidden"><a ng-href="{{::card.boardUrl}}" target="_blank">
-                        <span class="boardName">{{::card.boardName|cut:true:25}}</span></a><br>
-                        <span style="float: right;color:black;">{{card.badges.due | date : "HH:mm | dd.MM.yyyy" : timezone}}</span>
-                    </div>
-                </md-toolbar>
-            </md-grid-tile>
-        </md-grid-list>
-    </md-tab>
-</md-tabs>

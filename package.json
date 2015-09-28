@@ -1,6 +1,6 @@
 {
   "name": "w11k-trello-calendar",
-  "version": "0.1.26",
+  "version": "0.1.25",
 
   "devDependencies": {
     "grunt": "0.4.5",

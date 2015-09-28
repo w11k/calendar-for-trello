@@ -406,10 +406,10 @@
         $scope.cards = initService.getCards().withDue.concat(initService.getCards().withoutDue);
         $scope.selectedBoards = localStorageService.get('selectedBoards');
 
+        //ng-repeat filter
         $scope.cardSelected = function (card) {
             return _.find($scope.selectedBoards, {'id': card.idBoard});
         };
-
         $scope.isOverdue = function (card) {
             if (card.due < new Date()) {
                 for (var i = 0; i <= card.idMembers.length; i++) {
@@ -421,7 +421,6 @@
             }
             return false;
         };
-
         $scope.isNoduedate = function (card) {
             if (!card.due) {
                 for (var i = 0; i <= card.idMembers.length; i++) {
@@ -432,7 +431,6 @@
             }
             return false;
         };
-
         $scope.isComing = function (card) {
             if (card.due > new Date()) {
                 for (var i = 0; i <= card.idMembers.length; i++) {

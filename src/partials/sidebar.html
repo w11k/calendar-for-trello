@@ -1,17 +1,18 @@
 <md-subheader class="md-no-sticky" style="background-color: whitesmoke"><i>Welcome, <strong style="font-weight: 600;">{{name}}</strong>.</i>
 </md-subheader>
 
-<div class="md-whiteframe-z2" style="margin:15px;background-color: white">
+<div ng-hide="!overduedCards.length" class="md-whiteframe-z2" style="margin:15px;background-color: white">
     <div class="overdued" ng-style="overduedHeader" layout="row" ng-click="openCardOverdued();">
         <div style="margin-top: 0px">
             <ng-md-icon ng-style="overduedIcon" icon="warning" size="24"></ng-md-icon>
         </div>
-        <div ng-style="overduedTitle" style="margin-top:4px">overdued Cards</div>
+        <div ng-style="overduedTitle" style="margin-top:4px">There are overdued Cards!</div>
     </div>
     <div ng-style="overduedContent" class=" nav card-content" id="{{day.date | date: 'yyyy,MM,dd,'}}"
          ui-sortable="sortableOptions" ng-model="cards">
         <div style="height: 4px;"></div>
-        <div ng-repeat="card in cards |filter: isOverdue|filter: cardSelected |orderBy:'due'" layout="row">
+        <div ng-repeat="card in overduedCards=(cards |filter: isOverdue|filter: cardSelected )|orderBy:'due'"
+             layout="row">
             <div style="background-color:#42548E;margin-bottom:4px;display:block;" ng-style="card.color">&nbsp&nbsp
             </div>
             <md-toolbar class="dayCard md-primary" id="{{::card.id}}-{{card.badges.due | date : 'H,m,s' : timezone}}"
@@ -26,8 +27,10 @@
             </md-toolbar>
         </div>
     </div>
+
+
 </div>
-<div class="md-whiteframe-z2" style="margin:15px;background-color: white">
+<div ng-hide="!nodueCards.length" class="md-whiteframe-z2" style="margin:15px;background-color: white">
     <div class="nodue" ng-style="nodueHeader" layout="row" ng-click="openCardnoDue();">
         <div style="margin-top: 0px">
             <ng-md-icon ng-style="nodueIcon" icon="access_time" size="24"></ng-md-icon>
@@ -37,7 +40,7 @@
     <div ng-style="nodueContent" class=" nav card-content" id="{{day.date | date: 'yyyy,MM,dd,'}}"
          ui-sortable="sortableOptions" ng-model="cards">
         <div style="height: 4px;"></div>
-        <div ng-repeat="card in cards |filter: isNoduedate|filter: cardSelected |orderBy:'dateLastActivity'"
+        <div ng-repeat="card in nodueCards=(cards |filter: isNoduedate|filter: cardSelected )|orderBy:'dateLastActivity'"
              layout="row">
             <div style="background-color:#42548E;margin-bottom:4px;display:block " ng-style="card.color">&nbsp&nbsp
             </div>

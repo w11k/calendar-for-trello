@@ -411,7 +411,7 @@
         };
 
         $scope.isOverdue = function (card) {
-            if (card.dueDay < new Date()) {
+            if (card.due < new Date()) {
                 for (var i = 0; i <= card.idMembers.length; i++) {
                     if (card.idMembers[i] === $scope.id) {
                         return true;
@@ -434,7 +434,7 @@
         };
 
         $scope.isComing = function (card) {
-            if (card.dueDay > new Date()) {
+            if (card.due > new Date()) {
                 for (var i = 0; i <= card.idMembers.length; i++) {
                     if (card.idMembers[i] === $scope.id) {
                         return true;

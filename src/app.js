@@ -399,9 +399,16 @@
 
         $rootScope.$on('rebuild', function () {
             $scope.cards = initService.getCards().withDue.concat(initService.getCards().withoutDue);
+            $scope.selectedBoards = localStorageService.get('selectedBoards');
+
         });
 
         $scope.cards = initService.getCards().withDue.concat(initService.getCards().withoutDue);
+        $scope.selectedBoards = localStorageService.get('selectedBoards');
+
+        $scope.cardSelected = function (card) {
+            return _.find($scope.selectedBoards, {'id': card.idBoard});
+        };
 
         $scope.isOverdue = function (card) {
             if (card.dueDay < new Date()) {

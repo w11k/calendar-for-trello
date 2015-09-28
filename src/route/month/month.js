@@ -7,7 +7,7 @@ month.config(/*ngInject*/ function () {
 month.controller('monthCtrl', function (asInitService, $timeout, $interval,
                                         archiveCard, $scope, buildCalService, changeDate, $window,
                                         $stateParams, $location, $mdDialog, localStorageService, orderByFilter,
-                                        ngProgress, initService, $q, getExistingBoardColors) {
+                                        ngProgress, initService, $q, getExistingBoardColors, $rootScope) {
 
 
     $scope.refresh = function () {
@@ -15,6 +15,7 @@ month.controller('monthCtrl', function (asInitService, $timeout, $interval,
         ngProgress.start();
         initService.refresh().then(function () {
                 routine($scope.date);
+                $rootScope.$broadcast('rebuild');
                 ngProgress.complete();
             }
         );
@@ -235,9 +236,6 @@ month.controller('monthCtrl', function (asInitService, $timeout, $interval,
             }
 
         }
-        //localStorageService.set(id,$scope.colors[index].color);
-
-
         initService.updateColor(id);
 
 

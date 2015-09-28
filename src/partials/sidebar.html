@@ -11,7 +11,7 @@
     <div ng-style="overduedContent" class=" nav card-content" id="{{day.date | date: 'yyyy,MM,dd,'}}"
          ui-sortable="sortableOptions" ng-model="cards">
         <div style="height: 4px;"></div>
-        <div ng-repeat="card in cards |filter: isOverdue|orderBy:'due'" layout="row">
+        <div ng-repeat="card in cards |filter: isOverdue|filter: cardSelected |orderBy:'due'" layout="row">
             <div style="background-color:#42548E;margin-bottom:4px;display:block;" ng-style="card.color">&nbsp&nbsp
             </div>
             <md-toolbar class="dayCard md-primary" id="{{::card.id}}-{{card.badges.due | date : 'H,m,s' : timezone}}"
@@ -37,7 +37,8 @@
     <div ng-style="nodueContent" class=" nav card-content" id="{{day.date | date: 'yyyy,MM,dd,'}}"
          ui-sortable="sortableOptions" ng-model="cards">
         <div style="height: 4px;"></div>
-        <div ng-repeat="card in cards |filter: isNoduedate|orderBy:'dateLastActivity'" layout="row">
+        <div ng-repeat="card in cards |filter: isNoduedate|filter: cardSelected |orderBy:'dateLastActivity'"
+             layout="row">
             <div style="background-color:#42548E;margin-bottom:4px;display:block " ng-style="card.color">&nbsp&nbsp
             </div>
             <md-toolbar class="dayCard md-primary" id="{{::card.id}}-{{card.badges.due | date : 'H,m,s' : timezone}}"

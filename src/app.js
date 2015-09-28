@@ -130,6 +130,7 @@
             'contrastLightColors': undefined    // could also specify this if default was 'dark'
         });
 
+
         $mdThemingProvider.theme('default')
             .primaryPalette('TrelloBusinessBlue')
             .accentPalette('TrelloBusinessBlue')
@@ -411,7 +412,8 @@
             return _.find($scope.selectedBoards, {'id': card.idBoard});
         };
         $scope.isOverdue = function (card) {
-            if (card.due < new Date()) {
+
+            if (card.due && card.due < new Date()) {
                 for (var i = 0; i <= card.idMembers.length; i++) {
                     if (card.idMembers[i] === $scope.id) {
                         return true;

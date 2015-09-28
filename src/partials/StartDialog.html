@@ -1,4 +1,4 @@
-<md-dialog aria-label="Mango (Fruit)" flex="50">
+<md-dialog aria-label="Mango (Fruit)" flex>
     <form>
         <md-toolbar>
             <div class="md-toolbar-tools">
@@ -10,46 +10,61 @@
                 </h2>
             </div>
         </md-toolbar>
-        <md-dialog-content layout="row">
-            <div style="padding:10px">
-                <h1 class="md-headline">Calendar for Trello</h1>
+        <md-dialog-content>
+            <md-grid-list
+                    md-cols-sm="1" md-cols-md="1" md-cols-gt-md="3"
+                    md-row-height-gt-md="2:1" md-row-height="2:2" md-row-height-sm="2:1">
 
-                <div layout="row">
-                    <span style="padding-top:6px;">By&nbsp&nbsp</span>
-                    <a href="http://www.w11k.de">
-                        <img style="padding-top:5px;height: 20px"
-                             src="http://www.w11k.de/2.0.7/assets/img/w11k_logo_navbar.png">
-                    </a>
-                    <span style="padding-top:6px;">&nbsp and &nbsp</span>
-                    <a href="http://www.thecodecampus.de">
-                        <img style="height: 30px;filter: invert(1);-webkit-filter: invert(1);"
-                             src="http://www.thecodecampus.de/1.0.11/assets/thecodecampus_w.png">
-                    </a>
+                <md-grid-tile md-colspan-gt-md="2" md-colspan-sm="1" md-colspan-md="1"
+                              style="background-color: green; overflow:hidden" layout="collum">
+                    <div><h1 class="md-headline">Calendar for Trello</h1>
 
-                </div>
+                        <span style="padding-top:6px;">By&nbsp&nbsp</span>
+                        <a href="http://www.w11k.de">
+                            <img style="padding-top:5px;height: 20px"
+                                 src="http://www.w11k.de/2.0.7/assets/img/w11k_logo_navbar.png">
+                        </a>
+                        <span style="padding-top:6px;">&nbsp and &nbsp</span>
+                        <a href="http://www.thecodecampus.de">
+                            <img style="height: 30px;filter: invert(1);-webkit-filter: invert(1);"
+                                 src="http://www.thecodecampus.de/1.0.11/assets/thecodecampus_w.png">
+                        </a>
 
 
-                <p>Trello is a productivity tool that helps you to organize projects by creating individual lists,
-                    boards and cards.
-                    Manage your projects in teams, get more flexible and improve your workflow.</p>
+                        <p>Trello is a productivity tool that helps you to organize projects by creating individual
+                            lists,
+                            boards and cards.
+                            Manage your projects in teams, get more flexible and improve your workflow.</p>
 
-                <p>The w11k Trello Calendar allows you to organize all cards of all boards in one calendar.
-                    Trello Calendar is Open Source and available at <a href="https://github.com/w11k/trello-calendar"
-                                                                       rel="_blank">GitHub.</a></p>
-            </div>
-            <div flex="33" style="padding:10px">
-                <h1 class="md-headline">What's New</h1>
-                <h6>(vers.: 0.1.22)</h6>
-                <ul>
-                    <li>new overview with drag&drop function</li>
-                    <ul>
-                        <li>overdued cards</li>
-                        <li>cards without due date</li>
-                    </ul>
-                    <li>Mouseover title</li>
+                        <p>The w11k Trello Calendar allows you to organize all cards of all boards in one calendar.
+                            Trello Calendar is Open Source and available at <a
+                                    href="https://github.com/w11k/trello-calendar"
+                                    rel="_blank">GitHub.</a></p></div>
 
-                </ul>
-            </div>
+                </md-grid-tile>
+
+                <md-grid-tile md-colspan--gt-md="1" md-colspan-sm="1" md-colspan-md="1"
+                              style="background-color: yellow">
+                    Test
+                </md-grid-tile>
+
+            </md-grid-list>
+            <!--<div style="padding:10px">-->
+
+            <!--</div>-->
+            <!--<div flex="33" style="padding:10px">-->
+            <!--<h1 class="md-headline">What's New</h1>-->
+            <!--<h6>(vers.: 0.1.22)</h6>-->
+            <!--<ul>-->
+            <!--<li>new overview with drag&drop function</li>-->
+            <!--<ul>-->
+            <!--<li>overdued cards</li>-->
+            <!--<li>cards without due date</li>-->
+            <!--</ul>-->
+            <!--<li>Mouseover title</li>-->
+
+            <!--</ul>-->
+            <!--</div>-->
 
         </md-dialog-content>
         <div class="md-actions" layout="row">

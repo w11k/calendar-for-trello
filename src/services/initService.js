@@ -26,6 +26,7 @@ angular.module('trelloCal').factory('initService', /*ngInject*/  function ($q, $
                 .then(function (responses) {
                     var boards = _.indexBy(responses[1].data, 'id');
                     var cardRequests = [];
+
                     _.forEach(boards, function (board) {
                         if (board.closed) {
                             //filter closed boards:
@@ -39,11 +40,11 @@ angular.module('trelloCal').factory('initService', /*ngInject*/  function ($q, $
                     });
                     $q.all(cardRequests).then(function (response) {
                         _.forEach(response, function (cards) {
+
                             cards.data.forEach(function (entry) {
                                 entry.waiting = false;
                                 entry.boardName = boards[entry.idBoard].name;
                                 entry.boardUrl = boards[entry.idBoard].url;
-
                                 //Farben aus localtorage holen wenn verfügbar
                                 if (localStorageService.get('boardColors') !== false) {
                                     if (localStorageService.get('Boards')) {
@@ -71,7 +72,6 @@ angular.module('trelloCal').factory('initService', /*ngInject*/  function ($q, $
                         responses[1].data = allCards.withDue;
                         data = responses;
                         responses.push(boards);
-
                         login.resolve(responses);
                     });
                 },

@@ -67,8 +67,10 @@
                                  style="width: 100%;overflow:hidden;white-space: nowrap;text-overflow: ellipsis;">
                                 {{::card.name}}
                             </div>
+                            <span style="color: dimgrey;">in list <span style="font-style: italic;">{{card.listName}}</span></span>
                             <div class="board"> <a ng-href="{{::card.boardUrl}}" target="_blank">
                                 <span class="boardName">{{::card.boardName|cut:true:25}}</span></a><span style="float: right;">{{card.badges.due | date : "HH:mm" : timezone}}</span></div>
+
                         </md-toolbar>
                     </div>
                 </div>

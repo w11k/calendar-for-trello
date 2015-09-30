@@ -50,6 +50,7 @@ module.exports = {
           'angular-animate/angular-animate.js',
           'angular-aria/angular-aria.js',
           'angular-material/angular-material.js',
+          'angular-webstorage/angular-webstorage.js',
           'moment/moment.js',
           'moment/locales/en-gb.js',
           'jquery-ui-touch-punch/jquery.ui.touch-punch.js',

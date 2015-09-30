@@ -16,7 +16,7 @@
         'ngSanitize',
         'ngProgress',
         'ui.select',
-
+        'webStorageModule',
         // Route
 
         'trelloCal.month',
@@ -350,6 +350,7 @@
     });
 
 
+
     module.run(/*ngInject*/ function ($location, $rootScope) {
         if ($location.$$protocol !== 'http' && $location.$$protocol !== 'https') {
             $rootScope.mobil = true;
@@ -364,11 +365,19 @@
         $rootScope.$on('$stateChangeStart', function () {
             ngProgress.start();
         });
-
+        $scope.keyHandler = function (e) {
+            var event = window.event ? window.event : e;
+            if (event.keyCode === 114) {
+                console.log('reload');
+                $rootScope.$broadcast('reload');
+            }
+        };
 
         $rootScope.$on('reload', function () {
+            ngProgress.start();
             initService.refresh().then(function () {
                 $rootScope.$broadcast('rebuild');
+                ngProgress.complete();
             });
         });
         $scope.keepOpen = false;
@@ -505,6 +514,7 @@
             $mdSidenav(menuId).open();
         };
 
+
         $scope.goTo = function (target) {
 
             $location.path('/' + target);
@@ -609,28 +619,28 @@
         };
 
 
-        var token = localStorageService.get('trello_token');
-        var key = AppKey;
-        var cardDueSoon = $http.get('https://api.trello.com/1/members/me/notifications/?read_filter=read&limit=4&memberCreator_fields=fullName&filter=cardDueSoon&key=' + key + '&token=' + token);
-
-        $q.all([cardDueSoon]).then(function (responses) {
-
-                $scope.cardDueSoon = responses[0].data;
-
-            },
-            function (error) {
-                // Something went wrong
-                console.log(error);
-
-                // maybe auth?
-                if (error.status === 401) {
-                    //log out, reload.
-                    localStorageService.remove('trello_token');
-                    $window.location.reload();
-                }
-            }
-        )
-        ;
+        //var token = localStorageService.get('trello_token');
+        //var key = AppKey;
+        //var cardDueSoon = $http.get('https://api.trello.com/1/members/me/notifications/?read_filter=read&limit=4&memberCreator_fields=fullName&filter=cardDueSoon&key=' + key + '&token=' + token);
+        //
+        //$q.all([cardDueSoon]).then(function (responses) {
+        //
+        //        $scope.cardDueSoon = responses[0].data;
+        //
+        //    },
+        //    function (error) {
+        //        // Something went wrong
+        //        console.log(error);
+        //
+        //        // maybe auth?
+        //        if (error.status === 401) {
+        //            //log out, reload.
+        //            localStorageService.remove('trello_token');
+        //            $window.location.reload();
+        //        }
+        //    }
+        //)
+        //;
 
     });
 

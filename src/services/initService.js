@@ -1,6 +1,8 @@
 'use strict';
-angular.module('trelloCal').factory('initService', /*ngInject*/  function ($q, $http, $mdDialog, $rootScope, localStorageService, $window, baseUrl, AppKey) {
+angular.module('trelloCal').factory('initService', /*ngInject*/  function ($q, webStorage, $http, $mdDialog, $rootScope, localStorageService, $window, baseUrl, AppKey) {
 
+        console.log(webStorage.has('test'));
+        //webStorage.set('test','testinhalt');
         var key = AppKey;
         var token = localStorageService.get('trello_token');
         var login, me, boards, data, cards;
@@ -22,29 +24,61 @@ angular.module('trelloCal').factory('initService', /*ngInject*/  function ($q, $
 
             me = $http.get('https://api.trello.com/1/members/me?key=' + key + '&token=' + token);
             boards = $http.get('https://api.trello.com/1/members/my/boards/?filter=open&key=' + key + '&token=' + token);
+
             $q.all([me, boards])
                 .then(function (responses) {
                     var boards = _.indexBy(responses[1].data, 'id');
                     var cardRequests = [];
+                    var listRequests = [];
 
                     _.forEach(boards, function (board) {
-                        if (board.closed) {
-                            //filter closed boards:
+                        cardRequests.push($http.get('https://api.trello.com/1/boards/' + board.id + '/cards/?key=' + key + '&token=' + token));
+                        $http.get('https://api.trello.com/1/boards/' + board.id + '/lists/?key=' + key + '&token=' + token).then(function (response) {
+                            _.forEach(response.data, function (list) {
+                                listRequests.push(list);
+                            });
+                        }, function (error) {
+                            console.log('List-Request-Error: ', error);
+                        });
 
-                            return;
-                        }
-                        else {
-                            cardRequests.push($http.get('https://api.trello.com/1/boards/' + board.id + '/cards/?key=' + key + '&token=' + token));
-
-                        }
                     });
                     $q.all(cardRequests).then(function (response) {
                         _.forEach(response, function (cards) {
-
                             cards.data.forEach(function (entry) {
                                 entry.waiting = false;
                                 entry.boardName = boards[entry.idBoard].name;
                                 entry.boardUrl = boards[entry.idBoard].url;
+
+                                if (localStorageService.get('TrelloData')) {
+                                    if (entry.due !== null) {
+                                        var withDue = _.indexBy(localStorageService.get('TrelloData')[1].data.withDue, 'id');
+                                        if (withDue[entry.id] && withDue[entry.id].listName) {
+                                            entry.listName = (withDue[entry.id].listName);
+                                        }
+                                        else {
+                                            entry.listName = ('**********');
+                                        }
+                                    }
+                                    else {
+                                        var withoutDue = _.indexBy(localStorageService.get('TrelloData')[1].data.withoutDue, 'id');
+                                        if (withoutDue[entry.id] && withoutDue[entry.id].listName) {
+                                            entry.listName = (withoutDue[entry.id].listName);
+                                        }
+                                        else {
+                                            entry.listName = ('**********');
+                                        }
+                                    }
+                                }
+
+                                if (_.indexBy(listRequests, 'id')[entry.idList]) {
+                                    if (_.indexBy(listRequests, 'id')[entry.idList].name) {
+                                        entry.listName = _.indexBy(listRequests, 'id')[entry.idList].name;
+
+                                    }
+
+                                }
+
+
                                 //Farben aus localtorage holen wenn verfügbar
                                 if (localStorageService.get('boardColors') !== false) {
                                     if (localStorageService.get('Boards')) {
@@ -57,7 +91,6 @@ angular.module('trelloCal').factory('initService', /*ngInject*/  function ($q, $
 
                                 }
 
-
                                 if (entry.due === null) {
                                     //Card has no due date
                                     allCards.withoutDue.push(entry);
@@ -69,15 +102,18 @@ angular.module('trelloCal').factory('initService', /*ngInject*/  function ($q, $
                                 allCards.withDue.push(entry);
                             });
                         });
-                        responses[1].data = allCards.withDue;
+                        responses[1].data = allCards;
                         data = responses;
                         responses.push(boards);
                         login.resolve(responses);
+                        localStorageService.set('TrelloData', responses);
+                    }, function (error) {
+                        console.log('Card-Request-Error:', error);
                     });
                 },
                 function (error) {
                     // Something went wrong
-                    console.log(error);
+                    console.log('me/board-Request-Error:', error);
                     // maybe auth?
                     if (error.status === 401) {
                         //log out, reload.
@@ -90,7 +126,7 @@ angular.module('trelloCal').factory('initService', /*ngInject*/  function ($q, $
 
         var pullMy = function () {
             var token = localStorageService.get('trello_token');
-
+            var listRequests = [];
             me = $http.get('https://api.trello.com/1/members/me?key=' + key + '&token=' + token);
             boards = $http.get('https://api.trello.com/1/members/my/boards/?filter=open&key=' + key + '&token=' + token);
             cards = $http.get('https://api.trello.com/1/members/me/cards?key=' + key + '&token=' + token);
@@ -98,10 +134,50 @@ angular.module('trelloCal').factory('initService', /*ngInject*/  function ($q, $
                 .then(function (responses) {
                     var cards = responses[1].data;
                     var boards = _.indexBy(responses[2].data, 'id');
+
+                    _.forEach(boards, function (board) {
+                        $http.get('https://api.trello.com/1/boards/' + board.id + '/lists/?key=' + key + '&token=' + token).then(function (response) {
+                            _.forEach(response.data, function (list) {
+                                listRequests.push(list);
+                            });
+                        }, function (error) {
+                            console.log('List-Request-Error: ', error);
+                        });
+                    });
+
                     cards.forEach(function (entry) {
                         entry.waiting = false;
                         entry.boardName = boards[entry.idBoard].name;
                         entry.boardUrl = boards[entry.idBoard].url;
+                        ///
+                        if (localStorageService.get('TrelloData')) {
+                            if (entry.due !== null) {
+                                var withDue = _.indexBy(localStorageService.get('TrelloData')[1].data.withDue, 'id');
+                                if (withDue[entry.id].listName) {
+                                    entry.listName = (withDue[entry.id].listName);
+                                }
+                                else {
+                                    entry.listName = ('**********');
+                                }
+                            }
+                            else {
+                                var withoutDue = _.indexBy(localStorageService.get('TrelloData')[1].data.withoutDue, 'id');
+                                if (withoutDue[entry.id].listName) {
+                                    entry.listName = (withoutDue[entry.id].listName);
+                                }
+                                else {
+                                    entry.listName = ('**********');
+                                }
+                            }
+                        }
+
+                        if (_.indexBy(listRequests, 'id')[entry.idList]) {
+                            if (_.indexBy(listRequests, 'id')[entry.idList].name) {
+                                entry.listName = _.indexBy(listRequests, 'id')[entry.idList].name;
+
+                            }
+
+                        }
                         //Farben aus localStorage holen wenn verfügbar
                         if (localStorageService.get('boardColors') !== false) {
                             if (localStorageService.get('Boards')) {
@@ -122,10 +198,12 @@ angular.module('trelloCal').factory('initService', /*ngInject*/  function ($q, $
                         entry.due = new Date(entry.due);
                         allCards.withDue.push(entry);
                     });
-                    responses[1].data = cards;
+                    responses[1].data = allCards;
                     responses[2].data = boards;
-                    data = responses;
+                    responses.push(boards);
                     login.resolve(responses);
+                    localStorageService.set('TrelloData', responses);
+                    data = responses;
 
                 },
 
@@ -257,7 +335,7 @@ angular.module('trelloCal').factory('initService', /*ngInject*/  function ($q, $
             },
 
             updateDate: function (cardId, due) {
-                var card = _.find(data[1].data, function (chr) {
+                var card = _.find(data[1].data.withDue, function (chr) {
                     return chr.id === cardId;
                 });
                 card.badges.due = due;
@@ -287,4 +365,5 @@ angular.module('trelloCal').factory('initService', /*ngInject*/  function ($q, $
             }
         };
     }
-);
+)
+;

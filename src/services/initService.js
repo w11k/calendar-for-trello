@@ -1,17 +1,136 @@
 'use strict';
 angular.module('trelloCal').factory('initService', /*ngInject*/  function ($q, webStorage, $http, $mdDialog, $rootScope, localStorageService, $window, baseUrl, AppKey) {
 
-        console.log(webStorage.has('test'));
-        //webStorage.set('test','testinhalt');
         var key = AppKey;
         var token = localStorageService.get('trello_token');
-        var login, me, boards, data, cards;
+        var login, me, boards, data, cards, colors;
         login = $q.defer();
-
         var allCards = {
             withDue: [],
             withoutDue: []
         };
+
+        /*
+         *Init variables
+         */
+        var version = '0.1.25';
+        var boardColors = true;
+        var observer = true;
+        /*
+         *firstInit pulls the userinformation and board colors
+         * fields: fullName, id  fields: color,id,...
+         * */
+        var firstInit = function () {
+            if (!webStorage.has('TrelloCalendarStorage')) {
+                webStorage.set('TrelloCalendarStorage', {});
+            }
+            var TrelloCalendarStorage = webStorage.get('TrelloCalendarStorage');
+            me = $http.get('https://api.trello.com/1/members/me?fields=fullName&key=' + key + '&token=' + token);
+            colors = $http.get('https://api.trello.com/1/members/me/boardBackgrounds?key=' + key + '&token=' + token);
+            $q.all([me, colors]).then(function (responses) {
+                TrelloCalendarStorage.me = responses[0].data;
+                TrelloCalendarStorage.colors = _.indexBy(responses[1].data, 'id');
+                TrelloCalendarStorage.me.observer = observer;
+                TrelloCalendarStorage.me.boardColors = boardColors;
+                TrelloCalendarStorage.me.version = version;
+                if (!TrelloCalendarStorage.cards) {
+                    TrelloCalendarStorage.cards = {};
+                }
+                if (!TrelloCalendarStorage.cards.all) {
+                    TrelloCalendarStorage.cards.all = {};
+                }
+                if (!TrelloCalendarStorage.cards.my) {
+                    TrelloCalendarStorage.cards.my = {};
+                }
+                TrelloCalendarStorage.cards = {
+                    'all': TrelloCalendarStorage.cards.all,
+                    'my': TrelloCalendarStorage.cards.my
+                };
+                webStorage.set('TrelloCalendarStorage', TrelloCalendarStorage);
+                pullBoards();
+            });
+
+        };
+        /*
+         *pullBoards pulls open Boards from Trello
+         *fields: name, shortUrl, id, prefs{background,backgroundColor,...}
+         * */
+        var pullBoards = function () {
+            var TrelloCalendarStorage = webStorage.get('TrelloCalendarStorage');
+            $http.get('https://api.trello.com/1/members/me/boards/?fields=name,shortUrl,prefs&filter=open&key=' + key + '&token=' + token).then(function (responses) {
+                TrelloCalendarStorage.boards = _.indexBy(responses.data, 'id');
+                webStorage.set('TrelloCalendarStorage', TrelloCalendarStorage);
+                pullLists();
+                pullCards();
+
+            });
+        };
+        /*
+         *pullLists pulls open Lists from Trello
+         *fields: id, name
+         * */
+        var pullLists = function () {
+            var TrelloCalendarStorage = webStorage.get('TrelloCalendarStorage');
+            var listRequests = [];
+            var alllists = [];
+            _.forEach(TrelloCalendarStorage.boards, function (board) {
+                listRequests.push($http.get('https://api.trello.com/1/boards/' + board.id + '/lists/?fields=name&filter=open&key=' + key + '&token=' + token));
+                //    .then(function (responses) {
+                //lists=lists.concat(responses.data);
+            });
+            $q.all(listRequests).then(function (responses) {
+                _.forEach(responses, function (lists) {
+                    alllists = alllists.concat(lists.data);
+                });
+                TrelloCalendarStorage.lists = _.indexBy(alllists, 'id');
+                webStorage.set('TrelloCalendarStorage', TrelloCalendarStorage);
+            });
+        };
+        /*
+         *switches between pull my/all Cards
+         */
+        var pullCards = function () {
+            var TrelloCalendarStorage = webStorage.get('TrelloCalendarStorage');
+            if (TrelloCalendarStorage.me.observer) {
+                pullAllCards();
+            }
+            else {
+                pullMyCards();
+            }
+        };
+        /*
+         *pullMyCards pulls open Cards from Trello
+         *if me/observer is false
+         *fields: id, name,idList,dateLastActivity,shortUrl,due,idBoard
+         * */
+        var pullMyCards = function () {
+            var TrelloCalendarStorage = webStorage.get('TrelloCalendarStorage');
+            $http.get('https://api.trello.com/1/members/me/cards/?fields=idList,name,dateLastActivity,shortUrl,due,idBoard&filter=open&key=' + key + '&token=' + token).then(function (responses) {
+                TrelloCalendarStorage.cards.my = _.indexBy(responses.data, 'id');
+                webStorage.set('TrelloCalendarStorage', TrelloCalendarStorage);
+            });
+        };
+        /*
+         *pullAllCards pulls open Cards from Trello
+         *if me/observer is true
+         *fields: id, name,idList,dateLastActivity,shortUrl,due,idBoard
+         * */
+        var pullAllCards = function () {
+            var TrelloCalendarStorage = webStorage.get('TrelloCalendarStorage');
+            var cardRequests = [];
+            var allCards = [];
+            _.forEach(TrelloCalendarStorage.boards, function (board) {
+                cardRequests.push($http.get('https://api.trello.com/1/boards/' + board.id + '/cards/?fields=idList,name,dateLastActivity,shortUrl,due,idBoard&filter=open&key=' + key + '&token=' + token));
+            });
+            $q.all(cardRequests).then(function (responses) {
+                _.forEach(responses, function (lists) {
+                    allCards = allCards.concat(lists.data);
+                });
+                TrelloCalendarStorage.cards.all = _.indexBy(allCards, 'id');
+                webStorage.set('TrelloCalendarStorage', TrelloCalendarStorage);
+            });
+        };
+
 
         /*
          * Collect profil information + boards
@@ -123,7 +242,6 @@ angular.module('trelloCal').factory('initService', /*ngInject*/  function ($q, w
                 });
 
         };
-
         var pullMy = function () {
             var token = localStorageService.get('trello_token');
             var listRequests = [];
@@ -231,7 +349,6 @@ angular.module('trelloCal').factory('initService', /*ngInject*/  function ($q, w
                 return pullAll();
             }
         };
-
         var DialogController = function ($scope, $mdDialog) {
             $scope.hide = function () {
                 $mdDialog.hide();
@@ -245,7 +362,6 @@ angular.module('trelloCal').factory('initService', /*ngInject*/  function ($q, w
         };
         return {
             init: function (option) {
-
 
                 if (!localStorageService.get('trello_token') || localStorageService.get('version') !== '0.1.25') {
                     localStorageService.set('version', '0.1.25');
@@ -270,7 +386,9 @@ angular.module('trelloCal').factory('initService', /*ngInject*/  function ($q, w
 
                             } else {
                                 $window.location.href = 'https://trello.com/1/authorize?response_type=token&key=' + key + '&redirect_uri=' + encodeURI(baseUrl) + '%2F%23%2Ftoken%3Fdo%3Dsettoken%26callback_method=fragment&scope=read%2Cwrite%2Caccount&expiration=never&name=Calendar+for+Trello';
+
                             }
+
                         }
                         else {
                             if (data && option !== 1) {
@@ -308,6 +426,8 @@ angular.module('trelloCal').factory('initService', /*ngInject*/  function ($q, w
                 } else {
                     pullAll();
                 }
+                firstInit();
+
 
                 return login.promise;
             },

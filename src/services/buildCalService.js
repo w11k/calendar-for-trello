@@ -1,5 +1,5 @@
 'use strict';
-angular.module('trelloCal').factory('buildCalService', /*ngInject*/  function (initService) {
+angular.module('trelloCal').factory('buildCalService', /*ngInject*/  function (webStorage) {
 
     /**
      * returns amount of days for month in year
@@ -17,11 +17,30 @@ angular.module('trelloCal').factory('buildCalService', /*ngInject*/  function (i
 
         build: function (inDate) {
             boards = [];
-            var cards = initService.print()[1].data.withDue;
+            var card;
+            var cards = [];
+            if (webStorage.get('TrelloCalendarStorage').me.observer === true) {
+                //cards=(webStorage.get('TrelloCalendarStorage')).cards.all;
+                for (card in (webStorage.get('TrelloCalendarStorage')).cards.all) {
+                    cards.push((webStorage.get('TrelloCalendarStorage')).cards.all[card]);
+                }
+
+            }
+            else {
+                //cards=(webStorage.get('TrelloCalendarStorage')).cards.my;
+
+                for (card in (webStorage.get('TrelloCalendarStorage')).cards.my) {
+                    cards.push((webStorage.get('TrelloCalendarStorage')).cards.my[card]);
+                }
+
+            }
+
             cards = _.groupBy(cards, 'dueDay');
             delete cards.undefined;
-            var buildADay = function (date, dayOff){
-                var isToday = (new Date(+date).setHours(0,0,0,0) === new Date().setHours(0,0,0,0));
+            var buildADay = function (date, dayOff) {
+
+
+                var isToday = (new Date(+date).setHours(0, 0, 0, 0) === new Date().setHours(0, 0, 0, 0));
                 var day = {
                     date: date,
                     dayOff: dayOff,
@@ -29,27 +48,28 @@ angular.module('trelloCal').factory('buildCalService', /*ngInject*/  function (i
                     isToday: isToday,
                     weekday: moment(new Date(date)).format('dddd')
                 };
+                if (cards[date.toUTCString()]) {
 
-                if(cards[date]){
-                    cards[date].forEach( function (item) {
+                    cards[date.toUTCString()].forEach(function (item) {
                         var board = {
                             name: item.boardName,
                             _lowername: item.boardName.toLowerCase(),
                             id: item.idBoard,
                             image: '#',
                             email: '#',
-                            color:item.color
+                            color: item.color
 
                         };
+
                         boards.push(board);
-                    day.cards.push(item);
-                });
+                        day.cards.push(item);
+                    });
                 }
-                return  day;
+                return day;
             };
             var days = [];
 
-            function getDaysInMonth (year, month) {
+            function getDaysInMonth(year, month) {
                 var date = new Date(year, month, 1);
                 /**
                  * get start - offset
@@ -60,10 +80,10 @@ angular.module('trelloCal').factory('buildCalService', /*ngInject*/  function (i
                     // if week starts with monday, add 7 days
                     runs = 8;
                 }
-                config.startOffset = runs-1;
-                var workDate = new Date(date-1);
-                for (var d = 1; d < runs; ){
-                    days.push(buildADay(new Date(workDate.setHours(0,0,0,0)), true));
+                config.startOffset = runs - 1;
+                var workDate = new Date(date - 1);
+                for (var d = 1; d < runs;) {
+                    days.push(buildADay(new Date(workDate.setHours(0, 0, 0, 0)), true));
                     workDate.setDate(workDate.getDate() - 1);
 
                     // if weekday is 1 push 7 days:
@@ -84,7 +104,7 @@ angular.module('trelloCal').factory('buildCalService', /*ngInject*/  function (i
                  */
                 var a = days.length;
                 if (a % 7 !== 0) {
-                    a = 7-(a % 7);
+                    a = 7 - (a % 7);
                 } else {
                     a = 7;
                 }

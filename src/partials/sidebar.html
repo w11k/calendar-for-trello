@@ -11,9 +11,9 @@
     <div ng-style="overduedContent" class=" nav card-content" id="{{day.date | date: 'yyyy,MM,dd,'}}"
          ui-sortable="sortableOptions" ng-model="cards">
         <div style="height: 4px;"></div>
-        <div ng-repeat="card in overduedCards=(cards |filter: isOverdue|filter: cardSelected )|orderBy:'due'"
+        <div ng-repeat="card in overduedCards=(cards |filter: isOverdue|filter: cardSelected)|orderBy:'due'"
              layout="row">
-            <div style="background-color:#42548E;margin-bottom:4px;display:block;" ng-style="card.color">&nbsp&nbsp
+            <div style="background-color:{{card.color}};margin-bottom:4px;display:block;">&nbsp&nbsp
             </div>
             <md-toolbar class="dayCard md-primary" id="{{::card.id}}-{{card.badges.due | date : 'H,m,s' : timezone}}"
                         style="margin-bottom:4px;padding:8px;float:right;overflow:hidden;white-space: nowrap;padding-top: 10px">
@@ -21,9 +21,10 @@
                      style="width: 100%;overflow:hidden;white-space: nowrap;text-overflow: ellipsis;">
                     {{::card.name}}
                 </div>
+                <span style="color: dimgrey;">in list <span style="font-style: italic;">{{card.listName}}</span></span>
                 <div class="board"><a ng-href="{{::card.boardUrl}}" target="_blank">
                     <span class="boardName">{{::card.boardName|cut:true:25}}</span></a><span
-                        style="float: right;color:black">{{card.badges.due | date : "MMM d, y" : timezone}}</span></div>
+                        style="float: right;color:black">{{card.due | date : "MMM d, y" : timezone}}</span></div>
             </md-toolbar>
         </div>
     </div>
@@ -42,7 +43,7 @@
         <div style="height: 4px;"></div>
         <div ng-repeat="card in nodueCards=(cards |filter: isNoduedate|filter: cardSelected )|orderBy:'dateLastActivity'"
              layout="row">
-            <div style="background-color:#42548E;margin-bottom:4px;display:block " ng-style="card.color">&nbsp&nbsp
+            <div style="background-color:{{card.color}};margin-bottom:4px;display:block ">&nbsp&nbsp
             </div>
             <md-toolbar class="dayCard md-primary" id="{{::card.id}}-{{card.badges.due | date : 'H,m,s' : timezone}}"
                         style="margin-bottom:4px;padding:8px;float:right;overflow:hidden;white-space: nowrap;padding-top: 10px">
@@ -50,15 +51,15 @@
                      style="width: 100%;overflow:hidden;white-space: nowrap;text-overflow: ellipsis;">
                     {{::card.name}}
                 </div>
+                <span style="color: dimgrey;">in list <span style="font-style: italic;">{{card.listName}}</span></span>
                 <div class="board"><a ng-href="{{::card.boardUrl}}" target="_blank">
                     <span class="boardName">{{::card.boardName|cut:true:25}}</span></a><span
-                        style="float: right;color:black">{{card.badges.due | date : "MMM d, y" : timezone}}</span></div>
+                        style="float: right;color:black">{{card.due | date : "MMM d, y" : timezone}}</span></div>
             </md-toolbar>
         </div>
     </div>
 </div>
-<!--<md-subheader class="md-no-sticky" style="background-color: whitesmoke"><i>Notifications</i>-->
-<!--</md-subheader>-->
+
 
 <md-list-item ng-click="goTo('month')">
     <ng-md-icon icon="today" style="fill: #666" size="24"></ng-md-icon>
@@ -66,14 +67,6 @@
         <p> Month </p>
     </div>
 </md-list-item>
-
-<md-list-item ng-click="goTo('settings')">
-    <ng-md-icon icon="settings" style="fill: #666" size="24"></ng-md-icon>
-    <div class="md-list-item-text">
-        <p> Settings </p>
-    </div>
-</md-list-item>
-
 
 <md-list-item ng-click="goTo('boards')">
     <ng-md-icon icon="my_library_books" style="fill: #666" size="24"></ng-md-icon>

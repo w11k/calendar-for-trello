@@ -1,8 +1,8 @@
 'use strict';
-angular.module('trelloCal').factory('streamService', /*ngInject*/  function ($q, $http,  $rootScope, localStorageService, baseUrl, AppKey, initService) {
+angular.module('trelloCal').factory('streamService', /*ngInject*/  function (webStorage, $q, $http, $rootScope, localStorageService, baseUrl, AppKey, initService) {
 
     var key = AppKey;
-    var token = localStorageService.get('trello_token');
+    var token = webStorage.get('trello_token');
     var request = $q.defer();
     var data;
 

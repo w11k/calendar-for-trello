@@ -43,7 +43,7 @@
     module.constant('baseUrl', window.location.origin);
 
 
-    module.config(/*ngInject*/ function ($urlRouterProvider, $stateProvider, localStorageServiceProvider, $mdThemingProvider, $locationProvider) {
+    module.config(/*ngInject*/ function ($urlRouterProvider, $stateProvider, $mdThemingProvider, $locationProvider) {
 
         $mdThemingProvider.definePalette('TrelloBusinessBlue', {
             '50': 'EDEFF4',
@@ -130,7 +130,6 @@
             'contrastLightColors': undefined    // could also specify this if default was 'dark'
         });
 
-
         $mdThemingProvider.theme('default')
             .primaryPalette('TrelloBusinessBlue')
             .accentPalette('TrelloBusinessBlue')
@@ -138,9 +137,6 @@
             .backgroundPalette('TrelloGrey');
 
 
-        localStorageServiceProvider
-            .setPrefix('w11ktrello')
-            .setStorageType('localStorage');
         $urlRouterProvider.otherwise('/');
         $locationProvider.html5Mode(true);
         $stateProvider
@@ -301,16 +297,6 @@
                         robots: 'index,follow',
                         canonical: 'https://www.calendar-for-trello.com/boards',
                     }
-                },
-                resolve: {
-                    'asInitService': function (initService) {
-
-                        return initService.init();
-                    },
-                    'getExistingBoardColors': function (localStorageService) {
-                        return localStorageService.get('Boards');
-                    }
-
                 }
             })
             .state('token', {
@@ -337,18 +323,7 @@
                     }
                 }
             });
-
-        if (!localStorage.getItem('w11ktrello.boardColors')) {
-            localStorage.setItem('w11ktrello.boardColors', true);
-        }
-
-        if (!localStorage.getItem('w11ktrello.observerMode')) {
-            localStorage.setItem('w11ktrello.observerMode', false);
-        }
-
-
     });
-
 
 
     module.run(/*ngInject*/ function ($location, $rootScope) {
@@ -357,32 +332,7 @@
         }
     });
 
-    module.controller('AppCtrl', function ($scope, $rootScope, ngProgress, initService, $mdSidenav) {
-        ngProgress.color('#C5CAE9');
-        $rootScope.$on('$stateChangeSuccess', function () {
-            ngProgress.complete();
-        });
-        $rootScope.$on('$stateChangeStart', function () {
-            ngProgress.start();
-        });
-        $scope.keyHandler = function (e) {
-            var event = window.event ? window.event : e;
-            if (event.keyCode === 114) {
-                console.log('reload');
-                $rootScope.$broadcast('reload');
-            }
-        };
-
-        $rootScope.$on('reload', function () {
-            ngProgress.start();
-            initService.refresh().then(function () {
-                $rootScope.$broadcast('rebuild');
-                ngProgress.complete();
-            });
-        });
-        $scope.keepOpen = false;
-
-
+    module.controller('AppCtrl', function ($scope, $rootScope, ngProgress, initService, $mdSidenav, webStorage) {
         function toggleRight() {
             $mdSidenav('right').toggle().then(function () {
                 $scope.keepOpen = !$scope.keepOpen;
@@ -395,252 +345,274 @@
             });
         }
 
-        $scope.toggleRight = toggleRight;
 
-        $scope.checkClosingForm = function () {
-            if (true) {
-                toggleRight();
-            }
-        };
+        if (webStorage.has('TrelloCalendarStorage')) {
+            ngProgress.color('#C5CAE9');
+            $rootScope.$on('$stateChangeSuccess', function () {
+                ngProgress.complete();
+            });
+            $rootScope.$on('$stateChangeStart', function () {
+                ngProgress.start();
+            });
+            $scope.keyHandler = function (e) {
+                var event = window.event ? window.event : e;
+                if (event.keyCode === 114) {
+                    console.log('reload');
+                    $rootScope.$broadcast('reload');
+                }
+            };
+
+            $rootScope.$on('reload', function () {
+                ngProgress.start();
+                initService.refresh().then(function () {
+                    $rootScope.$broadcast('rebuild');
+                    ngProgress.complete();
+                });
+            });
+            $scope.keepOpen = false;
+
+
+            $scope.toggleRight = toggleRight;
+
+            $scope.checkClosingForm = function () {
+                if (true) {
+                    toggleRight();
+                }
+            };
+        }
 
     });
 
-    module.controller('headerCtrl', function ($q, AppKey, $http, ngProgress, changeDate, $mdDialog, $scope, $mdSidenav, $state, initService, $window, localStorageService, $location, $mdBottomSheet, $rootScope) {
-
-        $rootScope.$on('rebuild', function () {
-            $scope.cards = initService.getCards().withDue.concat(initService.getCards().withoutDue);
-            $scope.selectedBoards = localStorageService.get('selectedBoards');
-
-        });
-
-        $scope.cards = initService.getCards().withDue.concat(initService.getCards().withoutDue);
-        $scope.selectedBoards = localStorageService.get('selectedBoards');
-
-        //ng-repeat filter
-        $scope.cardSelected = function (card) {
-            return _.find($scope.selectedBoards, {'id': card.idBoard});
-        };
-        $scope.isOverdue = function (card) {
-
-            if (card.due && card.due < new Date()) {
-                for (var i = 0; i <= card.idMembers.length; i++) {
-                    if (card.idMembers[i] === $scope.id) {
-                        return true;
-                    }
+    module.controller('headerCtrl', function ($q, AppKey, webStorage, $http, ngProgress, changeDate, $mdDialog, $scope, $mdSidenav, $state, initService, $window, $location, $mdBottomSheet, $rootScope) {
+        if (webStorage.has('TrelloCalendarStorage')) {
+            $scope.cards = [];
+            var syncicon = '';
+            if (webStorage.get('TrelloCalendarStorage').me.autorefresh) {
+                if (webStorage.get('TrelloCalendarStorage').me.autorefresh === true) {
+                    syncicon = 'sync';
                 }
-
-            }
-            return false;
-        };
-        $scope.isNoduedate = function (card) {
-            if (!card.due) {
-                for (var i = 0; i <= card.idMembers.length; i++) {
-                    if (card.idMembers[i] === $scope.id) {
-                        return true;
-                    }
+                else {
+                    syncicon = 'sync_disabled';
                 }
             }
-            return false;
-        };
-        $scope.isComing = function (card) {
-            if (card.due > new Date()) {
-                for (var i = 0; i <= card.idMembers.length; i++) {
-                    if (card.idMembers[i] === $scope.id) {
-                        return true;
-                    }
+            else {
+                syncicon = 'sync_disabled';
+            }
+            //toDo cards my/all in one or mark cars in all with my tag
+            $rootScope.$on('rebuild', function () {
+                $scope.cards = [];
+                for (var x in webStorage.get('TrelloCalendarStorage').cards.my) {
+                    $scope.cards.push(webStorage.get('TrelloCalendarStorage').cards.my[x]);
                 }
+                //$scope.selectedBoards = localStorageService.get('selectedBoards');
+
+            });
+            for (var x in webStorage.get('TrelloCalendarStorage').cards.my) {
+                $scope.cards.push(webStorage.get('TrelloCalendarStorage').cards.my[x]);
+            }
+            /**filter for Overviews**/
+            $scope.cardSelected = function (card) {
+                if (_.find(webStorage.get('TrelloCalendarStorage').boards, {'id': card.idBoard})) {
+                    return _.find(webStorage.get('TrelloCalendarStorage').boards, {'id': card.idBoard}).enabled;
+                }
+                return false;
+            };
+            $scope.isOverdue = function (card) {
+                if (card.due !== null && new Date(card.due) < new Date()) {
+                    //toDo add idMembers to card
+                    //for (var i = 0; i <= card.idMembers.length; i++) {
+                    //    if (card.idMembers[i] === $scope.id) {
+                    //        return true;
+                    //    }
+                    //}
+                    return true;
+                }
+                return false;
+            };
+            $scope.isNoduedate = function (card) {
+                if (!card.due) {
+                    //toDo add idMembers to card
+                    //for (var i = 0; i <= card.idMembers.length; i++) {
+                    //    if (card.idMembers[i] === $scope.id) {
+                    //        return true;
+                    //    }
+                    //}
+                    return true;
+                }
+                return false;
+            };
+
+            $scope.click = function (shortUrl) {
+                $window.open(shortUrl);
+            };
+
+            /**Menu in Header**/
+            $scope.actions = [
+                {name: 'Auto-Refresh', icon: syncicon, identifier: 'refresh'},
+                {name: 'Logout', icon: 'clear', identifier: 'logout'}
+            ];
+            $scope.more = [
+                {name: 'Submit Feature Request', icon: 'wb_incandescent', identifier: 'feature'},
+                {name: 'Report a Problem', icon: 'report_problem', identifier: 'bug'},
+                {name: 'Delete all Settings', icon: 'delete', identifier: 'reset'}
+            ];
+            $scope.listItemClick = function (identifier) {
+                var url = 'https://github.com/w11k/trello-calendar';
+                switch (identifier) {
+                    case 'logout':
+                        $scope.logout();
+                        break;
+                    case 'refresh':
+                        var storage = webStorage.get('TrelloCalendarStorage');
+                        storage.me.autorefresh = !storage.me.autorefresh;
+                        webStorage.set('TrelloCalendarStorage', storage);
+                        if (storage.me.autorefresh === true) {
+                            syncicon = 'sync';
+                        }
+                        else {
+                            syncicon = 'sync_disabled';
+                        }
+                        $scope.actions = [
+                            {name: 'Auto-Refresh', icon: syncicon, identifier: 'refresh'},
+                            {name: 'Logout', icon: 'clear', identifier: 'logout'}
+                        ];
+                        break;
+                    case 'feature':
+                        window.open(url, '_blank');
+                        break;
+                    case 'bug':
+                        window.open(url, '_blank');
+                        break;
+                    case 'reset':
+                        webStorage.remove('TrelloCalendarStorage');
+                        $window.location.reload();
+                        break;
+                }
+                $mdBottomSheet.hide(identifier);
+            };
+
+            /**welcome Text**/
+            if (webStorage.get('TrelloCalendarStorage').me) {
+                $scope.name = webStorage.get('TrelloCalendarStorage').me.fullName;
+                $scope.id = webStorage.get('TrelloCalendarStorage').me.id;
+            } else {
+                $scope.name = 'please login';
             }
 
-            return false;
-        };
+            $scope.toggleSidenav = function (menuId) {
+                $mdSidenav(menuId).toggle();
+            };
 
-        $scope.click = function (shortUrl) {
-            $window.open(shortUrl);
-        };
+            $scope.closeSidenav = function (menuId) {
+                $mdSidenav(menuId).close();
+            };
 
-        $scope.actions = [
-            {name: 'Refresh', icon: 'sync', identifier: 'refresh'},
-            {name: 'Logout', icon: 'clear', identifier: 'logout'}
-        ];
-        $scope.more = [
-            {name: 'Submit Feature Request', icon: 'wb_incandescent', identifier: 'feature'},
-            {name: 'Report a Problem', icon: 'report_problem', identifier: 'bug'},
-            {name: 'Delete all Settings', icon: 'delete', identifier: 'reset'}
-        ];
-        $scope.listItemClick = function (identifier) {
-            var url = 'https://github.com/w11k/trello-calendar';
+            $scope.openSidenav = function (menuId) {
+                $mdSidenav(menuId).open();
+            };
 
-            switch (identifier) {
-                case 'logout':
-                    $scope.logout();
-                    break;
-                case 'refresh':
-                    $rootScope.$broadcast('reload');
-                    break;
-                case 'feature':
-                    window.open(url, '_blank');
-                    break;
-                case 'bug':
-                    window.open(url, '_blank');
-                    break;
-                case 'reset':
-                    localStorageService.remove('BoardColors');
-                    localStorageService.remove('observerMode');
-                    localStorageService.remove('version');
-                    localStorageService.remove('Boards');
-                    localStorageService.remove('selectedBoards');
-                    $window.location.reload();
-                    break;
-            }
-            $mdBottomSheet.hide(identifier);
-        };
+            $scope.goTo = function (target) {
 
-        if (initService.print()) {
-            $scope.name = initService.print()[0].data.fullName;
-            $scope.id = initService.print()[0].data.id;
-        } else {
-            $scope.name = 'please login';
+                $location.path('/' + target);
+                $scope.toggleSidenav('left');
+
+            };
+
+            $scope.sortableOptions = {
+                receive: function (e, ui) {
+                    var id = ui.item[0].children[1].id.split('-')[0];
+                    ngProgress.start();
+                    var str = e.target.id + ui.item[0].children[1].id.split('-')[1];
+                    var newStr = [];
+
+                    angular.forEach(str.split(','), function (value) {
+                        newStr.push(parseInt(value));
+                    });
+                    if (!newStr[3]) {
+                        newStr[3] = 12;
+                        newStr.push(0);
+                        newStr.push(0);
+                    }
+                    var targetDate = new Date(newStr[0], newStr[1] - 1, newStr[2], newStr[3], newStr[4]);
+
+                    changeDate.async(id, targetDate).then(function () {
+                            initService.updateDate(id, targetDate);
+                            ngProgress.complete();
+                        },
+                        function () {
+                            var dialog = function () {
+                                $mdDialog.show(
+                                    $mdDialog.alert()
+                                        .parent(angular.element(document.body))
+                                        .title('Oops, something went wrong.')
+                                        .content('please check your connection and reload this page')
+                                        .ariaLabel('Connection Error')
+                                        .ok('reload')
+                                    //  .targetEvent(ev)
+                                ).then(function () {
+                                        changeDate.async(ui.item[0].firstElementChild.id.split('-')[0], targetDate).then(function () {
+                                            // user is only, successfull
+                                        }, function () {
+                                            dialog();
+
+                                        });
+                                    });
+                            };
+                            dialog();
+                        });
+
+                },
+                placeholder: 'card',
+                connectWith: '.dayCards'
+
+            };
+
+            $scope.logout = function () {
+                initService.remove();
+                $scope.login = false;
+                $window.location.reload();
+            };
+
+            $scope.toHome = function () {
+                $location.path('/');
+
+            };
+
+            $scope.openCardOverdued = function () {
+                if ($scope.overduedHeader === {} || !$scope.overduedHeader) {
+                    $scope.overduedHeader = {'background-color': '#CF513D'};
+                    $scope.overduedIcon = {fill: 'white'};
+                    $scope.overduedTitle = {color: 'white'};
+                    $scope.overduedContent = {height: 'auto'};
+                    //$scope.overduedContent = {'max-height': '160px',height:'auto','overflow-y':'scroll'};
+                }
+                else {
+                    $scope.overduedHeader = null;
+                    $scope.overduedIcon = null;
+                    $scope.overduedTitle = null;
+                    $scope.overduedContent = null;
+
+                }
+            };
+            $scope.openCardnoDue = function () {
+                if ($scope.nodueHeader === {} || !$scope.nodueHeader) {
+                    $scope.nodueHeader = {'background-color': '#42548E'};
+                    $scope.nodueIcon = {fill: 'white'};
+                    $scope.nodueTitle = {color: 'white'};
+                    $scope.nodueContent = {height: 'auto'};
+
+                }
+                else {
+                    $scope.nodueHeader = null;
+                    $scope.nodueIcon = null;
+                    $scope.nodueTitle = null;
+                    $scope.nodueContent = null;
+
+                }
+            };
+
         }
 
-        $scope.toggleSidenav = function (menuId) {
-            $mdSidenav(menuId).toggle();
-        };
-
-        $scope.closeSidenav = function (menuId) {
-            $mdSidenav(menuId).close();
-        };
-
-        $scope.openSidenav = function (menuId) {
-            $mdSidenav(menuId).open();
-        };
-
-
-        $scope.goTo = function (target) {
-
-            $location.path('/' + target);
-            $scope.toggleSidenav('left');
-
-        };
-
-        $scope.sortableOptions = {
-            receive: function (e, ui) {
-                var id = ui.item[0].children[1].id.split('-')[0];
-                ngProgress.start();
-                var str = e.target.id + ui.item[0].children[1].id.split('-')[1];
-                var newStr = [];
-
-                angular.forEach(str.split(','), function (value) {
-                    newStr.push(parseInt(value));
-                });
-                if (!newStr[3]) {
-                    newStr[3] = 12;
-                    newStr.push(0);
-                    newStr.push(0);
-                }
-                var targetDate = new Date(newStr[0], newStr[1] - 1, newStr[2], newStr[3], newStr[4]);
-
-                changeDate.async(id, targetDate).then(function () {
-                        initService.updateDate(id, targetDate);
-                        ngProgress.complete();
-                    },
-                    function () {
-                        var dialog = function () {
-                            $mdDialog.show(
-                                $mdDialog.alert()
-                                    .parent(angular.element(document.body))
-                                    .title('Oops, something went wrong.')
-                                    .content('please check your connection and reload this page')
-                                    .ariaLabel('Connection Error')
-                                    .ok('reload')
-                                //  .targetEvent(ev)
-                            ).then(function () {
-                                    changeDate.async(ui.item[0].firstElementChild.id.split('-')[0], targetDate).then(function () {
-                                        // user is only, successfull
-                                    }, function () {
-                                        dialog();
-
-                                    });
-                                });
-                        };
-                        dialog();
-                    });
-
-            },
-            placeholder: 'card',
-            connectWith: '.dayCards'
-
-        };
-
-        $scope.logout = function () {
-            initService.remove();
-            $scope.login = false;
-            $window.location.reload();
-        };
-
-        $scope.toHome = function () {
-            if (localStorageService.get('startMonth') !== false) {
-                $location.path('/month');
-            } else {
-                $location.path('/week');
-            }
-        };
-
-        $scope.openCardOverdued = function () {
-            if ($scope.overduedHeader === {} || !$scope.overduedHeader) {
-                $scope.overduedHeader = {'background-color': '#CF513D'};
-                $scope.overduedIcon = {fill: 'white'};
-                $scope.overduedTitle = {color: 'white'};
-                $scope.overduedContent = {height: 'auto'};
-                //$scope.overduedContent = {'max-height': '160px',height:'auto','overflow-y':'scroll'};
-            }
-            else {
-                $scope.overduedHeader = null;
-                $scope.overduedIcon = null;
-                $scope.overduedTitle = null;
-                $scope.overduedContent = null;
-
-            }
-        };
-        $scope.openCardnoDue = function () {
-            if ($scope.nodueHeader === {} || !$scope.nodueHeader) {
-                $scope.nodueHeader = {'background-color': '#42548E'};
-                $scope.nodueIcon = {fill: 'white'};
-                $scope.nodueTitle = {color: 'white'};
-                $scope.nodueContent = {height: 'auto'};
-
-            }
-            else {
-                $scope.nodueHeader = null;
-                $scope.nodueIcon = null;
-                $scope.nodueTitle = null;
-                $scope.nodueContent = null;
-
-            }
-        };
-
-
-        //var token = localStorageService.get('trello_token');
-        //var key = AppKey;
-        //var cardDueSoon = $http.get('https://api.trello.com/1/members/me/notifications/?read_filter=read&limit=4&memberCreator_fields=fullName&filter=cardDueSoon&key=' + key + '&token=' + token);
-        //
-        //$q.all([cardDueSoon]).then(function (responses) {
-        //
-        //        $scope.cardDueSoon = responses[0].data;
-        //
-        //    },
-        //    function (error) {
-        //        // Something went wrong
-        //        console.log(error);
-        //
-        //        // maybe auth?
-        //        if (error.status === 401) {
-        //            //log out, reload.
-        //            localStorageService.remove('trello_token');
-        //            $window.location.reload();
-        //        }
-        //    }
-        //)
-        //;
 
     });
 

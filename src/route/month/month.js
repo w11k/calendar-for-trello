@@ -4,14 +4,13 @@ month.config(/*ngInject*/ function () {
 
 });
 
-month.controller('monthCtrl', function (asInitService, $timeout, $interval,
+month.controller('monthCtrl', function ($timeout, $interval,
                                         archiveCard, $scope, buildCalService, changeDate, $window,
                                         $stateParams, $location, $mdDialog, localStorageService, orderByFilter,
-                                        ngProgress, initService, $q, getExistingBoardColors, $rootScope) {
+                                        ngProgress, initService, $q, getExistingBoardColors, $rootScope, webStorage) {
 
 
     $scope.refresh = function () {
-
         ngProgress.start();
         initService.refresh().then(function () {
                 routine($scope.date);
@@ -20,89 +19,13 @@ month.controller('monthCtrl', function (asInitService, $timeout, $interval,
             }
         );
     };
-    function init() {
-        if (localStorageService.get('observerMode') === true) {
-            $scope.boards = (initService.print()[2]);
-        }
-        else {
-            $scope.boards = initService.print()[2].data;
-        }
-        $scope.colors = [
-            {name: 'Blue', color: '#0079BF'},
-            {name: 'Yellow', color: '#D29034'},
-            {name: 'Green', color: '#519839'},
-            {name: 'Red', color: '#B04632'},
-            {name: 'Purple', color: '#89609E'},
-            {name: 'Pink', color: '#CD5A91'},
-            {name: 'Light Green', color: '#00BCD4'},
-            {name: 'Sky', color: '#00AECC'},
-            {name: 'Grey', color: '#838C91'}
-        ];
+    $scope.reloadView = function () {
+        ngProgress.start();
+        routine($scope.date);
+        $rootScope.$broadcast('rebuild');
+        ngProgress.complete();
+    };
 
-
-        // Init Werte von Datenbank in LocalStorage aktualisieren falls nicht verfügbar
-        for (var board in $scope.boards) {
-            var ColorIndex = 4;
-            switch ($scope.boards[board].prefs.backgroundColor) {
-                case '#0079BF':
-                    ColorIndex = 0;
-                    break;
-                case '#D29034':
-                    ColorIndex = 1;
-                    break;
-                case '#519839':
-                    ColorIndex = 2;
-                    break;
-                case '#B04632':
-                    ColorIndex = 3;
-                    break;
-                case '#89609E':
-                    ColorIndex = 4;
-                    break;
-                case '#CD5A91':
-                    ColorIndex = 5;
-                    break;
-                case '#4BBF6B':
-                    ColorIndex = 6;
-                    break;
-                case '#00AECC':
-                    ColorIndex = 7;
-                    break;
-                case '#838C91':
-                    ColorIndex = 8;
-
-
-            }
-
-            //        $scope.boards[board].prefs.backgroundColor=localStorageService.get($scope.boards[board].id);
-            var y = '{"id":"' + board + '","color":"' + $scope.colors[ColorIndex].color + '","colorName":"' + $scope.colors[ColorIndex].name + '","name":"' + $scope.boards[board].name + '","enabled":true}';
-            var obj = JSON.parse(y);
-            if (!getExistingBoardColors) {
-                getExistingBoardColors = [obj];
-                localStorageService.set('Boards', [obj]);
-            } // neuen Array in LocalStorage
-            else {
-                var exists = false;
-                for (var i = 0; i < getExistingBoardColors.length; i++) {
-
-                    if (board === getExistingBoardColors[i].id) {
-                        exists = true;
-                        if ($scope.boards[board].closed === true) {
-                            getExistingBoardColors.splice(i, 1);
-                        }
-                    }
-                }
-                if (exists === false && $scope.boards[board].closed === false) {
-
-                    getExistingBoardColors.push(obj);
-                    localStorageService.set('Boards', getExistingBoardColors);
-                }
-            } //dem vorhandenen Array Objekte hinzufügen
-        }
-        $scope.refresh();
-    }
-
-    init();
     var routine = function (date, defer) {
         $scope.days = buildCalService.build(date).days;
         $scope.date = {
@@ -111,25 +34,15 @@ month.controller('monthCtrl', function (asInitService, $timeout, $interval,
             month: date.month,
             year: date.year
         };
-
         $scope.isToday = (date.year === today.year && date.month === today.month);
-
-
         $scope.searchText = null;
         $scope.querySearch = querySearch;
         $scope.boards = buildCalService.boards();
-        localStorage.removeItem('selectedBoards');
-        $scope.resetBoards();
-
-        $scope.$watch('selectedBoards', function () {
-            $scope.resetBtn = ($scope.selectedBoards.length !== $scope.boards.length);
-        }, true);
-
-
+        $scope.ExistingBoards = webStorage.get('TrelloCalendarStorage').boards;
         if (defer) {
             defer.resolve();
-        }
 
+        }
     };
 
     var month, year, today;
@@ -189,7 +102,7 @@ month.controller('monthCtrl', function (asInitService, $timeout, $interval,
     $scope.filter = localStorageService.get('filter') === false;
     $scope.color = localStorageService.get('boardColors');
     $scope.observe = localStorageService.get('observerMode') === true;
-    $scope.ExistingBoards = getExistingBoardColors;
+    $scope.ExistingBoards = webStorage.get('TrelloCalendarStorage').boards;
     $scope.isToday = (date.year === today.year && date.month === today.month);
     $scope.date = {
         iso: new Date(),
@@ -197,65 +110,18 @@ month.controller('monthCtrl', function (asInitService, $timeout, $interval,
         month: date.month,
         year: date.year
     };
-
     $scope.toToday = function () {
         date = today;
         routine(date);
     };
 
-    // top legende
+    /**top legende**/
     $scope.weekdays = [];
     for (var i = 0; i <= 6; i++) {
         var long = moment().weekday(i).format('dddd');
         var short = moment().weekday(i).format('dd');
         $scope.weekdays[i] = [short, long];
     }
-
-    $scope.announceClick = function (index, id) {
-
-        var y = '{"id":"' + id + '","color":"' + $scope.colors[index].color + '","colorName":"' + $scope.colors[index].name + '","name":"' + $scope.boards[id].name + '","enabled":true}';
-        var obj = JSON.parse(y);
-        if (!getExistingBoardColors) {
-            getExistingBoardColors = [obj];
-            localStorageService.set('Boards', getExistingBoardColors);
-        }
-        else {
-            var exists = false;
-            for (var i = 0; i < getExistingBoardColors.length; i++) {
-
-                if (id === getExistingBoardColors[i].id) {
-                    getExistingBoardColors[i].color = $scope.colors[index].color;
-                    getExistingBoardColors[i].colorName = $scope.colors[index].name;
-                    localStorageService.set('Boards', getExistingBoardColors);
-                    exists = true;
-                }
-            }
-            if (exists === false) {
-                getExistingBoardColors.push(obj);
-                localStorageService.set('Boards', getExistingBoardColors);
-            }
-
-        }
-        initService.updateColor(id);
-
-
-    };
-
-    $scope.resetBoards = function () {
-        var temp = [];
-        $scope.boards.forEach(function (item) {
-            for (var x in localStorageService.get('Boards')) {
-                if (localStorageService.get('Boards')[x].id === item.id && localStorageService.get('Boards')[x].enabled === true) {
-                    temp.push(item);
-                }
-            }
-        });
-        localStorage.removeItem('selectedBoards');
-        localStorageService.set('selectedBoards', temp);
-        $scope.selectedBoards = localStorageService.get('selectedBoards');
-
-    };
-
     /**
      * Search for boards.
      */
@@ -276,16 +142,13 @@ month.controller('monthCtrl', function (asInitService, $timeout, $interval,
 
     }
 
-
     routine(date);
 
     $scope.$watch('days', function () {
         _.forEach($scope.days, function (day) {
-            day.cards = orderByFilter(day.cards, ['badges.due', 'name']);
+            day.cards = orderByFilter(day.cards, ['due', 'name']);
         });
     }, true);
-
-
 
     $scope.click = function (shortUrl) {
         $window.open(shortUrl);
@@ -313,6 +176,7 @@ month.controller('monthCtrl', function (asInitService, $timeout, $interval,
 
 
         defer.promise.then(function () {
+
             ngProgress.complete();
         });
 
@@ -328,11 +192,11 @@ month.controller('monthCtrl', function (asInitService, $timeout, $interval,
     };
 
     $scope.activeBoard = function (card) {
-        return _.find($scope.selectedBoards, {'id': card.idBoard});
+        return $scope.ExistingBoards[card.idBoard].enabled;
 
     };
 
-    if (localStorageService.get('refresh')) {
+    if (webStorage.get('TrelloCalendarStorage').me.autorefresh) {
         $interval(function () {
             $scope.refresh();
         }, 30000, 0, false);
@@ -343,17 +207,29 @@ month.controller('monthCtrl', function (asInitService, $timeout, $interval,
     });
 
     $scope.filterClick = function (id) {
-        var temp = _.find(getExistingBoardColors, {'id': id}).enabled;
-        _.find(getExistingBoardColors, {'id': id}).enabled = !temp;
-        localStorageService.set('Boards', getExistingBoardColors);
-        $scope.refresh();
+        var temp = _.find(webStorage.get('TrelloCalendarStorage').boards, {'id': id}).enabled;
+        var Storage = webStorage.get('TrelloCalendarStorage');
+        Storage.boards[id].enabled = !temp;
+        webStorage.set('TrelloCalendarStorage', Storage);
+        $scope.reloadView();
     };
 
     $scope.observeClick = function () {
-        localStorageService.set('observerMode', !localStorageService.get('observerMode'));
-        $scope.refresh();
-        //$window.location.reload();
+        var temp = webStorage.get('TrelloCalendarStorage');
+        temp.me.observer = !temp.me.observer;
+        webStorage.set('TrelloCalendarStorage', temp);
+        if (temp.me.observer === true) {
+            if (_.isEmpty(temp.cards.all)) {
+                $scope.refresh();
+            }
+        }
+        else {
+            if (_.isEmpty(temp.cards.my)) {
+                $scope.refresh();
+            }
+        }
 
+        $scope.reloadView();
     };
 
 });

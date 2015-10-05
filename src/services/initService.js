@@ -258,6 +258,22 @@ angular.module('trelloCal').factory('initService', /*ngInject*/  function ($q, w
 
         };
 
+        var updateAll = function () {
+            var deferred = $q.defer();
+            pullBoards().then(function () {
+                pullLists().then(function () {
+                    pullMyCards().then(function () {
+                        pullAllCards().then(function () {
+                            deferred.resolve('update');
+
+                        });
+                    });
+                });
+
+            }); //runs pullLists() and  pullCards();
+
+            return deferred.promise;
+        };
         return {
             init: function (option) {
 
@@ -303,6 +319,12 @@ angular.module('trelloCal').factory('initService', /*ngInject*/  function ($q, w
             remove: function () {
                 data = null;
                 webStorage.set('trello_token', null);
+            },
+
+            refreshAll: function () {
+                login = $q.defer();
+                updateAll();
+                return login.promise;
             },
 
             updateDate: function () {

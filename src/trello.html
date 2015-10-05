@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html ng-controller="AppCtrl">
+<head>
+    <base href='/'>
+    <!--<title>w11k Trello Calendar</title>-->
+    <meta name="viewport" content="initial-scale=1"/>
+    <!--
+    use for mobile deployment
+    <meta http-equiv="Content-Security-Policy" content="default-src *; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'">
+    <!---->
+    <meta charset="UTF-8">
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="description" content="Trello Calendar allows you to organize all cards of all boards in one calendar."/>
+    <meta name="msapplication-tap-highlight" content="no"/>
+    <meta name="viewport"
+          content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <% styles.forEach( function ( file ) { %>
+    <link rel="stylesheet" type="text/css" href="<%= file %>"/>
+    <% }); %>
+</head>
+
+<body layout="row" flex layout-fill ng-keypress="keyHandler()">
+
+<md-backdrop class="md-sidenav-backdrop md-opaque md-default-theme md-sidenav-backdrop-custom disabled"
+             ng-click="checkClosingForm()"></md-backdrop>
+
+<md-sidenav flex class="md-sidenav-left md-whiteframe-z2" md-is-locked-open="$mdMedia('gt-md')" md-component-id="left"
+            style="background-color: whitesmoke;overflow: visible;"
+            md-swipe-left="closeSidenav('left')">
+    <div>
+        <md-toolbar layout="row" class="headBar md-whiteframe-z2" style="margin-bottom: 5px;">
+            <h2 class="md-toolbar-tools" style="position: relative" hide-gt-lg ng-click="toHome()">Calendar for
+                <img style="float:right;padding-left:10px;"
+                     src="https://d78fikflryjgj.cloudfront.net/images/50b4ebc64391dc394a38e73aed57f0e2/header-logo.png"/>
+            </h2>
+
+        </md-toolbar>
+    </div>
+
+
+    <div ui-view="sidebar" class="test"
+         style="overflow-x:hidden;overflow-y: scroll;width: 100%;">
+    </div>
+
+
+</md-sidenav>
+
+<md-sidenav class="md-sidenav-right md-whiteframe-z2" md-component-id="right" style="background-color: whitesmoke">
+    <md-toolbar class="md-theme-light">
+        <h1 class="md-toolbar-tools">Search</h1>
+    </md-toolbar>
+    <div layout-padding>
+        <div ui-view="search"></div>
+    </div>
+</md-sidenav>
+
+
+<div layout="column" flex style="background-color: whitesmoke">
+    <md-toolbar ui-view="header" class="header md-whiteframe-z3" layout="row" class="headBar"
+                md-swipe-right="openSidenav('left')" md-swipe-left="closeSidenav('left')"
+                style="height: 62px"></md-toolbar>
+    <md-content ui-view="content" class="md-padding" style="padding:0px;margin:0px"></md-content>
+</div>
+<!--
+enable before building as mobile app
+<script src="cordova.js"></script>-->
+<% scripts.forEach( function ( file ) { %>
+<script type="text/javascript" src="<%= file %>"></script>
+<% }); %>
+
+<script>
+
+    Raven.config('http://fa6a3d4a6b6f42cf8b66807942105932@sentry.w11k.de/2', {
+        logger: 'javascript',
+        ignoreErrors: [
+            // Random plugins/extensions
+            'top.GLOBALS',
+            // See: http://blog.errorception.com/2012/03/tale-of-unfindable-js-error. html
+            'originalCreateNotification',
+            'canvas.contentDocument',
+            'MyApp_RemoveAllHighlights',
+            'http://tt.epicplay.com',
+            'Can\'t find variable: ZiteReader',
+            'jigsaw is not defined',
+            'ComboSearch is not defined',
+            'http://loading.retry.widdit.com/',
+            'atomicFindClose',
+            // Facebook borked
+            'fb_xd_fragment',
+            // ISP "optimizing" proxy - `Cache-Control: no-transform` seems to reduce this. (thanks @acdha)
+            // See http://stackoverflow.com/questions/4113268/how-to-stop-javascript-injection-from-vodafone-proxy
+            'bmi_SafeAddOnload',
+            'EBCallBackMessageReceived',
+            // See http://toolbar.conduit.com/Developer/HtmlAndGadget/Methods/JSInjection.aspx
+            'conduitPage'
+        ],
+        ignoreUrls: [
+            // Facebook flakiness
+            /graph\.facebook\.com/i,
+            // Facebook blocked
+            /connect\.facebook\.net\/en_US\/all\.js/i,
+            // Woopra flakiness
+            /eatdifferent\.com\.woopra-ns\.com/i,
+            /static\.woopra\.com\/js\/woopra\.js/i,
+            // Chrome extensions
+            /extensions\//i,
+            /^chrome:\/\//i,
+            // Other plugins
+            /127\.0\.0\.1:4001\/isrunning/i,  // Cacaoweb
+            /webappstoolbarba\.texthelp\.com\//i,
+            /metrics\.itunes\.apple\.com\.edgesuite\.net\//i
+        ]
+    }).install();
+
+
+    moment.locale("en", {week: {dow: 1}});
+
+    function bootstrapAngular() {
+        var domElement = document.querySelector('html');
+        angular.bootstrap(domElement, ['<%= angular_module %>']);
+    }
+    if (document.URL.indexOf('http://') === -1 && document.URL.indexOf('https://') === -1) {
+        // URL: Running in Cordova/PhoneGap
+        document.addEventListener("deviceready", bootstrapAngular, false);
+
+        //start with week when running as app first time
+
+        if (localStorage.getItem('w11ktrello.startMonth') === null) {
+            localStorage.setItem('w11ktrello.startMonth', false)
+
+        }
+
+
+    } else {
+        //URL: Running in browser
+        bootstrapAngular();
+    }
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+                    (i[r].q = i[r].q || []).push(arguments)
+                }, i[r].l = 1 * new Date();
+        a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+    ga('create', 'UA-61728009-5', 'auto');
+    ga('send', 'pageview');
+
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+                    (i[r].q = i[r].q || []).push(arguments)
+                }, i[r].l = 1 * new Date();
+        a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+    ga('create', 'UA-61728009-5', 'auto');
+
+</script>
+
+</body>
+</html>
+

@@ -140,9 +140,8 @@
         $urlRouterProvider.otherwise('/');
         $locationProvider.html5Mode(true);
         $stateProvider
-
             .state('month', {
-                url: '/',
+                url: '/trello',
                 views: {
                     'header': {
                         abstract: true,
@@ -183,7 +182,7 @@
                         robots: 'index,follow',
                         canonical: 'https://www.calendar-for-trello.com',
                     }
-                },
+                }
             })
             .state('settings', {
                 url: '/settings',
@@ -324,7 +323,6 @@
                 }
             });
     });
-
 
     module.run(/*ngInject*/ function ($location, $rootScope) {
         if ($location.$$protocol !== 'http' && $location.$$protocol !== 'https') {
@@ -615,7 +613,6 @@
 
 
     });
-
 
     module.directive('updateTitle', ['$rootScope', '$timeout',
         function ($rootScope, $timeout) {

@@ -137,32 +137,89 @@
             .backgroundPalette('TrelloGrey');
 
 
-        $urlRouterProvider.otherwise('/');
+        $urlRouterProvider.otherwise('/welcome');
         $locationProvider.html5Mode(true);
         $stateProvider
-            .state('month', {
-                url: '/trello',
+            .state('trello', {
+                url: '',
                 views: {
-                    'header': {
+                    //This view contains elements that are common to the welcome and index states
+                    'headerView': {
+                        templateUrl: 'header.tpl.html'
+                    }
+                },
+                data: {
+                    head: {
+                        title: 'Month',
+                        robots: 'index,follow',
+                        canonical: 'https://www.calendar-for-trello.com',
+                    }
+                }
+            })
+            .state('trello.welcome', {
+                url: '/',
+                views: {
+                    'mainView@trello': {
+                        templateUrl: 'welcome.tpl.html',
+                        controller: function ($scope) {
+                            //Controller in the abstract state is used only to set "global" elements for the state and the sub-states
+                            $scope.voice = 'Welcome to trello cal, this is our app!';
+                            $scope.menu = [{
+                                state: 'trello.app.month',
+                                name: 'Go to the app'
+                            }];
+                        }
+                    }
+                },
+                data: {
+                    head: {
+                        title: 'Month',
+                        robots: 'index,follow',
+                        canonical: 'https://www.calendar-for-trello.com',
+                    }
+                }
+            })
+            .state('trello.app', {
+                url: '/app',
+                views: {
+                    'mainView@trello': {
+                        abstract: true,
+                        templateUrl: 'trello.html',
+                        controller: function () {
+                        }
+                    }
+                },
+                data: {
+                    head: {
+                        title: 'Month',
+                        robots: 'index,follow',
+                        canonical: 'https://www.calendar-for-trello.com',
+                    }
+                }
+            })
+            .state('trello.app.month', {
+                url: '/month',
+                views: {
+                    'header@trello.app': {
                         abstract: true,
                         templateUrl: 'partials/header.html',
                         controller: 'headerCtrl'
 
                     },
-                    'sidebar': {
+                    'sidebar@trello.app': {
                         abstract: true,
                         templateUrl: 'partials/sidebar.html',
                         controller: 'headerCtrl'
                     },
 
-                    'content': {
+                    'content@trello.app': {
                         templateUrl: 'route/month/month.html',
                         controller: 'monthCtrl',
                         data: {
                             pageTitle: 'Month View'
                         }
                     },
-                    'search': {
+                    'search@trello.app': {
                         abstract: true,
                         templateUrl: 'partials/cardSearch.html',
                         controller: 'headerCtrl'
@@ -184,29 +241,29 @@
                     }
                 }
             })
-            .state('settings', {
+            .state('trello.app.settings', {
                 url: '/settings',
                 views: {
-                    'header': {
+                    'header@trello.app': {
                         abstract: true,
                         templateUrl: 'partials/header.html',
                         controller: 'headerCtrl'
 
                     },
-                    'sidebar': {
+                    'sidebar@trello.app': {
                         abstract: true,
                         templateUrl: 'partials/sidebar.html',
                         controller: 'headerCtrl'
                     },
 
-                    'content': {
+                    'content@trello.app': {
                         templateUrl: 'route/settings/settings.html',
                         controller: 'settingsCtrl',
                         data: {
                             pageTitle: 'Week View'
                         }
                     },
-                    'search': {
+                    'search@trello.app': {
                         abstract: true,
                         templateUrl: 'partials/cardSearch.html',
                         controller: 'headerCtrl'
@@ -227,16 +284,16 @@
                 }
 
             })
-            .state('about', {
+            .state('trello.app.about', {
                 url: '/about',
                 views: {
-                    'header': {
+                    'header@trello.app': {
                         abstract: true,
                         templateUrl: 'partials/header.html',
                         controller: 'headerCtrl'
 
                     },
-                    'sidebar': {
+                    'sidebar@trello.app': {
                         abstract: true,
                         templateUrl: 'partials/sidebar.html',
                         controller: 'headerCtrl'
@@ -264,7 +321,7 @@
                 }
 
             })
-            .state('boards', {
+            .state('trello.app.boards', {
                 url: '/boards',
                 views: {
                     'header': {
@@ -298,7 +355,7 @@
                     }
                 }
             })
-            .state('token', {
+            .state('trello.app.token', {
                 url: '/token?do&token',
                 views: {
                     'menuContent': {
@@ -311,7 +368,7 @@
 
                         delete $location.$$search.token;
                         delete $location.$$search.do;
-                        $location.path('/');
+                        $location.path('/trello/app/month');
                     }
                 },
                 data: {

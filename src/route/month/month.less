@@ -101,12 +101,17 @@ h2.md-subhead {
     .dayCard {
       opacity: 1;
       color: #30364C;
+      border-style: solid;
+      border-width: 1px;
+      border-color: #E0E0E0;
       padding: 5px 5px 15px 5px;
       border-radius: 0;
       font-size: 10px;
       margin-bottom: 2px;
       cursor: move !important;
-      background-color: #E2E4E6;
+      background-color: #F5F5F5;
+      z-index: auto;
+
       .title {
         cursor: pointer !important;
         color: #30364C;
@@ -126,7 +131,11 @@ h2.md-subhead {
         text-align: right;
       }
     }
+    .dayCard:hover {
+      border-color: #BDBDBD;
+      background-color: #fff;
 
+    }
     .dragger {
       float: right;
       padding-right: 3px;

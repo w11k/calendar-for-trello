@@ -277,9 +277,9 @@ angular.module('trelloCal').factory('initService', /*ngInject*/  function ($q, w
         return {
             init: function (option) {
 
-                if (!webStorage.has('TrelloCalendarStorage')) {
+                if (!webStorage.has('trello_token')) {
                     if ($rootScope.mobil) {
-                        var redirect = baseUrl + '/#/token?do=settoken';
+                        var redirect = baseUrl + '/app/token?do=settoken';
                         var ref = window.open('https://trello.com/1/authorize?response_type=token&scope=read,write&key=' + key + '&redirect_uri=' + redirect + '&callback_method=fragment&expiration=never&name=Calendar+for+Trello', '_blank', 'location=no', 'toolbar=no');
                         ref.addEventListener('loadstart', function (event) {
                             if (event.url.indexOf('/#token=') > -1) {
@@ -291,7 +291,8 @@ angular.module('trelloCal').factory('initService', /*ngInject*/  function ($q, w
                             }
                         });
                     } else {
-                        $window.location.href = 'https://trello.com/1/authorize?response_type=token&key=' + key + '&redirect_uri=' + encodeURI(baseUrl) + '%2F%23%2Ftoken%3Fdo%3Dsettoken%26callback_method=fragment&scope=read%2Cwrite%2Caccount&expiration=never&name=Calendar+for+Trello';
+                        $window.location.href = 'https://trello.com/1/authorize?response_type=token&key=' + key + '&redirect_uri=' + encodeURI(baseUrl + '/app') + '%2Ftoken%3Fdo%3Dsettoken%26callback_method=fragment&scope=read%2Cwrite%2Caccount&expiration=never&name=Calendar+for+Trello';
+                        //https://trello.com/1/authorize?response_type=token&key=           &redirect_uri=                          %2F%23%2Ftoken%3Fdo%3Dsettoken%26callback_method=fragment&scope=read%2Cwrite%2Caccount&expiration=never&name=Calendar+for+Trello
                         firstInit().then(function () {
                             update();
                         });

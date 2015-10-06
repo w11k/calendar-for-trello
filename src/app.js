@@ -43,6 +43,7 @@
     module.constant('baseUrl', window.location.origin);
 
 
+
     module.config(/*ngInject*/ function ($urlRouterProvider, $stateProvider, $mdThemingProvider, $locationProvider) {
 
         $mdThemingProvider.definePalette('TrelloBusinessBlue', {
@@ -137,7 +138,7 @@
             .backgroundPalette('TrelloGrey');
 
 
-        $urlRouterProvider.otherwise('/welcome');
+        $urlRouterProvider.otherwise('/');
         $locationProvider.html5Mode(true);
         $stateProvider
             .state('trello', {
@@ -356,7 +357,7 @@
                 }
             })
             .state('trello.app.token', {
-                url: '/token?do&token',
+                url: '/token?do&callback_method#token',
                 views: {
                     'menuContent': {
                         templateUrl: 'route/month/month.html'
@@ -364,11 +365,12 @@
                 },
                 resolve: {
                     'setToken': function (setToken, $stateParams, $location) {
-                        setToken.set($stateParams.token);
-
-                        delete $location.$$search.token;
-                        delete $location.$$search.do;
-                        $location.path('/trello/app/month');
+                        setToken.set($location.hash().split('=')[1]);
+                        //delete $location.$$search.token;
+                        //delete $location.$$search.do;
+                        //delete $location.$$search.callback_method;
+                        $location.url($location.path());
+                        $location.path('/app/month');
                     }
                 },
                 data: {
@@ -567,7 +569,6 @@
             };
 
             $scope.goTo = function (target) {
-
                 $location.path('/' + target);
                 $scope.toggleSidenav('left');
 
@@ -629,7 +630,7 @@
             };
 
             $scope.toHome = function () {
-                $location.path('/');
+                $location.path('/app/month');
 
             };
 

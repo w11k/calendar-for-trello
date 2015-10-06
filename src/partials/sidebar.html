@@ -1,8 +1,8 @@
-<md-subheader class="md-no-sticky" style="background-color: whitesmoke"><i>Welcome, <strong style="font-weight: 600;">{{name}}</strong>.</i>
+<md-subheader class="md-no-sticky" style="background-color: #EDEFF4"><i>Welcome, <strong style="font-weight: 600;">{{name}}</strong>.</i>
 </md-subheader>
 
-<div ng-hide="!overduedCards.length" class="md-whiteframe-z2" style="margin:15px;background-color: white">
-    <div class="overdued" ng-style="overduedHeader" layout="row" ng-click="openCardOverdued();">
+<div ng-hide="!overduedCards.length" style="margin:15px;">
+    <div class="overdued md-whiteframe-z1" ng-style="overduedHeader" layout="row" ng-click="openCardOverdued();">
         <div style="margin-top: 0px">
             <ng-md-icon ng-style="overduedIcon" icon="warning" size="24"></ng-md-icon>
         </div>
@@ -10,13 +10,13 @@
     </div>
     <div ng-style="overduedContent" class=" nav card-content" id="{{day.date | date: 'yyyy,MM,dd,'}}"
          ui-sortable="sortableOptions" ng-model="cards">
-        <div style="height: 4px;"></div>
+
         <div ng-repeat="card in overduedCards=(cards |filter: isOverdue|filter: cardSelected)|orderBy:'due'"
-             layout="row">
-            <div style="background-color:{{card.color}};margin-bottom:4px;display:block;">&nbsp&nbsp
+             layout="row" class="md-whiteframe-z1 holeCard">
+            <div style="background-color:{{card.color}};display:block;">&nbsp&nbsp&nbsp
             </div>
             <md-toolbar class="dayCard md-primary" id="{{::card.id}}-{{card.badges.due | date : 'H,m,s' : timezone}}"
-                        style="margin-bottom:4px;padding:8px;float:right;overflow:hidden;white-space: nowrap;padding-top: 10px">
+                        style="float:right;overflow:hidden;white-space: nowrap;">
                 <div class="title" title="{{::card.name}}" ng-click="click(card.shortUrl)"
                      style="width: 100%;overflow:hidden;white-space: nowrap;text-overflow: ellipsis;">
                     {{::card.name}}
@@ -31,8 +31,8 @@
 
 
 </div>
-<div ng-hide="!nodueCards.length" class="md-whiteframe-z2" style="margin:15px;background-color: white">
-    <div class="nodue" ng-style="nodueHeader" layout="row" ng-click="openCardnoDue();">
+<div ng-hide="!nodueCards.length" style="margin:15px;">
+    <div class="nodue md-whiteframe-z1" ng-style="nodueHeader" layout="row" ng-click="openCardnoDue();">
         <div style="margin-top: 0px">
             <ng-md-icon ng-style="nodueIcon" icon="access_time" size="24"></ng-md-icon>
         </div>
@@ -40,13 +40,14 @@
     </div>
     <div ng-style="nodueContent" class=" nav card-content" id="{{day.date | date: 'yyyy,MM,dd,'}}"
          ui-sortable="sortableOptions" ng-model="cards">
-        <div style="height: 4px;"></div>
+
+
         <div ng-repeat="card in nodueCards=(cards |filter: isNoduedate|filter: cardSelected )|orderBy:'dateLastActivity'"
-             layout="row">
-            <div style="background-color:{{card.color}};margin-bottom:4px;display:block ">&nbsp&nbsp
+             layout="row" class="holeCard md-whiteframe-z1">
+            <div style="background-color:{{card.color}};display:block ">&nbsp&nbsp&nbsp
             </div>
             <md-toolbar class="dayCard md-primary" id="{{::card.id}}-{{card.badges.due | date : 'H,m,s' : timezone}}"
-                        style="margin-bottom:4px;padding:8px;float:right;overflow:hidden;white-space: nowrap;padding-top: 10px">
+                        style="float:right;overflow:hidden;white-space: nowrap;">
                 <div class="title" title="{{::card.name}}" ng-click="click(card.shortUrl)"
                      style="width: 100%;overflow:hidden;white-space: nowrap;text-overflow: ellipsis;">
                     {{::card.name}}
@@ -57,6 +58,7 @@
                         style="float: right;color:black">{{card.due | date : "MMM d, y" : timezone}}</span></div>
             </md-toolbar>
         </div>
+
     </div>
 </div>
 

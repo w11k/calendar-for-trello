@@ -162,13 +162,16 @@
                 views: {
                     'mainView@trello': {
                         templateUrl: 'welcome.tpl.html',
-                        controller: function ($scope) {
+                        controller: function ($scope, webStorage, $location) {
                             //Controller in the abstract state is used only to set "global" elements for the state and the sub-states
                             $scope.voice = 'Welcome to trello cal, this is our app!';
                             $scope.menu = [{
                                 state: 'trello.app.month',
                                 name: 'Go to the app'
                             }];
+                            if (webStorage.has('trello_token')) {
+                                $location.path('/app/month');
+                            }
                         }
                     }
                 },
@@ -366,9 +369,6 @@
                 resolve: {
                     'setToken': function (setToken, $stateParams, $location) {
                         setToken.set($location.hash().split('=')[1]);
-                        //delete $location.$$search.token;
-                        //delete $location.$$search.do;
-                        //delete $location.$$search.callback_method;
                         $location.url($location.path());
                         $location.path('/app/month');
                     }
@@ -455,7 +455,7 @@
             else {
                 syncicon = 'sync_disabled';
             }
-            //toDo cards my/all in one or mark cars in all with my tag
+            //toDo cards my/all in one or mark cards in all with my tag
             $rootScope.$on('rebuild', function () {
                 $scope.cards = [];
                 for (var x in webStorage.get('TrelloCalendarStorage').cards.my) {

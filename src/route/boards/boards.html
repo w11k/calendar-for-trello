@@ -1,6 +1,6 @@
-<md-content class="boards" layout-align="center center">
+<md-content class="boards" layout-align="center center" style="background-color: white; overflow: auto;width:800px">
 
-    <md-whiteframe class="md-whiteframe-z4" flex="55px" layout-align=" center" layout="column">
+    <md-whiteframe class="md-whiteframe-z4" layout-align=" center" layout="column">
         <md-toolbar flex layout="row">
             <ng-md-icon icon="color_lens" size="35"></ng-md-icon>
 
@@ -15,12 +15,13 @@
             </md-checkbox>
 
         </md-toolbar>
-        <md-content layout-padding ng-repeat="board in boards | orderBy: 'name'">
+        <md-content style="background-color: #EDEFF4;" layout-padding ng-repeat="board in boards | orderBy: 'name'">
 
             <ng-md-icon icon="assignment" size="30"></ng-md-icon>
 
             <p> {{board.name}}</p>
-            <div class="right">
+
+            <div class="right" style="background-color: #EDEFF4;">
 
                 <md-input-container ng-if="colorizeCards" class="animate-if">
                     <md-select ng-model="board.prefs.backgroundColor" aria-label="ColorPicker" style="background-color:{{board.prefs.backgroundColor}}; ">
@@ -30,7 +31,8 @@
                     </md-select>
                 </md-input-container>
 
-                <md-switch ng-model="board.enabled" ng-change="change($index, board.enabled)" aria-label="enable board" style="float:right;margin:0px;padding:4px;margin-top:3px">
+                <md-switch ng-model="board.enabled" ng-change="change($index, board.enabled)" aria-label="enable board"
+                           style="background-color: #EDEFF4;float:right;margin:0px;padding:4px;margin-top:3px">
 
                 </md-switch>
             </div>

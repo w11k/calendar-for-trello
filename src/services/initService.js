@@ -103,7 +103,6 @@ angular.module('trelloCal').factory('initService', /*ngInject*/  function ($q, w
 
             $http.get('https://api.trello.com/1/members/me/boards/?fields=name,shortUrl,prefs&filter=open&key=' + key + '&token=' + token).then(function (responses) {
 
-
                 _.forEach(responses.data, function (board) {
                     if (TrelloCalendarStorage.boards[board.id]) {
                         TrelloCalendarStorage.boards[board.id].name = board.name;
@@ -112,7 +111,6 @@ angular.module('trelloCal').factory('initService', /*ngInject*/  function ($q, w
                         TrelloCalendarStorage.boards[board.id].prefs = board.prefs;
                         TrelloCalendarStorage.boards[board.id].prefs.background = temp.boards[board.id].prefs.background;
                         TrelloCalendarStorage.boards[board.id].prefs.backgroundColor = temp.boards[board.id].prefs.backgroundColor;
-
                         if (TrelloCalendarStorage.boards[board.id].enabled === undefined) {
                             TrelloCalendarStorage.boards[board.id].enabled = true;
                         }
@@ -186,6 +184,8 @@ angular.module('trelloCal').factory('initService', /*ngInject*/  function ($q, w
                         var dueDay = myCards[card].due;
                         myCards[card].dueDay = new Date(new Date(dueDay).setHours(0, 0, 0, 0)).toUTCString();
                         myCards[card].color = (TrelloCalendarStorage.boards[myCards[card].idBoard]).prefs.backgroundColor;
+                        myCards[card].boardUrl = (TrelloCalendarStorage.boards[myCards[card].idBoard]).shortUrl;
+
                     }
                     if (TrelloCalendarStorage.lists[myCards[card].idList]) {
                         myCards[card].listName = (TrelloCalendarStorage.lists[myCards[card].idList]).name;
@@ -227,7 +227,7 @@ angular.module('trelloCal').factory('initService', /*ngInject*/  function ($q, w
                         var dueDay = allCards[card].due;
                         allCards[card].dueDay = new Date(new Date(dueDay).setHours(0, 0, 0, 0)).toUTCString();
                         allCards[card].color = (TrelloCalendarStorage.boards[allCards[card].idBoard]).prefs.backgroundColor;
-
+                        allCards[card].boardUrl = (TrelloCalendarStorage.boards[allCards[card].idBoard]).shortUrl;
                     }
                     if (TrelloCalendarStorage.lists[allCards[card].idList]) {
                         allCards[card].listName = (TrelloCalendarStorage.lists[allCards[card].idList]).name;

@@ -90,35 +90,6 @@ md-bottom-sheet {
       text-decoration: underline;
     }
   }
-  .dayCard {
-    opacity: 1;
-    color: #30364C;
-    padding: 5px 5px 15px 5px;
-    border-radius: 0;
-    font-size: 10px;
-    margin-bottom: 2px;
-    padding: 0px;
-    cursor: move !important;
-    background-color: #E2E4E6;
-    z-index: 0;
-    .title {
-      cursor: pointer !important;
-      color: #30364C;
-      font-weight: bold;
-      padding-bottom: 2px;
-      margin-bottom: 2px;
-    }
-    .title:hover {
-      text-decoration: underline;
-    }
-    a {
-      color: #30364C;
-    }
-    i {
-      float: right;
-      text-align: right;
-    }
-  }
 
 }
 
@@ -153,9 +124,26 @@ md-bottom-sheet {
 }
 
 .card-content {
+  margin: 8px;
   height: 0px;
-  padding-top: 0px;
+  padding-top: 8px;
   padding-bottom: 0px;
   overflow: hidden;
+  background-color: transparent;
+
 }
 
+.holeCard {
+  margin: 0px;
+  border-bottom-style: solid;
+  border-bottom-width: thin;
+  border-bottom-color: lightgrey;
+  -webkit-transition: margin-top 0.25s, margin-bottom 0.25s; /* Safari */
+  transition: margin-top 0.25s, margin-bottom 0.25s;
+}
+
+.holeCard:active {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border-bottom: hidden;
+}

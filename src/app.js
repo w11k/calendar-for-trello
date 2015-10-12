@@ -409,8 +409,10 @@
                 }
             });
         }
+
+        //C5CAE9
         if (webStorage.has('TrelloCalendarStorage')) {
-            ngProgress.color('#C5CAE9');
+            ngProgress.color('#CF513D');
             $rootScope.$on('$stateChangeSuccess', function () {
                 ngProgress.complete();
             });

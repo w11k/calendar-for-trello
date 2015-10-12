@@ -20,7 +20,6 @@
         // Route
 
         'trelloCal.month',
-        'trelloCal.week',
         'trelloCal.stream',
         'trelloCal.boards',
         'trelloCal.settings',
@@ -388,6 +387,9 @@
         }
         if (webStorage.has('trello_token') && $location.path() === '/') {
             $location.path('/app/month');
+        }
+        else {
+            webStorage.clear();
         }
     });
 

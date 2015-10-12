@@ -385,8 +385,10 @@
         if ($location.$$protocol !== 'http' && $location.$$protocol !== 'https') {
             $rootScope.mobil = true;
         }
-        if (webStorage.has('trello_token') && $location.path() === '/') {
-            $location.path('/app/month');
+        if (webStorage.has('trello_token')) {
+            if ($location.path() === '/') {
+                $location.path('/app/month');
+            }
         }
         else {
             webStorage.clear();

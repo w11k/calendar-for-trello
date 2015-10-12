@@ -195,9 +195,11 @@ angular.module('trelloCal').factory('initService', /*ngInject*/  function ($q, w
 
                 TrelloCalendarStorage.cards.my = _.indexBy(myCards, 'id');
                 webStorage.set('TrelloCalendarStorage', TrelloCalendarStorage);
-                login.resolve(TrelloCalendarStorage);
                 deferred.resolve('myCards');
+                login.resolve('allCards');
+
             });
+
             return deferred.promise;
 
         };
@@ -235,7 +237,7 @@ angular.module('trelloCal').factory('initService', /*ngInject*/  function ($q, w
                 }
                 TrelloCalendarStorage.cards.all = _.indexBy(allCards, 'id');
                 webStorage.set('TrelloCalendarStorage', TrelloCalendarStorage);
-                login.resolve(TrelloCalendarStorage);
+                login.resolve('allCards');
                 deferred.resolve('allCards');
             });
             return deferred.promise;
@@ -275,7 +277,7 @@ angular.module('trelloCal').factory('initService', /*ngInject*/  function ($q, w
         };
 
         return {
-            init: function (option) {
+            init: function () {
 
                 if (!webStorage.has('trello_token')) {
                     if ($rootScope.mobil) {
@@ -298,14 +300,15 @@ angular.module('trelloCal').factory('initService', /*ngInject*/  function ($q, w
                         });
                     }
                 } else {
-                    if (data && option !== 1) {
-                        // data already there
-                        login.resolve(data);
-                    } else {
-                        //getData();
+                    if (!webStorage.has('TrelloCalendarStorage')) {
                         firstInit().then(function () {
-                            update();
+                            update().then(function () {
+                                login.resolve('not exist');
+                            });
                         });
+                    }
+                    else {
+                        login.resolve('exists');
                     }
                 }
                 return login.promise;

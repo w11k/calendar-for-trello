@@ -22,7 +22,7 @@
     <% }); %>
 </head>
 
-<body layout="row" flex layout-fill style="overflow: hidden">
+<body layout="row" flex layout-fill style="overflow: hidden" ng-keypress="keyHandler()">
 <base href="/"/>
 <div ui-view="headerView" style="overflow: auto;width:100%;height:100%;"></div>
 <!--Each Element of the app will be injected here -->

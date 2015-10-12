@@ -13,7 +13,6 @@ month.controller('monthCtrl', function ($timeout, $interval,
     $scope.refresh = function () {
         ngProgress.start();
         initService.refresh().then(function () {
-                routine($scope.date);
                 $rootScope.$broadcast('rebuild');
                 ngProgress.complete();
             }
@@ -21,11 +20,18 @@ month.controller('monthCtrl', function ($timeout, $interval,
     };
     $scope.reloadView = function () {
         ngProgress.start();
-        routine($scope.date);
         $rootScope.$broadcast('rebuild');
         ngProgress.complete();
     };
+    $scope.onload = function () {
+        ngProgress.start();
+        initService.refresh().then(function () {
+                $rootScope.$broadcast('rebuild');
 
+                ngProgress.complete();
+            }
+        );
+    };
     var routine = function (date, defer) {
         $scope.days = buildCalService.build(date).days;
         $scope.date = {
@@ -222,12 +228,12 @@ month.controller('monthCtrl', function ($timeout, $interval,
         webStorage.set('TrelloCalendarStorage', temp);
         if (temp.me.observer === true) {
             if (_.isEmpty(temp.cards.all)) {
-                $scope.refresh();
+                $scope.reloadView();
             }
         }
         else {
             if (_.isEmpty(temp.cards.my)) {
-                $scope.refresh();
+                $scope.reloadView();
             }
         }
 

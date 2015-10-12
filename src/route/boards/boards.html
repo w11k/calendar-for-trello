@@ -1,4 +1,5 @@
-<md-content class="boards" layout-align="center center" style="background-color: white; overflow: auto;width:800px">
+<md-content class="boards" layout-align="center center"
+            style="background-color: white; overflow: auto;width:800px;margin:10px">
 
     <md-whiteframe class="md-whiteframe-z4" layout-align=" center" layout="column">
         <md-toolbar flex layout="row">
@@ -7,12 +8,12 @@
             <h1 class="md-toolbar-tools" >
                 <span>Board Settings</span>
             </h1>
-            <span class="checkboxText">
-                colorize:
-            </span>
+            <!--<span class="checkboxText">-->
+            <!--colorize:-->
+            <!--</span>-->
 
-            <md-checkbox ng-model="colorizeCards" ng-change="changeColorize(colorizeCards)" aria-label="colorize Cards" >
-            </md-checkbox>
+            <!--<md-checkbox ng-model="colorizeCards" ng-change="changeColorize(colorizeCards)" aria-label="colorize Cards" >-->
+            <!--</md-checkbox>-->
 
         </md-toolbar>
         <md-content style="background-color: #EDEFF4;" layout-padding ng-repeat="board in boards | orderBy: 'name'">

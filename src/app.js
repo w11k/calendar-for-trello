@@ -130,7 +130,6 @@
                 '200', '300', '400', 'A100'],
             'contrastLightColors': undefined    // could also specify this if default was 'dark'
         });
-
         $mdThemingProvider.theme('default')
             .primaryPalette('TrelloBusinessBlue')
             .accentPalette('TrelloBusinessBlue')
@@ -383,13 +382,18 @@
             });
     });
 
-    module.run(/*ngInject*/ function ($location, $rootScope) {
+    module.run(/*ngInject*/ function ($location, $rootScope, webStorage) {
         if ($location.$$protocol !== 'http' && $location.$$protocol !== 'https') {
             $rootScope.mobil = true;
+        }
+        if (webStorage.has('trello_token') && $location.path() === '/') {
+            $location.path('/app/month');
         }
     });
 
     module.controller('AppCtrl', function ($scope, $rootScope, ngProgress, initService, $mdSidenav, webStorage) {
+
+
         function toggleRight() {
             $mdSidenav('right').toggle().then(function () {
                 $scope.keepOpen = !$scope.keepOpen;
@@ -401,8 +405,6 @@
                 }
             });
         }
-
-
         if (webStorage.has('TrelloCalendarStorage')) {
             ngProgress.color('#C5CAE9');
             $rootScope.$on('$stateChangeSuccess', function () {
@@ -428,7 +430,6 @@
             });
             $scope.keepOpen = false;
 
-
             $scope.toggleRight = toggleRight;
 
             $scope.checkClosingForm = function () {
@@ -441,6 +442,7 @@
     });
 
     module.controller('headerCtrl', function ($q, AppKey, webStorage, $http, ngProgress, changeDate, $mdDialog, $scope, $mdSidenav, $state, initService, $window, $location, $mdBottomSheet, $rootScope) {
+
         if (webStorage.has('TrelloCalendarStorage')) {
             $scope.cards = [];
             var syncicon = '';
@@ -455,15 +457,18 @@
             else {
                 syncicon = 'sync_disabled';
             }
+
             //toDo cards my/all in one or mark cards in all with my tag
             $rootScope.$on('rebuild', function () {
-                $scope.cards = [];
+                var tempcards = [];
                 for (var x in webStorage.get('TrelloCalendarStorage').cards.my) {
-                    $scope.cards.push(webStorage.get('TrelloCalendarStorage').cards.my[x]);
+                    tempcards.push(webStorage.get('TrelloCalendarStorage').cards.my[x]);
                 }
-                //$scope.selectedBoards = localStorageService.get('selectedBoards');
+                $scope.cards = tempcards;
+
 
             });
+
             for (var x in webStorage.get('TrelloCalendarStorage').cards.my) {
                 $scope.cards.push(webStorage.get('TrelloCalendarStorage').cards.my[x]);
             }
@@ -476,12 +481,6 @@
             };
             $scope.isOverdue = function (card) {
                 if (card.due !== null && new Date(card.due) < new Date()) {
-                    //toDo add idMembers to card
-                    //for (var i = 0; i <= card.idMembers.length; i++) {
-                    //    if (card.idMembers[i] === $scope.id) {
-                    //        return true;
-                    //    }
-                    //}
                     return true;
                 }
                 return false;

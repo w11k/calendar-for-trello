@@ -5,11 +5,12 @@ boards.config(/*ngInject*/ function () {
 });
 
 boards.controller('boardsCtrl', function ($scope, localStorageService, webStorage, $window, initService, $rootScope) {
+    var storage = webStorage.get('TrelloCalendarStorage');
+
     function updateScope() {
         webStorage.set('TrelloCalendarStorage', storage);
         initService.refreshAll();
         $rootScope.$broadcast('reload');
-
         $scope.boards = [];
         for (var x in storage.boards) {
             $scope.boards.push(storage.boards[x]);
@@ -33,7 +34,6 @@ boards.controller('boardsCtrl', function ($scope, localStorageService, webStorag
 
     }
 
-    var storage = webStorage.get('TrelloCalendarStorage');
     $scope.boards = [];
     $scope.colors = [];
     $scope.colorizeCards = webStorage.get('TrelloCalendarStorage').me.colorizeCards;
@@ -54,8 +54,8 @@ boards.controller('boardsCtrl', function ($scope, localStorageService, webStorag
     };
 
     $scope.change = function (index, state) {
-        console.log($scope.boards[index].id, state);
-        storage.boards[$scope.boards[index].id].enabled = !storage.boards[$scope.boards[index].id].enabled;
+        $scope.colors[index].enabled = state;
+        storage.boards[$scope.boards[index].id].enabled = state;
         updateScope();
     };
 

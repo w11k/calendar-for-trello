@@ -7,7 +7,11 @@
     </h2>
 
 </md-toolbar>
-<md-content class="content" style="margin: 16px;margin-top:62px">
+<!--<div style="height:600px;width:100%; background-image:url('assets/images/welcome.jpg');    background-position: 50% 50%;-->
+<!--background-repeat: no-repeat;position: fixed;-->
+<!--background-size: cover;z-index: 0"></div>-->
+<md-content style="width:100%;margin-top: 62px;padding:20px">
+
     <h1 class="md-headline">Calendar for Trello -
         <small>by <a href="http://www.w11k.de/" target="_blank">w11k GmbH</a> & <a
                 href="http://www.theCodeCampus.de/">theCodeCampus</a></small>
@@ -39,14 +43,9 @@
         way officially connected to <a href="http://www.trello.com" target="_blank">Trello, Inc</a>.
     </p>
 
-    <div style="margin-top: 62px">
-        <ul class="button">
-            <li ng-repeat="item in menu">
-                <a ui-sref="trello.app.month">Go to the Trello Calendar</a>
-            </li>
-        </ul>
+    <md-button class="md-raised md-primary" ui-sref="trello.app.month" style="padding-top:9px">Go to calendar!
+    </md-button>
 
-    </div>
 </md-content>
 
 

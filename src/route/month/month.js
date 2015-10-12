@@ -72,6 +72,7 @@ month.controller('monthCtrl', function ($timeout, $interval,
 
             changeDate.async(id, targetDate).then(function () {
                     initService.updateDate(id, targetDate);
+                    $scope.refresh();
                     ngProgress.complete();
                 },
                 function () {
@@ -192,6 +193,7 @@ month.controller('monthCtrl', function ($timeout, $interval,
     };
 
     $scope.activeBoard = function (card) {
+
         return $scope.ExistingBoards[card.idBoard].enabled;
 
     };

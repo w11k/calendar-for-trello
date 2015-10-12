@@ -81,6 +81,7 @@ module.exports = {
           'ngprogress/ngProgress.css'
       ],
       assets: []
+
     }
   }
 

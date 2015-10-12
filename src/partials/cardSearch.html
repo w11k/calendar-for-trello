@@ -2,26 +2,25 @@
     <md-input-container>
         <label for="testInput">Card/Board Name...</label>
         <input type="text" id="testInput"
-               ng-model="search" md-autofocus>
+               ng-model="search.card" md-autofocus>
     </md-input-container>
 </form>
 <div class="nav">
-    <div>
-        <div ng-repeat="card in cards  | filter: search" layout="row">
-            <div style="background-color:#42548E;margin-bottom:4px;display:block " ng-style="card.color">&nbsp&nbsp
-            </div>
-            <md-toolbar class="dayCard md-primary" id="{{::card.id}}-{{card.badges.due | date : 'H,m,s' : timezone}}"
-                        style="margin-bottom:4px;padding:5px;float:right;overflow:hidden;white-space: nowrap;">
-                <div class="title" ng-click="click(card.shortUrl)"
-                     style="width: 100%;overflow:hidden;white-space: nowrap;text-overflow: ellipsis;">
-                    {{::card.name}}
-                </div>
-                <div class="board"><a ng-href="{{::card.boardUrl}}" target="_blank">
-                    <span class="boardName">{{::card.boardName|cut:true:25}}</span></a>
-                    <span style="float: right;color:black;">{{card.badges.due | date : "HH:mm" : timezone}}</span></div>
-            </md-toolbar>
-
-
+    <div ng-repeat="card in cards|filter: search.card |orderBy:'name'"
+         layout="row" class="holeCard md-whiteframe-z1">
+        <div style="background-color:{{card.color}};display:block ">&nbsp&nbsp&nbsp
         </div>
+        <md-toolbar class="dayCard md-primary" id="{{::card.id}}-{{card.badges.due | date : 'H,m,s' : timezone}}"
+                    style="float:right;overflow:hidden;white-space: nowrap;">
+            <div class="title" title="{{::card.name}}" ng-click="click(card.shortUrl)"
+                 style="width: 100%;overflow:hidden;white-space: nowrap;text-overflow: ellipsis;">
+                {{::card.name}}
+            </div>
+            <span style="color: dimgrey;">in list <span style="font-style: italic;">{{card.listName}}</span></span>
 
+            <div class="board"><a ng-href="{{::card.boardUrl}}" target="_blank">
+                <span class="boardName">{{::card.boardName|cut:true:25}}</span></a><span
+                    style="float: right;color:black">{{card.due | date : "MMM d, y" : timezone}}</span></div>
+        </md-toolbar>
+    </div>
 </div>

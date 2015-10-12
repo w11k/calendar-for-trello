@@ -13,7 +13,7 @@ angular.module('trelloCal').factory('initService', /*ngInject*/  function ($q, w
 
         var colorizeCards = true;
         var observer = false;
-        var autorefresh = true;
+        var autorefresh = false;
         var version = '0.1.25';
 
         /**
@@ -257,7 +257,6 @@ angular.module('trelloCal').factory('initService', /*ngInject*/  function ($q, w
             return deferred.promise;
 
         };
-
         var updateAll = function () {
             var deferred = $q.defer();
             pullBoards().then(function () {
@@ -274,6 +273,7 @@ angular.module('trelloCal').factory('initService', /*ngInject*/  function ($q, w
 
             return deferred.promise;
         };
+
         return {
             init: function (option) {
 
@@ -330,23 +330,8 @@ angular.module('trelloCal').factory('initService', /*ngInject*/  function ($q, w
 
             updateDate: function () {
                 $rootScope.$broadcast('refresh');
-            },
-            //toDo updateColor from new storage
-            updateColor: function (boardId) {
-                //var cards = data[1].data;
-                //cards.forEach(function (entry) {
-                //    if (localStorageService.get('boardColors') !== false) {
-                //        if (entry.idBoard === boardId) {
-                //            for (var i = 0; i < localStorageService.get('Boards').length; i++) {
-                //                if (localStorageService.get('Boards')[i].id === boardId) {
-                //                    entry.color = {'background-color': localStorageService.get('Boards')[i].color};
-                //                }
-                //            }
-                //        }
-                //    }
-                //});
-                console.log('updateColor ToDo', boardId);
             }
+
         };
     }
 )

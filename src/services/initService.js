@@ -291,7 +291,7 @@ angular.module('trelloCal').factory('initService', /*ngInject*/  function ($q, w
                                 token = event.url.substring((event.url.indexOf('/#token=') + 8));
                                 ref.close();
                                 firstInit().then(function () {
-                                    update();
+                                    updateAll();
                                 });
                             }
                         });
@@ -305,7 +305,7 @@ angular.module('trelloCal').factory('initService', /*ngInject*/  function ($q, w
                     if (!webStorage.has('TrelloCalendarStorage')) {
                         webStorage.set('TrelloCalendarStorage', {});
                         firstInit().then(function () {
-                            update().then(function () {
+                            firstInit().then(function () {
                                 login.resolve('not exist');
                             });
                         });

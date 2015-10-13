@@ -181,7 +181,7 @@ angular.module('trelloCal').controller('headerCtrl', function ($q, AppKey, webSt
     $scope.logout = function () {
         initService.remove();
         $scope.login = false;
-        $window.location.reload();
+        $location.path('/');
     };
 
     $scope.toHome = function () {

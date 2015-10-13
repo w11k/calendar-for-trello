@@ -23,9 +23,6 @@ angular.module('trelloCal').factory('initService', /*ngInject*/  function ($q, w
         var firstInit = function () {
             var deferred = $q.defer();
             token = webStorage.get('trello_token');
-            if (!webStorage.has('TrelloCalendarStorage')) {
-                webStorage.set('TrelloCalendarStorage', {});
-            }
             var TrelloCalendarStorage = webStorage.get('TrelloCalendarStorage');
             var cache = webStorage.get('TrelloCalendarStorage');
             me = $http.get('https://api.trello.com/1/members/me?fields=fullName&key=' + key + '&token=' + token);
@@ -33,7 +30,13 @@ angular.module('trelloCal').factory('initService', /*ngInject*/  function ($q, w
             $q.all([me, colors]).then(function (responses) {
 
                 TrelloCalendarStorage.me = responses[0].data;
-                TrelloCalendarStorage.colors = _.indexBy(responses[1].data, 'id');
+                TrelloCalendarStorage.colors = {};
+                for (var x in responses[1].data) {
+                    if (responses[1].data[x].type === 'default') {
+                        TrelloCalendarStorage.colors[responses[1].data[x].id] = responses[1].data[x];
+                    }
+                }
+
                 if (cache.me) {
                     if (cache.me.observer === undefined) {
                         TrelloCalendarStorage.me.observer = observer;
@@ -294,13 +297,13 @@ angular.module('trelloCal').factory('initService', /*ngInject*/  function ($q, w
                         });
                     } else {
                         $window.location.href = 'https://trello.com/1/authorize?response_type=token&key=' + key + '&redirect_uri=' + encodeURI(baseUrl + '/app') + '%2Ftoken%3Fdo%3Dsettoken%26callback_method=fragment&scope=read%2Cwrite%2Caccount&expiration=never&name=Calendar+for+Trello';
-                        //https://trello.com/1/authorize?response_type=token&key=           &redirect_uri=                          %2F%23%2Ftoken%3Fdo%3Dsettoken%26callback_method=fragment&scope=read%2Cwrite%2Caccount&expiration=never&name=Calendar+for+Trello
-                        firstInit().then(function () {
-                            update();
-                        });
                     }
+
+
                 } else {
+                    token = webStorage.get('trello_token');
                     if (!webStorage.has('TrelloCalendarStorage')) {
+                        webStorage.set('TrelloCalendarStorage', {});
                         firstInit().then(function () {
                             update().then(function () {
                                 login.resolve('not exist');

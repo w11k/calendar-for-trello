@@ -43,7 +43,6 @@ month.controller('monthCtrl', function ($timeout, $interval,
 
         }
     };
-
     var month, year, today;
 
     var date = {};
@@ -52,6 +51,7 @@ month.controller('monthCtrl', function ($timeout, $interval,
     today = {};
     today.year = new Date().getFullYear();
     today.month = new Date().getMonth();
+
     $scope.sortableOptions = {
         receive: function (e, ui) {
             var id = ui.item[0].children[1].id.split('-')[0];

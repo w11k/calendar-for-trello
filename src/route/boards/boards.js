@@ -4,11 +4,13 @@ boards.config(/*ngInject*/ function () {
 
 });
 
-boards.controller('boardsCtrl', function ($scope, webStorage) {
+boards.controller('boardsCtrl', function ($scope, webStorage, initService, $rootScope) {
     var storage = webStorage.get('TrelloCalendarStorage');
 
     function updateScope() {
         webStorage.set('TrelloCalendarStorage', storage);
+        initService.refreshColors();
+        $rootScope.$broadcast('rebuild');
         $scope.boards = [];
         for (var x in storage.boards) {
             $scope.boards.push(storage.boards[x]);

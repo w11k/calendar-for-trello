@@ -21,6 +21,7 @@ angular.module('trelloCal').factory('initService', /*ngInject*/  function ($q, n
          * fields: fullName, id  fields: color,id,...
          * */
         var firstInit = function () {
+            ngProgress.start();
             var deferred = $q.defer();
             token = webStorage.get('trello_token');
             var TrelloCalendarStorage = webStorage.get('TrelloCalendarStorage');
@@ -90,6 +91,7 @@ angular.module('trelloCal').factory('initService', /*ngInject*/  function ($q, n
                     'my': TrelloCalendarStorage.cards.my
                 };
                 webStorage.set('TrelloCalendarStorage', TrelloCalendarStorage);
+                ngProgress.complete();
                 deferred.resolve('init');
 
             });
@@ -333,7 +335,9 @@ angular.module('trelloCal').factory('initService', /*ngInject*/  function ($q, n
                         webStorage.set('TrelloCalendarStorage', {});
                         firstInit().then(function () {
                             firstInit().then(function () {
-                                login.resolve('not exist');
+                                updateAll().then(function () {
+                                    login.resolve('not exist');
+                                });
                             });
                         });
                     }

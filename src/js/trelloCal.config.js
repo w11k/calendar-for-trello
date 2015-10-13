@@ -102,13 +102,6 @@ angular.module('trelloCal').config(/*ngInject*/ function ($urlRouterProvider, $s
                 'headerView': {
                     templateUrl: 'header.tpl.html'
                 }
-            },
-            data: {
-                head: {
-                    title: 'Trello-Calendar',
-                    robots: 'index,follow',
-                    canonical: 'https://www.calendar-for-trello.com',
-                }
             }
         })
         .state('trello.welcome', {
@@ -122,7 +115,9 @@ angular.module('trelloCal').config(/*ngInject*/ function ($urlRouterProvider, $s
                 head: {
                     title: 'Trello-Calendar',
                     robots: 'index,follow',
-                    canonical: 'https://www.calendar-for-trello.com',
+                    keywords: ['Trello', 'Calendar', 'all', 'boards', 'w11k', 'theCodeCampus', 'cards', 'calendar'],
+                    description: 'The w11k Trello Calendar allows you to organize all cards of all boards in one calendar.',
+                    canonical: 'https://www.calendar-for-trello.com'
                 }
             }
         })
@@ -131,16 +126,7 @@ angular.module('trelloCal').config(/*ngInject*/ function ($urlRouterProvider, $s
             views: {
                 'mainView@trello': {
                     abstract: true,
-                    templateUrl: 'trello.html',
-                    controller: function () {
-                    }
-                }
-            },
-            data: {
-                head: {
-                    title: 'Trello-Calendar',
-                    robots: 'index,follow',
-                    canonical: 'https://www.calendar-for-trello.com',
+                    templateUrl: 'trello.html'
                 }
             }
         })
@@ -184,7 +170,9 @@ angular.module('trelloCal').config(/*ngInject*/ function ($urlRouterProvider, $s
                 head: {
                     title: 'Month',
                     robots: 'index,follow',
-                    canonical: 'https://www.calendar-for-trello.com',
+                    keywords: ['Trello', 'Calendar', 'all', 'boards', 'w11k', 'theCodeCampus', 'cards', 'calendar'],
+                    description: 'The w11k Trello Calendar allows you to organize all cards of all boards in one calendar.',
+                    canonical: 'https://www.calendar-for-trello.com/app/month'
                 }
             }
         })
@@ -226,7 +214,9 @@ angular.module('trelloCal').config(/*ngInject*/ function ($urlRouterProvider, $s
                 head: {
                     title: 'Settings',
                     robots: 'index,follow',
-                    canonical: 'https://www.calendar-for-trello.com/settings',
+                    keywords: ['Trello', 'Calendar', 'all', 'boards', 'w11k', 'theCodeCampus', 'cards', 'calendar'],
+                    description: 'The w11k Trello Calendar allows you to organize all cards of all boards in one calendar.',
+                    canonical: 'https://www.calendar-for-trello.com/app/settings'
                 }
             }
 
@@ -263,7 +253,9 @@ angular.module('trelloCal').config(/*ngInject*/ function ($urlRouterProvider, $s
                 head: {
                     title: 'About',
                     robots: 'index,follow',
-                    canonical: 'https://www.calendar-for-trello.com/about',
+                    keywords: ['Trello', 'Calendar', 'all', 'boards', 'w11k', 'theCodeCampus', 'cards', 'calendar'],
+                    description: 'The w11k Trello Calendar allows you to organize all cards of all boards in one calendar.',
+                    canonical: 'https://www.calendar-for-trello.com/app/about'
                 }
             }
 
@@ -298,7 +290,9 @@ angular.module('trelloCal').config(/*ngInject*/ function ($urlRouterProvider, $s
                 head: {
                     title: 'Board Settings',
                     robots: 'index,follow',
-                    canonical: 'https://www.calendar-for-trello.com/boards',
+                    keywords: ['Trello', 'Calendar', 'all', 'boards', 'w11k', 'theCodeCampus', 'cards', 'calendar'],
+                    description: 'The w11k Trello Calendar allows you to organize all cards of all boards in one calendar.',
+                    canonical: 'https://www.calendar-for-trello.com/app/boards'
                 }
             }
         })
@@ -314,13 +308,6 @@ angular.module('trelloCal').config(/*ngInject*/ function ($urlRouterProvider, $s
                     setToken.set($location.hash().split('=')[1]);
                     $location.url($location.path());
                     $location.path('/app/month');
-                }
-            },
-            data: {
-                head: {
-                    title: 'token',
-                    robots: 'index,follow',
-                    canonical: 'https://www.calendar-for-trello.com',
                 }
             }
         });

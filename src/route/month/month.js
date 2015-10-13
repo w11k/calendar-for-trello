@@ -23,16 +23,9 @@ month.controller('monthCtrl', function ($timeout, $interval,
         $rootScope.$broadcast('rebuild');
         ngProgress.complete();
     };
-    $scope.onload = function () {
-        ngProgress.start();
-        initService.refresh().then(function () {
-                $rootScope.$broadcast('rebuild');
 
-                ngProgress.complete();
-            }
-        );
-    };
     var routine = function (date, defer) {
+        initService.refreshColors();
         $scope.days = buildCalService.build(date).days;
         $scope.date = {
             iso: new Date(year, month),
@@ -106,9 +99,7 @@ month.controller('monthCtrl', function ($timeout, $interval,
         connectWith: '.dayCards'
 
     };
-    $scope.filter = localStorageService.get('filter') === false;
-    $scope.color = localStorageService.get('boardColors');
-    $scope.observe = localStorageService.get('observerMode') === true;
+
     $scope.ExistingBoards = webStorage.get('TrelloCalendarStorage').boards;
     $scope.isToday = (date.year === today.year && date.month === today.month);
     $scope.date = {

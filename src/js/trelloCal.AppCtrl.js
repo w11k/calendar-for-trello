@@ -36,7 +36,6 @@ angular.module('trelloCal').controller('AppCtrl', function ($scope, $rootScope, 
         $rootScope.$on('reload', function () {
             ngProgress.start();
             initService.refresh().then(function () {
-                //$rootScope.$broadcast('rebuild');
                 ngProgress.complete();
             });
         });

@@ -20,17 +20,16 @@ angular.module('trelloCal').factory('buildCalService', /*ngInject*/  function (w
             var card;
             var cards = [];
             if (webStorage.get('TrelloCalendarStorage').me.observer === true) {
-                //cards=(webStorage.get('TrelloCalendarStorage')).cards.all;
-                for (card in (webStorage.get('TrelloCalendarStorage')).cards.all) {
-                    cards.push((webStorage.get('TrelloCalendarStorage')).cards.all[card]);
+                var all = (webStorage.get('TrelloCalendarStorage')).cards.all;
+                for (card in all) {
+                    cards.push(all[card]);
                 }
 
             }
             else {
-                //cards=(webStorage.get('TrelloCalendarStorage')).cards.my;
-
-                for (card in (webStorage.get('TrelloCalendarStorage')).cards.my) {
-                    cards.push((webStorage.get('TrelloCalendarStorage')).cards.my[card]);
+                var my = (webStorage.get('TrelloCalendarStorage')).cards.my;
+                for (card in my) {
+                    cards.push(my[card]);
                 }
 
             }

@@ -1,5 +1,5 @@
 'use strict';
-angular.module('trelloCal').factory('initService', /*ngInject*/  function ($q, webStorage, $http, $mdDialog, $rootScope, $window, baseUrl, AppKey) {
+angular.module('trelloCal').factory('initService', /*ngInject*/  function ($q, ngProgress, webStorage, $http, $mdDialog, $rootScope, $window, baseUrl, AppKey) {
 
 
         /**
@@ -249,11 +249,14 @@ angular.module('trelloCal').factory('initService', /*ngInject*/  function ($q, w
          * update() updates boards, lists, and cards
          */
         var update = function () {
+            ngProgress.start();
             var deferred = $q.defer();
             pullBoards().then(function () {
                 pullLists().then(function () {
                     pullCards().then(function () {
                         deferred.resolve('update');
+                        ngProgress.complete();
+
                     });
                 });
 
@@ -263,13 +266,14 @@ angular.module('trelloCal').factory('initService', /*ngInject*/  function ($q, w
 
         };
         var updateAll = function () {
+            ngProgress.start();
             var deferred = $q.defer();
             pullBoards().then(function () {
                 pullLists().then(function () {
                     pullMyCards().then(function () {
                         pullAllCards().then(function () {
                             deferred.resolve('update');
-
+                            ngProgress.complete();
                         });
                     });
                 });
@@ -277,6 +281,29 @@ angular.module('trelloCal').factory('initService', /*ngInject*/  function ($q, w
             }); //runs pullLists() and  pullCards();
 
             return deferred.promise;
+        };
+        /**
+         * refresh Card colors from chaged Storage
+         */
+        var refreshColors = function () {
+            var BoardId;
+            var storage = webStorage.get('TrelloCalendarStorage');
+            for (var x in storage.cards.my) {
+                BoardId = storage.cards.my[x].idBoard;
+
+                if (storage.boards[BoardId]) {
+                    storage.cards.my[x].color = storage.boards[BoardId].prefs.backgroundColor;
+                }
+
+            }
+            for (var y in storage.cards.all) {
+                BoardId = storage.cards.all[y].idBoard;
+
+                if (storage.boards[BoardId]) {
+                    storage.cards.all[y].color = storage.boards[BoardId].prefs.backgroundColor;
+                }
+            }
+            webStorage.set('TrelloCalendarStorage', storage);
         };
 
         return {
@@ -327,7 +354,9 @@ angular.module('trelloCal').factory('initService', /*ngInject*/  function ($q, w
                 data = null;
                 webStorage.set('trello_token', null);
             },
-
+            refreshColors: function () {
+                refreshColors();
+            },
             refreshAll: function () {
                 login = $q.defer();
                 updateAll();

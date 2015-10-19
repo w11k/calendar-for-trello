@@ -78,7 +78,7 @@
 
   "indent": 2,
   "camelcase": true,
-  "quotmark": "single",
+  //  "quotmark": "single",
   "unused": true,
   "smarttabs": false
 }

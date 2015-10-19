@@ -12,7 +12,6 @@ angular.module('trelloCal').factory('changeDate', /*ngInject*/  function ($q, Ap
             };
             return $http({
                 method: 'PUT',
-
                 url: 'https://api.trello.com/1/cards/'+id+'?key='+AppKey+'&token='+token,
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'},
                 transformRequest: function(obj) {

@@ -60,11 +60,10 @@ module.exports = {
           'ngprogress/build/ngProgress.js',
           'array-tools/dist/array-tools.js',
           'w11k.angular-seo-header/angular-seo-header.js',
-
           //Error-Logging:
           'raven-js/dist/raven.js',
           'angular-raven/angular-raven.js',
-
+          'angular-ui-notification/src/angular-ui-notification.js',
 
           //Analytics:
 
@@ -78,9 +77,12 @@ module.exports = {
       js_e2e: [],
       css: [
           'angular-material/angular-material.css',
-          'ngprogress/ngProgress.css'
+          'ngprogress/ngProgress.css',
+          'angular-ui-notification/src/angular-ui-notification.less'
       ],
-      assets: []
+        assets: [
+            'angular-ui-notification/src/angular-ui-notification.html'
+        ]
 
     }
   }

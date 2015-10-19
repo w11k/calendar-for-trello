@@ -4,19 +4,26 @@ month.config(/*ngInject*/ function () {
 
 });
 
-month.controller('monthCtrl', function ($timeout, $interval,
+month.controller('monthCtrl', function ($timeout, $interval, Notification,
                                         archiveCard, $scope, buildCalService, changeDate, $window,
                                         $stateParams, $location, $mdDialog, localStorageService, orderByFilter,
                                         ngProgress, initService, $q, getExistingBoardColors, $rootScope, webStorage) {
 
 
     $scope.refresh = function () {
-        ngProgress.start();
-        initService.refresh().then(function () {
-                $rootScope.$broadcast('rebuild');
-                ngProgress.complete();
-            }
-        );
+        if ($scope.offline !== true) {
+            ngProgress.start();
+            initService.refresh().then(function () {
+                    $rootScope.$broadcast('rebuild');
+                    ngProgress.complete();
+                }
+            );
+        }
+        else {
+            console.log('offline');
+        }
+
+
     };
     $scope.reloadView = function () {
         ngProgress.start();
@@ -51,6 +58,7 @@ month.controller('monthCtrl', function ($timeout, $interval,
     today = {};
     today.year = new Date().getFullYear();
     today.month = new Date().getMonth();
+    var tempPost = [];
 
     $scope.sortableOptions = {
         receive: function (e, ui) {
@@ -69,36 +77,37 @@ month.controller('monthCtrl', function ($timeout, $interval,
             }
             var targetDate = new Date(newStr[0], newStr[1] - 1, newStr[2], newStr[3], newStr[4]);
 
-            changeDate.async(id, targetDate).then(function () {
-                    initService.updateDate(id, targetDate);
-                    $scope.refresh();
-                    ngProgress.complete();
-                },
-                function () {
-                    var dialog = function () {
-                        $mdDialog.show(
-                            $mdDialog.alert()
-                                .parent(angular.element(document.body))
-                                .title('Oops, something went wrong.')
-                                .content('please check your connection and reload this page')
-                                .ariaLabel('Connection Error')
-                                .ok('reload')
-                            //  .targetEvent(ev)
-                        ).then(function () {
-                                changeDate.async(ui.item[0].firstElementChild.id.split('-')[0], targetDate).then(function () {
-                                    // user is only, successfull
-                                }, function () {
-                                    dialog();
-                                });
-                            });
-                    };
-                    dialog();
-                });
+            tempPost.push([id, targetDate]);
+            updateChangeArray();
+
         },
         placeholder: 'card',
         connectWith: '.dayCards'
-
     };
+
+    function updateChangeArray() {
+        var promises = [];
+        _.forEach(tempPost, function (change) {
+            promises.push(changeDate.async(change[0], change[1]));
+        });
+        $q.all(promises).then(function (responses) {
+            _.forEach(responses, function (change, index) {
+                tempPost.splice(index, 1);
+
+            });
+            $scope.refresh();
+            ngProgress.complete();
+            Notification.success({
+                message: "<span><ng-md-icon icon='done' size='24'style='width: 20px;float: left'></ng-md-icon>successfully changed</span>",
+                replaceMessage: true
+            });
+        }, function () {
+            Notification.warning({
+                message: "<span><ng-md-icon icon='done' size='24'style='width: 20px;float: left'></ng-md-icon>change cached</span>",
+                replaceMessage: true
+            });
+        });
+    }
 
     $scope.ExistingBoards = webStorage.get('TrelloCalendarStorage').boards;
     $scope.isToday = (date.year === today.year && date.month === today.month);
@@ -140,6 +149,7 @@ month.controller('monthCtrl', function ($timeout, $interval,
 
     }
 
+    $scope.$on('updateChange', updateChangeArray);
     routine(date);
 
     $scope.$watch('days', function () {

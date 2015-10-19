@@ -6,13 +6,13 @@
                     <ng-md-icon icon="navigate_before" style="fill: #fff" size="22"></ng-md-icon>
                 </md-button>
                 <md-button class="md-flat md-primary mini toToday" ng-click="toToday()" aria-label="next month">
-                    today
+                    today{{isOnline}}
                 </md-button>
                 <md-button class="md-raised md-primary mini" aria-label="next month" ng-click="move(1)">
                     <ng-md-icon icon="navigate_next" style="fill: #fff" size="22"></ng-md-icon>
                 </md-button>
                 <span class="month" flex>{{date.monthName}}, {{date.year}}</span>
-                <md-button aria-label="Refresh Button" class="calendarOption md-icon-button"
+                <md-button ng-if="offline!=true" aria-label="Refresh Button" class="calendarOption md-icon-button"
                            ng-click="refresh()">
                     <ng-md-icon icon="refresh" class="calendarOption-icon" size="22"></ng-md-icon>
                 </md-button>

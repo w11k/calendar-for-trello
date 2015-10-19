@@ -5,7 +5,7 @@
             style="background-color: #EDEFF4;overflow: visible;position:fixed;"
             md-swipe-left="closeSidenav('left')">
     <div>
-        <md-toolbar layout="row" class="headBar md-whiteframe-z2" style="margin-bottom: 5px;">
+        <md-toolbar layout="row" class="headBar md-whiteframe-z2" style="margin-bottom: 5px;" ng-style="toolbar">
             <h2 class="md-toolbar-tools" style="position: relative" hide-gt-lg ng-click="toHome()">Calendar for
                 <img style="float:right;padding-left:10px;"
                      src="https://d78fikflryjgj.cloudfront.net/images/50b4ebc64391dc394a38e73aed57f0e2/header-logo.png"/>
@@ -23,7 +23,7 @@
 </md-sidenav>
 
 <md-sidenav class="md-sidenav-right md-whiteframe-z2" md-component-id="right" style="background-color: #EDEFF4">
-    <md-toolbar class="md-theme-light">
+    <md-toolbar class="md-theme-light" ng-style="toolbar">
         <h1 class="md-toolbar-tools">Search</h1>
     </md-toolbar>
     <div layout-padding>
@@ -35,7 +35,7 @@
 <div layout="row" flex style="background-color: white">
     <md-toolbar ui-view="header" class="header md-whiteframe-z3" layout="row" class="headBar"
                 md-swipe-right="openSidenav('left')" md-swipe-left="closeSidenav('left')"
-                style="height: 62px;position:fixed;">
+                style="height: 62px;position:fixed;" ng-style="toolbar">
 
     </md-toolbar>
     <span hide show-gt-lg show-lg style="min-width:304px;float:left;position: relative;">

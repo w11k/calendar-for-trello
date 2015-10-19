@@ -94,6 +94,8 @@ angular.module('trelloCal').factory('initService', /*ngInject*/  function ($q, n
                 ngProgress.complete();
                 deferred.resolve('init');
 
+            }, function () {
+                deferred.reject('init error');
             });
             return deferred.promise;
         };
@@ -106,30 +108,33 @@ angular.module('trelloCal').factory('initService', /*ngInject*/  function ($q, n
             var TrelloCalendarStorage = webStorage.get('TrelloCalendarStorage');
             var temp = webStorage.get('TrelloCalendarStorage');
 
-            $http.get('https://api.trello.com/1/members/me/boards/?fields=name,shortUrl,prefs&filter=open&key=' + key + '&token=' + token).then(function (responses) {
+            $http.get('https://api.trello.com/1/members/me/boards/?fields=name,shortUrl,prefs&filter=open&key=' + key + '&token=' + token)
+                .then(function (responses) {
 
-                _.forEach(responses.data, function (board) {
-                    if (TrelloCalendarStorage.boards[board.id]) {
-                        TrelloCalendarStorage.boards[board.id].name = board.name;
-                        TrelloCalendarStorage.boards[board.id].shortUrl = board.shortUrl;
-                        TrelloCalendarStorage.boards[board.id].id = board.id;
-                        TrelloCalendarStorage.boards[board.id].prefs = board.prefs;
-                        TrelloCalendarStorage.boards[board.id].prefs.background = temp.boards[board.id].prefs.background;
-                        TrelloCalendarStorage.boards[board.id].prefs.backgroundColor = temp.boards[board.id].prefs.backgroundColor;
-                        if (TrelloCalendarStorage.boards[board.id].enabled === undefined) {
-                            TrelloCalendarStorage.boards[board.id].enabled = true;
+                    _.forEach(responses.data, function (board) {
+                        if (TrelloCalendarStorage.boards[board.id]) {
+                            TrelloCalendarStorage.boards[board.id].name = board.name;
+                            TrelloCalendarStorage.boards[board.id].shortUrl = board.shortUrl;
+                            TrelloCalendarStorage.boards[board.id].id = board.id;
+                            TrelloCalendarStorage.boards[board.id].prefs = board.prefs;
+                            TrelloCalendarStorage.boards[board.id].prefs.background = temp.boards[board.id].prefs.background;
+                            TrelloCalendarStorage.boards[board.id].prefs.backgroundColor = temp.boards[board.id].prefs.backgroundColor;
+                            if (TrelloCalendarStorage.boards[board.id].enabled === undefined) {
+                                TrelloCalendarStorage.boards[board.id].enabled = true;
+                            }
+
                         }
+                        else {
+                            TrelloCalendarStorage.boards[board.id] = board;
+                            TrelloCalendarStorage.boards[board.id].enabled = true;
 
-                    }
-                    else {
-                        TrelloCalendarStorage.boards[board.id] = board;
-                        TrelloCalendarStorage.boards[board.id].enabled = true;
-
-                    }
+                        }
+                    });
+                    webStorage.set('TrelloCalendarStorage', TrelloCalendarStorage);
+                    deferred.resolve('boards');
+                }, function () {
+                    deferred.reject('boards error');
                 });
-                webStorage.set('TrelloCalendarStorage', TrelloCalendarStorage);
-                deferred.resolve('boards');
-            });
             return deferred.promise;
         };
         /**
@@ -151,6 +156,9 @@ angular.module('trelloCal').factory('initService', /*ngInject*/  function ($q, n
                 TrelloCalendarStorage.lists = _.indexBy(alllists, 'id');
                 webStorage.set('TrelloCalendarStorage', TrelloCalendarStorage);
                 deferred.resolve('lists');
+            }, function () {
+                deferred.reject('lists error');
+
             });
             return deferred.promise;
         };
@@ -163,11 +171,15 @@ angular.module('trelloCal').factory('initService', /*ngInject*/  function ($q, n
             if (TrelloCalendarStorage.me.observer && TrelloCalendarStorage.me.observer === true) {
                 pullAllCards().then(function () {
                     deferred.resolve();
+                }, function (error) {
+                    deferred.reject(error);
                 });
             }
             else {
                 pullMyCards().then(function () {
                     deferred.resolve();
+                }, function (error) {
+                    deferred.reject(error);
                 });
             }
 
@@ -201,8 +213,10 @@ angular.module('trelloCal').factory('initService', /*ngInject*/  function ($q, n
                 TrelloCalendarStorage.cards.my = _.indexBy(myCards, 'id');
                 webStorage.set('TrelloCalendarStorage', TrelloCalendarStorage);
                 deferred.resolve('myCards');
-                login.resolve('allCards');
+                login.resolve('myCards');
 
+            }, function () {
+                deferred.reject('myCards error');
             });
 
             return deferred.promise;
@@ -244,6 +258,8 @@ angular.module('trelloCal').factory('initService', /*ngInject*/  function ($q, n
                 webStorage.set('TrelloCalendarStorage', TrelloCalendarStorage);
                 login.resolve('allCards');
                 deferred.resolve('allCards');
+            }, function () {
+                deferred.reject('allCards error');
             });
             return deferred.promise;
         };
@@ -259,9 +275,19 @@ angular.module('trelloCal').factory('initService', /*ngInject*/  function ($q, n
                         deferred.resolve('update');
                         ngProgress.complete();
 
+                    }, function (error) {
+                        ngProgress.complete();
+                        deferred.reject(error);
                     });
+                }, function (error) {
+                    ngProgress.complete();
+                    deferred.reject(error);
                 });
 
+            }, function (error) {
+                ngProgress.complete();
+                console.log(error);
+                deferred.reject(error);
             }); //runs pullLists() and  pullCards();
 
             return deferred.promise;
@@ -270,16 +296,26 @@ angular.module('trelloCal').factory('initService', /*ngInject*/  function ($q, n
         var updateAll = function () {
             ngProgress.start();
             var deferred = $q.defer();
+
             pullBoards().then(function () {
                 pullLists().then(function () {
-                    pullMyCards().then(function () {
-                        pullAllCards().then(function () {
-                            deferred.resolve('update');
-                            ngProgress.complete();
-                        });
+                    $q.all([pullMyCards, pullAllCards]).then(function () {
+                        ngProgress.complete();
+                        console.log('works');
+                        deferred.resolve('update');
+                    }, function (error) {
+                        ngProgress.complete();
+                        deferred.reject(error);
                     });
+                }, function (error) {
+                    ngProgress.complete();
+                    deferred.reject(error);
                 });
 
+            }, function (error) {
+                ngProgress.complete();
+                console.log(error);
+                deferred.reject(error);
             }); //runs pullLists() and  pullCards();
 
             return deferred.promise;
@@ -350,7 +386,13 @@ angular.module('trelloCal').factory('initService', /*ngInject*/  function ($q, n
 
             refresh: function () {
                 login = $q.defer();
-                update();
+                update().then(function () {
+
+                    },
+                    function () {
+                        console.log('failed refresh');
+                    });
+
                 return login.promise;
             },
 
@@ -363,7 +405,11 @@ angular.module('trelloCal').factory('initService', /*ngInject*/  function ($q, n
             },
             refreshAll: function () {
                 login = $q.defer();
-                updateAll();
+                updateAll().then(function () {
+                    },
+                    function () {
+                        console.log('failed refreshAll');
+                    });
                 return login.promise;
             },
 

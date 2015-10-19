@@ -20,7 +20,8 @@
     "ngprogress": "~1.0.7",
     "stacktrace-js": "~0.6.4",
     "w11k.angular-seo-header": "*",
-    "angular-webstorage": "0.14.0"
+    "angular-webstorage": "0.14.0",
+    "angular-ui-notification": "*"
 
   },
   "resolutions": {

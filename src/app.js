@@ -15,6 +15,7 @@
         'ngProgress',
         'ui.select',
         'webStorageModule',
+        'ui-notification',
         // Route
 
         'trelloCal.month',
@@ -87,8 +88,27 @@
             return value + (tail || ' …');
         };
     });
-})();
 
+    module.factory('offlineInterceptor', function ($q) {
+
+        return {
+            'request': function (config) {
+                //promise that should abort the request when resolved.
+                return config;
+            },
+            'response': function (response) {
+                return response;
+            },
+            'responseError': function (rejection) {
+
+                return $q.reject(rejection);
+
+            }
+        };
+    });
+
+
+})();
 
 
 

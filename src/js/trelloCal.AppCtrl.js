@@ -1,5 +1,5 @@
 'use strict';
-angular.module('trelloCal').controller('AppCtrl', function ($scope, Notification, $rootScope, $http, $log, ngProgress, initService, $mdSidenav, webStorage) {
+angular.module('trelloCal').controller('AppCtrl', function ($scope, $rootScope, $http, $log, ngProgress, initService, $mdSidenav, webStorage) {
 
         window.Offline.options = {
             checks: {xhr: {url: '/'}},

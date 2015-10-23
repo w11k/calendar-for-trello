@@ -4,7 +4,7 @@ month.config(/*ngInject*/ function () {
 
 });
 
-month.controller('monthCtrl', function ($timeout, $interval, Notification,
+month.controller('monthCtrl', function ($timeout, $interval,
                                         archiveCard, $scope, buildCalService, changeDate, $window,
                                         $stateParams, $location, $mdDialog, localStorageService, orderByFilter,
                                         ngProgress, initService, $q, getExistingBoardColors, $rootScope, webStorage) {
@@ -119,15 +119,15 @@ month.controller('monthCtrl', function ($timeout, $interval, Notification,
             });
             $scope.refresh();
             ngProgress.complete();
-            Notification.success({
-                message: "<span><ng-md-icon icon='done' size='24'style='width: 20px;float: left'></ng-md-icon>successfully changed</span>",
-                replaceMessage: true
-            });
+            //Notification.success({
+            //    message: "<span><ng-md-icon icon='done' size='24'style='width: 20px;float: left'></ng-md-icon>successfully changed</span>",
+            //    replaceMessage: true
+            //});
         }, function () {
-            Notification.warning({
-                message: "<span><ng-md-icon icon='done' size='24'style='width: 20px;float: left'></ng-md-icon>change cached</span>",
-                replaceMessage: true
-            });
+            //Notification.warning({
+            //    message: "<span><ng-md-icon icon='done' size='24'style='width: 20px;float: left'></ng-md-icon>change cached</span>",
+            //    replaceMessage: true
+            //});
         });
     }
 

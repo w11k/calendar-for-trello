@@ -1,16 +1,16 @@
 'use strict';
-angular.module('trelloCal').config(/*ngInject*/ function (NotificationProvider, $httpProvider, $urlRouterProvider, $stateProvider, $mdThemingProvider, $locationProvider) {
+angular.module('trelloCal').config(/*ngInject*/ function ($httpProvider, $urlRouterProvider, $stateProvider, $mdThemingProvider, $locationProvider) {
     $httpProvider.interceptors.push('offlineInterceptor');
 
-    NotificationProvider.setOptions({
-        delay: 10000,
-        startTop: 20,
-        startRight: 15,
-        verticalSpacing: 8,
-        horizontalSpacing: 20,
-        positionX: 'left',
-        positionY: 'bottom'
-    });
+    //NotificationProvider.setOptions({
+    //    delay: 10000,
+    //    startTop: 20,
+    //    startRight: 15,
+    //    verticalSpacing: 8,
+    //    horizontalSpacing: 20,
+    //    positionX: 'left',
+    //    positionY: 'bottom'
+    //});
 
     $mdThemingProvider.definePalette('TrelloBusinessBlue', {
         '50': 'EDEFF4',

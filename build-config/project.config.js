@@ -64,7 +64,7 @@ module.exports = {
           'raven-js/dist/raven.js',
           'angular-raven/angular-raven.js',
           'angular-ui-notification/src/angular-ui-notification.js',
-
+          'angular-dragdrop/src/angular-dragdrop.min.js',
           //Analytics:
 
           'angulartics/src/angulartics.js',

@@ -66,7 +66,6 @@ month.controller('monthCtrl', function ($timeout, $interval, Notification,
             ngProgress.start();
             var str = e.target.id + ui.item[0].children[1].id.split('-')[1];
             var newStr = [];
-
             angular.forEach(str.split(','), function (value) {
                 newStr.push(parseInt(value));
             });
@@ -81,8 +80,31 @@ month.controller('monthCtrl', function ($timeout, $interval, Notification,
             updateChangeArray();
 
         },
+        revert: true,
         placeholder: 'card',
-        connectWith: '.dayCards'
+        connectWith: '.dayCards',
+        over: function (event, ui) {
+            var element = document.getElementById(event.target.id);
+            if (event.target.id !== ui.item[0].parentElement.id) {
+                var children = element.children;
+                _.forEach(children, function (child) {
+                    child.style.transform = 'scale(0.8)';
+                });
+            }
+            ui.item[0].style.marginLeft = '-20px';
+            element.style.borderColor = '#42548E';
+            element.style.borderStyle = 'dashed';
+            element.style.borderWidth = '3px';
+
+        },
+        out: function (event) {
+            var element = document.getElementById(event.target.id);
+            element.style.borderStyle = 'none';
+            var children = element.children;
+            _.forEach(children, function (child) {
+                child.style.transform = 'scale(1)';
+            });
+        }
     };
 
     function updateChangeArray() {

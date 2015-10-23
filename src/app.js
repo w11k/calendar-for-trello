@@ -16,6 +16,7 @@
         'ui.select',
         'webStorageModule',
         'ui-notification',
+        'ngDragDrop',
         // Route
 
         'trelloCal.month',

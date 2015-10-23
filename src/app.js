@@ -15,8 +15,7 @@
         'ngProgress',
         'ui.select',
         'webStorageModule',
-        'ui-notification',
-        'ngDragDrop',
+        'toastr',
         // Route
 
         'trelloCal.month',

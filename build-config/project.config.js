@@ -60,11 +60,11 @@ module.exports = {
           'ngprogress/build/ngProgress.js',
           'array-tools/dist/array-tools.js',
           'w11k.angular-seo-header/angular-seo-header.js',
+          'angular-toastr/dist/angular-toastr.tpls.min.js',
+
           //Error-Logging:
           'raven-js/dist/raven.js',
           'angular-raven/angular-raven.js',
-          'angular-ui-notification/src/angular-ui-notification.js',
-          'angular-dragdrop/src/angular-dragdrop.min.js',
           //Analytics:
 
           'angulartics/src/angulartics.js',
@@ -78,7 +78,8 @@ module.exports = {
       css: [
           'angular-material/angular-material.css',
           'ngprogress/ngProgress.css',
-          'angular-ui-notification/src/angular-ui-notification.less'
+          'angular-ui-notification/src/angular-ui-notification.less',
+          'angular-toastr/dist/angular-toastr.min.css'
       ],
         assets: [
             'angular-ui-notification/src/angular-ui-notification.html'

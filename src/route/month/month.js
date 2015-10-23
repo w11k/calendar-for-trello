@@ -1,10 +1,20 @@
 'use strict';
 var month = angular.module('trelloCal.month', []);
-month.config(/*ngInject*/ function () {
-
+month.config(/*ngInject*/ function (toastrConfig) {
+    angular.extend(toastrConfig, {
+        autoDismiss: false,
+        containerId: 'toast-container',
+        maxOpened: 1,
+        newestOnTop: true,
+        positionClass: 'toast-bottom-left',
+        preventDuplicates: false,
+        preventOpenDuplicates: true,
+        target: 'body',
+        toastClass: 'toast'
+    });
 });
 
-month.controller('monthCtrl', function ($timeout, $interval,
+month.controller('monthCtrl', function ($timeout, $interval, toastr,
                                         archiveCard, $scope, buildCalService, changeDate, $window,
                                         $stateParams, $location, $mdDialog, localStorageService, orderByFilter,
                                         ngProgress, initService, $q, getExistingBoardColors, $rootScope, webStorage) {
@@ -119,11 +129,14 @@ month.controller('monthCtrl', function ($timeout, $interval,
             });
             $scope.refresh();
             ngProgress.complete();
+            toastr.success('Successfully changed!');
+
             //Notification.success({
             //    message: "<span><ng-md-icon icon='done' size='24'style='width: 20px;float: left'></ng-md-icon>successfully changed</span>",
             //    replaceMessage: true
             //});
         }, function () {
+            toastr.warning('Your changes have been saved!');
             //Notification.warning({
             //    message: "<span><ng-md-icon icon='done' size='24'style='width: 20px;float: left'></ng-md-icon>change cached</span>",
             //    replaceMessage: true

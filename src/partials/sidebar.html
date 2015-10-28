@@ -11,7 +11,8 @@
     <div ng-style="overduedContent" class=" nav card-content" id="{{day.date | date: 'yyyy,MM,dd,'}}"
          ui-sortable="sortableOptions" ng-model="cards">
 
-        <div ng-repeat="card in overduedCards=(cards |filter: isOverdue|filter: cardSelected)|orderBy:'due'"
+        <div ng-animate="'animate'"
+             ng-repeat="card in overduedCards=(cards |filter: isOverdue|filter: cardSelected)|orderBy:'due'"
              layout="row" class="md-whiteframe-z1 holeCard">
             <div style="background-color:{{card.color}};display:block;">&nbsp&nbsp&nbsp
             </div>

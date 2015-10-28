@@ -14,7 +14,7 @@ month.config(/*ngInject*/ function (toastrConfig) {
     });
 });
 
-month.controller('monthCtrl', function ($timeout, $interval, toastr,
+month.controller('monthCtrl', function ($timeout, $interval,toastr,
                                         archiveCard, $scope, buildCalService, changeDate, $window,
                                         $stateParams, $location, $mdDialog, localStorageService, orderByFilter,
                                         ngProgress, initService, $q, getExistingBoardColors, $rootScope, webStorage) {
@@ -101,7 +101,6 @@ month.controller('monthCtrl', function ($timeout, $interval, toastr,
                     child.style.transform = 'scale(0.8)';
                 });
             }
-            ui.item[0].style.marginLeft = '-20px';
             element.style.borderColor = '#42548E';
             element.style.borderStyle = 'dashed';
             element.style.borderWidth = '3px';

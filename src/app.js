@@ -16,6 +16,7 @@
         'ui.select',
         'webStorageModule',
         'toastr',
+        'angular-sortable-view',
         // Route
 
         'trelloCal.month',

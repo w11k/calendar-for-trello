@@ -83,6 +83,13 @@ angular.module('trelloCal').controller('AppCtrl', function ($scope, $rootScope, 
             };
         }
 
+
+        $scope.drop = function (item) {
+            console.log('item: ', item.id);
+            //console.log('item: ',);
+            console.log(document.getElementById(item.id + '-12,0,0').parentNode.parentNode.id);
+        };
+
     }
 )
 ;

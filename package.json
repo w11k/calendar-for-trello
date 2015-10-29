@@ -1,6 +1,6 @@
 {
   "name": "w11k-trello-calendar",
-  "version": "0.1.36",
+  "version": "0.1.37",
   "devDependencies": {
     "connect-modrewrite": "^0.8.2",
     "fabs": "https://github.com/CanKattwinkel/fabs/tarball/master",

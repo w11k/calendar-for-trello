@@ -62,7 +62,6 @@ month.controller('monthCtrl', function ($timeout, $interval,toastr,
             defer.resolve();
 
         }
-        console.log($scope.days);
 
     };
     var month, year, today;

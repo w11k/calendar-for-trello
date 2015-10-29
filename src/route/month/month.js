@@ -38,7 +38,6 @@ month.controller('monthCtrl', function ($timeout, $interval,toastr,
     $scope.reloadView = function () {
         ngProgress.start();
         $rootScope.$broadcast('rebuild');
-        $scope.$apply();
         ngProgress.complete();
     };
 

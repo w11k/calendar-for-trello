@@ -38,11 +38,14 @@ month.controller('monthCtrl', function ($timeout, $interval,toastr,
     $scope.reloadView = function () {
         ngProgress.start();
         $rootScope.$broadcast('rebuild');
+        $scope.$apply();
         ngProgress.complete();
     };
 
     var routine = function (date, defer) {
         initService.refreshColors();
+        buildCalService.refresh();
+        $scope.days = [];
         $scope.days = buildCalService.build(date).days;
         $scope.date = {
             iso: new Date(year, month),
@@ -59,6 +62,8 @@ month.controller('monthCtrl', function ($timeout, $interval,toastr,
             defer.resolve();
 
         }
+        console.log($scope.days);
+
     };
     var month, year, today;
 
@@ -129,17 +134,8 @@ month.controller('monthCtrl', function ($timeout, $interval,toastr,
             $scope.refresh();
             ngProgress.complete();
             toastr.success('Successfully changed!');
-
-            //Notification.success({
-            //    message: "<span><ng-md-icon icon='done' size='24'style='width: 20px;float: left'></ng-md-icon>successfully changed</span>",
-            //    replaceMessage: true
-            //});
         }, function () {
             toastr.warning('Your changes have been saved!');
-            //Notification.warning({
-            //    message: "<span><ng-md-icon icon='done' size='24'style='width: 20px;float: left'></ng-md-icon>change cached</span>",
-            //    replaceMessage: true
-            //});
         });
     }
 

@@ -11,14 +11,12 @@ angular.module('trelloCal').factory('buildCalService', /*ngInject*/  function (w
     };
 
     var boards = [];
-
+    var cards = [];
 
     return {
-
-        build: function (inDate) {
-            boards = [];
+        refresh: function () {
+            cards = [];
             var card;
-            var cards = [];
             if (webStorage.get('TrelloCalendarStorage').me.observer === true) {
                 var all = (webStorage.get('TrelloCalendarStorage')).cards.all;
                 for (card in all) {
@@ -33,8 +31,15 @@ angular.module('trelloCal').factory('buildCalService', /*ngInject*/  function (w
                 }
 
             }
+        },
+
+        build: function (inDate) {
+
+            boards = [];
+
 
             cards = _.groupBy(cards, 'dueDay');
+
             delete cards.undefined;
             var buildADay = function (date, dayOff) {
 

@@ -60,13 +60,13 @@
 
         </div>
         <div class="listView">
-            <div class="day header" ng-repeat="wd in ::weekdays"><span class="short">{{::wd[0]}}</span><span
-                    class="long">{{::wd[1]}}</span></div>
+            <div class="day header" ng-repeat="wd in weekdays"><span class="short">{{wd[0]}}</span><span
+                    class="long">{{wd[1]}}</span></div>
             <div ng-repeat="day in days track by day.date" class="day"
                  ng-class="{'dayOff': day.dayOff, 'dayOn' : !day.dayOff, 'has' : day.cards.length >= 1}">
                 <div class="dayCounter">
-                    <span class="weekday">{{::day.weekday}}</span>
-                    <span ng-class="{'todayBtn' :day.isToday}">{{::day.date  | date: "d" }}</span>
+                    <span class="weekday">{{day.weekday}}</span>
+                    <span ng-class="{'todayBtn' :day.isToday}">{{day.date  | date: "d" }}</span>
                 </div>
                 <div class="dayCards" id="{{day.date | date: 'yyyy,MM,dd,'}}" ui-sortable="sortableOptions"
                      ng-model="day.cards">
@@ -74,18 +74,18 @@
                     <div ng-repeat="card in day.cards  | filter: activeBoard track by card.id" layout="row">
                         <div style="background-color:{{card.color}};margin-bottom:4px;display:block;">&nbsp&nbsp</div>
                         <md-toolbar class="dayCard md-primary"
-                                    id="{{::card.id}}-{{card.due | date : 'H,m,s' : timezone}}"
+                                    id="{{card.id}}-{{card.due | date : 'H,m,s' : timezone}}"
                                     style="margin-bottom:4px;padding:5px;float:right;overflow:hidden;white-space: nowrap;">
-                            <div class="title" title="{{::card.name}}" ng-click="click(card.shortUrl)"
+                            <div class="title" title="{{card.name}}" ng-click="click(card.shortUrl)"
                                  style="width: 100%;overflow:hidden;white-space: nowrap;text-overflow: ellipsis;">
-                                {{::card.name}}
+                                {{card.name}}
 
                             </div>
                             <span style="color: dimgrey;">in list <span
                                     style="font-style: italic;">{{card.listName}}</span></span>
 
-                            <div class="board"><a ng-href="{{::card.boardUrl}}" target="_blank">
-                                <span class="boardName">{{::card.boardName|cut:true:25}}</span></a><span
+                            <div class="board"><a ng-href="{{card.boardUrl}}" target="_blank">
+                                <span class="boardName">{{card.boardName|cut:true:25}}</span></a><span
                                     style="float: right;">{{card.due | date : "HH:mm" : timezone}}</span></div>
                         </md-toolbar>
                     </div>
@@ -96,7 +96,6 @@
         <div class="boardLegende">
             <span ng-repeat="board in boards"><i style="background-color: {{board.color}}"></i> {{board.name}}  </span>
         </div>
-
     </div>
 
 </div>

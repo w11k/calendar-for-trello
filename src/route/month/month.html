@@ -76,7 +76,7 @@
                         <md-toolbar class="dayCard md-primary"
                                     id="{{card.id}}-{{card.due | date : 'H,m,s' : timezone}}"
                                     style="margin-bottom:4px;padding:5px;float:right;overflow:hidden;white-space: nowrap;">
-                            <a class="title" title="{{card.name}}" ng-href="{{card.shortUrl}}"
+                            <a class="title" title="{{card.name}}" target="_blank" ng-href="{{card.shortUrl}}"
                                  style="width: 100%;overflow:hidden;white-space: nowrap;text-overflow: ellipsis;">
                                 {{card.name}}
                             </a>

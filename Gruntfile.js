@@ -12,7 +12,21 @@ module.exports = function () {
     var fabsGruntConfig = fabsConfig.getGruntConfig();
     var fabsBuildConfig = fabsConfig.getBuildConfig();
 
-    var customConfig = {};
+    var customConfig = {
+        copy: {
+            seofiles: {
+                files: [
+                    {
+                        cwd: 'src/',
+                        src: '{robots.txt,sitemap.xml}',
+                        dest: 'build-output/compiled/',
+                        flatten: true,
+                        expand: true
+                    }
+                ]
+            }
+        }
+    };
 
     var fabsMiddleware = fabsGruntConfig.connect.dev.options.middleware;
 
@@ -24,4 +38,6 @@ module.exports = function () {
 
     var gruntConfig = lodash.merge({}, fabsGruntConfig, customConfig);
     grunt.initConfig(gruntConfig);
+    grunt.registerTask('hookCompileEnd', [ 'copy:seofiles']);
+
 };

@@ -1,0 +1,3 @@
+User-agent: *
+
+Sitemap: http://www.thecodecampus.de/sitemap.xml

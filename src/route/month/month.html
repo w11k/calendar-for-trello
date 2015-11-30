@@ -14,17 +14,15 @@
                 </md-button>
                 <span class="month" style="white-space: nowrap;margin-right: 10px;" flex>{{date.monthName}}, {{date.year}}</span>
 
-                <!--<div class="delete"> </div>-->
-
                 <md-button ng-if="offline!=true" aria-label="Refresh Button" class="calendarOption md-icon-button"
                            ng-click="refresh()">
-                    <ng-md-icon class="ng-md-icon" icon="refresh" class="calendarOption-icon" size="22"></ng-md-icon>
+                    <ng-md-icon icon="refresh" class="calendarOption-icon" size="22"></ng-md-icon>
                 </md-button>
 
                 <md-menu md-position-mode="target-right target" style="padding:0px;margin:0px;">
                     <md-button aria-label="Open Board menu" class="calendarOption md-icon-button"
                                ng-click="$mdOpenMenu($event)">
-                        <ng-md-icon class="ng-md-icon" icon="filter_list" class="calendarOption-icon"
+                        <ng-md-icon icon="filter_list" class="calendarOption-icon"
                                     size="22"></ng-md-icon>
                     </md-button>
                     <md-menu-content width="4" style="overflow: auto;">
@@ -36,9 +34,9 @@
                                 <div layout="row">
                                     <p flex>{{board.name}}</p>
                                     <ng-md-icon ng-if="!board.enabled" icon="check_box_outline_blank"
-                                                class="calendarOption-icon ng-md-icon" size="22"></ng-md-icon>
+                                                class="calendarOption-icon " size="22"></ng-md-icon>
                                     <ng-md-icon ng-if="board.enabled" icon="check_box"
-                                                class="calendarOption-icon ng-md-icon"
+                                                class="calendarOption-icon "
                                                 size="22"></ng-md-icon>
                                 </div>
                             </md-button>
@@ -49,10 +47,10 @@
                 <md-button aria-label="observer mode" class="calendarOption md-icon-button launch" ng-model="observe"
                            ng-click="observe = !observe;observeClick();">
 
-                    <ng-md-icon ng-if="observe" icon="people" class="calendarOption-icon ng-md-icon" size="22">
+                    <ng-md-icon ng-if="observe" icon="people" class="calendarOption-icon" size="22">
                         <md-tooltip>show cards of all members</md-tooltip>
                     </ng-md-icon>
-                    <ng-md-icon ng-if="!observe" icon="person" class="calendarOption-icon ng-md-icon" size="22">
+                    <ng-md-icon ng-if="!observe" icon="person" class="calendarOption-icon" size="22">
                         <md-tooltip>show cards of all members</md-tooltip>
                     </ng-md-icon>
 

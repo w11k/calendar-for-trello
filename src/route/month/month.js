@@ -177,7 +177,7 @@ month.controller('monthCtrl', function ($timeout, $interval,toastr,
 
     }
 
-    $scope.$on('updateChange', updateChangeArray)
+    $scope.$on('updateChange', updateChangeArray);
     routine(date);
 
     $scope.$watch('days', function () {

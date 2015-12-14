@@ -1,7 +1,7 @@
 <md-backdrop class="md-sidenav-backdrop md-opaque md-default-theme md-sidenav-backdrop-custom disabled"
              ng-click="checkClosingForm()"></md-backdrop>
 
-<md-sidenav flex class="md-sidenav-left md-whiteframe-z2 md-sidenav" md-is-locked-open="$mdMedia('gt-md')"
+<md-sidenav flex class="md-sidenav-left md-whiteframe-z2 md-sidenav"
             md-component-id="left"
             style="background-color: #EDEFF4;overflow: visible;position:fixed;"
             md-swipe-left="closeSidenav('left')">
@@ -39,9 +39,9 @@
                 style="height: 62px;position:fixed;" ng-style="toolbar">
 
     </md-toolbar>
-    <span hide show-gt-lg show-lg style="min-width:304px;float:left;position: relative;">
+    <!-- <span hide show-gt-lg show-lg style="min-width:304px;float:left;position: relative;">
 
-</span>
+    </span> -->
     <md-content ui-view="content" class="md-padding"
                 style="padding:0px;margin:0px;margin-top:62px;width:100%;background-color: #fff"></md-content>
 </div>

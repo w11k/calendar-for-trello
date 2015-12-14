@@ -301,7 +301,6 @@ angular.module('trelloCal').factory('initService', /*ngInject*/  function ($q, n
                 pullLists().then(function () {
                     $q.all([pullMyCards, pullAllCards]).then(function () {
                         ngProgress.complete();
-                        console.log('works');
                         deferred.resolve('update');
                     }, function (error) {
                         ngProgress.complete();
@@ -321,7 +320,7 @@ angular.module('trelloCal').factory('initService', /*ngInject*/  function ($q, n
             return deferred.promise;
         };
         /**
-         * refresh Card colors from chaged Storage
+         * refresh Card colors from changed Storage
          */
         var refreshColors = function () {
             var BoardId;
@@ -372,13 +371,17 @@ angular.module('trelloCal').factory('initService', /*ngInject*/  function ($q, n
                         firstInit().then(function () {
                             firstInit().then(function () {
                                 updateAll().then(function () {
+                                    ngProgress.complete();
                                     login.resolve('not exist');
                                 });
                             });
                         });
                     }
                     else {
+                        updateAll().then(function () {
+                        });
                         login.resolve('exists');
+
                     }
                 }
                 return login.promise;

@@ -26,7 +26,18 @@
                                     size="22"></ng-md-icon>
                     </md-button>
                     <md-menu-content width="4" style="overflow: auto;">
-
+                        <md-menu-item>
+                            <md-button ng-click="allSelectClick()">
+                                <div layout="row">
+                                    <p flex>Select/deselect all boards</p>
+                                    <ng-md-icon ng-if="selectall" icon="check_box_outline_blank"
+                                                class="calendarOption-icon " size="22"></ng-md-icon>
+                                    <ng-md-icon ng-if="!selectall" icon="check_box"
+                                                class="calendarOption-icon "
+                                                size="22"></ng-md-icon>
+                                </div>
+                            </md-button>
+                        </md-menu-item>
                         <md-menu-item ng-repeat="board in ExistingBoards |orderBy: 'name'" class="filterMenu">
                             <div class="colorPicker" style="background-color: {{board.prefs.backgroundColor}}"></div>
 

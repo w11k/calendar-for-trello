@@ -250,6 +250,25 @@ month.controller('monthCtrl', function ($timeout, $interval,toastr,
         webStorage.set('TrelloCalendarStorage', Storage);
         $scope.reloadView();
     };
+    $scope.selectall = true;
+    $scope.allSelectClick = function () {
+        var Storage = webStorage.get('TrelloCalendarStorage');
+        var board;
+        if ($scope.selectall) {
+            for (board in Storage.boards) {
+                Storage.boards[board].enabled = true;
+            }
+        }
+        else {
+            for (board in Storage.boards) {
+                Storage.boards[board].enabled = false;
+            }
+        }
+        $scope.selectall = !$scope.selectall;
+
+        webStorage.set('TrelloCalendarStorage', Storage);
+        $scope.reloadView();
+    };
 
     $scope.observeClick = function () {
         var temp = webStorage.get('TrelloCalendarStorage');

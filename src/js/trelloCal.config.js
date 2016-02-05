@@ -115,10 +115,10 @@ angular.module('trelloCal').config(/*ngInject*/ function ($httpProvider, $urlRou
             },
             data: {
                 head: {
-                    title: 'Trello-Calendar',
+                    title: 'Trello Calendar - for all Boards',
                     robots: 'index,follow',
                     keywords: ['Trello', 'Calendar', 'all', 'boards', 'w11k', 'theCodeCampus', 'cards', 'calendar'],
-                    description: 'The w11k Trello Calendar allows you to organize all cards of all boards in one calendar.',
+                    description: 'Organize Trello cards across all boards in one amazing calendar view. Get the most out of Trello and improve your workflow with our open source calendar!',
                     canonical: 'https://www.calendar-for-trello.com'
                 }
             }
@@ -173,7 +173,7 @@ angular.module('trelloCal').config(/*ngInject*/ function ($httpProvider, $urlRou
                     title: 'Month',
                     robots: 'index,follow',
                     keywords: ['Trello', 'Calendar', 'all', 'boards', 'w11k', 'theCodeCampus', 'cards', 'calendar'],
-                    description: 'The w11k Trello Calendar allows you to organize all cards of all boards in one calendar.',
+                    description: 'Organize Trello cards across all boards in one amazing calendar view. Get the most out of Trello and improve your workflow with our open source calendar!',
                     canonical: 'https://www.calendar-for-trello.com/app/month'
                 }
             }
@@ -217,7 +217,7 @@ angular.module('trelloCal').config(/*ngInject*/ function ($httpProvider, $urlRou
                     title: 'Settings',
                     robots: 'index,follow',
                     keywords: ['Trello', 'Calendar', 'all', 'boards', 'w11k', 'theCodeCampus', 'cards', 'calendar'],
-                    description: 'The w11k Trello Calendar allows you to organize all cards of all boards in one calendar.',
+                    description: 'Organize Trello cards across all boards in one amazing calendar view. Get the most out of Trello and improve your workflow with our open source calendar!',
                     canonical: 'https://www.calendar-for-trello.com/app/settings'
                 }
             }
@@ -256,7 +256,7 @@ angular.module('trelloCal').config(/*ngInject*/ function ($httpProvider, $urlRou
                     title: 'About',
                     robots: 'index,follow',
                     keywords: ['Trello', 'Calendar', 'all', 'boards', 'w11k', 'theCodeCampus', 'cards', 'calendar'],
-                    description: 'The w11k Trello Calendar allows you to organize all cards of all boards in one calendar.',
+                    description: 'Organize Trello cards across all boards in one amazing calendar view. Get the most out of Trello and improve your workflow with our open source calendar!',
                     canonical: 'https://www.calendar-for-trello.com/app/about'
                 }
             }
@@ -293,7 +293,7 @@ angular.module('trelloCal').config(/*ngInject*/ function ($httpProvider, $urlRou
                     title: 'Board Settings',
                     robots: 'index,follow',
                     keywords: ['Trello', 'Calendar', 'all', 'boards', 'w11k', 'theCodeCampus', 'cards', 'calendar'],
-                    description: 'The w11k Trello Calendar allows you to organize all cards of all boards in one calendar.',
+                    description: 'Organize Trello cards across all boards in one amazing calendar view. Get the most out of Trello and improve your workflow with our open source calendar!',
                     canonical: 'https://www.calendar-for-trello.com/app/boards'
                 }
             }

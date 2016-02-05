@@ -94,7 +94,7 @@ angular.module('trelloCal').config(/*ngInject*/ function ($httpProvider, $urlRou
         .backgroundPalette('TrelloGrey');
 
 
-    $urlRouterProvider.otherwise('/');
+    $urlRouterProvider.otherwise('/app/month');
     $locationProvider.html5Mode(true);
     $stateProvider
         .state('trello', {
@@ -110,6 +110,7 @@ angular.module('trelloCal').config(/*ngInject*/ function ($httpProvider, $urlRou
             url: '/',
             views: {
                 'mainView@trello': {
+                    controller: 'welcomeCtrl',
                     templateUrl: 'welcome.tpl.html'
                 }
             },

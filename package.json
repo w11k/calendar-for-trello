@@ -3,7 +3,7 @@
   "version": "0.1.45",
   "devDependencies": {
     "connect-modrewrite": "^0.8.2",
-    "fabs": "https://github.com/CanKattwinkel/fabs/tarball/master",
+    "fabs": "*",
     "grunt": "0.4.5",
     "karma": "~0.12.0",
     "lodash": "2.4.1"

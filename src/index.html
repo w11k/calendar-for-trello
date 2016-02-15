@@ -44,6 +44,80 @@
 <!--
 enable before building as mobile app
 <script src="cordova.js"></script>-->
+
+
+<script type="text/ng-template" id="dialog1.tmpl.html">
+    <md-dialog aria-label="Mango (Fruit)" ng-cloak>
+        <form>
+            <md-toolbar>
+                <div class="md-toolbar-tools">
+                    <h2>Calendar for Trello -
+                        <small>by <a href="http://www.w11k.de/" target="_blank">w11k GmbH</a> & <a
+                                href="http://www.theCodeCampus.de/">theCodeCampus</a> (vers.: 0.1.46)
+                        </small>
+                    </h2>
+
+                </div>
+            </md-toolbar>
+
+            <md-dialog-content>
+                <div class="md-dialog-content">
+
+
+                    <div layout="row" class="row">
+                        <div>
+                            <!--<h1 class="md-headline">Connect to Trello!</h1>-->
+                            <h2 class="md-subhead">Lets get started - connect to Trello</h2>
+
+                            <p>Trello is a productivity tool that helps you to organize projects by creating individual
+                                lists, boards and cards.
+                                Manage your projects in teams, get more flexible and improve your workflow. </p>
+                            <p>
+                                The Trello Calendar extends Trello and allows you to organize cards across multiple
+                                boards within one calendar view.
+                            </p>
+
+                            <p>
+                                This calendar is open source and available at <a
+                                    href="https://github.com/w11k/trello-calendar" rel="_blank">GitHub.</a>
+                            </p>
+
+                            <p>
+                            <h1 class="md-subhead">Disclaimer</h1>
+                            <small>
+                                We are not affiliated, associated, authorized, endorsed by or in any
+                                way officially connected to <a href="http://www.trello.com" target="_blank">Trello,
+                                Inc</a>.
+                                All of your data will be stored locally and <strong>nothing</strong> will be transfered
+                                to our server.
+                            </small>
+                            </p>
+                        </div>
+
+
+                        <div>
+                            <img src="assets/images/calendar-sm.png" alt="" class="img-responsive img">
+
+                        </div>
+                    </div>
+
+
+                </div>
+            </md-dialog-content>
+
+            <md-dialog-actions layout="row">
+
+
+                <md-button class="md-raised md-primary resetToDefault " ui-sref="trello.app.month">Lets get started -
+                    Connect to Trello
+                </md-button>
+
+
+        </form>
+    </md-dialog>
+</script>
+
+
 <% scripts.forEach( function ( file ) { %>
 <script type="text/javascript" src="<%= file %>"></script>
 <% }); %>
@@ -116,6 +190,7 @@ enable before building as mobile app
         bootstrapAngular();
     }
 </script>
+
 
 </body>
 </html>

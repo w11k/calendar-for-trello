@@ -92,4 +92,49 @@ angular.module('trelloCal').controller('AppCtrl', function ($scope, $rootScope, 
 
     }
 )
-;
+    .controller('welcomeCtrl', function (buildCalService, $scope, $mdDialog) {
+        var today = {};
+        today.year = new Date().getFullYear();
+        today.month = new Date().getMonth();
+        $scope.date = {
+            iso: new Date(),
+            monthName: moment.months()[today.month],
+            month: today.month,
+            year: today.year
+        };
+
+        /**top legende**/
+        $scope.weekdays = [];
+        for (var i = 0; i <= 6; i++) {
+            var long = moment().weekday(i).format('dddd');
+            var short = moment().weekday(i).format('dd');
+            $scope.weekdays[i] = [short, long];
+        }
+
+
+        $scope.days = buildCalService.build(today).days;
+
+
+        function showAdvanced(ev) {
+            var useFullScreen = false;
+
+            $mdDialog.show({
+                    templateUrl: 'dialog1.tmpl.html',
+                    parent: angular.element(document.body),
+                    targetEvent: ev,
+                    clickOutsideToClose: false,
+                    escapeToClose: false,
+                    fullscreen: useFullScreen
+
+                })
+                .then(function (answer) {
+                    $scope.status = 'You said the information was "' + answer + '".';
+                }, function () {
+                    $scope.status = 'You cancelled the dialog.';
+                });
+
+
+        }
+
+        showAdvanced();
+    });

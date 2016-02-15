@@ -7,45 +7,114 @@
     </h2>
 
 </md-toolbar>
-<!--<div style="height:600px;width:100%; background-image:url('assets/images/welcome.jpg');    background-position: 50% 50%;-->
-<!--background-repeat: no-repeat;position: fixed;-->
-<!--background-size: cover;z-index: 0"></div>-->
-<md-content style="width:100%;margin-top: 62px;padding:20px">
+<div layout="row" style="background-color:#fff;" flex class="dummyCalendar">
+    <div style="margin:25px;margin-top:0px" flex>
+        <div class="calNav">
+            <h2 layout="row" style="margin-top:10px;" class="md-subhead" layout-align="space-between end">
+                <md-button class="md-raised md-primary mini" aria-label="previous month" ng-click="move(-1)">
+                    <ng-md-icon class="ng-md-icon" icon="navigate_before" style="fill: #fff" size="22"></ng-md-icon>
+                </md-button>
+                <md-button class="md-flat md-primary mini " ng-click="toToday()" aria-label="next month"
+                           style="white-space: nowrap;">
+                    <span>today{{isOnline}}</span>
+                </md-button>
+                <md-button class="md-raised md-primary mini" aria-label="next month" ng-click="move(1)">
+                    <ng-md-icon class="ng-md-icon" icon="navigate_next" style="fill: #fff" size="22"></ng-md-icon>
+                </md-button>
+                <span class="month" style="white-space: nowrap;margin-right: 10px;" flex>{{date.monthName}}, {{date.year}}</span>
 
-    <h1 class="md-headline">Calendar for Trello -
-        <small>by <a href="http://www.w11k.de/" target="_blank">w11k GmbH</a> & <a
-                href="http://www.theCodeCampus.de/">theCodeCampus</a></small>
-    </h1>
-    <h6 style="font-size=20px">(vers.: 0.1.45)</h6>
+                <md-button ng-if="offline!=true" aria-label="Refresh Button" class="calendarOption md-icon-button"
+                           ng-click="refresh()">
+                    <ng-md-icon icon="refresh" class="calendarOption-icon" size="22"></ng-md-icon>
+                </md-button>
 
-    <p>Trello is a productivity tool that helps you to organize projects by creating individual lists, boards and cards.
-        Manage your projects in teams, get more flexible and improve your workflow.</p>
+                <md-menu md-position-mode="target-right target" style="padding:0px;margin:0px;">
+                    <md-button aria-label="Open Board menu" class="calendarOption md-icon-button"
+                               ng-click="$mdOpenMenu($event)">
+                        <ng-md-icon icon="filter_list" class="calendarOption-icon"
+                                    size="22"></ng-md-icon>
+                    </md-button>
+                    <md-menu-content width="4" style="overflow: auto;">
+                        <md-menu-item>
+                            <md-button ng-click="allSelectClick()">
+                                <div layout="row">
+                                    <p flex>Select/deselect all boards</p>
+                                    <ng-md-icon ng-if="selectall" icon="check_box_outline_blank"
+                                                class="calendarOption-icon " size="22"></ng-md-icon>
+                                    <ng-md-icon ng-if="!selectall" icon="check_box"
+                                                class="calendarOption-icon "
+                                                size="22"></ng-md-icon>
+                                </div>
+                            </md-button>
+                        </md-menu-item>
+                        <md-menu-item ng-repeat="board in ExistingBoards |orderBy: 'name'" class="filterMenu">
+                            <div class="colorPicker" style="background-color: {{board.prefs.backgroundColor}}"></div>
 
-    <p>The w11k Trello Calendar allows you to organize all cards of all boards in one calendar.
-        Trello Calendar is Open Source and available at <a href="https://github.com/w11k/trello-calendar" rel="_blank">GitHub.</a>
-    </p>
+                            <md-button ng-click="filterClick(board.id)">
+                                <div layout="row">
+                                    <p flex>{{board.name}}</p>
+                                    <ng-md-icon ng-if="!board.enabled" icon="check_box_outline_blank"
+                                                class="calendarOption-icon " size="22"></ng-md-icon>
+                                    <ng-md-icon ng-if="board.enabled" icon="check_box"
+                                                class="calendarOption-icon "
+                                                size="22"></ng-md-icon>
+                                </div>
+                            </md-button>
+                        </md-menu-item>
+                    </md-menu-content>
+                </md-menu>
 
-    <h1 class="md-headline">Feature Requests</h1>
+                <md-button aria-label="observer mode" class="calendarOption md-icon-button launch" ng-model="observe"
+                           ng-click="observe = !observe;observeClick();">
 
-    <p>
-        This Trello Calendar is under heavy development. Feel free to submit feature requests or bug reports to our
-        GitHub Repository or directly to
-        <a href="http://www.w11k.de/">w11k GmbH.</a>
-    </p>
+                    <ng-md-icon ng-if="observe" icon="people" class="calendarOption-icon" size="22">
+                        <md-tooltip>show cards of all members</md-tooltip>
+                    </ng-md-icon>
+                    <ng-md-icon ng-if="!observe" icon="person" class="calendarOption-icon" size="22">
+                        <md-tooltip>show cards of all members</md-tooltip>
+                    </ng-md-icon>
 
-    <h1 class="md-headline">Development</h1>
-    <a href="https://github.com/w11k/calendar-for-trello/issues" target="_blank">Check our Issues on GitHub</a>
+                </md-button>
 
-    <h2 class="md-headline">Disclaimer</h2>
+            </h2>
 
-    <p>
-        We are not affiliated, associated, authorized, endorsed by or in any
-        way officially connected to <a href="http://www.trello.com" target="_blank">Trello, Inc</a>.
-    </p>
+        </div>
+        <div class="listView">
+            <div class="day header" ng-repeat="wd in weekdays"><span class="short">{{wd[0]}}</span><span
+                    class="long">{{wd[1]}}</span></div>
+            <div ng-repeat="day in days track by day.date" class="day"
+                 ng-class="{'dayOff': day.dayOff, 'dayOn' : !day.dayOff, 'has' : day.cards.length >= 1}">
+                <div class="dayCounter">
+                    <span class="weekday">{{day.weekday}}</span>
+                    <span ng-class="{'todayBtn' :day.isToday}">{{day.date  | date: "d" }}</span>
+                </div>
+                <div class="dayCards" id="{{day.date | date: 'yyyy,MM,dd,'}}" ui-sortable="sortableOptions"
+                     ng-model="day.cards">
 
-    <md-button class="md-raised md-primary" ui-sref="trello.app.month" style="padding-top:9px">Go to calendar!
-    </md-button>
+                    <div ng-repeat="card in day.cards  | filter: activeBoard track by card.id" layout="row">
+                        <div style="background-color:{{card.color}};margin-bottom:4px;display:block;">&nbsp&nbsp</div>
+                        <md-toolbar class="dayCard md-primary"
+                                    id="{{card.id}}-{{card.due | date : 'H,m,s' : timezone}}"
+                                    style="margin-bottom:4px;padding:5px;float:right;overflow:hidden;white-space: nowrap;">
+                            <a class="title" title="{{card.name}}" target="_blank" ng-href="{{card.shortUrl}}"
+                               style="width: 100%;overflow:hidden;white-space: nowrap;text-overflow: ellipsis;">
+                                {{card.name}}
+                            </a>
+                            <span style="color: dimgrey;">in list <span
+                                    style="font-style: italic;">{{card.listName}}</span></span>
 
-</md-content>
+                            <div class="board"><a ng-href="{{card.boardUrl}}" target="_blank">
+                                <span class="boardName">{{card.boardName|cut:true:25}}</span></a><span
+                                    style="float: right;">{{card.due | date : "HH:mm" : timezone}}</span></div>
+                        </md-toolbar>
+                    </div>
+                </div>
+            </div>
+        </div>
 
+        <div class="boardLegende">
+            <span ng-repeat="board in boards"><i style="background-color: {{board.color}}"></i> {{board.name}}  </span>
+        </div>
+    </div>
 
+</div>

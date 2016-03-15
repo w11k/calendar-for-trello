@@ -49,7 +49,7 @@
             </div>
             <md-toolbar class="dayCard md-primary" id="{{::card.id}}-{{card.badges.due | date : 'H,m,s' : timezone}}"
                         style="float:right;overflow:hidden;white-space: nowrap;">
-                <a class="title" title="{{::card.name}}" ng-href="{{card.shortUrl}}"
+                <a class="title" title="{{::card.name}}" ng-href="{{card.shortUrl}}" target="_blank"
                    style="width: 100%;overflow:hidden;white-space: nowrap;text-overflow: ellipsis;text-decoration: none;">
                     {{::card.name}}
                 </a>

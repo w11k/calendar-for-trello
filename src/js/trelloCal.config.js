@@ -116,7 +116,7 @@ angular.module('trelloCal').config(/*ngInject*/ function ($httpProvider, $urlRou
             },
             data: {
                 head: {
-                    title: 'Trello Calendar - for all Boards',
+                    title: 'Trello Calendar 📅 - for all Boards',
                     robots: 'index,follow',
                     keywords: ['Trello', 'Calendar', 'all', 'boards', 'w11k', 'theCodeCampus', 'cards', 'calendar'],
                     description: 'Organize Trello cards across all boards in one amazing calendar view. Get the most out of Trello and improve your workflow with our open source calendar!',

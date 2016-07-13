@@ -14,6 +14,26 @@ month.config(/*ngInject*/ function (toastrConfig) {
     });
 });
 
+// props: https://github.com/angular/material/issues/4334#issuecomment-152551028
+month.directive('myClick', function ($parse) {
+    return {
+        restrict: 'A',
+        compile: function ($element, attrs) {
+            var fn = $parse(attrs.myClick, null, true);
+            return function myClick(scope, element) {
+                element.on('click', function (event) {
+                    event.preventDefault();
+                    var callback = function () {
+                        fn(scope, {$event: event});
+                    };
+                    scope.$apply(callback);
+                });
+            };
+        }
+    };
+});
+
+
 month.controller('monthCtrl', function ($timeout, $interval,toastr,
                                         archiveCard, $scope, buildCalService, changeDate, $window,
                                         $stateParams, $location, $mdDialog, localStorageService, orderByFilter,

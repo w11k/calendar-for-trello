@@ -1,0 +1,16 @@
+:host {
+  width: 14.28%;
+  min-height: 100px;
+  background: #d1f3f6;
+  border: 10px solid #fff;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-content: stretch;
+  align-items: stretch;
+  .dragArea {
+    flex: 1 0 auto;
+  }
+}
+

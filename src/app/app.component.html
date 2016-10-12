@@ -1,0 +1,8 @@
+<button (click)="refresh()">Refresh</button>
+<button (click)="logout()">Logout</button>
+<button (click)="toggleObserverMode()">{{ settings.observerMode ? "ObserverMode" : "SingleUerMode"}}</button>
+
+<br>
+<hr>
+<br>
+<router-outlet></router-outlet>

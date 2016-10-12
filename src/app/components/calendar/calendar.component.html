@@ -1,0 +1,14 @@
+<div class="navigation">
+  <button (click)="previous()">Previous</button>
+
+  {{current}}
+
+  <button (click)="next()">Next</button>
+  <button (click)="toggleMode()">Show {{calendarType === CalendarType.Month ? "Week" : "Month"}}</button>
+</div>
+
+<div class="wrap">
+  <app-calendar-day *ngFor="let day of calendar$ | async" [calendarDay]="day"></app-calendar-day>
+</div>
+
+

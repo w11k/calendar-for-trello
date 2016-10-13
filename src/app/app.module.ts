@@ -24,6 +24,7 @@ import {MemberGuard} from "./services/guards/memberGuard";
 import {VisitorGuard} from "./services/guards/visitorGuard";
 import {TrelloPullService} from "./services/trello-pull.service";
 import {SettingsActions} from "./redux/actions/settings-actions";
+import {OverDueAreaComponent} from "./components/over-due-area/over-due-area.component";
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import {SettingsActions} from "./redux/actions/settings-actions";
     CalendarDayComponent,
     CalendarCardComponent,
     FrontPageComponent,
-    SetTokenComponent
+    SetTokenComponent,
+    OverDueAreaComponent,
   ],
   imports: [
     BrowserModule,
@@ -41,7 +43,21 @@ import {SettingsActions} from "./redux/actions/settings-actions";
     routing,
     DragulaModule,
   ],
-  providers: [NgRedux, NgReduxRouter, CardActions, BoardActions, UserActions, CalendarService, CalendarActions, TrelloAuthService, TrelloHttpService, MemberGuard, VisitorGuard, TrelloPullService, SettingsActions],
+  providers: [
+    NgRedux,
+    NgReduxRouter,
+    CardActions,
+    BoardActions,
+    UserActions,
+    CalendarService,
+    CalendarActions,
+    TrelloAuthService,
+    TrelloHttpService,
+    MemberGuard,
+    VisitorGuard,
+    TrelloPullService,
+    SettingsActions
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

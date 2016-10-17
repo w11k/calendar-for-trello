@@ -8,6 +8,7 @@ import {Observable} from "rxjs";
 import {Card} from "../models/card";
 import {select} from "ng2-redux";
 import {Settings} from "../models/settings";
+import {Response} from "@angular/http";
 
 
 @Injectable()

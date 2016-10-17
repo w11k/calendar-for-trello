@@ -17,7 +17,6 @@ import {CalendarCardComponent} from './components/calendar-card/calendar-card.co
 import {CalendarActions} from "./redux/actions/calendar-actions";
 import {TrelloAuthService} from "./services/trello-auth.service";
 import {TrelloHttpService} from "./services/trello-http.service";
-import {DragulaModule} from "ng2-dragula/ng2-dragula";
 import {FrontPageComponent} from "./components/front-page/front-page.component";
 import {SetTokenComponent} from "./components/set-token/set-token.component";
 import {MemberGuard} from "./services/guards/memberGuard";
@@ -25,6 +24,8 @@ import {VisitorGuard} from "./services/guards/visitorGuard";
 import {TrelloPullService} from "./services/trello-pull.service";
 import {SettingsActions} from "./redux/actions/settings-actions";
 import {OverDueAreaComponent} from "./components/over-due-area/over-due-area.component";
+import {DndModule} from "ng2-dnd";
+import {CalendarWeekdayComponent} from './components/calendar-weekday/calendar-weekday.component';
 
 @NgModule({
   declarations: [
@@ -35,13 +36,15 @@ import {OverDueAreaComponent} from "./components/over-due-area/over-due-area.com
     FrontPageComponent,
     SetTokenComponent,
     OverDueAreaComponent,
+    CalendarWeekdayComponent,
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
     routing,
-    DragulaModule,
+    DndModule.forRoot(),
+
   ],
   providers: [
     NgRedux,

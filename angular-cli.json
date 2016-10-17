@@ -16,7 +16,7 @@
       "mobile": false,
       "styles": [
         "styles.scss",
-        "../node_modules/dragula/dist/dragula.min.css"
+        "../node_modules/ng2-dnd/style.css"
       ],
       "scripts": [],
       "environments": {

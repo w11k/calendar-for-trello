@@ -5,7 +5,6 @@ import * as moment from "moment";
 import {CalendarActions, PeriodChange, CalendarType} from "../../redux/actions/calendar-actions";
 import {select} from "ng2-redux";
 import {Observable} from "rxjs";
-import {DragulaService} from "ng2-dragula/components/dragula.provider";
 import {CalendarUiDateFormat} from "../calendar-day/calendar-day.component";
 
 @Component({
@@ -23,17 +22,8 @@ export class CalendarComponent implements OnInit {
   @select(state => state.calendar.type) public calendarType$: Observable<any>;
   public current: string;
 
-  constructor(public cardActions: CardActions,
-              public calendarActions: CalendarActions,
-              private dragulaService: DragulaService) {
-
+  constructor(public calendarActions: CalendarActions) {
     this.calendarActions.buildDays(moment());
-
-    dragulaService.dropModel.subscribe((value: Element[]) => {
-      let card: Element = value[1];
-      let target: Element = value[2]; // necessary since i can't give the dropzones unique ids yet
-      this.cardActions.updateCardsDue(card.id, moment(target.id, CalendarUiDateFormat).toDate())
-    });
   }
 
   ngOnInit() {

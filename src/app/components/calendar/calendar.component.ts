@@ -20,6 +20,7 @@ export class CalendarComponent implements OnInit {
   @select(state => state.calendar.days) public calendar$: Observable<any>;
   @select(state => state.calendar.date) public calendarDate$: Observable<any>;
   @select(state => state.calendar.type) public calendarType$: Observable<any>;
+  @select(state => state.settings.language) public language$: Observable<string>;
   public current: string;
 
   constructor(public calendarActions: CalendarActions) {
@@ -36,6 +37,10 @@ export class CalendarComponent implements OnInit {
     this.calendarType$.subscribe(
       type => this.calendarType = type
     );
+    this.language$.subscribe(lang => {
+      this.calendarDate = moment(this.calendarDate).locale(lang);
+      this.calendarActions.buildDays(this.calendarDate.clone(), this.calendarType)
+    })
 
   }
 

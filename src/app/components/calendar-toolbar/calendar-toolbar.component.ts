@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import * as moment from "moment";
 import {Moment} from "moment";
+import {select} from "ng2-redux";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-calendar-toolbar',
@@ -10,16 +12,26 @@ import {Moment} from "moment";
 export class CalendarToolbarComponent implements OnInit {
 
   public headers: string[] = [];
+  @select(state => state.settings.language) public language$: Observable<string>;
 
   constructor() {
-    let date = moment().startOf('week');
-    _.times(7, ()=> {
-      this.headers.push(date.format('dddd'));
-      date.add(1, "days")
-    });
+    this.headers = this.build();
   }
 
   ngOnInit() {
+    this.language$.subscribe(
+      lang => this.headers = this.build()
+    )
+  }
+
+  build(): string[] {
+    let date = moment().startOf('week');
+    let arr = [];
+    _.times(7, ()=> {
+      arr.push(date.format('dddd'));
+      date.add(1, "days")
+    });
+    return arr;
   }
 
 }

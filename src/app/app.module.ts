@@ -28,6 +28,9 @@ import {DndModule} from "ng2-dnd";
 import {CalendarWeekdayComponent} from './components/calendar-weekday/calendar-weekday.component';
 import {CalendarFooterComponent} from './components/calendar-footer/calendar-footer.component';
 import {CalendarToolbarComponent} from './components/calendar-toolbar/calendar-toolbar.component';
+import 'moment/locale/fr';
+import 'moment/locale/de';
+
 
 @NgModule({
   declarations: [

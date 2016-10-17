@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {RootState, enhancers} from "./redux/store/index";
 import {NgReduxRouter} from "ng2-redux-router";
 const createLogger = require('redux-logger');
@@ -17,7 +17,7 @@ import {SettingsActions} from "./redux/actions/settings-actions";
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
 
   private initStore: RootState = {
     cards: [],
@@ -26,10 +26,34 @@ export class AppComponent {
     calendar: {
       type: CalendarType.Month,
       days: [],
-      date: moment()
+      date: moment().locale("en")
     },
-    settings: new Settings()
+    settings: null
   };
+
+  public languages = [
+    {
+      "key": "de",
+      "name": "Deutsch"
+    },
+    {
+      "key": "en",
+      "name": "English"
+    },
+    {
+      "key": "fr",
+      "name": "Français"
+    },
+  ];
+
+  ngOnInit() {
+    this.settings$.subscribe(
+      settings => {
+        this.settings = settings;
+        moment.locale(settings.language);
+      }
+    )
+  }
 
   constructor(private ngRedux: NgRedux<RootState>,
               private ngReduxRouter: NgReduxRouter,
@@ -63,5 +87,9 @@ export class AppComponent {
   toggleObserverMode() {
     this.settingsActions.toggleObserverMode();
     this.trelloPullService.pull();
+  }
+
+  public updateLang(locale: string) {
+    this.settingsActions.setLanguage(locale);
   }
 }

@@ -23,7 +23,7 @@ export class OverDueAreaComponent implements OnInit {
   ngOnInit() {
     this.cards$.subscribe(
       cards => this.cards = cards.filter(
-        card => moment(card.due).isBefore(moment())
+        card => moment(card.due).isBefore(moment().hours(0).minutes(0).seconds(0).milliseconds(0))
       )
     );
   }

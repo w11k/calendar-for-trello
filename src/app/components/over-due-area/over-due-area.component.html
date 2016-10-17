@@ -2,5 +2,7 @@
   There are {{cards.length}} Overdue Cards!
 </div>
 <div *ngIf="show">
-  <app-calendar-card *ngFor="let card of cards" [card]="card" id="{{card.id}}"></app-calendar-card>
+  <app-calendar-card *ngFor="let card of cards" [card]="card" dnd-draggable [dragData]="card"
+                     [dragEnabled]="true"></app-calendar-card>
 </div>
+

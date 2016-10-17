@@ -1,5 +1,5 @@
-<div (click)="show = !show">
-  There are {{cards.length}} Overdue Cards!
+<div (click)="show = !show" *ngIf="cards.length">
+  {{cards.length}} Overdue Card{{cards.length === 1 ? "" : "s"}}!
 </div>
 <div *ngIf="show">
   <app-calendar-card *ngFor="let card of cards" [card]="card" dnd-draggable [dragData]="card"

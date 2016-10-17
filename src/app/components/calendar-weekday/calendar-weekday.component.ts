@@ -48,12 +48,11 @@ export class CalendarWeekdayComponent implements OnInit {
     );
   }
 
-  onDropSuccess(event: DragDropData) {
+  onDropSuccess(event: DragDropData, time: string) {
     let card: Card = event.dragData;
     let minutes = moment(card.due).minutes();
     let seconds = moment(card.due).seconds();
-    let classString = event.mouseEvent.toElement.className;
-    let hours = parseInt(classString.substring(0, classString.indexOf(' ')));
+    let hours = parseInt(time);
     let due = moment(this.calendarDay.date).hours(hours).minutes(minutes).seconds(seconds);
     this.cardActions.updateCardsDue(card.id, due.toDate())
   }

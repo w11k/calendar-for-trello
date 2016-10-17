@@ -1,10 +1,12 @@
 {{calendarDay.date | date: "d"}}
 
 <div class="weekday">
-  <div *ngFor="let slot of slots" class="{{slot.time}}"
+
+
+  <div *ngFor="let slot of slots"
        dnd-droppable
-       (onDropSuccess)="onDropSuccess($event, data)"
-       (onDragSuccess)="onDropSuccess($event, data)">
+       (onDropSuccess)="onDropSuccess($event, slot.time)"
+       (onDragSuccess)="onDropSuccess($event, slot.time)">
 
     <!--<div *ngFor="let slot of slots" class="slot"-->
     <!--dnd-sortable-container [sortableData]="slot.cards"-->

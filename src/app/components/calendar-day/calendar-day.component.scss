@@ -9,12 +9,21 @@
   justify-content: flex-start;
   align-content: stretch;
   align-items: stretch;
+  position: relative;
 }
 
 .dropZone {
+  //margin-top: -20px;
+  padding-top: 25px;
   flex: 1 0 auto;
   background: limegreen;
 
+}
+
+.day {
+  position: absolute;
+  top: 3px;
+  right: 3px;
 }
 
 .weekday {

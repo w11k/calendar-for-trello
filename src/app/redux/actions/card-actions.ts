@@ -14,6 +14,8 @@ export class CardActions {
   static UPDATE_CARD: string = 'UPDATE_CARD';
   static REBUILD_STORE: string = 'REBUILD_STORE';
   static UPDATE_DUE: string = 'UPDATE_DUE';
+  static REMOVE_DUE: string = 'REMOVE_DUE';
+  static ARCHIVE_CARD: string = 'ARCHIVE_CARD';
   static REMOVE_CARD: string = 'REMOVE_CARD';
 
   public addCard(card: Card) {
@@ -42,5 +44,22 @@ export class CardActions {
   public removeCards(cardId: string) {
     this.ngRedux.dispatch({type: CardActions.REMOVE_CARD, id: cardId});
   };
+
+  public removeDue(cardId: string) {
+    this.tHttp.put("cards/" + cardId + "", {
+      due: "null"
+    }).subscribe(
+      success => this.ngRedux.dispatch({type: CardActions.REMOVE_DUE, id: cardId}),
+      error => console.log(error)
+    )
+  }
+
+  public archiveCard(cardId: string) {
+    this.tHttp.delete("cards/" + cardId).subscribe(
+      success => this.ngRedux.dispatch({type: CardActions.ARCHIVE_CARD, id: cardId}),
+      error => console.log(error)
+    )
+
+  }
 
 }

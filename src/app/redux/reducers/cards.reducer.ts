@@ -29,6 +29,15 @@ export default (state: Card[] = [], action: any) => {
       return [
         ...action.payload
       ];
+    case CardActions.REMOVE_DUE:
+      return state.map(card => {
+        if (action.id !== card.id) {
+          return card
+        }
+        return Object.assign({}, card, {due: null});
+      });
+    case CardActions.ARCHIVE_CARD:
+      return state.filter(card => card.id !== action.id);
     default:
       return state;
   }

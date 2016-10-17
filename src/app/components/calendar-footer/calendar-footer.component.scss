@@ -1,0 +1,17 @@
+.removeDue,
+.archiveCard {
+  width: 50%;
+  height: 100px;
+  background: #efefef;
+  float: left;
+  border: 2px dashed #333;
+  text-align: center;
+  line-height: 100px;
+}
+
+.archiveCard {
+}
+
+.removeDue {
+  border-right: none;
+}

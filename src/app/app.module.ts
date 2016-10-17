@@ -26,6 +26,7 @@ import {SettingsActions} from "./redux/actions/settings-actions";
 import {OverDueAreaComponent} from "./components/over-due-area/over-due-area.component";
 import {DndModule} from "ng2-dnd";
 import {CalendarWeekdayComponent} from './components/calendar-weekday/calendar-weekday.component';
+import {CalendarFooterComponent} from './components/calendar-footer/calendar-footer.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import {CalendarWeekdayComponent} from './components/calendar-weekday/calendar-w
     SetTokenComponent,
     OverDueAreaComponent,
     CalendarWeekdayComponent,
+    CalendarFooterComponent,
   ],
   imports: [
     BrowserModule,

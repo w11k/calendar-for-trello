@@ -38,19 +38,25 @@ export class CalendarComponent implements OnInit {
       type => this.calendarType = type
     );
     this.language$.subscribe(lang => {
-      this.calendarDate = moment(this.calendarDate).locale(lang);
-      this.calendarActions.buildDays(this.calendarDate.clone(), this.calendarType)
+      if (this.calendarDate) {
+        this.calendarDate = moment(this.calendarDate.format()).locale(lang || "en")
+      }
+      this.calendarActions.buildDays(this._returnCalDate(), this.calendarType)
     })
 
   }
 
+  private _returnCalDate(): Moment {
+    return typeof this.calendarDate ? this.calendarDate.clone() : moment()
+  }
+
 
   public previous() {
-    this.calendarActions.navigate(this.calendarDate.clone(), PeriodChange.subtract, this.calendarType);
+    this.calendarActions.navigate(this._returnCalDate(), PeriodChange.subtract, this.calendarType);
   }
 
   public next() {
-    this.calendarActions.navigate(this.calendarDate.clone(), PeriodChange.add, this.calendarType);
+    this.calendarActions.navigate(this._returnCalDate(), PeriodChange.add, this.calendarType);
   }
 
   public toggleMode() {

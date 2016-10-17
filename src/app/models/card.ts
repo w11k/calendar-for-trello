@@ -1,7 +1,7 @@
 export class Card {
 
-  constructor(public id: string,
-              public name: string,
+  constructor(public id?: string,
+              public name?: string,
               public due?: Date,
               public closed?: boolean,
               public dateLastActivity?: Date,

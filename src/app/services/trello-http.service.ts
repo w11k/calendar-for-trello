@@ -32,8 +32,14 @@ export class TrelloHttpService {
     return this._request(url, options)
   }
 
-  post(options: Request) {
-
+  post(url: string, body?: Object, opts?: RequestOptionsArgs): Observable<Response> {
+    let options: RequestOptionsArgs = {};
+    options.method = RequestMethod.Post;
+    if (opts) {
+      Object.assign(options, opts)
+    }
+    options.body = body;
+    return this._request(url, options)
   }
 
   delete(url: string, body?: Object, opts?: RequestOptionsArgs): Observable<Response> {

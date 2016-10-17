@@ -7,7 +7,14 @@
   <option *ngFor="let lang of languages" [value]="lang.key">{{lang.name}}</option>
 </select>
 
+<button (click)="addCard =!addCard">Add a Card</button>
 <br>
+<app-add-card *ngIf="addCard">
+
+</app-add-card>
 <hr>
 <br>
 <router-outlet></router-outlet>
+
+
+

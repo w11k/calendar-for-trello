@@ -30,6 +30,7 @@ import {CalendarFooterComponent} from './components/calendar-footer/calendar-foo
 import {CalendarToolbarComponent} from './components/calendar-toolbar/calendar-toolbar.component';
 import 'moment/locale/fr';
 import 'moment/locale/de';
+import {AddCardComponent} from './components/add-card/add-card.component';
 
 
 @NgModule({
@@ -44,6 +45,7 @@ import 'moment/locale/de';
     CalendarWeekdayComponent,
     CalendarFooterComponent,
     CalendarToolbarComponent,
+    AddCardComponent,
   ],
   imports: [
     BrowserModule,

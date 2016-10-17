@@ -1,0 +1,32 @@
+<form (ngSubmit)="onSubmit()" #form="ngForm">
+
+  <label> Name</label>
+  <input type="text" [(ngModel)]="card.name" name="title">
+
+  <label> Date</label>
+  <input type="date" [(ngModel)]="card.due" name="due">
+
+  <!--TODO: Add possibility to select date by click on a calendar-day below-->
+  <label> Description</label>
+  <textarea type="date" [(ngModel)]="card.desc" name="desc"></textarea>
+
+
+  <label> Board</label>
+  <select [(ngModel)]="card.board" name="board" (ngModelChange)="selectedBoard($event)">
+    <option *ngFor="let board of boards" [value]="board.id">{{board.name}}</option>
+  </select>
+
+  <label> List</label>
+  <select [(ngModel)]="card.idList" name="list">
+    <option *ngFor="let list of lists" [value]="list.id">{{list.name}}</option>
+  </select>
+
+  <label> Members</label>
+  <select [(ngModel)]="selectedMembers" multiple name="member">
+    <option *ngFor="let member of members" [value]="member.id">{{member.fullName}}, {{member.username}}</option>
+  </select>
+
+  <button type="submit">
+    Save
+  </button>
+</form>

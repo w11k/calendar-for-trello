@@ -27,6 +27,7 @@ import {OverDueAreaComponent} from "./components/over-due-area/over-due-area.com
 import {DndModule} from "ng2-dnd";
 import {CalendarWeekdayComponent} from './components/calendar-weekday/calendar-weekday.component';
 import {CalendarFooterComponent} from './components/calendar-footer/calendar-footer.component';
+import {CalendarToolbarComponent} from './components/calendar-toolbar/calendar-toolbar.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import {CalendarFooterComponent} from './components/calendar-footer/calendar-foo
     OverDueAreaComponent,
     CalendarWeekdayComponent,
     CalendarFooterComponent,
+    CalendarToolbarComponent,
   ],
   imports: [
     BrowserModule,

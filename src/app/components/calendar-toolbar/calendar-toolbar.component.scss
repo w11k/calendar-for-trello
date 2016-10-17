@@ -1,0 +1,18 @@
+.header {
+  width: 14.28%;
+  text-align: center;
+  color: #ffffff;
+  background: #42548E;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-content: stretch;
+  align-items: stretch;
+}
+
+:host {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+}

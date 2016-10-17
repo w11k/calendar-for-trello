@@ -12,6 +12,7 @@
 <app-over-due-area></app-over-due-area>
 
 <div class="wrap">
+  <app-calendar-toolbar></app-calendar-toolbar>
   <ng-container [ngSwitch]="calendarType">
     <ng-container *ngSwitchCase="CalendarType.Month">
       <app-calendar-day *ngFor="let day of calendar$ | async" [calendarDay]="day"></app-calendar-day>

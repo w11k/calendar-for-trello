@@ -24,7 +24,6 @@ export class CalendarComponent implements OnInit {
   public current: string;
 
   constructor(public calendarActions: CalendarActions) {
-    this.calendarActions.buildDays(moment());
   }
 
   ngOnInit() {

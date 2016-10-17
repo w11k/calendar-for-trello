@@ -68,5 +68,11 @@ export class CalendarActions {
     this.buildDays(date, calendarType);
   };
 
+  // navigates to a date
+  public navigateToDate(date: Moment, calendarType: CalendarType) {
+    this.buildDays(date, calendarType);
+
+  }
+
 
 }

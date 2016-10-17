@@ -60,6 +60,9 @@ export class CalendarComponent implements OnInit {
       case CalendarType.Week:
         return "KW" + date.format("W, MMMM YYYY");
     }
+  }
 
+  public toToday(): void {
+    this.calendarActions.navigateToDate(moment(), this.calendarType);
   }
 }

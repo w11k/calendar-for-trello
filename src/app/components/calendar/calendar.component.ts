@@ -5,7 +5,6 @@ import * as moment from "moment";
 import {CalendarActions, PeriodChange, CalendarType} from "../../redux/actions/calendar-actions";
 import {select} from "ng2-redux";
 import {Observable} from "rxjs";
-import {CalendarUiDateFormat} from "../calendar-day/calendar-day.component";
 
 @Component({
   selector: 'app-calendar',

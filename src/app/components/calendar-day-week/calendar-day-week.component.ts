@@ -6,16 +6,16 @@ import {Card} from "../../models/card";
 import {Moment} from "moment";
 import * as moment from "moment";
 import Dictionary = _.Dictionary;
-import {CalendarUiDateFormat} from "../calendar-day/calendar-day.component";
+import {CalendarUiDateFormat} from "../calendar-day-month/calendar-day-month.component";
 import {DragDropData} from "ng2-dnd";
 import {CardActions} from "../../redux/actions/card-actions";
 
 @Component({
-  selector: 'app-calendar-weekday',
-  templateUrl: './calendar-weekday.component.html',
-  styleUrls: ['./calendar-weekday.component.scss']
+  selector: 'app-calendar-day-week',
+  templateUrl: './calendar-day-week.component.html',
+  styleUrls: ['./calendar-day-week.component.scss']
 })
-export class CalendarWeekdayComponent implements OnInit {
+export class CalendarDayForWeekComponent implements OnInit {
 
   @select("cards") public cards$: Observable<Card[]>;
   @Input() public calendarDay: CalendarDay;

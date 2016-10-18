@@ -12,11 +12,11 @@ import {DragDropData} from "ng2-dnd";
 export let CalendarUiDateFormat: string = "DD-MM-YYYY";
 
 @Component({
-  selector: 'app-calendar-day',
-  templateUrl: './calendar-day.component.html',
-  styleUrls: ['./calendar-day.component.scss'],
+  selector: 'app-calendar-day-month',
+  templateUrl: './calendar-day-month.component.html',
+  styleUrls: ['./calendar-day-month.component.scss'],
 })
-export class CalendarDayComponent implements OnInit {
+export class CalendarDayForMonthComponent implements OnInit {
   @select("cards") public cards$: Observable<Card[]>;
   cards: Card[];
   @Input() public calendarDay: CalendarDay;

@@ -12,7 +12,7 @@ import {CardActions} from "./redux/actions/card-actions";
 import {BoardActions} from "./redux/actions/board-actions";
 import {UserActions} from "./redux/actions/user-actions";
 import {CalendarService} from "./services/calendar.service";
-import {CalendarDayComponent} from './components/calendar-day/calendar-day.component';
+import {CalendarDayForMonthComponent} from './components/calendar-day-month/calendar-day-month.component';
 import {CalendarCardComponent} from './components/calendar-card/calendar-card.component';
 import {CalendarActions} from "./redux/actions/calendar-actions";
 import {TrelloAuthService} from "./services/trello-auth.service";
@@ -25,7 +25,7 @@ import {TrelloPullService} from "./services/trello-pull.service";
 import {SettingsActions} from "./redux/actions/settings-actions";
 import {OverDueAreaComponent} from "./components/over-due-area/over-due-area.component";
 import {DndModule} from "ng2-dnd";
-import {CalendarWeekdayComponent} from './components/calendar-weekday/calendar-weekday.component';
+import {CalendarDayForWeekComponent} from './components/calendar-day-week/calendar-day-week.component';
 import {CalendarFooterComponent} from './components/calendar-footer/calendar-footer.component';
 import {CalendarToolbarComponent} from './components/calendar-toolbar/calendar-toolbar.component';
 import 'moment/locale/fr';
@@ -38,12 +38,12 @@ import {SearchComponent} from './components/search/search.component';
   declarations: [
     AppComponent,
     CalendarComponent,
-    CalendarDayComponent,
+    CalendarDayForMonthComponent,
     CalendarCardComponent,
     FrontPageComponent,
     SetTokenComponent,
     OverDueAreaComponent,
-    CalendarWeekdayComponent,
+    CalendarDayForWeekComponent,
     CalendarFooterComponent,
     CalendarToolbarComponent,
     AddCardComponent,

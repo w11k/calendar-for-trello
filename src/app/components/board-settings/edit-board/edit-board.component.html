@@ -4,3 +4,8 @@
   <option *ngFor="let color of colors" [value]="color.key">{{color.name}}</option>
 </select>
 
+
+<select [(ngModel)]="visibility" (ngModelChange)="updateVisibility($event)">
+  <option *ngFor="let state of visibilities" [value]="state.key">{{state.name}}</option>
+</select>
+

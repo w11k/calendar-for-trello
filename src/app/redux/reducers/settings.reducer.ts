@@ -13,8 +13,12 @@ export default (state: Settings = initialState, action: any) => {
     case SettingsActions.RESET_SETTINGS_STORE:
       return initialState;
     case SettingsActions.SET_BOARD_COLOR:
-      let newState = Object.assign({}, state);
+      var newState = Object.assign({}, state);
       newState.boardColorPrefs[action.payload.boardId] = action.payload.color;
+      return newState;
+    case SettingsActions.SET_BOARD_VISIBILITY:
+      var newState = Object.assign({}, state);
+      newState.boardVisibilityPrefs[action.payload.boardId] = action.payload.visibility;
       return newState;
     default:
       return state;

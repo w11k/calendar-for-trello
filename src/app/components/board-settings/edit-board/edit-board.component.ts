@@ -12,6 +12,7 @@ import {select} from "ng2-redux";
 export class EditBoardComponent implements OnInit {
 
   @select(state => state.settings.boardColorPrefs) public boardColorPrefs$: Observable<Object>;
+  @select(state => state.settings.boardVisibilityPrefs) public boardVisibilityPrefs$: Observable<Object>;
 
   public colors = [
     {
@@ -46,12 +47,38 @@ export class EditBoardComponent implements OnInit {
     this.boardColorPrefs$.subscribe(
       prefs => {
         if (prefs[this.board.id]) {
-          console.log(prefs[this.board.id]);
           this.color = prefs[this.board.id]
         } else {
           this.color = "";
         }
       }
     );
+
+    this.boardVisibilityPrefs$.subscribe(
+      prefs => {
+        if (prefs[this.board.id]) {
+          this.visibility = prefs[this.board.id]
+        } else {
+          this.visibility = false;
+        }
+      }
+    );
   }
+
+  public visibility;
+  public visibilities = [
+    {
+      key: true,
+      name: "Hidden"
+    },
+    {
+      key: false,
+      "name": "Visible"
+    },
+  ];
+
+  public updateVisibility(boolStr: string) {
+    this.settingsActions.setBoardVisibility(this.board.id, (boolStr === "true"));
+  }
+
 }

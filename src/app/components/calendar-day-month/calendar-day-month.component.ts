@@ -18,20 +18,24 @@ export let CalendarUiDateFormat: string = "DD-MM-YYYY";
 })
 export class CalendarDayForMonthComponent implements OnInit {
   @select("cards") public cards$: Observable<Card[]>;
+  @select(state => state.settings.boardVisibilityPrefs) public boardVisibilityPrefs$: Observable<Object>;
   cards: Card[];
   @Input() public calendarDay: CalendarDay;
 
   constructor(public cardActions: CardActions) {
+
   }
 
   ngOnInit() {
-    this.cards$.subscribe(
-      cards => {
+    Observable
+      .combineLatest(this.cards$, this.boardVisibilityPrefs$)
+      .subscribe(x => {
+        let cards: Card[] = x[0];
+        let visibilityPrefs: Object = x[1];
         this.cards = cards.filter(
-          card => moment(card.due).isSame(this.calendarDay.date, "day")
-        );
-      }
-    );
+          card => moment(card.due).isSame(this.calendarDay.date, "day") && !visibilityPrefs[card.idBoard]
+        )
+      })
   }
 
   onDropSuccess(event: DragDropData) {
@@ -43,3 +47,4 @@ export class CalendarDayForMonthComponent implements OnInit {
     this.cardActions.updateCardsDue(card.id, due.toDate())
   }
 }
+

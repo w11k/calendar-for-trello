@@ -18,14 +18,23 @@ export class OverDueAreaComponent implements OnInit {
   @select("cards") public cards$: Observable<Card[]>;
 
   cards: Card[];
+  @select(state => state.settings.boardVisibilityPrefs) public boardVisibilityPrefs$: Observable<Object>;
 
 
   ngOnInit() {
-    this.cards$.subscribe(
-      cards => this.cards = cards.filter(
-        card => moment(card.due).isBefore(moment().hours(0).minutes(0).seconds(0).milliseconds(0))
-      )
-    );
+    // this.cards$.subscribe(
+    //   cards => this.cards = cards.filter(
+    //     card => moment(card.due).isBefore(moment().hours(0).minutes(0).seconds(0).milliseconds(0))
+    //   )
+    // );
+    Observable
+      .combineLatest(this.cards$, this.boardVisibilityPrefs$)
+      .subscribe(x => {
+        let cards: Card[] = x[0];
+        let visibilityPrefs: Object = x[1];
+        this.cards = cards.filter(
+          card => moment(card.due).isBefore(moment().hours(0).minutes(0).seconds(0).milliseconds(0)) && !visibilityPrefs[card.idBoard]
+        );
+      })
   }
-
 }

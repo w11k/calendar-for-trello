@@ -18,6 +18,8 @@ import {CardActions} from "../../redux/actions/card-actions";
 export class CalendarDayForWeekComponent implements OnInit {
 
   @select("cards") public cards$: Observable<Card[]>;
+  @select(state => state.settings.boardVisibilityPrefs) public boardVisibilityPrefs$: Observable<Object>;
+
   @Input() public calendarDay: CalendarDay;
   public cards: Card[];
   public slots: WeekDaySlot[] = [];
@@ -38,16 +40,25 @@ export class CalendarDayForWeekComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.cards$.subscribe(
-      cards => {
+    // this.cards$.subscribe(
+    //   cards => {
+    //     this.cards = cards.filter(
+    //       card => moment(card.due).isSame(this.calendarDay.date, "day")
+    //     );
+    //     this.createHours(this.cards);
+    //   }
+    // );
+    Observable
+      .combineLatest(this.cards$, this.boardVisibilityPrefs$)
+      .subscribe(x => {
+        let cards: Card[] = x[0];
+        let visibilityPrefs: Object = x[1];
         this.cards = cards.filter(
-          card => moment(card.due).isSame(this.calendarDay.date, "day")
+          card => moment(card.due).isSame(this.calendarDay.date, "day") && !visibilityPrefs[card.idBoard]
         );
         this.createHours(this.cards);
-      }
-    );
+      })
   }
-
   onDropSuccess(event: DragDropData, time: string) {
     let card: Card = event.dragData;
     let minutes = moment(card.due).minutes();

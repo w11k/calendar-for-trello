@@ -13,16 +13,27 @@ export class NoDueAreaComponent implements OnInit {
   constructor() {
   }
 
+  @select(state => state.settings.boardVisibilityPrefs) public boardVisibilityPrefs$: Observable<Object>;
+
   @select("cards") public cards$: Observable<Card[]>;
 
   cards: Card[];
 
   ngOnInit() {
-    this.cards$.subscribe(
-      cards => this.cards = cards.filter(
-        card => !card.due
-      )
-    );
+    // this.cards$.subscribe(
+    //   cards => this.cards = cards.filter(
+    //     card => !card.due
+    //   )
+    // );
+    Observable
+      .combineLatest(this.cards$, this.boardVisibilityPrefs$)
+      .subscribe(x => {
+        let cards: Card[] = x[0];
+        let visibilityPrefs: Object = x[1];
+        this.cards = cards.filter(
+          card => !card.due && !visibilityPrefs[card.idBoard]
+        );
+      })
   }
 
 }

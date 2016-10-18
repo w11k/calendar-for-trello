@@ -1,0 +1,12 @@
+<div (click)="show = !show" *ngIf="cards.length">
+  {{cards.length}} Card{{cards.length === 1 ? "" : "s"}} without Due Date
+</div>
+<div *ngIf="show">
+  <app-calendar-card
+    *ngFor="let card of cards"
+    [card]="card" dnd-draggable
+    [dragData]="card"
+    [dragEnabled]="true"
+  ></app-calendar-card>
+</div>
+

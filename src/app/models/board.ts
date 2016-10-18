@@ -5,7 +5,6 @@ export class Board {
   constructor(public id?: string,
               public name?: string,
               public desc?: string,
-              public backgroundColor?: string,
               public closed?: boolean,
               public idOrganization?: string,
               public shortLink?: string,

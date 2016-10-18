@@ -1,17 +1,14 @@
 <button (click)="refresh()">Refresh</button>
 <button (click)="logout()">Logout</button>
 <button (click)="toggleObserverMode()">{{ settings.observerMode ? "ObserverMode" : "SingleUserMode"}}</button>
-
-
 <select [(ngModel)]="settings.language" (ngModelChange)="updateLang($event)">
   <option *ngFor="let lang of languages" [value]="lang.key">{{lang.name}}</option>
 </select>
-
 <button (click)="addCard =!addCard">Add a Card</button>
-<br>
-<app-add-card *ngIf="addCard">
+<app-search></app-search>
 
-</app-add-card>
+<br>
+<app-add-card *ngIf="addCard"></app-add-card>
 <hr>
 <br>
 <router-outlet></router-outlet>

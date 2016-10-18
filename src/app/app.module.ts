@@ -31,6 +31,7 @@ import {CalendarToolbarComponent} from './components/calendar-toolbar/calendar-t
 import 'moment/locale/fr';
 import 'moment/locale/de';
 import {AddCardComponent} from './components/add-card/add-card.component';
+import {SearchComponent} from './components/search/search.component';
 
 
 @NgModule({
@@ -46,6 +47,7 @@ import {AddCardComponent} from './components/add-card/add-card.component';
     CalendarFooterComponent,
     CalendarToolbarComponent,
     AddCardComponent,
+    SearchComponent,
   ],
   imports: [
     BrowserModule,

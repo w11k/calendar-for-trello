@@ -1,0 +1,10 @@
+<input type="text" (input)="term$.next($event.target.value)">
+<div *ngIf="results">
+  <app-calendar-card
+    *ngFor="let card of results"
+    [card]="card"
+    dnd-draggable
+    [dragData]="card"
+    [dragEnabled]="true"
+  ></app-calendar-card>
+</div>

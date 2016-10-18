@@ -1,0 +1,6 @@
+{{board.name}}
+
+<select [(ngModel)]="color" (ngModelChange)="updateColor($event)">
+  <option *ngFor="let color of colors" [value]="color.key">{{color.name}}</option>
+</select>
+

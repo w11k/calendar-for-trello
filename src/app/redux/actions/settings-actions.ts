@@ -12,6 +12,7 @@ export class SettingsActions {
   static TOGGLE_OBSERVER_MODE: string = 'TOGGLE_OBSERVER_MODE';
   static SET_LANG: string = 'SET_LANG';
   static RESET_SETTINGS_STORE: string = 'RESET_SETTINGS_STORE';
+  static SET_BOARD_COLOR: string = 'SET_BOARD_COLOR';
 
   public toggleObserverMode() {
     this.ngRedux.dispatch({type: SettingsActions.TOGGLE_OBSERVER_MODE});
@@ -24,5 +25,9 @@ export class SettingsActions {
 
   public resetStore() {
     this.ngRedux.dispatch({type: SettingsActions.RESET_SETTINGS_STORE})
+  }
+
+  public setBoardColor(boardId: string, color: string) {
+    this.ngRedux.dispatch({type: SettingsActions.SET_BOARD_COLOR, payload: {boardId, color}})
   }
 }

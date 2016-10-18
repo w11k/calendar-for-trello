@@ -12,6 +12,10 @@ export default (state: Settings = initialState, action: any) => {
       return Object.assign({}, state, {language: action.payload});
     case SettingsActions.RESET_SETTINGS_STORE:
       return initialState;
+    case SettingsActions.SET_BOARD_COLOR:
+      let newState = Object.assign({}, state);
+      newState.boardColorPrefs[action.payload.boardId] = action.payload.color;
+      return newState;
     default:
       return state;
   }

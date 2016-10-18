@@ -34,6 +34,7 @@ import {AddCardComponent} from './components/add-card/add-card.component';
 import {SearchComponent} from './components/search/search.component';
 import {NoDueAreaComponent} from './components/no-due-area/no-due-area.component';
 import {BoardSettingsComponent} from './components/board-settings/board-settings.component';
+import {EditBoardComponent} from './components/board-settings/edit-board/edit-board.component';
 
 
 @NgModule({
@@ -52,6 +53,7 @@ import {BoardSettingsComponent} from './components/board-settings/board-settings
     SearchComponent,
     NoDueAreaComponent,
     BoardSettingsComponent,
+    EditBoardComponent,
   ],
   imports: [
     BrowserModule,

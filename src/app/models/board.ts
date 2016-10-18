@@ -1,7 +1,24 @@
+import {BoardPreferences} from "./board-preferences";
 export class Board {
-  id?: string;
-  name: string;
-  desc: string;
-  backgroundColor: string;
-  closed: boolean;
+
+
+  constructor(public id?: string,
+              public name?: string,
+              public desc?: string,
+              public backgroundColor?: string,
+              public closed?: boolean,
+              public idOrganization?: string,
+              public shortLink?: string,
+              public dateLastActivity?: Date,
+              public invited?: boolean,
+              public starred?: boolean,
+              public url?: boolean,
+              public prefs?: BoardPreferences,
+              public memberships?: any,
+              public subscribed?: boolean,
+              public labelNames?: Object,
+              public dateLastView?: Date,
+              public shortUrl?: string) {
+
+  }
 }

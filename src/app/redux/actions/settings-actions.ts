@@ -11,6 +11,7 @@ export class SettingsActions {
 
   static TOGGLE_OBSERVER_MODE: string = 'TOGGLE_OBSERVER_MODE';
   static SET_LANG: string = 'SET_LANG';
+  static RESET_SETTINGS_STORE: string = 'RESET_SETTINGS_STORE';
 
   public toggleObserverMode() {
     this.ngRedux.dispatch({type: SettingsActions.TOGGLE_OBSERVER_MODE});
@@ -19,4 +20,9 @@ export class SettingsActions {
   public setLanguage(locale: string) {
     this.ngRedux.dispatch({type: SettingsActions.SET_LANG, payload: locale});
   };
+
+
+  public resetStore() {
+    this.ngRedux.dispatch({type: SettingsActions.RESET_SETTINGS_STORE})
+  }
 }

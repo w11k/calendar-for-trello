@@ -17,6 +17,7 @@ export class CardActions {
   static REMOVE_DUE: string = 'REMOVE_DUE';
   static ARCHIVE_CARD: string = 'ARCHIVE_CARD';
   static REMOVE_CARD: string = 'REMOVE_CARD';
+  static RESET_CARD_STORE: string = 'RESET_CARD_STORE';
 
   public addCard(card: Card) {
     this.ngRedux.dispatch({type: CardActions.ADD_CARD, payload: card});
@@ -60,6 +61,10 @@ export class CardActions {
       error => console.log(error)
     )
 
+  }
+
+  public resetStore() {
+    this.ngRedux.dispatch({type: CardActions.RESET_CARD_STORE})
   }
 
 }

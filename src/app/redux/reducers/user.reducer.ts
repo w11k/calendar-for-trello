@@ -2,7 +2,9 @@
 import {UserActions} from '../actions/user-actions';
 import {User} from "../../models/user";
 
-export default (state: User = new User(), action: any) => {
+const initialState = new User();
+
+export default (state: User = initialState, action: any) => {
   switch (action.type) {
     case UserActions.ADD_USER:
       return Object.assign({}, action.payload);
@@ -10,6 +12,8 @@ export default (state: User = new User(), action: any) => {
       return Object.assign({}, action.payload);
     case UserActions.REMOVE_USER:
       return new User();
+    case UserActions.RESET_USER_STORE:
+      return initialState;
     default:
       return state;
   }

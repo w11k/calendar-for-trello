@@ -12,8 +12,7 @@ export class BoardActions {
 
   static UPDATE_BOARD_COLOR: string = 'UPDATE_BOARD_COLOR';
   static LOAD_BOARDS: string = 'LOAD_BOARDS';
-  // todo archive board..
-
+  static RESET_BOARD_STORE: string = 'RESET_BOARD_STORE';
 
   public updateBoardColor(id: string, backgroundColor: string) {
     this.ngRedux.dispatch({type: BoardActions.UPDATE_BOARD_COLOR, id, backgroundColor});
@@ -23,5 +22,9 @@ export class BoardActions {
   public loadBoards(boards: Board[]) {
     this.ngRedux.dispatch({type: BoardActions.LOAD_BOARDS, payload: boards});
   };
+
+  public resetStore() {
+    this.ngRedux.dispatch({type: BoardActions.RESET_BOARD_STORE})
+  }
 
 }

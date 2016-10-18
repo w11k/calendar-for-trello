@@ -24,6 +24,8 @@ export class CalendarActions {
   static BUILD_DAYS: string = 'BUILD_DAYS';
   static NAVIGATE: string = 'NAVIGATE';
   static CHANGE_TYPE: string = 'CHANGE_TYPE';
+  static RESET_CALENDAR_STORE: string = 'RESET_CALENDAR_STORE';
+
 
   public fillDays(days: CalendarDay) {
     this.ngRedux.dispatch({type: CalendarActions.FILL_DAYS, payload: days});
@@ -72,6 +74,11 @@ export class CalendarActions {
   public navigateToDate(date: Moment, calendarType: CalendarType) {
     this.buildDays(date, calendarType);
 
+  }
+
+
+  public resetStore() {
+    this.ngRedux.dispatch({type: CalendarActions.RESET_CALENDAR_STORE})
   }
 
 

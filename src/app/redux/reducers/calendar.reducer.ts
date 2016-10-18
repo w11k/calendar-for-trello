@@ -9,8 +9,10 @@ export interface CalendarState {
   date: Moment;
   type: CalendarType;
 }
+const initialState = {days: [], date: moment(), type: CalendarType.Month};
 
-export default (state: CalendarState = {days: [], date: moment(), type: CalendarType.Month}, action: any) => {
+
+export default (state: CalendarState = initialState, action: any) => {
   switch (action.type) {
     case CalendarActions.BUILD_DAYS:
       return {
@@ -20,6 +22,8 @@ export default (state: CalendarState = {days: [], date: moment(), type: Calendar
       };
     case CalendarActions.CHANGE_TYPE:
       return Object.assign({}, state, {type: state.type === CalendarType.Month ? CalendarType.Week : CalendarType.Month});
+    case CalendarActions.RESET_CALENDAR_STORE:
+      return initialState;
     default:
       return state;
   }

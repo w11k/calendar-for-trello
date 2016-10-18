@@ -11,6 +11,7 @@ import {TrelloPullService} from "./services/trello-pull.service";
 import {Settings} from "./models/settings";
 import {Observable} from "rxjs";
 import {SettingsActions} from "./redux/actions/settings-actions";
+import {TrelloAuthService} from "./services/trello-auth.service";
 
 @Component({
   selector: 'app-root',
@@ -59,7 +60,8 @@ export class AppComponent implements OnInit {
               private ngReduxRouter: NgReduxRouter,
               public router: Router,
               private trelloPullService: TrelloPullService,
-              private settingsActions: SettingsActions) {
+              private settingsActions: SettingsActions,
+              private trelloAuthService: TrelloAuthService) {
     this.ngRedux.configureStore(
       reducer,
       this.initStore,
@@ -80,8 +82,7 @@ export class AppComponent implements OnInit {
   }
 
   logout() {
-    localStorage.removeItem("token");
-    this.router.navigate(["/start"]);
+    this.trelloAuthService.logout();
   }
 
   toggleObserverMode() {

@@ -33,6 +33,7 @@ import 'moment/locale/de';
 import {AddCardComponent} from './components/add-card/add-card.component';
 import {SearchComponent} from './components/search/search.component';
 import {NoDueAreaComponent} from './components/no-due-area/no-due-area.component';
+import {BoardSettingsComponent} from './components/board-settings/board-settings.component';
 
 
 @NgModule({
@@ -50,6 +51,7 @@ import {NoDueAreaComponent} from './components/no-due-area/no-due-area.component
     AddCardComponent,
     SearchComponent,
     NoDueAreaComponent,
+    BoardSettingsComponent,
   ],
   imports: [
     BrowserModule,

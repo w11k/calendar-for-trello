@@ -29,6 +29,7 @@ export class TrelloAuthService {
     this.ngRedux.dispatch({type: "RESET_BOARD_STORE"});
     this.ngRedux.dispatch({type: "RESET_USER_STORE"});
     this.ngRedux.dispatch({type: "RESET_CARD_STORE"});
+    this.ngRedux.dispatch({type: "REMOVE_BOARD_PREFERENCES"});
     localStorage.removeItem("token");
     this.router.navigate(["/start"]);
   }

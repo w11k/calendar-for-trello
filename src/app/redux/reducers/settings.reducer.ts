@@ -20,6 +20,11 @@ export default (state: Settings = initialState, action: any) => {
       var newState = Object.assign({}, state);
       newState.boardVisibilityPrefs[action.payload.boardId] = action.payload.visibility;
       return newState;
+    case SettingsActions.REMOVE_BOARD_PREFERENCES:
+      return Object.assign({}, state, {
+        boardColorPrefs: {},
+        boardVisibilityPrefs: {}
+      });
     default:
       return state;
   }

@@ -14,6 +14,7 @@ export class SettingsActions {
   static RESET_SETTINGS_STORE: string = 'RESET_SETTINGS_STORE';
   static SET_BOARD_COLOR: string = 'SET_BOARD_COLOR';
   static SET_BOARD_VISIBILITY: string = 'SET_BOARD_VISIBILITY';
+  static REMOVE_BOARD_PREFERENCES: string = 'REMOVE_BOARD_PREFERENCES';
 
   public toggleObserverMode() {
     this.ngRedux.dispatch({type: SettingsActions.TOGGLE_OBSERVER_MODE});
@@ -26,6 +27,11 @@ export class SettingsActions {
 
   public resetStore() {
     this.ngRedux.dispatch({type: SettingsActions.RESET_SETTINGS_STORE})
+  }
+
+  public resetBoardPrefs() {
+    // keeps language
+    this.ngRedux.dispatch({type: SettingsActions.REMOVE_BOARD_PREFERENCES})
   }
 
   public setBoardColor(boardId: string, color: string) {

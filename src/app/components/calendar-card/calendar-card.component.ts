@@ -25,7 +25,7 @@ export class CalendarCardComponent implements OnInit {
       .subscribe(x => {
         let boardColorPrefs = x[0];
         let board = _.find(x[1], (board: Board) => board.id === this.card.idBoard);
-        this.color = boardColorPrefs[this.card.idBoard] || board.prefs.backgroundColor;
+        this.color = boardColorPrefs[this.card.idBoard] || (board ? board.prefs.backgroundColor : null);
       })
   }
 }

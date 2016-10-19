@@ -35,6 +35,7 @@ import {SearchComponent} from './components/search/search.component';
 import {NoDueAreaComponent} from './components/no-due-area/no-due-area.component';
 import {BoardSettingsComponent} from './components/board-settings/board-settings.component';
 import {EditBoardComponent} from './components/board-settings/edit-board/edit-board.component';
+import {DateTimeFormatService} from "./services/date-time-format.service";
 
 
 @NgModule({
@@ -76,7 +77,9 @@ import {EditBoardComponent} from './components/board-settings/edit-board/edit-bo
     MemberGuard,
     VisitorGuard,
     TrelloPullService,
-    SettingsActions
+    SettingsActions,
+    DateTimeFormatService,
+
   ],
   bootstrap: [AppComponent]
 })

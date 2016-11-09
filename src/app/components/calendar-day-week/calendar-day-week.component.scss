@@ -1,14 +1,16 @@
 :host {
   width: 14.28%;
   min-height: 100px;
-  background: #d1f3f6;
-  border: 10px solid #fff;
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
   justify-content: flex-start;
   align-content: stretch;
   align-items: stretch;
+  position: relative;
+  border-top: 1px solid #DFDFDF;
+  border-left: 1px solid #DFDFDF;
+
 }
 
 .dropZone {
@@ -17,5 +19,28 @@
 }
 
 .weekday {
-  background: #2bbcff;
+  background: #fff;
+  color: #4d4d4d;
+  > div {
+    border: 2px solid #fff;
+    font-size: 11px;
+    padding: 2px 0 2px;
+    &.dnd-drag-over {
+      background: #EDEFF4;
+    }
+  }
 }
+
+.day {
+  position: absolute;
+  top: 3px;
+  right: 3px;
+}
+
+:host(.today) {
+  .day {
+    font-weight: bold;
+    color: #42548E;
+  }
+}
+

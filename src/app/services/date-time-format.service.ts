@@ -23,10 +23,10 @@ export class DateTimeFormatService implements OnInit {
         format = "HH:mm";
         break;
       case "en":
-        format = "ha";
+        format = "hha";
         break;
       default:
-        format = "ha";
+        format = "hha";
     }
     return format;
   }

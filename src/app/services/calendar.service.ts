@@ -50,7 +50,7 @@ export class CalendarService {
     let days: CalendarDay[] = [];
     var monthDate = date.startOf('month'); // change to a date in the month of interest
     _.times(monthDate.daysInMonth(), n => {
-      days.push(new CalendarDay(monthDate.toDate()));
+      days.push(new CalendarDay(monthDate.toDate(), false, date.isSame(moment(), "day")));
       monthDate.add(1, 'day');
     });
     return days;
@@ -73,7 +73,7 @@ export class CalendarService {
     let weekdayOfFirstDay = moment(firstDay).weekday();
     _.times(weekdayOfFirstDay, ()=> {
       firstDay.subtract(1, 'day');
-      days.push(new CalendarDay(firstDay.toDate()));
+      days.push(new CalendarDay(firstDay.toDate(), true));
     });
     return days.reverse();
   }
@@ -110,7 +110,7 @@ export class CalendarService {
     }
     _.times(runs, ()=> {
       lastDay.add(1, 'day');
-      days.push(new CalendarDay(lastDay.toDate()));
+      days.push(new CalendarDay(lastDay.toDate(), true));
     });
     return days;
   }
@@ -120,7 +120,7 @@ export class CalendarService {
     let days: CalendarDay[] = [];
     date = moment(date).startOf('week');
     _.times(7, ()=> {
-      days.push(new CalendarDay(date.toDate()));
+      days.push(new CalendarDay(date.toDate(), false, date.isSame(moment(), "day")));
       date.add(1, 'day');
     });
     return days;

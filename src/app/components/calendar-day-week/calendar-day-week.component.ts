@@ -1,4 +1,4 @@
-import {Component, OnInit, Input} from '@angular/core';
+import {Component, OnInit, Input, ElementRef, Renderer} from '@angular/core';
 import {CalendarDay} from "../../models/calendar-day";
 import {select} from "ng2-redux";
 import {Observable} from "rxjs";
@@ -24,7 +24,10 @@ export class CalendarDayForWeekComponent implements OnInit {
   public cards: Card[];
   public slots: WeekDaySlot[] = [];
 
-  constructor(public cardActions: CardActions, private dateTimeFormatService: DateTimeFormatService) {
+  constructor(public cardActions: CardActions,
+              private dateTimeFormatService: DateTimeFormatService,
+              private renderer: Renderer,
+              private element: ElementRef) {
   }
 
   createHours(cards) {
@@ -40,6 +43,11 @@ export class CalendarDayForWeekComponent implements OnInit {
   }
 
   ngOnInit() {
+
+    if (this.calendarDay.isToday) {
+      this.renderer.setElementClass(this.element.nativeElement, "today", true);
+    }
+
     // this.cards$.subscribe(
     //   cards => {
     //     this.cards = cards.filter(

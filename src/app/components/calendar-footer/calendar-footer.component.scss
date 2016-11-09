@@ -2,11 +2,11 @@
 .archiveCard {
   width: 50%;
   height: 100px;
-  background: #efefef;
+  background: #e8e8e8;
   float: left;
-  border: 2px dashed #333;
   text-align: center;
   line-height: 100px;
+  margin-top: 10px;
 }
 
 .archiveCard {
@@ -14,4 +14,5 @@
 
 .removeDue {
   border-right: none;
+  background: #f4f4f4;
 }

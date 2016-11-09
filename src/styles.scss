@@ -4,6 +4,11 @@ html {
   box-sizing: border-box;
 }
 
+body {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300;
+}
+
 *, *:before, *:after {
   box-sizing: inherit;
 }

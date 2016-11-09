@@ -1,4 +1,4 @@
-import {Component, OnInit, Input} from '@angular/core';
+import {Component, OnInit, Input, Renderer, ElementRef} from '@angular/core';
 import {CalendarDay} from "../../models/calendar-day";
 import {select} from "ng2-redux";
 import {Observable} from "rxjs";
@@ -19,14 +19,25 @@ export let CalendarUiDateFormat: string = "DD-MM-YYYY";
 export class CalendarDayForMonthComponent implements OnInit {
   @select("cards") public cards$: Observable<Card[]>;
   @select(state => state.settings.boardVisibilityPrefs) public boardVisibilityPrefs$: Observable<Object>;
-  cards: Card[];
+
   @Input() public calendarDay: CalendarDay;
+  public cards: Card[];
 
-  constructor(public cardActions: CardActions) {
-
+  constructor(public cardActions: CardActions,
+              private renderer: Renderer,
+              private element: ElementRef) {
   }
 
   ngOnInit() {
+
+    if (this.calendarDay.isDayOff) {
+      this.renderer.setElementClass(this.element.nativeElement, "offsetDay", true);
+    }
+
+    if (this.calendarDay.isToday) {
+      this.renderer.setElementClass(this.element.nativeElement, "today", true);
+    }
+
     Observable
       .combineLatest(this.cards$, this.boardVisibilityPrefs$)
       .subscribe(x => {

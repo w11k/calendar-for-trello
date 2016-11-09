@@ -1,8 +1,8 @@
 import {Component, OnInit, Input} from '@angular/core';
-import {Board} from "../../../models/board";
-import {SettingsActions} from "../../../redux/actions/settings-actions";
 import {Observable} from "rxjs";
 import {select} from "ng2-redux";
+import {SettingsActions} from "../../redux/actions/settings-actions";
+import {Board} from "../../models/board";
 
 @Component({
   selector: 'app-edit-board',

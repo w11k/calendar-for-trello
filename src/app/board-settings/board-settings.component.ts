@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {select} from "ng2-redux";
 import {Observable} from "rxjs";
-import {Board} from "../../models/board";
+import {Board} from "../models/board";
 
 @Component({
   selector: 'app-board-settings',
@@ -26,4 +26,3 @@ export class BoardSettingsComponent implements OnInit {
     );
   }
 }
-

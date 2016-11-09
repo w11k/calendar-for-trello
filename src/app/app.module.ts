@@ -7,13 +7,10 @@ import {AppComponent} from './app.component';
 import {routing} from "./routes";
 import {NgRedux} from "ng2-redux";
 import {NgReduxRouter} from "ng2-redux-router";
-import {CalendarComponent} from './components/calendar/calendar.component';
 import {CardActions} from "./redux/actions/card-actions";
 import {BoardActions} from "./redux/actions/board-actions";
 import {UserActions} from "./redux/actions/user-actions";
 import {CalendarService} from "./services/calendar.service";
-import {CalendarDayForMonthComponent} from './components/calendar-day-month/calendar-day-month.component';
-import {CalendarCardComponent} from './components/calendar-card/calendar-card.component';
 import {CalendarActions} from "./redux/actions/calendar-actions";
 import {TrelloAuthService} from "./services/trello-auth.service";
 import {TrelloHttpService} from "./services/trello-http.service";
@@ -23,38 +20,21 @@ import {MemberGuard} from "./services/guards/memberGuard";
 import {VisitorGuard} from "./services/guards/visitorGuard";
 import {TrelloPullService} from "./services/trello-pull.service";
 import {SettingsActions} from "./redux/actions/settings-actions";
-import {OverDueAreaComponent} from "./components/over-due-area/over-due-area.component";
 import {DndModule} from "ng2-dnd";
-import {CalendarDayForWeekComponent} from './components/calendar-day-week/calendar-day-week.component';
-import {CalendarFooterComponent} from './components/calendar-footer/calendar-footer.component';
-import {CalendarToolbarComponent} from './components/calendar-toolbar/calendar-toolbar.component';
 import 'moment/locale/fr';
 import 'moment/locale/de';
-import {AddCardComponent} from './components/add-card/add-card.component';
 import {SearchComponent} from './components/search/search.component';
-import {NoDueAreaComponent} from './components/no-due-area/no-due-area.component';
-import {BoardSettingsComponent} from './components/board-settings/board-settings.component';
-import {EditBoardComponent} from './components/board-settings/edit-board/edit-board.component';
 import {DateTimeFormatService} from "./services/date-time-format.service";
+import {BoardSettingsModule} from "./board-settings/board-settings.module";
+import {CalendarModule} from "./calendar/calendar.module";
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    CalendarComponent,
-    CalendarDayForMonthComponent,
-    CalendarCardComponent,
     FrontPageComponent,
     SetTokenComponent,
-    OverDueAreaComponent,
-    CalendarDayForWeekComponent,
-    CalendarFooterComponent,
-    CalendarToolbarComponent,
-    AddCardComponent,
     SearchComponent,
-    NoDueAreaComponent,
-    BoardSettingsComponent,
-    EditBoardComponent,
   ],
   imports: [
     BrowserModule,
@@ -62,6 +42,8 @@ import {DateTimeFormatService} from "./services/date-time-format.service";
     HttpModule,
     routing,
     DndModule.forRoot(),
+    BoardSettingsModule,
+    CalendarModule
 
   ],
   providers: [

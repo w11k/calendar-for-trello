@@ -1,10 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {CardActions} from "../../redux/actions/card-actions";
 import {Moment} from "moment";
 import * as moment from "moment";
-import {CalendarActions, PeriodChange, CalendarType} from "../../redux/actions/calendar-actions";
 import {select} from "ng2-redux";
 import {Observable} from "rxjs";
+import {CalendarActions, CalendarType, PeriodChange} from "../redux/actions/calendar-actions";
 
 @Component({
   selector: 'app-calendar',

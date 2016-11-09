@@ -1,10 +1,10 @@
 import {RouterModule, Routes} from '@angular/router';
-import {CalendarComponent} from "./components/calendar/calendar.component";
 import {FrontPageComponent} from "./components/front-page/front-page.component";
 import {SetTokenComponent} from "./components/set-token/set-token.component";
 import {MemberGuard} from "./services/guards/memberGuard";
 import {VisitorGuard} from "./services/guards/visitorGuard";
-import {BoardSettingsComponent} from "./components/board-settings/board-settings.component";
+import {BoardSettingsComponent} from "./board-settings/board-settings.component";
+import {CalendarComponent} from "./calendar/calendar.component";
 
 
 let routes: Routes = [

@@ -1,10 +1,10 @@
-import { V2CalendarForTrelloPage } from './app.po';
+import {CalendarForTrelloPage} from './app.po';
 
-describe('v2-calendar-for-trello App', function() {
-  let page: V2CalendarForTrelloPage;
+describe('calendar-for-trello App', function () {
+  let page: CalendarForTrelloPage;
 
   beforeEach(() => {
-    page = new V2CalendarForTrelloPage();
+    page = new CalendarForTrelloPage();
   });
 
   it('should display message saying app works', () => {

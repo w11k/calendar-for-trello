@@ -11,12 +11,14 @@ import {CalendarDayForWeekComponent} from "./calendar-day-week/calendar-day-week
 import {DndModule} from "ng2-dnd";
 import {FormsModule} from "@angular/forms";
 import {AddCardComponent} from "./add-card/add-card.component";
+import {MaterialModule} from "@angular/material";
 
 @NgModule({
   imports: [
     CommonModule,
     DndModule,
-    FormsModule
+    FormsModule,
+    MaterialModule
   ],
   declarations: [CalendarComponent,
     CalendarDayForMonthComponent,

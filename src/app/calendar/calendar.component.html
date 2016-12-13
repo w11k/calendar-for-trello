@@ -1,11 +1,15 @@
 <div class="navigation">
-  <button (click)="previous()">Previous</button>
-
+  <button md-icon-button md-raised-button color="primary" (click)="previous()">
+    <md-icon>chevron_left</md-icon>
+  </button>
+  <button md-button color="primary" (click)="toToday()">TODAY</button>
+  <button md-icon-button md-raised-button color="primary" (click)="next()">
+    <md-icon>chevron_right</md-icon>
+  </button>
   {{current}}
-
-  <button (click)="next()">Next</button>
-  <button (click)="toggleMode()">Show {{calendarType === CalendarType.Month ? "Week" : "Month"}}</button>
-  <button (click)="toToday()">TODAY</button>
+  <button md-raised-button (click)="toggleMode()" color="primary" class="pull-right">Show {{calendarType ===
+    CalendarType.Month ? "Week" : "Month"}}
+  </button>
 </div>
 
 

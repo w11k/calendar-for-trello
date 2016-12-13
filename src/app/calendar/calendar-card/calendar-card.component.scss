@@ -1,4 +1,30 @@
+$card-background: #edeff4;
+$card-border-color: #e0e0e0;
+$card-border-color-hover: #bdbdbd;
+
 :host {
   display: block;
-  background: red;
+  background: $card-background;
+  margin-bottom: 4px;
+  padding: 5px;
+  font-size: 10px;
+  cursor: move !important;
+  color: darkblue; // todo
+  border-left: solid 7px;
+  position: relative;
+
+  &:before {
+    border: 1px solid $card-border-color;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    display: block;
+    content: ' ';
+
+  }
+  &:hover:before {
+    border-color: $card-border-color-hover;
+  }
 }

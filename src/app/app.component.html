@@ -55,14 +55,9 @@
 
   </md-toolbar>
 
-  <button (click)="addCard =!addCard">Add a Card</button>
   <button routerLink="/boards">to Board Settings</button>
   <button routerLink="/">calendar</button>
 
-  <br>
-  <app-add-card *ngIf="addCard"></app-add-card>
-  <hr>
-  <br>
   <router-outlet></router-outlet>
 
 

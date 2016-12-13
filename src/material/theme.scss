@@ -1,0 +1,12 @@
+@import '~@angular/material/core/theming/all-theme';
+@import "colors/trello-business-blue";
+@import "colors/trello-red";
+
+@include md-core();
+
+$trello-app-primary: md-palette($md-trello-business);
+$trello-app-accent: md-palette($md-trello-red);
+$trello-app-warn: md-palette($md-red);
+$trello-app-theme: md-light-theme($trello-app-primary, $trello-app-accent, $trello-app-warn);
+
+@include angular-material-theme($trello-app-theme);

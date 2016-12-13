@@ -54,6 +54,12 @@
   version "2.2.3"
   resolved "https://registry.yarnpkg.com/@angular/http/-/http-2.2.3.tgz#84941d638c961ebae248091d6d51ac6f241be882"
 
+"@angular/material@^2.0.0-alpha.11-3":
+  version "2.0.0-alpha.11-3"
+  resolved "https://registry.yarnpkg.com/@angular/material/-/material-2.0.0-alpha.11-3.tgz#71780b1bcf07777d5bcef43330ab7695bb2da549"
+  dependencies:
+    "@types/hammerjs" "^2.0.30"
+
 "@angular/platform-browser-dynamic@2.2.3":
   version "2.2.3"
   resolved "https://registry.yarnpkg.com/@angular/platform-browser-dynamic/-/platform-browser-dynamic-2.2.3.tgz#80f68c13c0b51bac890beed05548bc7597b9ff6d"
@@ -87,6 +93,10 @@
   resolved "https://registry.yarnpkg.com/@ngtools/webpack/-/webpack-1.1.0.tgz#89d8d5b7614babb0015992ec7123dceb2e189357"
   dependencies:
     "@angular-cli/ast-tools" "^1.0.0"
+
+"@types/hammerjs@^2.0.30", "@types/hammerjs@^2.0.33":
+  version "2.0.33"
+  resolved "https://registry.yarnpkg.com/@types/hammerjs/-/hammerjs-2.0.33.tgz#45f57352474181425bb4b65f7313a60426d54bab"
 
 "@types/jasmine@^2.2.30", "@types/jasmine@^2.2.31":
   version "2.5.35"
@@ -3126,6 +3136,10 @@ gulplog@^1.0.0:
   resolved "https://registry.yarnpkg.com/gulplog/-/gulplog-1.0.0.tgz#e28c4d45d05ecbbed818363ce8f9c5926229ffe5"
   dependencies:
     glogg "^1.0.0"
+
+hammerjs@^2.0.8:
+  version "2.0.8"
+  resolved "https://registry.yarnpkg.com/hammerjs/-/hammerjs-2.0.8.tgz#04ef77862cff2bb79d30f7692095930222bf60f1"
 
 handle-thing@^1.2.4:
   version "1.2.5"

@@ -19,6 +19,7 @@
       "mobile": false,
       "styles": [
         "styles.scss",
+        "material/theme.scss",
         "../node_modules/ng2-dnd/style.css"
       ],
       "scripts": [],

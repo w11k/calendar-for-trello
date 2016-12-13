@@ -1,13 +1,16 @@
-<button (click)="refresh()">Refresh</button>
-<button (click)="logout()">Logout</button>
-<button (click)="toggleObserverMode()">{{ settings.observerMode ? "ObserverMode" : "SingleUserMode"}}</button>
-<select [(ngModel)]="settings.language" (ngModelChange)="updateLang($event)">
-  <option *ngFor="let lang of languages" [value]="lang.key">{{lang.name}}</option>
-</select>
-<button (click)="addCard =!addCard">Add a Card</button>
-<app-search></app-search>
-<button routerLink="/boards">to Board Settings</button>
-<button routerLink="/">calendar</button>
+<md-toolbar color="primary">
+
+  <button (click)="refresh()">Refresh</button>
+  <button (click)="logout()">Logout</button>
+  <button (click)="toggleObserverMode()">{{ settings.observerMode ? "ObserverMode" : "SingleUserMode"}}</button>
+  <select [(ngModel)]="settings.language" (ngModelChange)="updateLang($event)">
+    <option *ngFor="let lang of languages" [value]="lang.key">{{lang.name}}</option>
+  </select>
+  <button (click)="addCard =!addCard">Add a Card</button>
+  <app-search></app-search>
+  <button routerLink="/boards">to Board Settings</button>
+  <button routerLink="/">calendar</button>
+</md-toolbar>
 
 <br>
 <app-add-card *ngIf="addCard"></app-add-card>

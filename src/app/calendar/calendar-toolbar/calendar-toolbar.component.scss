@@ -1,14 +1,22 @@
+@import '~@angular/material/core/theming/theming';
+@import '../../../material/theme';
+
+$primary: md-color($md-trello-business, 500);
+$primary-font: md-contrast($md-trello-business, 500);
+
+
 .header {
   width: 14.28%;
   text-align: center;
-  color: #ffffff;
-  background: #42548E;
+  color: $primary-font;
+  background: $primary;
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
   justify-content: flex-start;
   align-content: stretch;
   align-items: stretch;
+  padding: 5px;
 }
 
 :host {

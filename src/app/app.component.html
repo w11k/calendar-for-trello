@@ -51,7 +51,6 @@
 
   </md-toolbar>
 
-  <button (click)="toggleObserverMode()">{{ settings.observerMode ? "ObserverMode" : "SingleUserMode"}}</button>
   <select [(ngModel)]="settings.language" (ngModelChange)="updateLang($event)">
     <option *ngFor="let lang of languages" [value]="lang.key">{{lang.name}}</option>
   </select>

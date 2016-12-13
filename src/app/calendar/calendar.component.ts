@@ -4,6 +4,9 @@ import * as moment from "moment";
 import {select} from "ng2-redux";
 import {Observable} from "rxjs";
 import {CalendarActions, CalendarType, PeriodChange} from "../redux/actions/calendar-actions";
+import {SettingsActions} from "../redux/actions/settings-actions";
+import {TrelloPullService} from "../services/trello-pull.service";
+import {Settings} from "../models/settings";
 
 @Component({
   selector: 'app-calendar',
@@ -21,10 +24,20 @@ export class CalendarComponent implements OnInit {
   @select(state => state.settings.language) public language$: Observable<string>;
   public current: string;
 
-  constructor(public calendarActions: CalendarActions) {
+  @select(state => state.settings) public settings$: Observable<Settings>;
+  public settings: Settings = new Settings();
+
+  constructor(public calendarActions: CalendarActions, private settingsActions: SettingsActions, private trelloPullService: TrelloPullService) {
   }
 
   ngOnInit() {
+    this.settings$.subscribe(
+      settings => {
+        this.settings = settings;
+        moment.locale(settings.language);
+      }
+    );
+
     this.calendarDate$.subscribe(
       date => {
         this.calendarDate = date;
@@ -59,6 +72,11 @@ export class CalendarComponent implements OnInit {
   public toggleMode() {
     this.calendarActions.changeCalendarType();
     this.calendarActions.buildDays(moment(), this.calendarType);
+  }
+
+  public toggleObserverMode() {
+    this.settingsActions.toggleObserverMode();
+    this.trelloPullService.pull();
   }
 
   public determineCurrent(date: Moment, type: CalendarType) {

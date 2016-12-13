@@ -7,9 +7,18 @@
     <md-icon>chevron_right</md-icon>
   </button>
   {{current}}
-  <button md-raised-button (click)="toggleMode()" color="primary" class="pull-right">Show {{calendarType ===
-    CalendarType.Month ? "Week" : "Month"}}
-  </button>
+
+
+  <div class="pull-right">
+    <button md-raised-button (click)="toggleMode()" color="primary">
+      {{calendarType === CalendarType.Month ? "Week" : "Month"}}
+    </button>
+    <button (click)="toggleObserverMode()" md-raised-button color="primary">
+      {{ settings.observerMode ? "Show my Cards" : "Show all Members Cards"}}
+    </button>
+  </div>
+
+
 </div>
 
 <div class="wrap">

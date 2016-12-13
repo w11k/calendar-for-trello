@@ -85,11 +85,6 @@ export class AppComponent implements OnInit {
     this.trelloAuthService.logout();
   }
 
-  toggleObserverMode() {
-    this.settingsActions.toggleObserverMode();
-    this.trelloPullService.pull();
-  }
-
   public updateLang(locale: string) {
     this.settingsActions.setLanguage(locale);
   }

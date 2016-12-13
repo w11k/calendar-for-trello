@@ -1,6 +1,15 @@
+// Import theming functions
+@import '~@angular/material/core/theming/theming';
+// Import your custom theme
+@import '../../../material/theme';
+
 $card-background: #edeff4;
 $card-border-color: #e0e0e0;
 $card-border-color-hover: #bdbdbd;
+
+$card-background: md-color($md-trello-business, A100);
+$card-border-color: md-color($md-trello-business, A200);
+$card-border-color-hover: md-color($md-trello-business, A400);
 
 :host {
   display: block;
@@ -9,9 +18,10 @@ $card-border-color-hover: #bdbdbd;
   padding: 5px;
   font-size: 10px;
   cursor: move !important;
-  color: darkblue; // todo
+  color: md-contrast($md-trello-business, A100);
   border-left: solid 7px;
   position: relative;
+  line-height: 1.5;
 
   &:before {
     border: 1px solid $card-border-color;
@@ -27,4 +37,9 @@ $card-border-color-hover: #bdbdbd;
   &:hover:before {
     border-color: $card-border-color-hover;
   }
+}
+
+a {
+  color: #30364C;
+  font-weight: 700;
 }

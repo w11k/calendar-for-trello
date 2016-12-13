@@ -1,22 +1,64 @@
-<md-toolbar color="primary">
+<md-sidenav-layout>
+  <md-sidenav #start (open)="mybutton.focus()" [mode]="'side'" [opened]="false">
+    Start Sidenav.
+    <br>
+    <button md-button #mybutton (click)="start.close()">Close</button>
+  </md-sidenav>
+  <md-sidenav #end align="end">
+    <app-search></app-search>
+    <button md-button (click)="end.close()">Close</button>
+  </md-sidenav>
 
-  <button (click)="refresh()">Refresh</button>
-  <button (click)="logout()">Logout</button>
+  <md-toolbar [color]="'primary'">
+    <button (click)="start.toggle()" md-icon-button>
+      <md-icon>menu</md-icon>
+    </button>
+    <span>Calendar for Trello</span>
+    <button md-icon-button [md-menu-trigger-for]="menu">
+      <md-icon>more_vert</md-icon>
+    </button>
+    <button md-icon-button (click)="refresh()">
+      <md-icon>refresh</md-icon>
+    </button>
+
+    <button (click)="end.open()" md-icon-button>
+      <md-icon>search</md-icon>
+    </button>
+
+    <md-menu #menu="mdMenu">
+      <button md-menu-item>
+        Enable Auto Refresh
+        <md-icon>refresh</md-icon>
+      </button>
+      <button md-menu-item (click)="logout()">
+        Logout
+        <md-icon>clear</md-icon>
+      </button>
+      <button md-menu-item>
+        Submit Feature Request
+        <md-icon>lightbulb_outline</md-icon>
+      </button>
+      <button md-menu-item>
+        Report a Problem
+        <md-icon>report_problem</md-icon>
+      </button>
+    </md-menu>
+
+  </md-toolbar>
+
   <button (click)="toggleObserverMode()">{{ settings.observerMode ? "ObserverMode" : "SingleUserMode"}}</button>
   <select [(ngModel)]="settings.language" (ngModelChange)="updateLang($event)">
     <option *ngFor="let lang of languages" [value]="lang.key">{{lang.name}}</option>
   </select>
   <button (click)="addCard =!addCard">Add a Card</button>
-  <app-search></app-search>
   <button routerLink="/boards">to Board Settings</button>
   <button routerLink="/">calendar</button>
-</md-toolbar>
 
-<br>
-<app-add-card *ngIf="addCard"></app-add-card>
-<hr>
-<br>
-<router-outlet></router-outlet>
-
+  <br>
+  <app-add-card *ngIf="addCard"></app-add-card>
+  <hr>
+  <br>
+  <router-outlet></router-outlet>
 
 
+</md-sidenav-layout>

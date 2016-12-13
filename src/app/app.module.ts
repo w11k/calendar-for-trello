@@ -21,7 +21,9 @@ import {DateTimeFormatService} from "./services/date-time-format.service";
 import {BoardSettingsModule} from "./board-settings/board-settings.module";
 import {CalendarModule} from "./calendar/calendar.module";
 import {ReduxModule} from "./redux/redux.module";
-import {MaterialModule, MdToolbarModule, MdCoreModule, MdButtonModule} from "@angular/material";
+import {
+  MaterialModule, MdToolbarModule, MdCoreModule, MdButtonModule, MdSidenavModule
+} from "@angular/material";
 
 
 @NgModule({
@@ -44,6 +46,7 @@ import {MaterialModule, MdToolbarModule, MdCoreModule, MdButtonModule} from "@an
     MdCoreModule.forRoot(),
     MdToolbarModule.forRoot(),
     MdButtonModule.forRoot(),
+    MdSidenavModule.forRoot(),
   ],
   providers: [
     CalendarService,

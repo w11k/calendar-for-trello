@@ -1,18 +1,26 @@
+@import '~@angular/material/core/theming/theming';
+@import '../../../material/theme';
+
+$remove-due-background: md-color($md-trello-business, A100);
+$remove-due-font: md-contrast($md-trello-business, A100);
+
+$archive-card-background: md-color($md-trello-business, 100);
+$archive-card-font: md-contrast($md-trello-business, 100);
+
 .removeDue,
 .archiveCard {
   width: 50%;
   height: 100px;
-  background: #e8e8e8;
+  background: $remove-due-background;
+  color: $remove-due-font;
   float: left;
   text-align: center;
   line-height: 100px;
   margin-top: 10px;
 }
 
-.archiveCard {
-}
-
 .removeDue {
   border-right: none;
-  background: #f4f4f4;
+  background: $archive-card-background;
+  color: $archive-card-font;
 }

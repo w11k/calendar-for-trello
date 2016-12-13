@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import * as moment from "moment";
-import {Moment} from "moment";
 import {select} from "ng2-redux";
 import {Observable} from "rxjs";
+import * as _ from "lodash"
 
 @Component({
   selector: 'app-calendar-toolbar',

@@ -3,8 +3,8 @@ import {CalendarDay} from "../../models/calendar-day";
 import {select} from "ng2-redux";
 import {Observable} from "rxjs";
 import {Card} from "../../models/card";
-import {Moment} from "moment";
 import * as moment from "moment";
+import * as _ from "lodash"
 import Dictionary = _.Dictionary;
 import {CardActions} from "../../redux/actions/card-actions";
 import {DragDropData} from "ng2-dnd";

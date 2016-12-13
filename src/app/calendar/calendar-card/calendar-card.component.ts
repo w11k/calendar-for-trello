@@ -3,6 +3,7 @@ import {Card} from "../../models/card";
 import {select} from "ng2-redux";
 import {Observable} from "rxjs";
 import {Board} from "../../models/board";
+import * as _ from "lodash"
 
 @Component({
   selector: 'app-calendar-card',

@@ -49,11 +49,12 @@
       </button>
     </md-menu>
 
+    <md-select placeholder="" [(ngModel)]="settings.language" (ngModelChange)="updateLang($event)">
+      <md-option *ngFor="let lang of languages" [value]="lang.key">{{lang.name}}</md-option>
+    </md-select>
+
   </md-toolbar>
 
-  <select [(ngModel)]="settings.language" (ngModelChange)="updateLang($event)">
-    <option *ngFor="let lang of languages" [value]="lang.key">{{lang.name}}</option>
-  </select>
   <button (click)="addCard =!addCard">Add a Card</button>
   <button routerLink="/boards">to Board Settings</button>
   <button routerLink="/">calendar</button>

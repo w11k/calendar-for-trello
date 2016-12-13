@@ -1,6 +1,6 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpModule} from '@angular/http';
 
 import {AppComponent} from './app.component';
@@ -22,7 +22,7 @@ import {BoardSettingsModule} from "./board-settings/board-settings.module";
 import {CalendarModule} from "./calendar/calendar.module";
 import {ReduxModule} from "./redux/redux.module";
 import {
-  MaterialModule, MdToolbarModule, MdCoreModule, MdButtonModule, MdSidenavModule
+  MaterialModule, MdToolbarModule, MdCoreModule, MdButtonModule, MdSidenavModule, MdSelectModule, MdOption, MdSelect
 } from "@angular/material";
 
 
@@ -36,6 +36,7 @@ import {
   imports: [
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpModule,
     routing,
     DndModule.forRoot(),
@@ -47,6 +48,8 @@ import {
     MdToolbarModule.forRoot(),
     MdButtonModule.forRoot(),
     MdSidenavModule.forRoot(),
+    MdSelectModule.forRoot(),
+
   ],
   providers: [
     CalendarService,

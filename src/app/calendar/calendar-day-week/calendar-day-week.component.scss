@@ -1,3 +1,13 @@
+@import '~@angular/material/core/theming/theming';
+@import '../../../material/theme';
+
+$day-border-color: md-color($md-gray, 300);
+$day-background: md-color($md-gray, A100);
+$day-offset-background: md-color($md-trello-business, 50);
+$day-time-color: md-color($md-gray, 500);
+
+$day-primary: md-color($md-trello-business, 500);
+
 :host {
   width: 14.28%;
   min-height: 100px;
@@ -8,27 +18,23 @@
   align-content: stretch;
   align-items: stretch;
   position: relative;
-  border-top: 1px solid #DFDFDF;
-  border-left: 1px solid #DFDFDF;
+  border-top: 1px solid $day-border-color;
+  border-left: 1px solid $day-border-color;
 
 }
 
 .dropZone {
   padding: 3px;
-  background: yellow;
   flex: 1 0 auto;
 }
 
 .weekday {
-  background: #fff;
-  color: #4d4d4d;
+  background: $day-background;
+  color: $day-time-color;
   > div {
-    border: 2px solid #fff;
+    border: 2px solid $day-background;
     font-size: 11px;
     padding: 2px 0 2px;
-    &.dnd-drag-over {
-      background: #EDEFF4;
-    }
   }
 }
 
@@ -41,7 +47,7 @@
 :host(.today) {
   .day {
     font-weight: bold;
-    color: #42548E;
+    color: $day-primary;
   }
 }
 

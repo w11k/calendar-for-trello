@@ -1,9 +1,17 @@
+@import '~@angular/material/core/theming/theming';
+@import '../../../material/theme';
+
+$day-border-color: md-color($md-gray, 300);
+$day-background: md-color($md-gray, A100);
+$day-offset-background: md-color($md-trello-business, 50);
+$day-primary: md-color($md-trello-business, 500);
+
 :host {
   width: 14.28%;
   min-height: 100px;
-  background: #fff;
-  border-left: 1px solid #DFDFDF;
-  border-top: 1px solid #DFDFDF;
+  background: $day-background;
+  border-left: 1px solid $day-border-color;
+  border-top: 1px solid $day-border-color;
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
@@ -24,23 +32,16 @@
   right: 3px;
 }
 
-.weekday {
-  background: #2bbcff;
-}
-
-.offsetDay {
-  background: #EDEFF4 !important;
-}
 
 :host(.offsetDay) {
-  background: #EDEFF4 !important;
+  background: $day-offset-background !important;
 }
 
 :host(.today) {
-  border-top: 5px #42548E solid;
+  border-top: 5px $day-primary solid;
   .day {
     font-weight: bold;
-    color: #42548E;
+    color: $day-primary;
   }
 }
 

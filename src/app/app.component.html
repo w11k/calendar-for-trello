@@ -1,7 +1,11 @@
 <md-sidenav-layout>
-  <md-sidenav #start (open)="mybutton.focus()" [mode]="'side'" [opened]="false">
-    Start Sidenav.
+  <md-sidenav #start (open)="mybutton.focus()" [mode]="'side'" [opened]="false" style="width:70%; max-width:300px;">
     <br>
+
+    <app-over-due-area></app-over-due-area>
+    <app-no-due-area></app-no-due-area>
+
+
     <button md-button #mybutton (click)="start.close()">Close</button>
   </md-sidenav>
   <md-sidenav #end align="end">

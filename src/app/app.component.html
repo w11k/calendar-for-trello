@@ -1,6 +1,10 @@
 <md-sidenav-layout>
   <md-sidenav #start (open)="mybutton.focus()" [mode]="'side'" [opened]="false" style="width:70%; max-width:300px;">
     <br>
+    <button md-menu-item *ngFor="let item of navigation" routerLink="{{item.link}}">
+      {{ item.text }}
+    </button>
+
 
     <app-over-due-area></app-over-due-area>
     <app-no-due-area></app-no-due-area>
@@ -55,9 +59,7 @@
 
   </md-toolbar>
 
-  <button routerLink="/boards">to Board Settings</button>
-  <button routerLink="/">calendar</button>
-
+  <br>
   <router-outlet></router-outlet>
 
 

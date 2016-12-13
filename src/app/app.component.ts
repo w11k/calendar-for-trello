@@ -12,6 +12,7 @@ import {Settings} from "./models/settings";
 import {Observable} from "rxjs";
 import {SettingsActions} from "./redux/actions/settings-actions";
 import {TrelloAuthService} from "./services/trello-auth.service";
+import {MenuItem} from "./models/menu-item";
 
 @Component({
   selector: 'app-root',
@@ -88,4 +89,12 @@ export class AppComponent implements OnInit {
   public updateLang(locale: string) {
     this.settingsActions.setLanguage(locale);
   }
+
+
+  navigation: MenuItem[] = [
+    new MenuItem("Calendar", "/"),
+    new MenuItem("Settings", "/boards"),
+  ];
+
+
 }

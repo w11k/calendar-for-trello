@@ -14,7 +14,7 @@ export class CalendarCardComponent implements OnInit {
 
   @Input() public card: Card;
   @select(state => state.settings.boardColorPrefs) public boardColorPrefs$: Observable<Object>;
-  @select(state => state.boards) public boards$: Observable<Object>;
+  @select(state => state.boards) public boards$: Observable<Board[]>;
 
   @HostBinding('style.border-left-color') borderLeft;
   constructor() {
@@ -24,8 +24,9 @@ export class CalendarCardComponent implements OnInit {
     Observable
       .combineLatest(this.boardColorPrefs$, this.boards$)
       .subscribe(x => {
-        let boardColorPrefs = x[0];
-        let board = _.find(x[1], (board: Board) => board.id === this.card.idBoard);
+        const boardColorPrefs = x[0];
+        const boards: Board[] = x[1];
+        let board = _.find(boards, (board: Board) => board.id === this.card.idBoard);
         this.borderLeft = boardColorPrefs[this.card.idBoard] || (board ? board.prefs.backgroundColor : null);
       })
   }

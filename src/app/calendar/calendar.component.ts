@@ -76,7 +76,6 @@ export class CalendarComponent implements OnInit {
 
   public toggleObserverMode() {
     this.settingsActions.toggleObserverMode();
-    this.trelloPullService.pull();
   }
 
   public determineCurrent(date: Moment, type: CalendarType) {

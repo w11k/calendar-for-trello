@@ -4,68 +4,72 @@ import {BoardActions} from "../redux/actions/board-actions";
 import {UserActions} from "../redux/actions/user-actions";
 import {TrelloHttpService} from "./trello-http.service";
 import {Board} from "../models/board";
-import {Observable} from "rxjs";
-import {Card} from "../models/card";
-import {select} from "ng2-redux";
-import {Settings} from "../models/settings";
-import {Response} from "@angular/http";
-
+import * as moment from "moment";
 
 @Injectable()
 export class TrelloPullService {
-  @select(state => state.settings) public settings$: Observable<Settings>;
-  private settings: Settings = new Settings();
+  private interval;
+  private intervalTime = 30000;
 
   constructor(private tHttp: TrelloHttpService,
               public userActons: UserActions,
               public boardActions: BoardActions,
               public cardActions: CardActions,) {
-    this.settings$.subscribe(settings => this.settings = settings);
   }
 
+  public pull = () => {
+    this._fetchBoards();
+    this._fetchUser();
+  };
 
 
-  public pull() {
-    this.tHttp.get("member/me/boards").subscribe(
+  public continuousFetch = () => {
+    this.pull();
+    this.interval = setInterval(this.pull, this.intervalTime);
+  };
+
+  private _fetchBoards = () => {
+    this.tHttp.get("member/me/boards", null, "filter=open").subscribe(
       data => {
         let boards: Board[] = data.json();
         this.boardActions.loadBoards(boards);
-        if (this.settings.observerMode) {
-          this._pullAllCards(boards);
+        const toLoadBoards = this._checkBoards(boards);
+        if (toLoadBoards) {
+          this._loadCardsOfBoard(toLoadBoards);
         }
-      },
-      error => console.log(error)
-    );
-    if (!this.settings.observerMode) {
-      this.tHttp.get("member/me/cards").subscribe(
-        data => this.cardActions.rebuildStore(data.json()),
-        error => console.log(error)
-      );
-    }
+      });
+
+  };
+
+  private _fetchUser = () => {
     this.tHttp.get("/members/me").subscribe(
       data => this.userActons.addUser(data.json()),
       error => console.log(error)
+    )
+  };
+
+
+  // determines if each Board in an array is fresh (pulled)
+  private _checkBoards = (boards: Board[]): Board[] => {
+    return boards.filter(
+      board => {
+        if (board.lastPulledAt) {
+          // board cards are already pulled
+          return moment(board.lastPulledAt).isBefore(moment(board.dateLastActivity));
+        } else {
+          // board cards are yet not pulled, add it to toLoadBoardArray
+          return true
+        }
+      });
+  };
+
+  private _loadCardsOfBoard(boards: Board[]) {
+    boards.forEach(
+      board => this.tHttp.get("boards/" + board.id + "/cards")
+        .subscribe(
+          response => this.cardActions.rebuildStorePartially(response.json(), board, new Date())
+        )
     );
   }
 
-  private _pullAllCards(boards: Board[]) {
-    let activeBoards = boards.filter(board => !board.closed);
-    this._pullAllBoards(activeBoards)
-      .subscribe(
-        responses => this.cardActions.rebuildStore(
-          this._processAllBoardResponses(responses)
-        ))
-  };
-
-  private _pullAllBoards(boards: Board[]): Observable<Response[]> {
-    return Observable.forkJoin(boards.map(
-      board => this.tHttp.get("boards/" + board.id + "/cards")
-    ))
-  }
-
-  private _processAllBoardResponses(responses: Response[]): Card[] {
-    return [].concat.apply([], responses.map((perBoardRequest: any) => {
-      return <Card>perBoardRequest.json();
-    }));
-  }
 }

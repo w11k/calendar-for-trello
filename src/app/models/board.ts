@@ -17,7 +17,7 @@ export class Board {
               public subscribed?: boolean,
               public labelNames?: Object,
               public dateLastView?: Date,
-              public shortUrl?: string) {
-
+              public shortUrl?: string,
+              public lastPulledAt?: Date) {
   }
 }

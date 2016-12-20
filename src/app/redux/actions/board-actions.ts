@@ -13,6 +13,7 @@ export class BoardActions {
   static UPDATE_BOARD_COLOR: string = 'UPDATE_BOARD_COLOR';
   static LOAD_BOARDS: string = 'LOAD_BOARDS';
   static RESET_BOARD_STORE: string = 'RESET_BOARD_STORE';
+  static UPDATE_PULLED_AT: string = 'UPDATE_PULLED_AT';
 
   public updateBoardColor(id: string, backgroundColor: string) {
     this.ngRedux.dispatch({type: BoardActions.UPDATE_BOARD_COLOR, id, backgroundColor});

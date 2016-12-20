@@ -41,6 +41,13 @@ export default (state: Card[] = initialState, action: any) => {
       return state.filter(card => card.id !== action.id);
     case CardActions.RESET_CARD_STORE:
       return initialState;
+    case CardActions.UPDATE_CARDS_OF_BOARD:
+      // remove all cards from board
+      // add fresh loaded cards
+      // return store
+      let newStore = state.filter(card => card.idBoard !== action.payload.boardId);
+      newStore.push(...action.payload.cards);
+      return newStore;
     default:
       return state;
   }

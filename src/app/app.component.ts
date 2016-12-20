@@ -13,6 +13,7 @@ import {Observable} from "rxjs";
 import {SettingsActions} from "./redux/actions/settings-actions";
 import {TrelloAuthService} from "./services/trello-auth.service";
 import {MenuItem} from "./models/menu-item";
+import {environment} from "../environments/environment";
 
 @Component({
   selector: 'app-root',
@@ -63,14 +64,17 @@ export class AppComponent implements OnInit {
               private trelloPullService: TrelloPullService,
               private settingsActions: SettingsActions,
               private trelloAuthService: TrelloAuthService) {
+
+    const logger = environment.production ? [] : [createLogger()];
+
     this.ngRedux.configureStore(
       reducer,
       this.initStore,
-      [createLogger()],
+      logger,
       enhancers
     );
     ngReduxRouter.initialize();
-    this.trelloPullService.pull();
+    this.trelloPullService.continuousFetch();
 
     this.settings$.subscribe(settings => this.settings = settings);
   }

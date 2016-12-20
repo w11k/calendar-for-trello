@@ -1,9 +1,9 @@
-
 import {Injectable} from '@angular/core';
 import {NgRedux} from 'ng2-redux';
 import {RootState} from '../store';
 import {Card} from "../../models/card";
 import {TrelloHttpService} from "../../services/trello-http.service";
+import {BoardActions} from "./board-actions";
 
 @Injectable()
 export class CardActions {
@@ -12,6 +12,7 @@ export class CardActions {
 
   static ADD_CARD: string = 'ADD_CARD';
   static UPDATE_CARD: string = 'UPDATE_CARD';
+  static UPDATE_CARDS_OF_BOARD: string = 'UPDATE_CARDS_OF_BOARD';
   static REBUILD_STORE: string = 'REBUILD_STORE';
   static UPDATE_DUE: string = 'UPDATE_DUE';
   static REMOVE_DUE: string = 'REMOVE_DUE';
@@ -41,6 +42,26 @@ export class CardActions {
       error => console.log(error)
     );
   };
+
+  /**
+   * Only updates cards of a single board after loading*/
+  public rebuildStorePartially(cards, board, time) {
+    this.ngRedux.dispatch({
+      type: CardActions.UPDATE_CARDS_OF_BOARD, payload: {
+        boardId: board.id,
+        cards: cards
+      }
+    });
+
+    // update the boards lastPulledAt timestamp
+    this.ngRedux.dispatch({
+      type: BoardActions.UPDATE_PULLED_AT, payload: {
+        boardId: board.id,
+        time
+      }
+    });
+
+  }
 
   public removeCards(cardId: string) {
     this.ngRedux.dispatch({type: CardActions.REMOVE_CARD, id: cardId});

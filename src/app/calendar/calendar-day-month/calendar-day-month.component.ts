@@ -8,6 +8,8 @@ import * as _ from "lodash"
 import Dictionary = _.Dictionary;
 import {CardActions} from "../../redux/actions/card-actions";
 import {DragDropData} from "ng2-dnd";
+import {Settings} from "../../models/settings";
+import {User} from "../../models/user";
 
 export let CalendarUiDateFormat: string = "DD-MM-YYYY";
 
@@ -18,7 +20,8 @@ export let CalendarUiDateFormat: string = "DD-MM-YYYY";
 })
 export class CalendarDayForMonthComponent implements OnInit {
   @select("cards") public cards$: Observable<Card[]>;
-  @select(state => state.settings.boardVisibilityPrefs) public boardVisibilityPrefs$: Observable<Object>;
+  @select("user") public user$: Observable<User[]>;
+  @select(state => state.settings) public settings$: Observable<Settings>;
 
   @Input() public calendarDay: CalendarDay;
   public cards: Card[];
@@ -39,14 +42,22 @@ export class CalendarDayForMonthComponent implements OnInit {
     }
 
     Observable
-      .combineLatest(this.cards$, this.boardVisibilityPrefs$)
+      .combineLatest(this.cards$, this.settings$, this.user$)
       .subscribe(x => {
         let cards: Card[] = x[0];
-        let visibilityPrefs: Object = x[1];
+        const settings = x[1];
+        const user = x[2];
         this.cards = cards.filter(
-          card => moment(card.due).isSame(this.calendarDay.date, "day") && !visibilityPrefs[card.idBoard]
-        )
+          card => moment(card.due).isSame(this.calendarDay.date, "day") && !settings.boardVisibilityPrefs[card.idBoard]
+        ).filter(this.filterFn.bind(this, settings, user))
       })
+  }
+
+  filterFn(settings: Settings, user: User, card: Card) {
+    if (!settings.observerMode) {
+      return card.idMembers.indexOf(user.id) > -1
+    }
+    return true
   }
 
   onDropSuccess(event: DragDropData) {

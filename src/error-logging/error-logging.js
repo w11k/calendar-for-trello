@@ -1,7 +1,7 @@
 'use strict';
 
-var app = angular.module( 'trelloCal.errorLogging', ['ngRaven']);
-app.config(function($provide,$httpProvider) {
+var app = angular.module('trelloCal.errorLogging', ['ngRaven']);
+app.config(function ($provide, $httpProvider) {
     // Capture Angular Errors
     $provide.decorator('$exceptionHandler', ['$delegate', '$raven', function ($delegate, $raven) {
         return function (exception, cause) {
@@ -12,10 +12,10 @@ app.config(function($provide,$httpProvider) {
 
 
     // in addition, capture XHR Errors
-    $httpProvider.interceptors.push(['$q', '$raven', function($q,$raven) {
+    $httpProvider.interceptors.push(['$q', '$raven', '$rootScope', function ($q, $raven, $rootScope) {
         return {
-            responseError: function(rejection) {
-                $raven.captureException(rejection.data+rejection.status);
+            responseError: function (rejection) {
+                $rootScope.$broadcast('httpError', rejection);
                 return $q.reject(rejection);
             }
         };

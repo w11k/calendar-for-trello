@@ -39,7 +39,7 @@ import {
     ReactiveFormsModule,
     HttpModule,
     routing,
-    DndModule.forRoot(),
+    DndModule.forRoot(), // https://github.com/akserg/ng2-dnd/pull/90
     BoardSettingsModule,
     CalendarModule,
     ReduxModule,

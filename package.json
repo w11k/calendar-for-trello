@@ -1,6 +1,6 @@
 {
   "name": "w11k-trello-calendar",
-  "version": "0.1.50",
+  "version": "0.1.51",
   "devDependencies": {
     "connect-modrewrite": "^0.8.2",
     "fabs": "*",

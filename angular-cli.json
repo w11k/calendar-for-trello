@@ -26,7 +26,8 @@
       "environments": {
         "source": "environments/environment.ts",
         "dev": "environments/environment.ts",
-        "prod": "environments/environment.prod.ts"
+        "prod": "environments/environment.prod.ts",
+        "hmr": "environments/environment.hmr.ts"
       }
     }
   ],

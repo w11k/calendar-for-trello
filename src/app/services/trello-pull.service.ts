@@ -37,6 +37,9 @@ export class TrelloPullService {
         if (toLoadBoards) {
           this._loadCardsOfBoard(toLoadBoards);
         }
+      },
+      err => {
+        // no token, do nothing;
       });
 
   };

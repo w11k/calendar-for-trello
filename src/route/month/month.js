@@ -256,7 +256,7 @@ month.controller('monthCtrl', function ($timeout, $interval,toastr,
     if (webStorage.get('TrelloCalendarStorage').me.autorefresh) {
         $interval(function () {
             $scope.refresh();
-        }, 30000, 0, false);
+        }, 60000, 0, false);
     }
 
     $scope.$on('rebuild', function () {

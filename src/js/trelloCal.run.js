@@ -11,7 +11,7 @@ angular.module('trelloCal').run(/*ngInject*/ function ($location, $rootScope, we
     }
 
     $rootScope.$on( 'httpError', function( event, rejection ) {
-        var errorMessage = 'API ERROR - Something went wrong';
+        var errorMessage = 'API ERROR - Something went wrong (\'' + rejection.data +'\')';
         switch (rejection.status) {
             case 429:
                 errorMessage = 'To many requests to Trello API';

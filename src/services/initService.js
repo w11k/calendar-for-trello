@@ -146,8 +146,19 @@ angular.module('trelloCal').factory('initService', /*ngInject*/  function ($q, n
             var TrelloCalendarStorage = webStorage.get('TrelloCalendarStorage');
             var listRequests = [];
             var alllists = [];
+            var timeout = 0;
             _.forEach(TrelloCalendarStorage.boards, function (board) {
-                listRequests.push($http.get('https://api.trello.com/1/boards/' + board.id + '/lists/?fields=name&filter=open&key=' + key + '&token=' + token));
+                listRequests.push($q(function(resolve, reject) {
+                    setTimeout(function () {
+                        $http.get('https://api.trello.com/1/boards/' + board.id + '/lists/?fields=name&filter=open&key=' + key + '&token=' + token)
+                            .then(function (success) {
+                                resolve(success);
+                            }, function (error) {
+                                reject(error);
+                            });
+                    }, timeout);
+                    timeout = timeout + 120;
+                }));
             });
             $q.all(listRequests).then(function (responses) {
                 _.forEach(responses, function (lists) {
@@ -232,8 +243,19 @@ angular.module('trelloCal').factory('initService', /*ngInject*/  function ($q, n
             var TrelloCalendarStorage = webStorage.get('TrelloCalendarStorage');
             var cardRequests = [];
             var allCards = [];
+            var timeout = 0;
             _.forEach(TrelloCalendarStorage.boards, function (board) {
-                cardRequests.push($http.get('https://api.trello.com/1/boards/' + board.id + '/cards/?fields=idList,name,dateLastActivity,shortUrl,due,idBoard&filter=open&key=' + key + '&token=' + token));
+                cardRequests.push($q(function(resolve, reject) {
+                    setTimeout(function () {
+                        $http.get('https://api.trello.com/1/boards/' + board.id + '/cards/?fields=idList,name,dateLastActivity,shortUrl,due,idBoard&filter=open&key=' + key + '&token=' + token)
+                            .then(function (success) {
+                                resolve(success);
+                            }, function (error) {
+                                reject(error);
+                            });
+                    }, timeout);
+                    timeout = timeout + 120;
+                }));
             });
             $q.all(cardRequests).then(function (responses) {
                 _.forEach(responses, function (lists) {

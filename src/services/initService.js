@@ -424,6 +424,7 @@ angular.module('trelloCal').factory('initService', /*ngInject*/  function ($q, n
             remove: function () {
                 data = null;
                 webStorage.set('trello_token', null);
+                webStorage.set('TrelloCalendarStorage', null);
             },
             refreshColors: function () {
                 refreshColors();

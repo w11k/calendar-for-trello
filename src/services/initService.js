@@ -13,7 +13,7 @@ angular.module('trelloCal').factory('initService', /*ngInject*/  function ($q, n
 
         var colorizeCards = true;
         var observer = false;
-        var autorefresh = true;
+        var autorefresh = false;
         var version = '0.1.41';
 
         /**

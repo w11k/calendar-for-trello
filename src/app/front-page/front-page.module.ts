@@ -4,12 +4,14 @@ import {FrontPageComponent} from "./front-page.component";
 import {DialogComponent} from './dialog/dialog.component';
 import {CalendarModule} from "../calendar/calendar.module";
 import {MdToolbarModule} from "@angular/material";
+import {FlexLayoutModule} from "@angular/flex-layout";
 
 @NgModule({
   imports: [
     CommonModule,
     CalendarModule,
-    MdToolbarModule
+    MdToolbarModule,
+    FlexLayoutModule
   ],
   declarations: [
     FrontPageComponent,

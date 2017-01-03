@@ -24,6 +24,7 @@ import {
   MaterialModule, MdToolbarModule, MdCoreModule, MdButtonModule, MdSidenavModule, MdSelectModule, MdOption, MdSelect
 } from "@angular/material";
 import {FrontPageModule} from "./front-page/front-page.module";
+import {FlexLayoutModule} from "@angular/flex-layout";
 
 
 @NgModule({
@@ -49,6 +50,7 @@ import {FrontPageModule} from "./front-page/front-page.module";
     MdButtonModule.forRoot(),
     MdSidenavModule.forRoot(),
     MdSelectModule.forRoot(),
+    FlexLayoutModule.forRoot()
 
   ],
   providers: [

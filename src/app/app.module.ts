@@ -8,7 +8,6 @@ import {routing} from "./routes";
 import {CalendarService} from "./services/calendar.service";
 import {TrelloAuthService} from "./services/trello-auth.service";
 import {TrelloHttpService} from "./services/trello-http.service";
-import {FrontPageComponent} from "./components/front-page/front-page.component";
 import {SetTokenComponent} from "./components/set-token/set-token.component";
 import {MemberGuard} from "./services/guards/memberGuard";
 import {VisitorGuard} from "./services/guards/visitorGuard";
@@ -24,12 +23,12 @@ import {ReduxModule} from "./redux/redux.module";
 import {
   MaterialModule, MdToolbarModule, MdCoreModule, MdButtonModule, MdSidenavModule, MdSelectModule, MdOption, MdSelect
 } from "@angular/material";
+import {FrontPageModule} from "./front-page/front-page.module";
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    FrontPageComponent,
     SetTokenComponent,
     SearchComponent,
   ],
@@ -43,6 +42,7 @@ import {
     BoardSettingsModule,
     CalendarModule,
     ReduxModule,
+    FrontPageModule,
     MaterialModule.forRoot(),
     MdCoreModule.forRoot(),
     MdToolbarModule.forRoot(),

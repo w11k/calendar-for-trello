@@ -34,6 +34,7 @@ import {MaterialModule} from "@angular/material";
     AddCardComponent,
     OverDueAreaComponent,
     NoDueAreaComponent,
+    CalendarComponent
   ]
 })
 export class CalendarModule {

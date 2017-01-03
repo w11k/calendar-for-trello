@@ -2,11 +2,11 @@ import {Component, OnInit} from '@angular/core';
 import {TrelloAuthService} from "../../services/trello-auth.service";
 
 @Component({
-  selector: 'app-front-page',
-  templateUrl: './front-page.component.html',
-  styleUrls: ['./front-page.component.scss']
+  selector: 'app-dialog',
+  templateUrl: './dialog.component.html',
+  styleUrls: ['./dialog.component.scss']
 })
-export class FrontPageComponent implements OnInit {
+export class DialogComponent implements OnInit {
 
   constructor(public trelloAuthService: TrelloAuthService) {
   }
@@ -17,4 +17,5 @@ export class FrontPageComponent implements OnInit {
   login() {
     this.trelloAuthService.login();
   }
+
 }

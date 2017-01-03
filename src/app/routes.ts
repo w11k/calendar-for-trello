@@ -1,5 +1,5 @@
 import {RouterModule, Routes} from '@angular/router';
-import {FrontPageComponent} from "./components/front-page/front-page.component";
+import {FrontPageComponent} from "./front-page/front-page.component";
 import {SetTokenComponent} from "./components/set-token/set-token.component";
 import {MemberGuard} from "./services/guards/memberGuard";
 import {VisitorGuard} from "./services/guards/visitorGuard";

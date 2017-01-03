@@ -21,7 +21,7 @@ Hosted Version:
 <https://trello.com/app-key>
 
 #####edit config:
-    src/app/app.js
+    src/app.js
     
     angular.module('w11kcal.app').constant('AppKey', 'YOURKEY');
 

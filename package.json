@@ -31,7 +31,7 @@
     "hammerjs": "^2.0.8",
     "lodash": "^4.17.2",
     "moment": "^2.15.1",
-    "ng2-dnd": "^2.0.1",
+    "ng2-dnd": "^2.1.1",
     "ng2-redux": "^4.0.0-beta.3",
     "ng2-redux-router": "^1.3.3",
     "redux": "^3.6.0",

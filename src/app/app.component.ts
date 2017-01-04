@@ -4,7 +4,6 @@ import {NgReduxRouter} from "ng2-redux-router";
 const createLogger = require('redux-logger');
 import reducer from '../app/redux/reducers/index';
 import * as moment from "moment";
-import {CalendarType} from "./redux/actions/calendar-actions";
 import {Router} from "@angular/router";
 import {NgRedux, select} from "ng2-redux";
 import {TrelloPullService} from "./services/trello-pull.service";
@@ -27,7 +26,6 @@ export class AppComponent implements OnInit {
     boards: [],
     user: null,
     calendar: {
-      type: CalendarType.Month,
       days: [],
       date: moment().locale("en")
     },

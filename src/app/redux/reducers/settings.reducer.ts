@@ -1,6 +1,6 @@
 // -> Takes previous state + action, returnes new // new state
 import {Settings} from "../../models/settings";
-import {SettingsActions} from "../actions/settings-actions";
+import {SettingsActions, CalendarType} from "../actions/settings-actions";
 
 const initialState = new Settings();
 
@@ -20,6 +20,8 @@ export default (state: Settings = initialState, action: any) => {
       var newState = Object.assign({}, state);
       newState.boardVisibilityPrefs[action.payload.boardId] = action.payload.visibility;
       return newState;
+    case SettingsActions.CHANGE_TYPE:
+      return Object.assign({}, state, {type: state.type === CalendarType.Month ? CalendarType.Week : CalendarType.Month});
     case SettingsActions.REMOVE_BOARD_PREFERENCES:
       return Object.assign({}, state, {
         boardColorPrefs: {},

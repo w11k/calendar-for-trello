@@ -3,7 +3,7 @@ import * as moment from "moment";
 import * as _ from "lodash";
 import {CalendarDay} from "../models/calendar-day";
 import {Moment} from "moment";
-import {CalendarType} from "../redux/actions/calendar-actions";
+import {CalendarType} from "../redux/actions/settings-actions";
 
 
 @Injectable()

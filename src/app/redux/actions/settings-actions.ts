@@ -4,6 +4,10 @@ import {Injectable} from '@angular/core';
 import {NgRedux} from 'ng2-redux';
 import {RootState} from '../store';
 
+export enum CalendarType {
+  Week, Month
+}
+
 @Injectable()
 export class SettingsActions {
   constructor(private ngRedux: NgRedux<RootState>) {
@@ -15,6 +19,7 @@ export class SettingsActions {
   static SET_BOARD_COLOR: string = 'SET_BOARD_COLOR';
   static SET_BOARD_VISIBILITY: string = 'SET_BOARD_VISIBILITY';
   static REMOVE_BOARD_PREFERENCES: string = 'REMOVE_BOARD_PREFERENCES';
+  static CHANGE_TYPE: string = 'CHANGE_TYPE';
 
   public toggleObserverMode() {
     this.ngRedux.dispatch({type: SettingsActions.TOGGLE_OBSERVER_MODE});
@@ -24,6 +29,10 @@ export class SettingsActions {
     this.ngRedux.dispatch({type: SettingsActions.SET_LANG, payload: locale});
   };
 
+
+  public changeCalendarType() {
+    this.ngRedux.dispatch({type: SettingsActions.CHANGE_TYPE})
+  }
 
   public resetStore() {
     this.ngRedux.dispatch({type: SettingsActions.RESET_SETTINGS_STORE})

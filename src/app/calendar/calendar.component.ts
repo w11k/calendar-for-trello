@@ -3,8 +3,8 @@ import {Moment} from "moment";
 import * as moment from "moment";
 import {select} from "ng2-redux";
 import {Observable} from "rxjs";
-import {CalendarActions, CalendarType, PeriodChange} from "../redux/actions/calendar-actions";
-import {SettingsActions} from "../redux/actions/settings-actions";
+import {CalendarActions, PeriodChange} from "../redux/actions/calendar-actions";
+import {SettingsActions, CalendarType} from "../redux/actions/settings-actions";
 import {TrelloPullService} from "../services/trello-pull.service";
 import {Settings} from "../models/settings";
 import {MdDialog} from "@angular/material";
@@ -22,7 +22,7 @@ export class CalendarComponent implements OnInit {
   calendarDate: Moment; // todo remove
   @select(state => state.calendar.days) public calendar$: Observable<any>;
   @select(state => state.calendar.date) public calendarDate$: Observable<any>;
-  @select(state => state.calendar.type) public calendarType$: Observable<any>;
+  @select(state => state.settings.type) public calendarType$: Observable<any>;
   @select(state => state.settings.language) public language$: Observable<string>;
   public current: string;
 
@@ -72,7 +72,7 @@ export class CalendarComponent implements OnInit {
   }
 
   public toggleMode() {
-    this.calendarActions.changeCalendarType();
+    this.settingsActions.changeCalendarType();
     this.calendarActions.buildDays(moment(), this.calendarType);
   }
 

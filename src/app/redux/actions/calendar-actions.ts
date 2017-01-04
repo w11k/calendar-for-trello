@@ -6,12 +6,10 @@ import {RootState} from '../store';
 import {CalendarDay} from "../../models/calendar-day";
 import {CalendarService} from "../../services/calendar.service";
 import {Moment} from "moment";
+import {CalendarType} from "./settings-actions";
 
 export enum PeriodChange {
   add, subtract
-}
-export enum CalendarType {
-  Week, Month
 }
 
 @Injectable()
@@ -23,7 +21,6 @@ export class CalendarActions {
   static FILL_DAYS: string = 'FILL_DAYS';
   static BUILD_DAYS: string = 'BUILD_DAYS';
   static NAVIGATE: string = 'NAVIGATE';
-  static CHANGE_TYPE: string = 'CHANGE_TYPE';
   static RESET_CALENDAR_STORE: string = 'RESET_CALENDAR_STORE';
 
 
@@ -39,9 +36,6 @@ export class CalendarActions {
     ;
   };
 
-  public changeCalendarType() {
-    this.ngRedux.dispatch({type: CalendarActions.CHANGE_TYPE})
-  }
 
 
   public navigate(date: Moment, change: PeriodChange, calendarType: CalendarType) {

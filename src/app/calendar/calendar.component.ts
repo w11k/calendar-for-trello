@@ -29,7 +29,7 @@ export class CalendarComponent implements OnInit {
   @select(state => state.settings) public settings$: Observable<Settings>;
   public settings: Settings = new Settings();
 
-  constructor(public calendarActions: CalendarActions, private settingsActions: SettingsActions, public mdDialog: MdDialog) {
+  constructor(public calendarActions: CalendarActions, private settingsActions: SettingsActions, public mdDialog: MdDialog, public trelloPullService: TrelloPullService) {
   }
 
   ngOnInit() {
@@ -98,5 +98,13 @@ export class CalendarComponent implements OnInit {
       height: '400px',
       width: '600px',
     });
+
+    dialogRef.afterClosed().subscribe(
+      (wasSuccess: boolean) => {
+        if (wasSuccess) {
+          this.trelloPullService.pull();
+        }
+      }
+    )
   }
 }

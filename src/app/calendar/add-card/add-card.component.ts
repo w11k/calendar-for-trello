@@ -6,6 +6,9 @@ import {Board} from "../../models/board";
 import {TrelloHttpService} from "../../services/trello-http.service";
 import {Member} from "../../models/member";
 import {List} from "../../models/list";
+import * as moment from "moment";
+import {MdDialogRef} from "@angular/material";
+
 
 @Component({
   selector: 'app-add-card',
@@ -23,13 +26,15 @@ export class AddCardComponent implements OnInit {
   // those fields need to be transformed before save:
   public selectedMembers: string[];
 
-  constructor(private tHttp: TrelloHttpService) {
+  constructor(public dialogRef: MdDialogRef<AddCardComponent>, private tHttp: TrelloHttpService) {
+    //todo update form to formbuilder + validation
   }
 
-  @select("boards") public cards$: Observable<Board[]>;
+  @select("boards") public boards$: Observable<Board[]>;
 
   ngOnInit() {
-    this.cards$.subscribe(
+    this.card.due = moment().format("YYYY-MM-DD HH:mm").replace(" ", "T");
+    this.boards$.subscribe(
       boards => {
         this.boards = boards.filter(
           board => !board.closed
@@ -52,19 +57,12 @@ export class AddCardComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(
-      Object.assign(this.card, {
-        idMembers: this.selectedMembers.toString()
-      }));
-    //
-
-
     this.tHttp.post("cards/", Object.assign(this.card, {
       idMembers: this.selectedMembers.toString()
     }))
       .subscribe(
-        success => console.log(success.json()),
-        error => console.log(error)
+        success => this.dialogRef.close(true),
+        error => console.log(error) // todo
       );
   }
 

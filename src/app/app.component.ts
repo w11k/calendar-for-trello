@@ -70,7 +70,7 @@ export class AppComponent implements OnInit {
     this.ngRedux.configureStore(
       reducer,
       this.initStore,
-      logger,
+      [], // logger
       enhancers
     );
     ngReduxRouter.initialize();

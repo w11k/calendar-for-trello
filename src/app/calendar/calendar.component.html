@@ -31,7 +31,7 @@
       <app-calendar-day-month *ngFor="let day of calendar$ | async" [calendarDay]="day"></app-calendar-day-month>
     </ng-container>
     <ng-container *ngSwitchCase="CalendarType.Week">
-      <app-calendar-day-week *ngFor="let day of calendar$ | async" [calendarDay]="day"></app-calendar-day-week>
+      <app-week></app-week>
     </ng-container>
   </ng-container>
 </div>

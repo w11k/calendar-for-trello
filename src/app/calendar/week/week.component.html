@@ -1,0 +1,20 @@
+<div class="weekHeader eqWrap">
+  <div class="slot" *ngFor="let day of calendar$ | async" [ngClass]="{'today': day.isToday}">
+    {{day.date | date: "d"}}
+  </div>
+</div>
+
+<div class=" eqWrap">
+  <div class="slot" *ngFor="let slot of slots" dnd-droppable
+       (onDropSuccess)="onDropSuccess($event, slot)"
+       (onDragSuccess)="onDropSuccess($event, slot)">
+    <div class="time">{{slot.time}}</div>
+    <app-calendar-card
+      *ngFor="let card of slot.cards; let x = index"
+      [dragData]="card" [card]="card"
+      [dragEnabled]="true"
+      dnd-draggable>
+    </app-calendar-card>
+
+  </div>
+</div>

@@ -1,0 +1,39 @@
+@import '~@angular/material/core/theming/theming';
+@import '../../../material/theme';
+
+$day-border-color: md-color($md-gray, 300);
+$day-background: md-color($md-gray, A100);
+$day-offset-background: md-color($md-trello-business, 50);
+$day-time-color: md-color($md-gray, 500);
+
+$day-primary: md-color($md-trello-business, 500);
+
+.eqWrap {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.slot {
+  width: 14.28%;
+  border-left: 1px solid $day-border-color;
+  min-height: 15px;
+  padding: 2px;
+}
+
+.time {
+  font-size: 11px;
+  color: $day-time-color;
+}
+
+.weekHeader {
+  text-align: right;
+  margin-bottom: -15px;
+  .slot {
+    height: 20px;
+
+    &.today {
+      font-weight: bold;
+      color: $day-primary;
+    }
+  }
+}

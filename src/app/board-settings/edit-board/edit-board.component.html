@@ -1,11 +1,15 @@
-{{board.name}}
+<div fxLayout="row">
+  <div fxFlex>
+    {{board.name}}
+  </div>
 
-<select [(ngModel)]="color" (ngModelChange)="updateColor($event)">
-  <option *ngFor="let color of colors" [value]="color.key">{{color.name}}</option>
-</select>
+  <md-select [(ngModel)]="color" (ngModelChange)="updateColor($event)">
+    <md-option *ngFor="let color of colors" [value]="color.key">{{color.name}}</md-option>
+  </md-select>
+
+  <md-select [(ngModel)]="visibility" (ngModelChange)="updateVisibility($event)">
+    <md-option *ngFor="let state of visibilities" [value]="state.key">{{state.name}}</md-option>
+  </md-select>
 
 
-<select [(ngModel)]="visibility" (ngModelChange)="updateVisibility($event)">
-  <option *ngFor="let state of visibilities" [value]="state.key">{{state.name}}</option>
-</select>
-
+</div>

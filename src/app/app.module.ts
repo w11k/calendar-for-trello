@@ -21,7 +21,8 @@ import {BoardSettingsModule} from "./board-settings/board-settings.module";
 import {CalendarModule} from "./calendar/calendar.module";
 import {ReduxModule} from "./redux/redux.module";
 import {
-  MaterialModule, MdToolbarModule, MdCoreModule, MdButtonModule, MdSidenavModule, MdSelectModule, MdOption, MdSelect
+  MaterialModule, MdToolbarModule, MdCoreModule, MdButtonModule, MdSidenavModule, MdSelectModule, MdOption, MdSelect,
+  MdListModule, MdCardModule
 } from "@angular/material";
 import {FrontPageModule} from "./front-page/front-page.module";
 import {FlexLayoutModule} from "@angular/flex-layout";
@@ -50,8 +51,9 @@ import {FlexLayoutModule} from "@angular/flex-layout";
     MdButtonModule.forRoot(),
     MdSidenavModule.forRoot(),
     MdSelectModule.forRoot(),
-    FlexLayoutModule.forRoot()
-
+    MdListModule.forRoot(),
+    MdCardModule.forRoot(),
+    FlexLayoutModule.forRoot(),
   ],
   providers: [
     CalendarService,

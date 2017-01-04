@@ -36,7 +36,7 @@ export class CalendarDayForMonthComponent implements OnInit {
 
   @HostListener('contextmenu', ['$event'])
   onOpenContext(event: MouseEvent) {
-    if (this.contextMenuService.registration) {
+    if (!this.contextMenuService.registration) { // disabled for now, remove to activte !
       event.preventDefault();
       let left = event.pageX;
       let top = event.pageY;

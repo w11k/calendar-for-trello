@@ -42,6 +42,9 @@ import {ContextMenuService} from "./context-menu-holder/context-menu.service";
   ],
   providers: [
     ContextMenuService
+  ],
+  entryComponents: [
+    AddCardComponent,
   ]
 })
 export class CalendarModule {

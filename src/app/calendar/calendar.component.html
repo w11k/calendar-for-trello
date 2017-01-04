@@ -10,6 +10,9 @@
 
 
   <div class="pull-right">
+    <button md-raised-button (click)="addCard()" color="primary">
+      Add a Card
+    </button>
     <button md-raised-button (click)="toggleMode()" color="primary">
       {{calendarType === CalendarType.Month ? "Week" : "Month"}}
     </button>

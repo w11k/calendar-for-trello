@@ -7,6 +7,8 @@ import {CalendarActions, CalendarType, PeriodChange} from "../redux/actions/cale
 import {SettingsActions} from "../redux/actions/settings-actions";
 import {TrelloPullService} from "../services/trello-pull.service";
 import {Settings} from "../models/settings";
+import {MdDialog} from "@angular/material";
+import {AddCardComponent} from "./add-card/add-card.component";
 
 @Component({
   selector: 'app-calendar',
@@ -27,7 +29,7 @@ export class CalendarComponent implements OnInit {
   @select(state => state.settings) public settings$: Observable<Settings>;
   public settings: Settings = new Settings();
 
-  constructor(public calendarActions: CalendarActions, private settingsActions: SettingsActions, private trelloPullService: TrelloPullService) {
+  constructor(public calendarActions: CalendarActions, private settingsActions: SettingsActions, public mdDialog: MdDialog) {
   }
 
   ngOnInit() {
@@ -89,5 +91,12 @@ export class CalendarComponent implements OnInit {
 
   public toToday(): void {
     this.calendarActions.navigateToDate(moment(), this.calendarType);
+  }
+
+  public addCard() {
+    let dialogRef = this.mdDialog.open(AddCardComponent, {
+      height: '400px',
+      width: '600px',
+    });
   }
 }

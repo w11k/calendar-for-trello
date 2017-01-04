@@ -1,4 +1,4 @@
-import {Component, OnInit, Input, Renderer, ElementRef} from '@angular/core';
+import {Component, OnInit, Input, Renderer, ElementRef, HostListener} from '@angular/core';
 import {CalendarDay} from "../../models/calendar-day";
 import {select} from "ng2-redux";
 import {Observable} from "rxjs";
@@ -10,6 +10,7 @@ import {CardActions} from "../../redux/actions/card-actions";
 import {DragDropData} from "ng2-dnd";
 import {Settings} from "../../models/settings";
 import {User} from "../../models/user";
+import {ContextMenuService} from "../context-menu-holder/context-menu.service";
 
 export let CalendarUiDateFormat: string = "DD-MM-YYYY";
 
@@ -28,7 +29,19 @@ export class CalendarDayForMonthComponent implements OnInit {
 
   constructor(public cardActions: CardActions,
               private renderer: Renderer,
-              private element: ElementRef) {
+              private element: ElementRef,
+              private contextMenuService: ContextMenuService) {
+  }
+
+
+  @HostListener('contextmenu', ['$event'])
+  onOpenContext(event: MouseEvent) {
+    if (this.contextMenuService.registration) {
+      event.preventDefault();
+      let left = event.pageX;
+      let top = event.pageY;
+      this.contextMenuService.registration.move(left, top);
+    }
   }
 
   ngOnInit() {

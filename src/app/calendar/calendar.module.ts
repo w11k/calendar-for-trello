@@ -12,6 +12,8 @@ import {DndModule} from "ng2-dnd";
 import {FormsModule} from "@angular/forms";
 import {AddCardComponent} from "./add-card/add-card.component";
 import {MaterialModule} from "@angular/material";
+import {ContextMenuHolderComponent} from './context-menu-holder/context-menu-holder.component';
+import {ContextMenuService} from "./context-menu-holder/context-menu.service";
 
 @NgModule({
   imports: [
@@ -28,13 +30,18 @@ import {MaterialModule} from "@angular/material";
     CalendarFooterComponent,
     CalendarToolbarComponent,
     AddCardComponent,
-    NoDueAreaComponent],
+    NoDueAreaComponent,
+    ContextMenuHolderComponent,
+  ],
   exports: [
     CalendarCardComponent,
     AddCardComponent,
     OverDueAreaComponent,
     NoDueAreaComponent,
     CalendarComponent
+  ],
+  providers: [
+    ContextMenuService
   ]
 })
 export class CalendarModule {

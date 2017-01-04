@@ -1,0 +1,9 @@
+:host {
+  display: block;
+  width: 1px;
+  height: 1px;
+  position: absolute;
+
+  visibility: hidden;
+  z-index: 99999999999999;
+}

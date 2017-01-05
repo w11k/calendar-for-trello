@@ -15,22 +15,22 @@ export class EditBoardComponent implements OnInit {
   @select(state => state.settings.boardVisibilityPrefs) public boardVisibilityPrefs$: Observable<Object>;
 
   public colors = [
-    {
-      key: "",
-      name: "Default"
-    },
-    {
-      key: "blue",
-      "name": "Blue"
-    },
-    {
-      key: "red",
-      "name": "Red"
-    },
-    {
-      key: "green",
-      "name": "Green"
-    }
+    {key: "Navy", name: "Navy"},
+    {key: "MediumBlue", name: "MediumBlue"},
+    {key: "DarkGreen", name: "DarkGreen"},
+    {key: "Green", name: "Green"},
+    {key: "Teal", name: "Teal"},
+    {key: "DeepSkyBlue", name: "DeepSkyBlue"},
+    {key: "Lime", name: "Lime"},
+    {key: "DarkSlateGray", name: "DarkSlateGray"},
+    {key: "Indigo", name: "Indigo"},
+    {key: "DarkRed", name: "DarkRed"},
+    {key: "Azure", name: "Azure"},
+    {key: "DarkOrange", name: "DarkOrange"},
+    {key: "DeepPink", name: "DeepPink"},
+    {key: "Pink", name: "Pink"},
+    {key: "Yellow", name: "Yellow"},
+    {key: "Gold", name: "Gold"},
   ];
   public color: string;
 

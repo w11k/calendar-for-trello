@@ -5,7 +5,6 @@ import {select} from "ng2-redux";
 import {Observable, Subscription} from "rxjs";
 import {CalendarDay} from "../../models/calendar-day";
 import {DateTimeFormatService} from "../../services/date-time-format.service";
-import calendar = moment.calendar;
 import {DragDropData} from "ng2-dnd";
 import {CardActions} from "../../redux/actions/card-actions";
 import {WeekDaySlot} from "./WeekDaySlot";

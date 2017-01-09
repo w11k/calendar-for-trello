@@ -1,3 +1,3 @@
-<a href="#">{{card.name}} </a><br>
+<a href="#" class="title">{{card.name}} </a><br>
 {{board.name}} <br>
-<a href="#">{{list?.name}}</a> {{card.due | date:'shortTime'}} <br>
+<a href="#">{{list?.name}}</a>  <span class="due">{{card.dueComplete ? "✔" : card.due | date:'shortTime'}}</span>

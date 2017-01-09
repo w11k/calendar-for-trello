@@ -8,8 +8,9 @@ $archive-card-background: md-color($md-trello-business, 100);
 $archive-card-font: md-contrast($md-trello-business, 100);
 
 .removeDue,
-.archiveCard {
-  width: 50%;
+.archiveCard,
+.markDone {
+  width: 33%;
   height: 100px;
   background: $remove-due-background;
   color: $remove-due-font;
@@ -23,4 +24,9 @@ $archive-card-font: md-contrast($md-trello-business, 100);
   border-right: none;
   background: $archive-card-background;
   color: $archive-card-font;
+}
+
+.markDone {
+  background: lighten($remove-due-background, 2%);
+  color: $remove-due-font;
 }

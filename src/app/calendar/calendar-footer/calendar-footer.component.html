@@ -2,6 +2,10 @@
   Remove Due Date
 </div>
 
+<div class="markDone" dnd-droppable (onDropSuccess)="markDone($event)">
+  Mark as Done
+</div>
+
 <div class="archiveCard" dnd-droppable (onDropSuccess)="archiveCard($event)">
   Archive Card
 </div>

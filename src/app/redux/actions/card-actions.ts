@@ -17,6 +17,7 @@ export class CardActions {
   static UPDATE_DUE: string = 'UPDATE_DUE';
   static REMOVE_DUE: string = 'REMOVE_DUE';
   static ARCHIVE_CARD: string = 'ARCHIVE_CARD';
+  static MARK_CARD_DONE: string = 'MARK_CARD_DONE';
   static REMOVE_CARD: string = 'REMOVE_CARD';
   static RESET_CARD_STORE: string = 'RESET_CARD_STORE';
 
@@ -86,6 +87,17 @@ export class CardActions {
 
   public resetStore() {
     this.ngRedux.dispatch({type: CardActions.RESET_CARD_STORE})
+  }
+
+  public markCardDone(card: Card) {
+    this.tHttp.put("cards/" + card.id + "", {
+      dueComplete: true
+    }).subscribe(
+      success => this.ngRedux.dispatch({type: CardActions.MARK_CARD_DONE, payload: card}),
+      error => console.log(error)
+    )
+
+
   }
 
 }

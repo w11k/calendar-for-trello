@@ -33,7 +33,7 @@ export class OverDueAreaComponent implements OnInit {
         let cards: Card[] = x[0];
         let visibilityPrefs: Object = x[1];
         this.cards = cards.filter(
-          card => moment(card.due).isBefore(moment().hours(0).minutes(0).seconds(0).milliseconds(0)) && !visibilityPrefs[card.idBoard]
+          card => moment(card.due).isBefore(moment().hours(0).minutes(0).seconds(0).milliseconds(0)) && !visibilityPrefs[card.idBoard] && !card.dueComplete
         );
       })
   }

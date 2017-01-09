@@ -20,6 +20,7 @@ $card-border-color-hover: md-color($md-trello-business, A400);
   border-left: solid 7px;
   position: relative;
   line-height: 1.5;
+  overflow: hidden;
 
   &:before {
     border: 1px solid $card-border-color;
@@ -35,6 +36,25 @@ $card-border-color-hover: md-color($md-trello-business, A400);
   &:hover:before {
     border-color: $card-border-color-hover;
   }
+
+  &.dueComplete {
+    opacity: .7;
+
+    .title {
+      text-decoration: line-through;
+    }
+  }
+
+  .due {
+    float: right;
+  }
+
+  .title {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+
 }
 
 a {

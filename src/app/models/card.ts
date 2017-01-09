@@ -24,6 +24,7 @@ export class Card {
               public manualCoverAttachment?: any,
               public badges?: any,
               public descData?: any,
-              public checkItemStates?: any) {
+              public checkItemStates?: any,
+              public dueComplete?: boolean) {
   }
 }

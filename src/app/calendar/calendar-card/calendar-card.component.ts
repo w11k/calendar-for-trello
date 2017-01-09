@@ -21,6 +21,7 @@ export class CalendarCardComponent implements OnInit {
   @select(state => state.lists) public lists$: Observable<Object>;
 
   @HostBinding('style.border-left-color') borderLeft;
+  @HostBinding('class.dueComplete') dueComplete;
   @Input() public card: Card;
 
   constructor() {
@@ -36,6 +37,8 @@ export class CalendarCardComponent implements OnInit {
         this.list = lists[this.card.idList];
         this.board = _.find(boards, (board: Board) => board.id === this.card.idBoard);
         this.borderLeft = boardColorPrefs[this.card.idBoard] || (this.board ? this.board.prefs.backgroundColor : null);
-      })
+      });
+
+    this.dueComplete = this.card.dueComplete;
   }
 }

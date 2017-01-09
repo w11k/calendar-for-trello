@@ -2,7 +2,7 @@
   <button md-icon-button md-raised-button color="primary" (click)="previous()">
     <md-icon>chevron_left</md-icon>
   </button>
-  <button md-button color="primary" (click)="toToday()">TODAY</button>
+  <button md-button color="primary" (click)="toToday()" i18n="Button label: navigate to current date">TODAY</button>
   <button md-icon-button md-raised-button color="primary" (click)="next()">
     <md-icon>chevron_right</md-icon>
   </button>
@@ -10,14 +10,22 @@
 
 
   <div class="pull-right">
-    <button md-raised-button (click)="addCard()" color="primary">
+    <button md-raised-button (click)="addCard()" color="primary" i18n="Button label: create a new card">
       Add a Card
     </button>
-    <button md-raised-button (click)="toggleMode()" color="primary">
-      {{calendarType === CalendarType.Month ? "Week" : "Month"}}
+    <button md-raised-button (click)="toggleMode()" color="primary" [ngSwitch]="calendarType">
+      <!--{{calendarType === CalendarType.Month ? "Week" : "Month"}}-->
+      <ng-container *ngSwitchCase="CalendarType.Month" i18n>
+        Month
+      </ng-container>
+      <ng-container *ngSwitchDefault i18n>
+        Week
+      </ng-container>
     </button>
     <button (click)="toggleObserverMode()" md-raised-button color="primary">
       {{ settings.observerMode ? "Show my Cards" : "Show all Members Cards"}}
+
+
     </button>
   </div>
 

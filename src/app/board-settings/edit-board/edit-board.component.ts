@@ -3,6 +3,8 @@ import {Observable} from "rxjs";
 import {select} from "ng2-redux";
 import {SettingsActions} from "../../redux/actions/settings-actions";
 import {Board} from "../../models/board";
+import {selectBoardColorPrefs, selectBoardVisibilityPrefs} from "../../redux/store/selects";
+
 
 @Component({
   selector: 'app-edit-board',
@@ -11,8 +13,8 @@ import {Board} from "../../models/board";
 })
 export class EditBoardComponent implements OnInit {
 
-  @select(state => state.settings.boardColorPrefs) public boardColorPrefs$: Observable<Object>;
-  @select(state => state.settings.boardVisibilityPrefs) public boardVisibilityPrefs$: Observable<Object>;
+  @select(selectBoardColorPrefs) public boardColorPrefs$: Observable<Object>;
+  @select(selectBoardVisibilityPrefs) public boardVisibilityPrefs$: Observable<Object>;
 
   public colors = [
     {key: "Navy", name: "Navy"},

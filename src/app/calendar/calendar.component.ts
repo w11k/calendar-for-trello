@@ -9,6 +9,10 @@ import {TrelloPullService} from "../services/trello-pull.service";
 import {Settings} from "../models/settings";
 import {MdDialog} from "@angular/material";
 import {AddCardComponent} from "./add-card/add-card.component";
+import {
+  selectCalendarDays, selectSettingsType, selectCalendarDate,
+  selectSettingsLanguage
+} from "../redux/store/selects";
 
 @Component({
   selector: 'app-calendar',
@@ -20,13 +24,13 @@ export class CalendarComponent implements OnInit {
   calendarType: CalendarType;
   CalendarType = CalendarType;
   calendarDate: Moment; // todo remove
-  @select(state => state.calendar.days) public calendar$: Observable<any>;
-  @select(state => state.calendar.date) public calendarDate$: Observable<any>;
-  @select(state => state.settings.type) public calendarType$: Observable<any>;
-  @select(state => state.settings.language) public language$: Observable<string>;
+  @select(selectCalendarDays) public calendar$: Observable<any>;
+  @select(selectCalendarDate) public calendarDate$: Observable<any>;
+  @select(selectSettingsType) public calendarType$: Observable<any>;
+  @select(selectSettingsLanguage) public language$: Observable<string>;
   public current: string;
 
-  @select(state => state.settings) public settings$: Observable<Settings>;
+  @select("settings") public settings$: Observable<Settings>;
   public settings: Settings = new Settings();
 
   constructor(public calendarActions: CalendarActions, private settingsActions: SettingsActions, public mdDialog: MdDialog, public trelloPullService: TrelloPullService) {

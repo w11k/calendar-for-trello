@@ -5,6 +5,7 @@ import {Observable} from "rxjs";
 import {Board} from "../../models/board";
 import * as _ from "lodash"
 import {List} from "../../models/list";
+import {selectBoardColorPrefs} from "../../redux/store/selects";
 
 @Component({
   selector: 'app-calendar-card',
@@ -16,9 +17,9 @@ export class CalendarCardComponent implements OnInit {
   public list: List;
   public board: Board;
 
-  @select(state => state.settings.boardColorPrefs) public boardColorPrefs$: Observable<Object>;
-  @select(state => state.boards) public boards$: Observable<Board[]>;
-  @select(state => state.lists) public lists$: Observable<Object>;
+  @select(selectBoardColorPrefs) public boardColorPrefs$: Observable<Object>;
+  @select("boards") public boards$: Observable<Board[]>;
+  @select("lists") public lists$: Observable<Object>;
 
   @HostBinding('style.border-left-color') borderLeft;
   @HostBinding('class.dueComplete') dueComplete;

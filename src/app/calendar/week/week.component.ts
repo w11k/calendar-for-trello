@@ -8,6 +8,7 @@ import {DateTimeFormatService} from "../../services/date-time-format.service";
 import {DragDropData} from "ng2-dnd";
 import {CardActions} from "../../redux/actions/card-actions";
 import {WeekDaySlot} from "./WeekDaySlot";
+import {selectBoardVisibilityPrefs, selectCalendarDays, selectSettingsLanguage} from "../../redux/store/selects";
 
 @Component({
   selector: 'app-week',
@@ -23,9 +24,9 @@ export class WeekComponent implements OnInit {
   public cardHolder: Object; //  {key: Cards[]}
 
   @select("cards") public cards$: Observable<Card[]>;
-  @select(state => state.settings.boardVisibilityPrefs) public boardVisibilityPrefs$: Observable<Object>;
-  @select(state => state.calendar.days) public calendar$: Observable<CalendarDay[]>;
-  @select(state => state.settings.language) public language$: Observable<string>;
+  @select(selectBoardVisibilityPrefs) public boardVisibilityPrefs$: Observable<Object>;
+  @select(selectCalendarDays) public calendar$: Observable<CalendarDay[]>;
+  @select(selectSettingsLanguage) public language$: Observable<string>;
 
   constructor(private dateTimeFormatService: DateTimeFormatService, private cardActions: CardActions) {
 

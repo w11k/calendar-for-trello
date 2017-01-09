@@ -5,7 +5,7 @@
   "angular-cli": {},
   "scripts": {
     "ng": "ng",
-    "hmr": "ng serve --hmr -e=hmr",
+    "hmr": "ng serve --hmr -e=hmr --aot",
     "deploy": "ng github-pages:deploy",
     "start": "npm run hmr",
     "lint": "tslint \"src/**/*.ts\"",
@@ -34,7 +34,7 @@
     "moment": "^2.15.1",
     "ng2-dnd": "^2.1.1",
     "ng2-redux": "^4.0.0-beta.3",
-    "ng2-redux-router": "^1.3.3",
+    "ng2-redux-router": "^2.0.0",
     "redux": "^3.6.0",
     "redux-localstorage": "^0.4.0",
     "redux-logger": "^2.6.1",

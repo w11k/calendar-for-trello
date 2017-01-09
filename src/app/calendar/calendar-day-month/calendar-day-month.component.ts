@@ -22,7 +22,7 @@ export let CalendarUiDateFormat: string = "DD-MM-YYYY";
 export class CalendarDayForMonthComponent implements OnInit {
   @select("cards") public cards$: Observable<Card[]>;
   @select("user") public user$: Observable<User[]>;
-  @select(state => state.settings) public settings$: Observable<Settings>;
+  @select("settings") public settings$: Observable<Settings>;
 
   @Input() public calendarDay: CalendarDay;
   public cards: Card[];

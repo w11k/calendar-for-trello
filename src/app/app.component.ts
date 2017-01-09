@@ -79,7 +79,7 @@ export class AppComponent implements OnInit {
     this.settings$.subscribe(settings => this.settings = settings);
   }
 
-  @select(state => state.settings) public settings$: Observable<Settings>;
+  @select("settings") public settings$: Observable<Settings>;
   public settings: Settings = new Settings();
 
   refresh() {

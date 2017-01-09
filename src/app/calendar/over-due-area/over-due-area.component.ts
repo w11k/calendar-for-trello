@@ -4,6 +4,7 @@ import {Card} from "../../models/card";
 import {select} from "ng2-redux";
 import {Moment} from "moment";
 import * as moment from "moment";
+import {selectBoardColorPrefs, selectBoardVisibilityPrefs} from "../../redux/store/selects";
 
 @Component({
   selector: 'app-over-due-area',
@@ -18,7 +19,7 @@ export class OverDueAreaComponent implements OnInit {
   @select("cards") public cards$: Observable<Card[]>;
 
   cards: Card[];
-  @select(state => state.settings.boardVisibilityPrefs) public boardVisibilityPrefs$: Observable<Object>;
+  @select(selectBoardVisibilityPrefs) public boardVisibilityPrefs$: Observable<Object>;
 
 
   ngOnInit() {

@@ -7,4 +7,6 @@ export class List {
               public subscribed?: boolean) {
   }
 
+
+  public lastPulledAt?: Date;
 }

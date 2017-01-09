@@ -7,6 +7,7 @@ import {BoardActions} from "./actions/board-actions";
 import {CardActions} from "./actions/card-actions";
 import {NgRedux} from "ng2-redux";
 import {NgReduxRouter} from "ng2-redux-router";
+import {ListActions} from "./actions/list-actions";
 
 @NgModule({
   imports: [
@@ -20,7 +21,8 @@ import {NgReduxRouter} from "ng2-redux-router";
     BoardActions,
     UserActions,
     CalendarActions,
-    SettingsActions
+    SettingsActions,
+    ListActions,
   ]
 })
 export class ReduxModule {

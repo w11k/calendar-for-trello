@@ -7,6 +7,7 @@ import boardsReducer from './boards.reducer';
 import userReducer from './user.reducer';
 import calendarReducer from './calendar.reducer';
 import settingsReducer from './settings.reducer';
+import listReducer from './list.reducer';
 
 import {routerReducer} from 'ng2-redux-router';
 
@@ -16,7 +17,8 @@ const rootReducer = combineReducers<RootState>({
   boards: boardsReducer,
   user: userReducer,
   calendar: calendarReducer,
-  settings: settingsReducer
+  settings: settingsReducer,
+  lists: listReducer
 });
 
 export default rootReducer;

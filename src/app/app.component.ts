@@ -29,8 +29,10 @@ export class AppComponent implements OnInit {
       days: [],
       date: moment().locale("en")
     },
-    settings: new Settings()
+    settings: new Settings(),
+    lists: {}
   };
+
 
   public languages = [
     {

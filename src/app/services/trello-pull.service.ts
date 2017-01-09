@@ -5,6 +5,7 @@ import {UserActions} from "../redux/actions/user-actions";
 import {TrelloHttpService} from "./trello-http.service";
 import {Board} from "../models/board";
 import * as moment from "moment";
+import {ListActions} from "../redux/actions/list-actions";
 
 @Injectable()
 export class TrelloPullService {
@@ -14,7 +15,8 @@ export class TrelloPullService {
   constructor(private tHttp: TrelloHttpService,
               public userActons: UserActions,
               public boardActions: BoardActions,
-              public cardActions: CardActions,) {
+              public cardActions: CardActions,
+              public listActions: ListActions) {
   }
 
   public pull = () => {
@@ -68,11 +70,19 @@ export class TrelloPullService {
 
   private _loadCardsOfBoard(boards: Board[]) {
     boards.forEach(
-      board => this.tHttp.get("boards/" + board.id + "/cards")
-        .subscribe(
-          response => this.cardActions.rebuildStorePartially(response.json(), board, new Date())
-        )
-    );
+      board => {
+        // Fetch Cards of Board
+        this.tHttp.get("boards/" + board.id + "/cards")
+          .subscribe(
+            response => this.cardActions.rebuildStorePartially(response.json(), board, new Date())
+          );
+
+        // Fetch Lists of Board
+        this.tHttp.get("boards/" + board.id + "/lists")
+          .subscribe(
+            response => this.listActions.rebuildStorePartially(response.json(), board, new Date())
+          );
+      });
   }
 
 }

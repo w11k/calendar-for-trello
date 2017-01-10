@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+const PROJECT = require("../../../../package.json");
 
 @Component({
   selector: 'app-about-page',
@@ -7,7 +8,9 @@ import {Component, OnInit} from '@angular/core';
 })
 export class AboutPageComponent implements OnInit {
 
+  version: string;
   constructor() {
+    this.version = PROJECT.version;
   }
 
   ngOnInit() {

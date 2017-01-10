@@ -98,6 +98,7 @@ export class AppComponent implements OnInit {
   navigation: MenuItem[] = [
     new MenuItem("Calendar", "/"),
     new MenuItem("Settings", "/boards"),
+    new MenuItem("About", "/about"),
   ];
 
 

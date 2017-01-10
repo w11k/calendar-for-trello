@@ -26,6 +26,7 @@ import {
 } from "@angular/material";
 import {FrontPageModule} from "./front-page/front-page.module";
 import {FlexLayoutModule} from "@angular/flex-layout";
+import {AboutModule} from "./about/about.module";
 
 
 @NgModule({
@@ -43,6 +44,7 @@ import {FlexLayoutModule} from "@angular/flex-layout";
     DndModule.forRoot(), // https://github.com/akserg/ng2-dnd/pull/90
     BoardSettingsModule,
     CalendarModule,
+    AboutModule,
     ReduxModule,
     FrontPageModule,
     MaterialModule.forRoot(),

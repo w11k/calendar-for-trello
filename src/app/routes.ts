@@ -5,6 +5,7 @@ import {MemberGuard} from "./services/guards/memberGuard";
 import {VisitorGuard} from "./services/guards/visitorGuard";
 import {BoardSettingsComponent} from "./board-settings/board-settings.component";
 import {CalendarComponent} from "./calendar/calendar.component";
+import {AboutPageComponent} from "./about/about-page/about-page.component";
 
 
 let routes: Routes = [
@@ -25,6 +26,10 @@ let routes: Routes = [
     path: 'boards',
     component: BoardSettingsComponent,
     canActivate: [MemberGuard],
+  },
+  {
+    path: 'about',
+    component: AboutPageComponent,
   }
 ];
 export const routing = RouterModule.forRoot(routes);

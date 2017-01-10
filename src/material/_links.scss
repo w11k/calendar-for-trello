@@ -1,5 +1,11 @@
+@import '~@angular/material/core/theming/theming';
+
+$linkColor: md-color($md-trello-business, 700);
+
+
 a {
   text-decoration: none;
+  color: saturate($linkColor, 100);
   &:hover,
   &:focus {
     text-decoration: underline;

@@ -1,6 +1,6 @@
 <md-sidenav-layout>
   <md-sidenav #start [mode]="'side'" style="width:70%; max-width:300px;" [opened]="false">
-    <app-sidebar></app-sidebar>
+    <app-sidebar [start]="start"></app-sidebar>
   </md-sidenav>
   <md-toolbar [color]="'primary'">
     <button (click)="start.toggle()" md-icon-button>

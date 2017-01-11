@@ -1,8 +1,9 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, Input} from '@angular/core';
 import {select} from "ng2-redux";
 import {Observable} from "rxjs";
 import {User} from "../models/user";
 import {MenuItem} from "../models/menu-item";
+import {MdSidenav} from "@angular/material";
 
 @Component({
   selector: 'app-sidebar',
@@ -11,6 +12,7 @@ import {MenuItem} from "../models/menu-item";
 })
 export class SidebarComponent implements OnInit {
 
+  @Input("start") start: MdSidenav;
 
   @select("user") public user$: Observable<User>;
   public user: User;

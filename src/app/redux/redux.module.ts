@@ -5,7 +5,7 @@ import {CalendarActions} from "./actions/calendar-actions";
 import {UserActions} from "./actions/user-actions";
 import {BoardActions} from "./actions/board-actions";
 import {CardActions} from "./actions/card-actions";
-import {NgRedux, NgReduxModule} from "ng2-redux";
+import {NgReduxModule} from "ng2-redux";
 import {NgReduxRouter} from "ng2-redux-router";
 import {ListActions} from "./actions/list-actions";
 
@@ -16,7 +16,6 @@ import {ListActions} from "./actions/list-actions";
   ],
   declarations: [],
   providers: [
-    NgRedux,
     NgReduxRouter,
     CardActions,
     BoardActions,

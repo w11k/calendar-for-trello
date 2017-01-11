@@ -7,7 +7,7 @@
     "ng": "ng",
     "hmr": "ng serve --hmr -e=hmr",
     "deploy": "ng github-pages:deploy",
-    "dist": "ng dist --aot",
+    "build": "ng build --aot",
     "start": "npm run hmr",
     "lint": "tslint \"src/**/*.ts\"",
     "test": "ng test",

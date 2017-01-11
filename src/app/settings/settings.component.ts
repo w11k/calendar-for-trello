@@ -23,7 +23,7 @@ export class SettingsComponent implements OnInit {
   public settings: Settings = new Settings();
 
   constructor(private settingsActions: SettingsActions) {
-    this.languages.push(new Language("de", "Deutsche"));
+    this.languages.push(new Language("de", "Deutsch"));
     this.languages.push(new Language("en", "English"));
     this.languages.push(new Language("fr", "Français"));
   }

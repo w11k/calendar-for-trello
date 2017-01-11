@@ -1,6 +1,7 @@
-<div (click)="show = !show" *ngIf="cards.length">
-  {{cards.length}} Card{{cards.length === 1 ? "" : "s"}} without Due Date
-</div>
+<button (click)="show = !show" *ngIf="cards.length" md-menu-item>
+  <md-icon>{{cards.length ? "timer off" : ""}}</md-icon>
+  Cards without Due Date <span class="label"> {{cards.length}}</span>
+</button>
 <div *ngIf="show">
   <app-calendar-card
     *ngFor="let card of cards"

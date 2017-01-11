@@ -27,6 +27,7 @@ import {
 import {FrontPageModule} from "./front-page/front-page.module";
 import {FlexLayoutModule} from "@angular/flex-layout";
 import {AboutModule} from "./about/about.module";
+import {SidebarComponent} from './sidebar/sidebar.component';
 
 
 @NgModule({
@@ -34,6 +35,7 @@ import {AboutModule} from "./about/about.module";
     AppComponent,
     SetTokenComponent,
     SearchComponent,
+    SidebarComponent,
   ],
   imports: [
     BrowserModule,

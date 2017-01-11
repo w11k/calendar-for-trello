@@ -1,22 +1,7 @@
 <md-sidenav-layout>
-  <md-sidenav #start (open)="mybutton.focus()" [mode]="'side'" [opened]="false" style="width:70%; max-width:300px;">
-    <br>
-    <button md-menu-item *ngFor="let item of navigation" routerLink="{{item.link}}">
-      {{ item.text }}
-    </button>
-
-
-    <app-over-due-area></app-over-due-area>
-    <app-no-due-area></app-no-due-area>
-
-
-    <button md-button #mybutton (click)="start.close()">Close</button>
+  <md-sidenav #start [mode]="'side'" style="width:70%; max-width:300px;" [opened]="false">
+    <app-sidebar></app-sidebar>
   </md-sidenav>
-  <md-sidenav #end align="end">
-    <app-search></app-search>
-    <button md-button (click)="end.close()">Close</button>
-  </md-sidenav>
-
   <md-toolbar [color]="'primary'">
     <button (click)="start.toggle()" md-icon-button>
       <md-icon>menu</md-icon>
@@ -28,15 +13,9 @@
       <md-icon>refresh</md-icon>
     </button>
 
-    <button (click)="end.open()" md-icon-button mdTooltip="Search Cards">
-      <md-icon>search</md-icon>
-    </button>
-
-
     <button md-icon-button [md-menu-trigger-for]="menu" mdTooltip="More">
       <md-icon>more_vert</md-icon>
     </button>
-
 
     <md-menu #menu="mdMenu">
       <button md-menu-item>
@@ -56,7 +35,6 @@
         Logout
       </button>
     </md-menu>
-
 
   </md-toolbar>
 

@@ -1,0 +1,39 @@
+<md-toolbar color="primary">
+  <img class="profile-picture" src="https://trello-avatars.s3.amazonaws.com/{{user?.avatarHash}}/50.png"
+       alt="{{user?.fullName}}">
+  <span>{{user?.fullName}}</span>
+  <span class="spacer"></span>
+  <md-icon class="example-icon">verified_user</md-icon>
+</md-toolbar>
+
+
+<md-list>
+
+  <h3 md-subheader>Menu</h3>
+  <button md-menu-item md-list-item *ngFor="let item of navigation" routerLink="{{item.link}}">
+    <md-icon>{{item.icon}}</md-icon>
+    {{ item.text }}
+  </button>
+  <md-divider></md-divider>
+
+
+  <h3 md-subheader>Cards</h3>
+  <button md-menu-item md-list-item (click)="activeSearch = !activeSearch">
+    <md-icon>search</md-icon>
+    Search
+  </button>
+  <app-search *ngIf="activeSearch"></app-search>
+
+  <app-over-due-area md-list-item></app-over-due-area>
+  <app-no-due-area md-list-item></app-no-due-area>
+
+  <md-divider class="spacer1"></md-divider>
+
+
+  <button md-menu-item md-list-item (click)="start.close()">
+    <md-icon>close</md-icon>
+    Close Menu
+  </button>
+</md-list>
+
+

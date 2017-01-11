@@ -1,6 +1,7 @@
-<div (click)="show = !show" *ngIf="cards.length">
-  {{cards.length}} Overdue Card{{cards.length === 1 ? "" : "s"}}!
-</div>
+<button (click)="show = !show" *ngIf="cards.length" md-menu-item>
+  <md-icon>{{cards.length ? "warning" : ""}}</md-icon>
+  Overdue Card <span class="label"> {{cards.length}}</span>
+</button>
 <div *ngIf="show">
   <app-calendar-card *ngFor="let card of cards" [card]="card" dnd-draggable [dragData]="card"
                      [dragEnabled]="true"></app-calendar-card>

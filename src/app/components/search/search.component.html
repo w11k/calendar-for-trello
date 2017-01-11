@@ -1,4 +1,6 @@
-<input type="text" (input)="term$.next($event.target.value)">
+<md-input-container>
+  <input type="text" md-input placeholder="Card Title" (input)="term$.next($event.target.value)" #input>
+</md-input-container>
 <div *ngIf="results">
   <app-calendar-card
     *ngFor="let card of results"

@@ -1,4 +1,4 @@
-import {Component, OnInit, Output} from '@angular/core';
+import {Component, OnInit, Output, ViewChild, ElementRef, Renderer} from '@angular/core';
 import {Subject, Observable} from "rxjs";
 import {select} from "ng2-redux";
 import {Card} from "../../models/card";
@@ -11,13 +11,14 @@ import {subscribeOn} from "rxjs/operator/subscribeOn";
 })
 export class SearchComponent implements OnInit {
 
-  // @Output public searchStr: string;
   term$: Subject<string> = new Subject<string>();
   public results: Card[] = [];
 
   @select("cards") public cards$: Observable<Card[]>;
 
-  constructor() {
+  @ViewChild("input") inputEl: ElementRef;
+
+  constructor(private renderer: Renderer) {
     Observable.combineLatest(
       this.term$,
       this.cards$
@@ -38,5 +39,6 @@ export class SearchComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.renderer.invokeElementMethod(this.inputEl.nativeElement, 'focus', []);
   }
 }

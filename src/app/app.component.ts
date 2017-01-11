@@ -12,6 +12,7 @@ import {Observable} from "rxjs";
 import {TrelloAuthService} from "./services/trello-auth.service";
 import {MenuItem} from "./models/menu-item";
 import {environment} from "../environments/environment";
+import {User} from "./models/user";
 
 @Component({
   selector: 'app-root',
@@ -71,13 +72,5 @@ export class AppComponent implements OnInit {
   logout() {
     this.trelloAuthService.logout();
   }
-
-
-  navigation: MenuItem[] = [
-    new MenuItem("Calendar", "/"),
-    new MenuItem("Settings", "/settings"),
-    new MenuItem("About", "/about"),
-  ];
-
 
 }

@@ -23,39 +23,40 @@
     </button>
     <div class="flex">Calendar for <img
       src="https://d78fikflryjgj.cloudfront.net/images/50b4ebc64391dc394a38e73aed57f0e2/header-logo.png" alt=""></div>
-    <button md-icon-button [md-menu-trigger-for]="menu">
-      <md-icon>more_vert</md-icon>
-    </button>
-    <button md-icon-button (click)="refresh()">
+
+    <button md-icon-button (click)="refresh()" mdTooltip="Manually Refresh">
       <md-icon>refresh</md-icon>
     </button>
 
-    <button (click)="end.open()" md-icon-button>
+    <button (click)="end.open()" md-icon-button mdTooltip="Search Cards">
       <md-icon>search</md-icon>
     </button>
 
+
+    <button md-icon-button [md-menu-trigger-for]="menu" mdTooltip="More">
+      <md-icon>more_vert</md-icon>
+    </button>
+
+
     <md-menu #menu="mdMenu">
       <button md-menu-item>
-        Enable Auto Refresh
-        <md-icon>refresh</md-icon>
+        <md-icon>lightbulb_outline</md-icon>
+        Submit Feature Request
+      </button>
+      <button md-menu-item>
+        <md-icon>report_problem</md-icon>
+        Report a Problem
+      </button>
+      <button md-menu-item>
+        <md-icon>delete</md-icon>
+        Clear Data
       </button>
       <button md-menu-item (click)="logout()">
-        Logout
         <md-icon>clear</md-icon>
-      </button>
-      <button md-menu-item>
-        Submit Feature Request
-        <md-icon>lightbulb_outline</md-icon>
-      </button>
-      <button md-menu-item>
-        Report a Problem
-        <md-icon>report_problem</md-icon>
+        Logout
       </button>
     </md-menu>
 
-    <md-select placeholder="" [(ngModel)]="settings.language" (ngModelChange)="updateLang($event)">
-      <md-option *ngFor="let lang of languages" [value]="lang.key">{{lang.name}}</md-option>
-    </md-select>
 
   </md-toolbar>
 

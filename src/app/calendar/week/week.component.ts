@@ -9,6 +9,8 @@ import {DragDropData} from "ng2-dnd";
 import {CardActions} from "../../redux/actions/card-actions";
 import {WeekDaySlot} from "./WeekDaySlot";
 import {selectBoardVisibilityPrefs, selectCalendarDays, selectSettingsLanguage} from "../../redux/store/selects";
+import {Settings} from "../../models/settings";
+import {User} from "../../models/user";
 
 @Component({
   selector: 'app-week',
@@ -26,7 +28,8 @@ export class WeekComponent implements OnInit {
   @select("cards") public cards$: Observable<Card[]>;
   @select(selectBoardVisibilityPrefs) public boardVisibilityPrefs$: Observable<Object>;
   @select(selectCalendarDays) public calendar$: Observable<CalendarDay[]>;
-  @select(selectSettingsLanguage) public language$: Observable<string>;
+  @select("settings") public settings$: Observable<Settings>;
+  @select("user") public user$: Observable<User>;
 
   constructor(private dateTimeFormatService: DateTimeFormatService, private cardActions: CardActions) {
 
@@ -35,16 +38,18 @@ export class WeekComponent implements OnInit {
 
   ngOnInit() {
     this.subscription = Observable
-      .combineLatest(this.cards$, this.boardVisibilityPrefs$, this.calendar$, this.language$)
+      .combineLatest(this.cards$, this.boardVisibilityPrefs$, this.calendar$, this.settings$, this.user$)
       .subscribe(x => {
         const cards: Card[] = x[0];
         const visibilityPrefs: Object = x[1];
         const calendarDays: CalendarDay[] = x[2];
-        const lang: string = x[3];
+        const settings: Settings = x[3];
+        const user: User = x[4];
 
         if (calendarDays) {
+          const filteredCards = cards.filter(this.filterFn.bind(this, settings, user));
           this.slots = [];
-          this.createHours(calendarDays, visibilityPrefs, cards, lang);
+          this.createHours(calendarDays, visibilityPrefs, filteredCards, settings.language);
           this.cardHolder = {};
         }
       });
@@ -68,6 +73,13 @@ export class WeekComponent implements OnInit {
       })
     }
   };
+
+  filterFn(settings: Settings, user: User, card: Card) {
+    if (!settings.observerMode) {
+      return card.idMembers.indexOf(user.id) > -1
+    }
+    return true
+  }
 
   onDropSuccess(event: DragDropData, slot: WeekDaySlot) {
     let card: Card = event.dragData;

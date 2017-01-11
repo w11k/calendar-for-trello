@@ -21,7 +21,8 @@ export let IS_UPDATE: boolean = false;
 const PROJECT_VERSION: string = project.version;
 
 function check() {
-  const token = localStorage.getItem("trello_token") || localStorage.getItem("token");
+  let token = localStorage.getItem("trello_token") || localStorage.getItem("token");
+  token = token.replace(/"/g, "");
 
   if (!token) {
     // no token, fresh user

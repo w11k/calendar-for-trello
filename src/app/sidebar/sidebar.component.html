@@ -1,5 +1,6 @@
 <md-toolbar color="primary">
-  <img class="profile-picture" src="https://trello-avatars.s3.amazonaws.com/{{user?.avatarHash}}/50.png"
+  <img *ngIf="user?.avatarHash" class="profile-picture"
+       src="https://trello-avatars.s3.amazonaws.com/{{user?.avatarHash}}/50.png"
        alt="{{user?.fullName}}">
   <span>{{user?.fullName}}</span>
   <span class="spacer"></span>

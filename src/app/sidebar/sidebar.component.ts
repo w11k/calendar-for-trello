@@ -17,6 +17,8 @@ export class SidebarComponent implements OnInit {
   @select("user") public user$: Observable<User>;
   public user: User;
 
+  private activeSearch: boolean;
+
 
   navigation: MenuItem[];
 

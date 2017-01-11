@@ -21,6 +21,9 @@ import {User} from "./models/user";
 })
 export class AppComponent implements OnInit {
 
+  @select("settings") public settings$: Observable<Settings>;
+  public settings: Settings = new Settings();
+
   private initStore: RootState = {
     cards: [],
     boards: [],
@@ -62,15 +65,23 @@ export class AppComponent implements OnInit {
     this.settings$.subscribe(settings => this.settings = settings);
   }
 
-  @select("settings") public settings$: Observable<Settings>;
-  public settings: Settings = new Settings();
-
   refresh() {
     this.trelloPullService.pull();
   }
 
   logout() {
     this.trelloAuthService.logout();
+  }
+
+  clearData() {
+    this.ngRedux.dispatch({type: "RESET_BOARD_STORE"});
+    this.ngRedux.dispatch({type: "RESET_USER_STORE"});
+    this.ngRedux.dispatch({type: "RESET_CARD_STORE"});
+    this.ngRedux.dispatch({type: "RESET_LIST_STORE"});
+    this.ngRedux.dispatch({type: "REMOVE_BOARD_PREFERENCES"});
+    setTimeout(() => {
+      this.trelloPullService.pull();
+    }, 500);
   }
 
 }

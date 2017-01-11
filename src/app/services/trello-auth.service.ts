@@ -20,7 +20,7 @@ export class TrelloAuthService {
   }
 
   login() {
-    const key = "80fe59b53fb09c24ee8cdf2c3303b608";
+    const key = "41485cd87d154168dd6db06cdd3ffd69";
     const href = window.location.href + "/setToken";
     window.location.href = 'https://trello.com/1/authorize?response_type=token&key=' + key + '&return_url=' + encodeURI(href) + '&callback_method=fragment&scope=read%2Cwrite%2Caccount&expiration=never&name=Calendar+for+Trello';
   }

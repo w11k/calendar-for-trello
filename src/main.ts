@@ -22,12 +22,12 @@ const PROJECT_VERSION: string = project.version;
 
 function check() {
   let token = localStorage.getItem("trello_token") || localStorage.getItem("token");
-  token = token.replace(/"/g, "");
 
   if (!token) {
     // no token, fresh user
     return;
   }
+  token = token.replace(/"/g, "");
 
   let dataVersion = localStorage.getItem("version");
 

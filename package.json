@@ -5,7 +5,7 @@
   "angular-cli": {},
   "scripts": {
     "ng": "ng",
-    "hmr": "ng serve --hmr -e=hmr --aot",
+    "hmr": "ng serve --hmr -e=hmr",
     "deploy": "ng github-pages:deploy",
     "start": "npm run hmr",
     "lint": "tslint \"src/**/*.ts\"",

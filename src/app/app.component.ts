@@ -84,4 +84,9 @@ export class AppComponent implements OnInit {
     }, 500);
   }
 
+  toIssue() {
+    const win = window.open("https://github.com/w11k/calendar-for-trello/issues", '_blank');
+    win.focus();
+  }
+
 }

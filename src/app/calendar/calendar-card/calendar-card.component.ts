@@ -39,7 +39,7 @@ export class CalendarCardComponent implements OnInit {
         const boardColorPrefs = x[0];
         const boards: Board[] = x[1];
         const lists = x[2];
-        this.list = lists[this.card.idList];
+        this.list = lists ? lists[this.card.idList] : "";
         this.board = _.find(boards, (board: Board) => board.id === this.card.idBoard);
         this.borderLeft = boardColorPrefs[this.card.idBoard] || (this.board ? this.board.prefs.backgroundColor : null);
       });

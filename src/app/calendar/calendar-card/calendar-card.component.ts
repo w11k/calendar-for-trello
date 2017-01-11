@@ -28,6 +28,10 @@ export class CalendarCardComponent implements OnInit {
   constructor() {
   }
 
+  call() {
+    console.log(1)
+  }
+
   ngOnInit() {
     Observable
       .combineLatest(this.boardColorPrefs$, this.boards$, this.lists$)

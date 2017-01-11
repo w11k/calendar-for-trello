@@ -38,7 +38,8 @@ $day-primary: md-color($md-trello-business, 500);
 }
 
 :host(.today) {
-  border-top: 5px $day-primary solid;
+  border-top: 3px $day-primary solid;
+  margin-top: -1px;
   .day {
     font-weight: bold;
     color: $day-primary;

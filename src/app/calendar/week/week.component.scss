@@ -18,7 +18,25 @@ $day-primary: md-color($md-trello-business, 500);
   border-left: 1px solid $day-border-color;
   min-height: 15px;
   padding: 2px;
+
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-content: stretch;
+  align-items: stretch;
 }
+
+.inner {
+  //padding: 25px 3px 0;
+  flex: 1 0 auto;
+  border: 2px solid transparent;
+  &.dnd-drag-over {
+    border-color: #4d4d4d;
+    border-style: dashed;
+  }
+}
+
 
 .time {
   font-size: 11px;

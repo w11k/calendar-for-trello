@@ -14,10 +14,10 @@ export class DateTimeFormatService {
         format = "HH:mm";
         break;
       case "en":
-        format = "hha";
+        format = "hh a";
         break;
       default:
-        format = "hha";
+        format = "hh a";
     }
     return format;
   }

@@ -91,7 +91,7 @@ export class CardActions {
 
   public markCardDone(card: Card) {
     this.tHttp.put("cards/" + card.id + "", {
-      dueComplete: true
+      dueComplete: !card.dueComplete
     }).subscribe(
       success => this.ngRedux.dispatch({type: CardActions.MARK_CARD_DONE, payload: card}),
       error => console.log(error)

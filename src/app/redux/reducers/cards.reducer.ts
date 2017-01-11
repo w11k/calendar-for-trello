@@ -16,12 +16,11 @@ export default (state: Card[] = initialState, action: any) => {
         return Object.assign({}, card)
       });
     case CardActions.MARK_CARD_DONE:
-      action.payload.dueComplete = true;
       return state.map(card => {
         if (action.payload.id !== card.id) {
           return card
         }
-        return Object.assign({}, action.payload)
+        return Object.assign({}, card, {dueComplete: !action.payload.dueComplete})
       });
 
     case CardActions.UPDATE_DUE:

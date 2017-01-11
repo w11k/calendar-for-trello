@@ -1,0 +1,30 @@
+<md-card class="board-card">
+  <md-card-header>
+    <md-card-title>Language</md-card-title>
+    <md-card-subtitle>Set your language</md-card-subtitle>
+  </md-card-header>
+  <md-card-content>
+
+    <div style="padding:10px">
+      <md-select placeholder="" [(ngModel)]="settings.language" (ngModelChange)="updateLang($event)">
+        <md-option *ngFor="let lang of languages" [value]="lang.key">{{lang.name}}</md-option>
+      </md-select>
+
+    </div>
+  </md-card-content>
+</md-card>
+
+
+<md-card class="board-card">
+  <md-card-header>
+    <md-card-title>Board Settings</md-card-title>
+    <md-card-subtitle>Hide/Display Boards and overwrite Trello Board Colors</md-card-subtitle>
+  </md-card-header>
+  <md-card-content>
+    <md-list dense>
+      <md-list-item *ngFor="let board of boards">
+        <app-edit-board [board]="board"></app-edit-board>
+      </md-list-item>
+    </md-list>
+  </md-card-content>
+</md-card>

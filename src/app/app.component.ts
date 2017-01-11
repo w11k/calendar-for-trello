@@ -9,7 +9,6 @@ import {NgRedux, select} from "ng2-redux";
 import {TrelloPullService} from "./services/trello-pull.service";
 import {Settings} from "./models/settings";
 import {Observable} from "rxjs";
-import {SettingsActions} from "./redux/actions/settings-actions";
 import {TrelloAuthService} from "./services/trello-auth.service";
 import {MenuItem} from "./models/menu-item";
 import {environment} from "../environments/environment";
@@ -33,22 +32,6 @@ export class AppComponent implements OnInit {
     lists: {}
   };
 
-
-  public languages = [
-    {
-      "key": "de",
-      "name": "Deutsch"
-    },
-    {
-      "key": "en",
-      "name": "English"
-    },
-    {
-      "key": "fr",
-      "name": "Français"
-    },
-  ];
-
   ngOnInit() {
     this.settings$.subscribe(
       settings => {
@@ -62,7 +45,6 @@ export class AppComponent implements OnInit {
               private ngReduxRouter: NgReduxRouter,
               public router: Router,
               private trelloPullService: TrelloPullService,
-              private settingsActions: SettingsActions,
               private trelloAuthService: TrelloAuthService) {
 
     const logger = environment.production ? [] : [createLogger()];
@@ -90,14 +72,10 @@ export class AppComponent implements OnInit {
     this.trelloAuthService.logout();
   }
 
-  public updateLang(locale: string) {
-    this.settingsActions.setLanguage(locale);
-  }
-
 
   navigation: MenuItem[] = [
     new MenuItem("Calendar", "/"),
-    new MenuItem("Settings", "/boards"),
+    new MenuItem("Settings", "/settings"),
     new MenuItem("About", "/about"),
   ];
 

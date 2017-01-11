@@ -17,7 +17,7 @@ import 'moment/locale/fr';
 import 'moment/locale/de';
 import {SearchComponent} from './components/search/search.component';
 import {DateTimeFormatService} from "./services/date-time-format.service";
-import {BoardSettingsModule} from "./board-settings/board-settings.module";
+import {SettingsModule} from "./settings/settings.module";
 import {CalendarModule} from "./calendar/calendar.module";
 import {ReduxModule} from "./redux/redux.module";
 import {
@@ -42,7 +42,7 @@ import {AboutModule} from "./about/about.module";
     HttpModule,
     routing,
     DndModule.forRoot(), // https://github.com/akserg/ng2-dnd/pull/90
-    BoardSettingsModule,
+    SettingsModule,
     CalendarModule,
     AboutModule,
     ReduxModule,

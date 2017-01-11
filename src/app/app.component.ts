@@ -13,6 +13,10 @@ import {TrelloAuthService} from "./services/trello-auth.service";
 import {MenuItem} from "./models/menu-item";
 import {environment} from "../environments/environment";
 import {User} from "./models/user";
+import {MdSnackBar} from "@angular/material";
+import {IS_UPDATE} from "../main";
+
+// declare const IS_UPDATE:boolean;
 
 @Component({
   selector: 'app-root',
@@ -49,7 +53,12 @@ export class AppComponent implements OnInit {
               private ngReduxRouter: NgReduxRouter,
               public router: Router,
               private trelloPullService: TrelloPullService,
-              private trelloAuthService: TrelloAuthService) {
+              private trelloAuthService: TrelloAuthService,
+              private snackBar: MdSnackBar) {
+
+    if (IS_UPDATE) {
+      this.snackBar.open("Calendar for Trello was updated to a new version!", "OK")
+    }
 
     const logger = environment.production ? [] : [createLogger()];
 

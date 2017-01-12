@@ -30,6 +30,10 @@ let routes: Routes = [
   {
     path: 'about',
     component: AboutPageComponent,
+  },
+  {
+    path: '**', redirectTo: '/',
   }
+
 ];
 export const routing = RouterModule.forRoot(routes);

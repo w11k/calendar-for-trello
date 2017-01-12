@@ -15,6 +15,7 @@ import {environment} from "../environments/environment";
 import {User} from "./models/user";
 import {MdSnackBar} from "@angular/material";
 import {IS_UPDATE} from "../main";
+const project = require("../../package.json");
 
 // declare const IS_UPDATE:boolean;
 
@@ -57,7 +58,7 @@ export class AppComponent implements OnInit {
               private snackBar: MdSnackBar) {
 
     if (IS_UPDATE) {
-      this.snackBar.open("Calendar for Trello was updated to a new version!", "OK")
+      this.snackBar.open("Calendar for Trello was updated to version " + project.version + "!", "OK")
     }
 
     const logger = environment.production ? [] : [createLogger()];

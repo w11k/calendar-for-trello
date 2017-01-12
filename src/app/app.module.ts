@@ -1,5 +1,5 @@
 import {BrowserModule} from '@angular/platform-browser';
-import {NgModule} from '@angular/core';
+import {NgModule, ErrorHandler} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpModule} from '@angular/http';
 
@@ -28,6 +28,7 @@ import {FrontPageModule} from "./front-page/front-page.module";
 import {FlexLayoutModule} from "@angular/flex-layout";
 import {AboutModule} from "./about/about.module";
 import {SidebarComponent} from './sidebar/sidebar.component';
+import {RavenErrorHandler} from "./shared/RavenErrorHandler";
 
 
 @NgModule({
@@ -67,6 +68,7 @@ import {SidebarComponent} from './sidebar/sidebar.component';
     VisitorGuard,
     TrelloPullService,
     DateTimeFormatService,
+    {provide: ErrorHandler, useClass: RavenErrorHandler}
 
   ],
   bootstrap: [AppComponent]

@@ -4,7 +4,7 @@ import {NgReduxRouter} from "ng2-redux-router";
 const createLogger = require('redux-logger');
 import reducer from '../app/redux/reducers/index';
 import * as moment from "moment";
-import {Router} from "@angular/router";
+import {Router, NavigationEnd} from "@angular/router";
 import {NgRedux, select} from "ng2-redux";
 import {TrelloPullService} from "./services/trello-pull.service";
 import {Settings} from "./models/settings";
@@ -16,6 +16,7 @@ import {User} from "./models/user";
 import {MdSnackBar} from "@angular/material";
 import {IS_UPDATE} from "../main";
 const project = require("../../package.json");
+declare let ga: Function;
 
 // declare const IS_UPDATE:boolean;
 
@@ -60,6 +61,16 @@ export class AppComponent implements OnInit {
     if (IS_UPDATE) {
       this.snackBar.open("Calendar for Trello was updated to version " + project.version + "!", "OK")
     }
+
+    ga('send', 'event', "version", project.version);
+
+
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        ga('set', 'page', event.urlAfterRedirects);
+        ga('send', 'pageview');
+      }
+    });
 
     const logger = environment.production ? [] : [createLogger()];
 

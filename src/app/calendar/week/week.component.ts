@@ -75,7 +75,7 @@ export class WeekComponent implements OnInit {
   };
 
   filterFn(settings: Settings, user: User, card: Card) {
-    if (!settings.observerMode) {
+    if (!settings.observerMode && user) {
       return card.idMembers.indexOf(user.id) > -1
     }
     return true

@@ -24,7 +24,7 @@ export class AddCardComponent implements OnInit {
 
 
   // those fields need to be transformed before save:
-  public selectedMembers: string[];
+  public selectedMembers: string[] = [];
 
   constructor(public dialogRef: MdDialogRef<AddCardComponent>, private tHttp: TrelloHttpService) {
     //todo update form to formbuilder + validation
@@ -58,7 +58,7 @@ export class AddCardComponent implements OnInit {
 
   onSubmit() {
     this.tHttp.post("cards/", Object.assign(this.card, {
-      idMembers: this.selectedMembers.toString()
+      idMembers: this.selectedMembers.length ? this.selectedMembers.toString() : ""
     }))
       .subscribe(
         success => this.dialogRef.close(true),

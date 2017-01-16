@@ -1,10 +1,10 @@
 import {RootState} from "./index";
 
 export function selectBoardColorPrefs(state: RootState) {
-  return state.settings.boardVisibilityPrefs;
+  return state.settings.boardColorPrefs;
 }
 export function selectBoardVisibilityPrefs(state: RootState) {
-  return state.settings.boardColorPrefs;
+  return state.settings.boardVisibilityPrefs;
 }
 export function selectCalendarDays(state: RootState) {
   return state.calendar.days

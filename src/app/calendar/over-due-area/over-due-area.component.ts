@@ -1,10 +1,11 @@
-import {Component, OnInit} from '@angular/core';
-import {Observable} from "rxjs";
+import {Component, OnInit} from "@angular/core";
+import {Observable, Subscription} from "rxjs";
 import {Card} from "../../models/card";
 import {select} from "ng2-redux";
-import {Moment} from "moment";
 import * as moment from "moment";
-import {selectBoardColorPrefs, selectBoardVisibilityPrefs} from "../../redux/store/selects";
+import {selectBoardVisibilityPrefs} from "../../redux/store/selects";
+import {Settings} from "../../models/settings";
+import {User} from "../../models/user";
 
 @Component({
   selector: 'app-over-due-area',
@@ -13,29 +14,35 @@ import {selectBoardColorPrefs, selectBoardVisibilityPrefs} from "../../redux/sto
 })
 export class OverDueAreaComponent implements OnInit {
 
+  @select("cards") public cards$: Observable<Card[]>;
+  @select(selectBoardVisibilityPrefs) public boardVisibilityPrefs$: Observable<Object>;
+  @select("user") public user$: Observable<User>;
+  @select("settings") public settings$: Observable<Settings>;
+
+  cards: Card[];
+  private subscriptions: Subscription[] = [];
+
   constructor() {
   }
 
-  @select("cards") public cards$: Observable<Card[]>;
-
-  cards: Card[];
-  @select(selectBoardVisibilityPrefs) public boardVisibilityPrefs$: Observable<Object>;
-
 
   ngOnInit() {
-    // this.cards$.subscribe(
-    //   cards => this.cards = cards.filter(
-    //     card => moment(card.due).isBefore(moment().hours(0).minutes(0).seconds(0).milliseconds(0))
-    //   )
-    // );
-    Observable
-      .combineLatest(this.cards$, this.boardVisibilityPrefs$)
-      .subscribe(x => {
-        let cards: Card[] = x[0];
-        let visibilityPrefs: Object = x[1];
-        this.cards = cards.filter(
-          card => moment(card.due).isBefore(moment().hours(0).minutes(0).seconds(0).milliseconds(0)) && !visibilityPrefs[card.idBoard] && !card.dueComplete
-        );
-      })
+    this.subscriptions.push(
+      Observable
+        .combineLatest(this.cards$, this.boardVisibilityPrefs$, this.settings$, this.user$)
+        .subscribe(x => {
+          let cards: Card[] = x[0];
+          let visibilityPrefs: Object = x[1];
+          const settings: Settings = x[2];
+          const user: User = x[3];
+          this.cards = cards.filter(
+            card => moment(card.due).isBefore(moment().hours(0).minutes(0).seconds(0).milliseconds(0)) && !visibilityPrefs[card.idBoard] && !card.dueComplete && ( settings.observerMode ? true : card.idMembers.indexOf(user.id) > -1)
+          );
+        })
+    );
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.forEach(subscription => subscription.unsubscribe());
   }
 }

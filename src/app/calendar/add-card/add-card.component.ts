@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, Renderer} from '@angular/core';
 import {Card} from "../../models/card";
 import {select} from "ng2-redux";
 import {Observable} from "rxjs";
@@ -8,6 +8,7 @@ import {Member} from "../../models/member";
 import {List} from "../../models/list";
 import * as moment from "moment";
 import {MdDialogRef} from "@angular/material";
+import {FormGroup, Validators, FormBuilder} from "@angular/forms";
 
 
 @Component({
@@ -21,19 +22,14 @@ export class AddCardComponent implements OnInit {
   public boards: Board[] = [];
   public members: Member[] = [];
   public lists: List[] = [];
+  private cardForm: FormGroup;
 
-
-  // those fields need to be transformed before save:
-  public selectedMembers: string[] = [];
-
-  constructor(public dialogRef: MdDialogRef<AddCardComponent>, private tHttp: TrelloHttpService) {
-    //todo update form to formbuilder + validation
+  constructor(public dialogRef: MdDialogRef<AddCardComponent>, private tHttp: TrelloHttpService, private formBuilder: FormBuilder) {
   }
 
   @select("boards") public boards$: Observable<Board[]>;
 
   ngOnInit() {
-    this.card.due = moment().format("YYYY-MM-DD HH:mm").replace(" ", "T");
     this.boards$.subscribe(
       boards => {
         this.boards = boards.filter(
@@ -41,29 +37,51 @@ export class AddCardComponent implements OnInit {
         );
       }
     );
+
+    this.cardForm = this.formBuilder.group({
+      name: [this.card ? this.card.name : '', Validators.required],
+      due: [this.card && this.card.due ? this.card.due : moment().format("YYYY-MM-DD HH:mm").replace(" ", "T"), []],
+      desc: [this.card && this.card.desc ? this.card.desc : ''],
+      idBoard: [this.card && this.card.idBoard ? this.card.idBoard : null, [Validators.required]],
+      idList: [this.card && this.card.idList ? this.card.idList : null, [Validators.required]],
+      idMembers: [this.card && this.card.idMembers ? this.card.idList : []],
+    });
+
+
+    this.cardForm.get("idBoard").valueChanges.subscribe(boardId => {
+
+      // reset values
+      this.members = [];
+      this.lists = [];
+      this.cardForm.get("idList").setValue(null);
+      this.cardForm.get("idMembers").setValue(null);
+
+
+      this.tHttp.get("boards/" + boardId + "/members")
+        .subscribe(
+          success => this.members = success.json(),
+          error => this.members = []
+        );
+      this.tHttp.get("boards/" + boardId + "/lists")
+        .subscribe(
+          success => this.lists = success.json(),
+          error => this.lists = []
+        );
+    });
+
   }
 
-  selectedBoard(boardId: string) {
-    this.tHttp.get("boards/" + boardId + "/members")
-      .subscribe(
-        success => this.members = success.json(),
-        error => this.members = []
-      );
-    this.tHttp.get("boards/" + boardId + "/lists")
-      .subscribe(
-        success => this.lists = success.json(),
-        error => this.lists = []
-      );
-  }
 
-  onSubmit() {
-    this.tHttp.post("cards/", Object.assign(this.card, {
-      idMembers: this.selectedMembers.length ? this.selectedMembers.toString() : ""
-    }))
-      .subscribe(
-        success => this.dialogRef.close(true),
-        error => console.log(error) // todo
-      );
+  onSubmit(cardForm: FormGroup) {
+    if (cardForm && cardForm.valid) {
+      this.tHttp.post("cards/", cardForm.value)
+        .subscribe(
+          success => this.dialogRef.close(true),
+          error => {
+            throw new Error(error)
+          }
+        )
+    }
   }
 
 }

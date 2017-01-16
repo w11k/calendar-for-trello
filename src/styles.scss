@@ -18,3 +18,8 @@ body {
   box-sizing: inherit;
 }
 
+.md-hint {
+  &.error {
+    color: red;
+  }
+}

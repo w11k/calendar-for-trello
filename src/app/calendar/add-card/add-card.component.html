@@ -1,40 +1,58 @@
 <h1 md-dialog-title>Add a Card</h1>
 
-<form (ngSubmit)="onSubmit()" #form="ngForm" md-dialog-content>
+<form [formGroup]="cardForm" #form="ngForm" (ngSubmit)="onSubmit(cardForm)" novalidate>
 
-  <md-input-container class="full-width">
-    <input md-input placeholder="Card Title" value="Sushi" name="title" [(ngModel)]="card.name">
-  </md-input-container>
+  <div md-dialog-content>
+    <md-input-container class="full-width">
+      <input md-input placeholder="Card Title" formControlName="name">
+      <md-hint *ngIf="cardForm.get('name').touched && cardForm.get('name').hasError('required')" class="error">
+        Card Title is required!
+      </md-hint>
+    </md-input-container>
 
+    <md-input-container class="full-width">
+      <input md-input placeholder="Due Date" formControlName="due" type="datetime-local">
+    </md-input-container>
 
-  <md-input-container class="full-width">
-    <input md-input placeholder="Card Title" value="Sushi" name="due" type="datetime-local" [(ngModel)]="card.due">
-  </md-input-container>
+    <md-input-container class="full-width">
+      <input md-input placeholder="Card Description" formControlName="desc">
+    </md-input-container>
 
+    <div class="md-select-wrapper">
+      <md-select class="full-width" class="full-width" formControlName="idBoard" placeholder="Board">
+        <md-option *ngFor="let board of boards" [value]="board.id">{{board.name}}</md-option>
+      </md-select>
+      <md-hint *ngIf="cardForm.get('idBoard').touched && cardForm.get('idBoard').hasError('required')" class="error">
+        Board is required!
+      </md-hint>
+    </div>
 
-  <md-input-container class="full-width">
-    <textarea md-input placeholder="Description" [(ngModel)]="card.desc" name="desc"></textarea>
-  </md-input-container>
+    <div class="md-select-wrapper">
+      <md-select class="full-width" class="full-width" formControlName="idList" placeholder="List">
+        <md-option *ngFor="let list of lists" [value]="list.id">{{list.name}}</md-option>
+      </md-select>
+      <md-hint *ngIf="cardForm.get('idList').touched && cardForm.get('idList').hasError('required')" class="error">
+        List is required!
+      </md-hint>
+    </div>
 
-  <md-select class="full-width" [(ngModel)]="card.board" placeholder="Board" name="board"
-             (ngModelChange)="selectedBoard($event)">
-    <md-option *ngFor="let board of boards" [value]="board.id">{{board.name}}</md-option>
-  </md-select>
+    <div class="md-select-wrapper">
+      <!-- ToDo: add support for multiple members - currently blocked because of material2 -->
+      <md-select class="full-width" class="full-width" formControlName="idMembers" multiple placeholder="Members">
+        <md-option *ngFor="let member of members" [value]="member.id">{{member.fullName}}, {{member.username}}
+        </md-option>
+      </md-select>
+    </div>
 
-  <md-select class="full-width" [(ngModel)]="card.idList" placeholder="List" name="list">
-    <md-option *ngFor="let list of lists" [value]="list.id">{{list.name}}</md-option>
-  </md-select>
+  </div>
 
-  <md-select class="full-width" [(ngModel)]="selectedMembers" multiple name="member" placeholder="Member">
-    <md-option *ngFor="let member of members" [value]="member.id">{{member.fullName}}, {{member.username}}</md-option>
-  </md-select>
+  <div md-dialog-actions fxLayout="row" fxLayoutAlign="end center">
+    <button md-button="" type="button" (click)="dialogRef.close(false)">
+      Cancel
+    </button>
+    <button type="submit" md-button color="primary" [disabled]="!cardForm.valid">
+      Save
+    </button>
+  </div>
 
-  <button type="submit" md-raised-button color="primary">
-    Save
-  </button>
-
-
-  <button md-raised-button type="button" (click)="dialogRef.close(false)">
-    Cancel
-  </button>
 </form>

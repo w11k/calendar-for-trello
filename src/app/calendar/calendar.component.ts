@@ -99,7 +99,6 @@ export class CalendarComponent implements OnInit {
 
   public addCard() {
     let dialogRef = this.mdDialog.open(AddCardComponent, {
-      height: '400px',
       width: '600px',
     });
 

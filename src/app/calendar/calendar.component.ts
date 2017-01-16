@@ -1,8 +1,8 @@
-import {Component, OnInit} from '@angular/core';
-import {Moment} from "moment";
+import {Component, OnInit} from "@angular/core";
 import * as moment from "moment";
+import {Moment} from "moment";
 import {select} from "ng2-redux";
-import {Observable} from "rxjs";
+import {Observable, Subscription} from "rxjs";
 import {CalendarActions, PeriodChange} from "../redux/actions/calendar-actions";
 import {SettingsActions, CalendarType} from "../redux/actions/settings-actions";
 import {TrelloPullService} from "../services/trello-pull.service";
@@ -10,7 +10,9 @@ import {Settings} from "../models/settings";
 import {MdDialog} from "@angular/material";
 import {AddCardComponent} from "./add-card/add-card.component";
 import {
-  selectCalendarDays, selectSettingsType, selectCalendarDate,
+  selectCalendarDays,
+  selectSettingsType,
+  selectCalendarDate,
   selectSettingsLanguage
 } from "../redux/store/selects";
 
@@ -32,38 +34,45 @@ export class CalendarComponent implements OnInit {
 
   @select("settings") public settings$: Observable<Settings>;
   public settings: Settings = new Settings();
+  private subscriptions: Subscription[] = [];
 
   constructor(public calendarActions: CalendarActions, private settingsActions: SettingsActions, public mdDialog: MdDialog, public trelloPullService: TrelloPullService) {
   }
 
-  ngOnInit() {
-    this.settings$.subscribe(
-      settings => {
-        this.settings = settings;
-        moment.locale(settings.language);
-      }
-    );
 
-    this.calendarDate$.subscribe(
+  ngOnInit() {
+
+    this.subscriptions.push(this.calendarDate$.subscribe(
       date => {
         this.calendarDate = date;
         this.current = this.determineCurrent(date, this.calendarType);
       }
-    );
-    this.calendarType$.subscribe(
+    ));
+
+    this.subscriptions.push(this.calendarType$.subscribe(
       type => this.calendarType = type
-    );
-    this.language$.subscribe(lang => {
-      if (this.calendarDate) {
-        this.calendarDate = moment(this.calendarDate.format()).locale(lang || "en")
-      }
-      this.calendarActions.buildDays(this._returnCalDate(), this.calendarType)
-    })
+    ));
+
+    this.subscriptions.push(
+      Observable
+        .combineLatest(this.language$, this.settings$).subscribe(x => {
+        const lang = x[0]; // only needed for async reasons.
+        this.settings = x[1];
+        this.calendarActions.buildDays(this._returnCalDate(lang), this.calendarType)
+      }));
 
   }
 
-  private _returnCalDate(): Moment {
-    return typeof this.calendarDate ? this.calendarDate.clone() : moment()
+  ngOnDestroy() {
+    this.subscriptions.forEach(subscription => subscription.unsubscribe());
+  }
+
+  private _returnCalDate(lang?): Moment {
+    let date = this.calendarDate ? this.calendarDate.clone() : moment();
+    if (lang) {
+      date.locale(lang)
+    }
+    return date;
   }
 
 

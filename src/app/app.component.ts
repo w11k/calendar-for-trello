@@ -1,8 +1,7 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit} from "@angular/core";
 import {RootState, enhancers} from "./redux/store/index";
 import {NgReduxRouter} from "ng2-redux-router";
-const createLogger = require('redux-logger');
-import reducer from '../app/redux/reducers/index';
+import reducer from "../app/redux/reducers/index";
 import * as moment from "moment";
 import {Router, NavigationEnd} from "@angular/router";
 import {NgRedux, select} from "ng2-redux";
@@ -10,11 +9,15 @@ import {TrelloPullService} from "./services/trello-pull.service";
 import {Settings} from "./models/settings";
 import {Observable} from "rxjs";
 import {TrelloAuthService} from "./services/trello-auth.service";
-import {MenuItem} from "./models/menu-item";
 import {environment} from "../environments/environment";
-import {User} from "./models/user";
 import {MdSnackBar} from "@angular/material";
 import {IS_UPDATE} from "../main";
+import {SettingsActions} from "./redux/actions/settings-actions";
+import {ListActions} from "./redux/actions/list-actions";
+import {CardActions} from "./redux/actions/card-actions";
+import {UserActions} from "./redux/actions/user-actions";
+import {BoardActions} from "./redux/actions/board-actions";
+const createLogger = require('redux-logger');
 const project = require("../../package.json");
 declare let ga: Function;
 
@@ -36,7 +39,7 @@ export class AppComponent implements OnInit {
     user: null,
     calendar: {
       days: [],
-      date: moment().locale("en")
+      date: null
     },
     settings: new Settings(),
     lists: {}
@@ -95,11 +98,11 @@ export class AppComponent implements OnInit {
   }
 
   clearData() {
-    this.ngRedux.dispatch({type: "RESET_BOARD_STORE"});
-    this.ngRedux.dispatch({type: "RESET_USER_STORE"});
-    this.ngRedux.dispatch({type: "RESET_CARD_STORE"});
-    this.ngRedux.dispatch({type: "RESET_LIST_STORE"});
-    this.ngRedux.dispatch({type: "REMOVE_BOARD_PREFERENCES"});
+    this.ngRedux.dispatch({type: BoardActions.RESET_BOARD_STORE});
+    this.ngRedux.dispatch({type: UserActions.RESET_USER_STORE});
+    this.ngRedux.dispatch({type: CardActions.RESET_CARD_STORE});
+    this.ngRedux.dispatch({type: ListActions.RESET_LIST_STORE});
+    this.ngRedux.dispatch({type: SettingsActions.RESET_SETTINGS_STORE});
     setTimeout(() => {
       this.trelloPullService.pull();
     }, 500);

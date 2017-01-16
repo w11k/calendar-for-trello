@@ -1,4 +1,4 @@
-import {Component, OnInit, Input} from '@angular/core';
+import {Component, OnInit, Input} from "@angular/core";
 import {Observable} from "rxjs";
 import {select} from "ng2-redux";
 import {SettingsActions} from "../../redux/actions/settings-actions";
@@ -17,22 +17,22 @@ export class EditBoardComponent implements OnInit {
   @select(selectBoardVisibilityPrefs) public boardVisibilityPrefs$: Observable<Object>;
 
   public colors = [
-    {key: "Navy", name: "Navy"},
-    {key: "MediumBlue", name: "MediumBlue"},
-    {key: "DarkGreen", name: "DarkGreen"},
-    {key: "Green", name: "Green"},
-    {key: "Teal", name: "Teal"},
-    {key: "DeepSkyBlue", name: "DeepSkyBlue"},
-    {key: "Lime", name: "Lime"},
-    {key: "DarkSlateGray", name: "DarkSlateGray"},
-    {key: "Indigo", name: "Indigo"},
-    {key: "DarkRed", name: "DarkRed"},
-    {key: "Azure", name: "Azure"},
-    {key: "DarkOrange", name: "DarkOrange"},
-    {key: "DeepPink", name: "DeepPink"},
-    {key: "Pink", name: "Pink"},
-    {key: "Yellow", name: "Yellow"},
-    {key: "Gold", name: "Gold"},
+    {key: "Navy", name: "Navy", font: "rgba(255,255,255,0.75)"},
+    {key: "MediumBlue", name: "MediumBlue", font: "rgba(255,255,255,0.75)"},
+    {key: "DarkGreen", name: "DarkGreen", font: "rgba(255,255,255,0.75)"},
+    {key: "Green", name: "Green", font: "rgba(255,255,255,0.75)"},
+    {key: "Teal", name: "Teal", font: "rgba(255,255,255,0.75)"},
+    {key: "DeepSkyBlue", name: "DeepSkyBlue", font: "rgba(0,0,0,0.75)"},
+    {key: "Lime", name: "Lime", font: "rgba(0,0,0,0.75)"},
+    {key: "DarkSlateGray", name: "DarkSlateGray", font: "rgba(255,255,255,0.75)"},
+    {key: "Indigo", name: "Indigo", font: "rgba(255,255,255,0.75)"},
+    {key: "DarkRed", name: "DarkRed", font: "rgba(255,255,255,0.75)"},
+    {key: "Azure", name: "Azure", font: "rgba(0,0,0,0.75)"},
+    {key: "DarkOrange", name: "DarkOrange", font: "rgba(0,0,0,0.75)"},
+    {key: "DeepPink", name: "DeepPink", font: "rgba(0,0,0,0.75)"},
+    {key: "Pink", name: "Pink", font: "rgba(0,0,0,0.75)"},
+    {key: "Yellow", name: "Yellow", font: "rgba(0,0,0,0.75)"},
+    {key: "Gold", name: "Gold", font: "rgba(0,0,0,0.75)"},
   ];
   public color: string;
 
@@ -43,6 +43,10 @@ export class EditBoardComponent implements OnInit {
 
   updateColor(color: string) {
     this.settingsActions.setBoardColor(this.board.id, color);
+  }
+
+  public getColorByKey(key: string) {
+    return this.colors.find(color => color.key === key)
   }
 
   ngOnInit() {
@@ -79,8 +83,8 @@ export class EditBoardComponent implements OnInit {
     },
   ];
 
-  public updateVisibility(boolStr: string) {
-    this.settingsActions.setBoardVisibility(this.board.id, (boolStr === "true"));
+  public updateVisibility(boolStr: boolean) {
+    this.settingsActions.setBoardVisibility(this.board.id, boolStr);
   }
 
 }

@@ -4,12 +4,13 @@
   </div>
 
   <md-select [(ngModel)]="color" (ngModelChange)="updateColor($event)">
-    <md-option *ngFor="let color of colors" [value]="color.key">{{color.name}}</md-option>
+    <!-- todo font color dosnt work right now: [style.background-color]="getColorByKey(color)?.name"  [style.color]="getColorByKey(color)?.font"-->
+    <md-option *ngFor="let color of colors" [value]="color.key" [style.background-color]="color.name"
+               [style.color]="color.font">{{color.name}}
+    </md-option>
   </md-select>
 
   <md-select [(ngModel)]="visibility" (ngModelChange)="updateVisibility($event)">
     <md-option *ngFor="let state of visibilities" [value]="state.key">{{state.name}}</md-option>
   </md-select>
-
-
 </div>

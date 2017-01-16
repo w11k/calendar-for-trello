@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {Injectable} from "@angular/core";
 import {CardActions} from "../redux/actions/card-actions";
 import {BoardActions} from "../redux/actions/board-actions";
 import {UserActions} from "../redux/actions/user-actions";
@@ -6,6 +6,7 @@ import {TrelloHttpService} from "./trello-http.service";
 import {Board} from "../models/board";
 import * as moment from "moment";
 import {ListActions} from "../redux/actions/list-actions";
+import {Observable} from "rxjs";
 
 @Injectable()
 export class TrelloPullService {
@@ -69,8 +70,22 @@ export class TrelloPullService {
   };
 
   private _loadCardsOfBoard(boards: Board[]) {
-    boards.forEach(
-      board => {
+    let delay = 50;
+
+    function getDelay() {
+      delay = delay * 1.10;
+      if (delay > 800) {
+        return 800;
+      }
+      return delay;
+    }
+
+    Observable.from(boards)
+      .concatMap(
+        event => Observable.timer(getDelay()).map(() => event))
+
+      .subscribe(board => {
+
         // Fetch Cards of Board
         this.tHttp.get("boards/" + board.id + "/cards")
           .subscribe(

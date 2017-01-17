@@ -1,12 +1,11 @@
-import './polyfills.ts';
-
-import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
-import {enableProdMode} from '@angular/core';
-import {environment} from './environments/environment';
-import {AppModule} from './app/';
+import "./polyfills.ts";
+import {platformBrowserDynamic} from "@angular/platform-browser-dynamic";
+import {enableProdMode} from "@angular/core";
+import {environment} from "./environments/environment";
+import {AppModule} from "./app/";
+import {hmrBootstrap} from "./hmr";
 const project = require('../package.json');
 
-import {hmrBootstrap} from './hmr';
 
 if (environment.production) {
   enableProdMode();

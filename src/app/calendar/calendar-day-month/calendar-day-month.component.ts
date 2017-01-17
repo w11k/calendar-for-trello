@@ -1,18 +1,15 @@
-import {Component, OnInit, Input, Renderer, ElementRef, HostListener} from '@angular/core';
+import {Component, OnInit, Input, Renderer, ElementRef, HostListener} from "@angular/core";
 import {CalendarDay} from "../../models/calendar-day";
 import {select} from "ng2-redux";
 import {Observable} from "rxjs";
 import {Card} from "../../models/card";
 import * as moment from "moment";
-import * as _ from "lodash"
-import Dictionary = _.Dictionary;
+import * as _ from "lodash";
 import {CardActions} from "../../redux/actions/card-actions";
 import {DragDropData} from "ng2-dnd";
-import {Settings} from "../../models/settings";
-import {User} from "../../models/user";
 import {ContextMenuService} from "../context-menu-holder/context-menu.service";
-
-export let CalendarUiDateFormat: string = "DD-MM-YYYY";
+import {selectVisibleCards} from "../../redux/store/selects";
+import Dictionary = _.Dictionary;
 
 @Component({
   selector: 'app-calendar-day-month',
@@ -20,9 +17,7 @@ export let CalendarUiDateFormat: string = "DD-MM-YYYY";
   styleUrls: ['./calendar-day-month.component.scss'],
 })
 export class CalendarDayForMonthComponent implements OnInit {
-  @select("cards") public cards$: Observable<Card[]>;
-  @select("user") public user$: Observable<User[]>;
-  @select("settings") public settings$: Observable<Settings>;
+  @select(selectVisibleCards) public cards$: Observable<Card[]>;
 
   @Input() public calendarDay: CalendarDay;
   public cards: Card[];
@@ -54,23 +49,12 @@ export class CalendarDayForMonthComponent implements OnInit {
       this.renderer.setElementClass(this.element.nativeElement, "today", true);
     }
 
-    Observable
-      .combineLatest(this.cards$, this.settings$, this.user$)
-      .subscribe(x => {
-        let cards: Card[] = x[0];
-        const settings = x[1];
-        const user = x[2];
-        this.cards = cards.filter(
-          card => moment(card.due).isSame(this.calendarDay.date, "day") && !settings.boardVisibilityPrefs[card.idBoard]
-        ).filter(this.filterFn.bind(this, settings, user))
-      })
-  }
+    this.cards$.subscribe(
+      cards => {
+        this.cards = cards.filter(card => moment(card.due).isSame(this.calendarDay.date, "day"));
+      }
+    );
 
-  filterFn(settings: Settings, user: User, card: Card) {
-    if (!settings.observerMode && user) {
-      return card.idMembers.indexOf(user.id) > -1
-    }
-    return true
   }
 
   onDropSuccess(event: DragDropData) {

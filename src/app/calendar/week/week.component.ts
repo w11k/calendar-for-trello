@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit} from "@angular/core";
 import * as moment from "moment";
 import {Card} from "../../models/card";
 import {select} from "ng2-redux";
@@ -8,9 +8,7 @@ import {DateTimeFormatService} from "../../services/date-time-format.service";
 import {DragDropData} from "ng2-dnd";
 import {CardActions} from "../../redux/actions/card-actions";
 import {WeekDaySlot} from "./WeekDaySlot";
-import {selectBoardVisibilityPrefs, selectCalendarDays, selectSettingsLanguage} from "../../redux/store/selects";
-import {Settings} from "../../models/settings";
-import {User} from "../../models/user";
+import {selectCalendarDays, selectSettingsLanguage, selectVisibleCards} from "../../redux/store/selects";
 
 @Component({
   selector: 'app-week',
@@ -25,40 +23,30 @@ export class WeekComponent implements OnInit {
 
   public cardHolder: Object; //  {key: Cards[]}
 
-  @select("cards") public cards$: Observable<Card[]>;
-  @select(selectBoardVisibilityPrefs) public boardVisibilityPrefs$: Observable<Object>;
+  @select(selectVisibleCards) public cards$: Observable<Card[]>;
   @select(selectCalendarDays) public calendar$: Observable<CalendarDay[]>;
-  @select("settings") public settings$: Observable<Settings>;
-  @select("user") public user$: Observable<User>;
+  @select(selectSettingsLanguage) public lang$: Observable<string>;
 
   constructor(private dateTimeFormatService: DateTimeFormatService, private cardActions: CardActions) {
-
-
   }
 
   ngOnInit() {
     this.subscription = Observable
-      .combineLatest(this.cards$, this.boardVisibilityPrefs$, this.calendar$, this.settings$, this.user$)
+      .combineLatest(this.cards$, this.calendar$, this.lang$)
       .subscribe(x => {
         const cards: Card[] = x[0];
-        const visibilityPrefs: Object = x[1];
-        const calendarDays: CalendarDay[] = x[2];
-        const settings: Settings = x[3];
-        const user: User = x[4];
-
-        if (calendarDays) {
-          const filteredCards = cards.filter(this.filterFn.bind(this, settings, user));
-          this.slots = [];
-          this.createHours(calendarDays, visibilityPrefs, filteredCards, settings.language);
-          this.cardHolder = {};
-        }
+        const calendarDays: CalendarDay[] = x[1];
+        const language: string = x[2];
+        this.slots = [];
+        this.createHours(calendarDays, cards, language);
+        this.cardHolder = {};
       });
   }
 
-  createHours = (calendarDays: CalendarDay[], visibilityPrefs: Object, cards: Card[], lang) => {
+  createHours = (calendarDays: CalendarDay[], cards: Card[], lang) => {
     this.cardHolder = {};
     calendarDays.map(day => {
-      this.cardHolder[moment(day.date).format("MM-DD-YYYY")] = cards.filter(card => moment(card.due).isSame(day.date, "day") && !visibilityPrefs[card.idBoard])
+      this.cardHolder[moment(day.date).format("MM-DD-YYYY")] = cards.filter(card => moment(card.due).isSame(day.date, "day"))
       return day;
     });
     for (let i = 0; i < 24; i++) {
@@ -73,13 +61,6 @@ export class WeekComponent implements OnInit {
       })
     }
   };
-
-  filterFn(settings: Settings, user: User, card: Card) {
-    if (!settings.observerMode && user) {
-      return card.idMembers.indexOf(user.id) > -1
-    }
-    return true
-  }
 
   onDropSuccess(event: DragDropData, slot: WeekDaySlot) {
     let card: Card = event.dragData;

@@ -1,4 +1,4 @@
-import {Component, OnInit, Renderer} from '@angular/core';
+import {Component, OnInit} from "@angular/core";
 import {Card} from "../../models/card";
 import {select} from "ng2-redux";
 import {Observable} from "rxjs";
@@ -9,6 +9,7 @@ import {List} from "../../models/list";
 import * as moment from "moment";
 import {MdDialogRef} from "@angular/material";
 import {FormGroup, Validators, FormBuilder} from "@angular/forms";
+import {selectOpenBoards} from "../../redux/store/selects";
 
 
 @Component({
@@ -27,16 +28,10 @@ export class AddCardComponent implements OnInit {
   constructor(public dialogRef: MdDialogRef<AddCardComponent>, private tHttp: TrelloHttpService, private formBuilder: FormBuilder) {
   }
 
-  @select("boards") public boards$: Observable<Board[]>;
+  @select(selectOpenBoards) public boards$: Observable<Board[]>;
 
   ngOnInit() {
-    this.boards$.subscribe(
-      boards => {
-        this.boards = boards.filter(
-          board => !board.closed
-        );
-      }
-    );
+    this.boards$.subscribe(boards => this.boards = boards);
 
     this.cardForm = this.formBuilder.group({
       name: [this.card ? this.card.name : '', Validators.required],

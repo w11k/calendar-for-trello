@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit} from "@angular/core";
 import {select} from "ng2-redux";
 import {Observable} from "rxjs";
 import {Board} from "../models/board";
@@ -6,6 +6,7 @@ import {SettingsActions} from "../redux/actions/settings-actions";
 import {Language} from "./language";
 import {Settings} from "../models/settings";
 import * as moment from "moment";
+import {selectOpenBoards} from "../redux/store/selects";
 
 @Component({
   selector: 'app-board-settings',
@@ -16,7 +17,7 @@ export class SettingsComponent implements OnInit {
 
   public languages: Language[] = [];
 
-  @select("boards") public boards$: Observable<Board[]>;
+  @select(selectOpenBoards) public boards$: Observable<Board[]>;
   boards: Board[];
 
   @select("settings") public settings$: Observable<Settings>;
@@ -37,7 +38,6 @@ export class SettingsComponent implements OnInit {
     this.boards$.subscribe(
       boards => {
         this.boards = boards
-          .filter(board => !board.closed)
           .map(board => Object.assign({}, board));
       }
     );

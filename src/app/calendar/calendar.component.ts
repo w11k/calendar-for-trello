@@ -111,12 +111,15 @@ export class CalendarComponent implements OnInit {
       width: '600px',
     });
 
-    dialogRef.afterClosed().subscribe(
-      (wasSuccess: boolean) => {
-        if (wasSuccess) {
-          this.trelloPullService.pull();
+
+    this.subscriptions.push(
+      dialogRef.afterClosed().subscribe(
+        (wasSuccess: boolean) => {
+          if (wasSuccess) {
+            this.trelloPullService.pull();
+          }
         }
-      }
+      )
     )
   }
 }

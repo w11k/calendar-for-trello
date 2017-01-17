@@ -1,8 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit} from "@angular/core";
 import * as moment from "moment";
 import {select} from "ng2-redux";
-import {Observable} from "rxjs";
-import * as _ from "lodash"
+import {Observable, Subscription} from "rxjs";
+import * as _ from "lodash";
 import {selectSettingsLanguage} from "../../redux/store/selects";
 
 @Component({
@@ -13,6 +13,7 @@ import {selectSettingsLanguage} from "../../redux/store/selects";
 export class CalendarToolbarComponent implements OnInit {
 
   public headers: string[] = [];
+  private subscriptions: Subscription[] = [];
   @select(selectSettingsLanguage) public language$: Observable<string>;
 
   constructor() {
@@ -20,15 +21,20 @@ export class CalendarToolbarComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.language$.subscribe(
-      lang => this.headers = this.build()
-    )
+    this.subscriptions.push(
+      this.language$.subscribe(
+        lang => this.headers = this.build()
+      ));
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.forEach(subscription => subscription.unsubscribe());
   }
 
   build(): string[] {
     let date = moment().startOf('week');
     let arr = [];
-    _.times(7, ()=> {
+    _.times(7, () => {
       arr.push(date.format('dddd'));
       date.add(1, "days")
     });

@@ -7,7 +7,7 @@ import {Router, NavigationEnd} from "@angular/router";
 import {NgRedux, select} from "ng2-redux";
 import {TrelloPullService} from "./services/trello-pull.service";
 import {Settings} from "./models/settings";
-import {Observable} from "rxjs";
+import {Observable, Subscription} from "rxjs";
 import {TrelloAuthService} from "./services/trello-auth.service";
 import {MdSnackBar} from "@angular/material";
 import {IS_UPDATE} from "../main";
@@ -29,8 +29,9 @@ declare let ga: Function;
 export class AppComponent implements OnInit {
 
   @select("settings") public settings$: Observable<Settings>;
-  public settings: Settings = new Settings();
 
+  public settings: Settings = new Settings();
+  private subscriptions: Subscription[] = [];
   private initStore: RootState = {
     cards: [],
     boards: [],
@@ -42,15 +43,6 @@ export class AppComponent implements OnInit {
     settings: new Settings(),
     lists: {}
   };
-
-  ngOnInit() {
-    this.settings$.subscribe(
-      settings => {
-        this.settings = settings;
-        moment.locale(settings.language);
-      }
-    )
-  }
 
   constructor(private ngRedux: NgRedux<RootState>,
               private ngReduxRouter: NgReduxRouter,
@@ -65,13 +57,14 @@ export class AppComponent implements OnInit {
 
     ga('send', 'event', "version", project.version);
 
-
-    this.router.events.subscribe(event => {
-      if (event instanceof NavigationEnd) {
-        ga('set', 'page', event.urlAfterRedirects);
-        ga('send', 'pageview');
-      }
-    });
+    this.subscriptions.push(
+      this.router.events.subscribe(event => {
+        if (event instanceof NavigationEnd) {
+          ga('set', 'page', event.urlAfterRedirects);
+          ga('send', 'pageview');
+        }
+      })
+    );
 
     this.ngRedux.configureStore(
       reducer,
@@ -81,9 +74,27 @@ export class AppComponent implements OnInit {
     );
     ngReduxRouter.initialize();
 
-    this.settings$.subscribe(settings => this.settings = settings);
   }
 
+  ngOnInit() {
+    this.subscriptions.push(
+      this.settings$.subscribe(
+        settings => {
+          this.settings = settings;
+          moment.locale(settings.language);
+        }
+      )
+    );
+
+    this.subscriptions.push(
+      this.settings$.subscribe(settings => this.settings = settings)
+    )
+  }
+
+
+  ngOnDestroy() {
+    this.subscriptions.forEach(subscription => subscription.unsubscribe());
+  }
 
   logout() {
     this.trelloAuthService.logout();

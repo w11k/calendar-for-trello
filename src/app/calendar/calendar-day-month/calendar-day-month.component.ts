@@ -1,7 +1,7 @@
 import {Component, OnInit, Input, Renderer, ElementRef, HostListener} from "@angular/core";
 import {CalendarDay} from "../../models/calendar-day";
 import {select} from "ng2-redux";
-import {Observable} from "rxjs";
+import {Observable, Subscription} from "rxjs";
 import {Card} from "../../models/card";
 import * as moment from "moment";
 import * as _ from "lodash";
@@ -17,10 +17,11 @@ import Dictionary = _.Dictionary;
   styleUrls: ['./calendar-day-month.component.scss'],
 })
 export class CalendarDayForMonthComponent implements OnInit {
-  @select(selectVisibleCards) public cards$: Observable<Card[]>;
 
+  @select(selectVisibleCards) public cards$: Observable<Card[]>;
   @Input() public calendarDay: CalendarDay;
   public cards: Card[];
+  private subscriptions: Subscription[] = [];
 
   constructor(public cardActions: CardActions,
               private renderer: Renderer,
@@ -49,12 +50,17 @@ export class CalendarDayForMonthComponent implements OnInit {
       this.renderer.setElementClass(this.element.nativeElement, "today", true);
     }
 
-    this.cards$.subscribe(
-      cards => {
-        this.cards = cards.filter(card => moment(card.due).isSame(this.calendarDay.date, "day"));
-      }
-    );
+    this.subscriptions.push(
+      this.cards$.subscribe(
+        cards => {
+          this.cards = cards.filter(card => moment(card.due).isSame(this.calendarDay.date, "day"));
+        }
+      ));
+  }
 
+
+  ngOnDestroy() {
+    this.subscriptions.forEach(subscription => subscription.unsubscribe());
   }
 
   onDropSuccess(event: DragDropData) {

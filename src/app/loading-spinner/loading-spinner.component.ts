@@ -1,6 +1,6 @@
 import {Component, OnInit} from "@angular/core";
 import {TrelloPullService} from "../services/trello-pull.service";
-import {Observable, ReplaySubject, Subject} from "rxjs";
+import {Observable, ReplaySubject, Subject, Subscription} from "rxjs";
 
 @Component({
   selector: 'app-loading-spinner',
@@ -10,17 +10,24 @@ import {Observable, ReplaySubject, Subject} from "rxjs";
 export class LoadingSpinnerComponent implements OnInit {
 
   loadingState$: Subject<boolean> = new ReplaySubject();
+  private subscriptions: Subscription[] = [];
 
   constructor(private trelloPullService: TrelloPullService) {
     this.loadingState$ = trelloPullService.loadingState$;
   }
 
   ngOnInit() {
-    Observable
-      .timer(0, 30000)
-      .subscribe(() => {
-        this.doRefresh();
-      });
+    this.subscriptions.push(
+      Observable
+        .timer(0, 30000)
+        .subscribe(() => {
+          this.doRefresh();
+        })
+    );
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.forEach(subscription => subscription.unsubscribe());
   }
 
 

@@ -1,6 +1,6 @@
 import {Component, OnInit} from "@angular/core";
 import {select} from "ng2-redux";
-import {Observable} from "rxjs";
+import {Observable, Subscription} from "rxjs";
 import {Board} from "../models/board";
 import {SettingsActions} from "../redux/actions/settings-actions";
 import {Language} from "./language";
@@ -16,6 +16,7 @@ import {selectOpenBoards} from "../redux/store/selects";
 export class SettingsComponent implements OnInit {
 
   public languages: Language[] = [];
+  private subscriptions: Subscription[] = [];
 
   @select(selectOpenBoards) public boards$: Observable<Board[]>;
   boards: Board[];
@@ -35,18 +36,24 @@ export class SettingsComponent implements OnInit {
 
 
   ngOnInit() {
-    this.boards$.subscribe(
-      boards => {
-        this.boards = boards
-          .map(board => Object.assign({}, board));
-      }
-    );
-
-    this.settings$.subscribe(
-      settings => {
-        this.settings = settings;
-        moment.locale(settings.language);
-      }
-    )
+    this.subscriptions.push(
+      this.boards$.subscribe(
+        boards => {
+          this.boards = boards
+            .map(board => Object.assign({}, board));
+        }
+      ));
+    this.subscriptions.push(
+      this.settings$.subscribe(
+        settings => {
+          this.settings = settings;
+          moment.locale(settings.language);
+        }
+      ));
   }
+
+  ngOnDestroy() {
+    this.subscriptions.forEach(subscription => subscription.unsubscribe());
+  }
+
 }

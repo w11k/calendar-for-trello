@@ -1,6 +1,6 @@
-import {Component, OnInit, Input} from '@angular/core';
+import {Component, OnInit, Input} from "@angular/core";
 import {select} from "ng2-redux";
-import {Observable} from "rxjs";
+import {Observable, Subscription} from "rxjs";
 import {User} from "../models/user";
 import {MenuItem} from "../models/menu-item";
 import {MdSidenav} from "@angular/material";
@@ -16,7 +16,7 @@ export class SidebarComponent implements OnInit {
 
   @select("user") public user$: Observable<User>;
   public user: User;
-
+  private subscriptions: Subscription[] = [];
   private activeSearch: boolean;
 
 
@@ -31,7 +31,13 @@ export class SidebarComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.user$.subscribe(user => this.user = user)
+    this.subscriptions.push(this.user$.subscribe(
+      user => this.user = user
+    ));
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.forEach(subscription => subscription.unsubscribe());
   }
 
 }

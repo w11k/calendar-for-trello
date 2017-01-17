@@ -15,9 +15,8 @@
        data-count-api="/repos/w11k/calendar-for-trello#stargazers_count" data-count-aria-label="# stargazers on GitHub"
        aria-label="Star w11k/calendar-for-trello on GitHub">Star</a>
 
-    <button md-icon-button (click)="refresh()" mdTooltip="Manually Refresh">
-      <md-icon>refresh</md-icon>
-    </button>
+
+    <app-loading-spinner></app-loading-spinner>
 
     <button md-icon-button [md-menu-trigger-for]="menu" mdTooltip="More">
       <md-icon>more_vert</md-icon>

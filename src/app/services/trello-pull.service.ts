@@ -6,12 +6,11 @@ import {TrelloHttpService} from "./trello-http.service";
 import {Board} from "../models/board";
 import * as moment from "moment";
 import {ListActions} from "../redux/actions/list-actions";
-import {Observable} from "rxjs";
+import {Observable, Subject, ReplaySubject} from "rxjs";
 
 @Injectable()
 export class TrelloPullService {
-  private interval;
-  private intervalTime = 30000;
+  public loadingState$: Subject<boolean> = new ReplaySubject();
 
   constructor(private tHttp: TrelloHttpService,
               public userActons: UserActions,
@@ -21,15 +20,11 @@ export class TrelloPullService {
   }
 
   public pull = () => {
+    this.loadingState$.next(true);
     this._fetchBoards();
     this._fetchUser();
   };
 
-
-  public continuousFetch = () => {
-    this.pull();
-    this.interval = setInterval(this.pull, this.intervalTime);
-  };
 
   private _fetchBoards = () => {
     this.tHttp.get("member/me/boards", null, "filter=open").subscribe(
@@ -37,8 +32,10 @@ export class TrelloPullService {
         let boards: Board[] = data.json();
         this.boardActions.loadBoards(boards);
         const toLoadBoards = this._checkBoards(boards);
-        if (toLoadBoards) {
+        if (toLoadBoards && toLoadBoards.length) {
           this._loadCardsOfBoard(toLoadBoards);
+        } else {
+          this.loadingState$.next(false);
         }
       },
       err => {
@@ -80,24 +77,42 @@ export class TrelloPullService {
       return delay;
     }
 
-    Observable.from(boards)
-      .concatMap(
-        event => Observable.timer(getDelay()).map(() => event))
+    let i = 0;
 
-      .subscribe(board => {
+    let delayedBoards$ = Observable
+      .from(boards)
+      .concatMap(event => Observable.timer(getDelay()).map(() => event));
 
-        // Fetch Cards of Board
-        this.tHttp.get("boards/" + board.id + "/cards")
-          .subscribe(
-            response => this.cardActions.rebuildStorePartially(response.json(), board, new Date())
-          );
+    delayedBoards$.subscribe((board) => {
+      i++;
+      // Fetch Cards of Board
+      let boardRequest = this.tHttp.get("boards/" + board.id + "/cards");
+      boardRequest
+        .subscribe(
+          response => {
+            this.cardActions.rebuildStorePartially(response.json(), board, new Date())
+          }
+        );
 
-        // Fetch Lists of Board
-        this.tHttp.get("boards/" + board.id + "/lists")
-          .subscribe(
-            response => this.listActions.rebuildStorePartially(response.json(), board, new Date())
-          );
-      });
+      // Fetch Lists of Board
+      let listRequest = this.tHttp.get("boards/" + board.id + "/lists");
+      listRequest
+        .subscribe(
+          response => {
+            this.listActions.rebuildStorePartially(response.json(), board, new Date())
+          }
+        );
+
+
+      if (i === boards.length) {
+        Observable
+          .combineLatest(boardRequest, listRequest)
+          .subscribe(() => {
+            // => this is last request
+            this.loadingState$.next(false)
+          })
+      }
+    });
   }
 
 }

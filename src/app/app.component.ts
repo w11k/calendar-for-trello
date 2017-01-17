@@ -9,7 +9,6 @@ import {TrelloPullService} from "./services/trello-pull.service";
 import {Settings} from "./models/settings";
 import {Observable} from "rxjs";
 import {TrelloAuthService} from "./services/trello-auth.service";
-import {environment} from "../environments/environment";
 import {MdSnackBar} from "@angular/material";
 import {IS_UPDATE} from "../main";
 import {SettingsActions} from "./redux/actions/settings-actions";
@@ -17,7 +16,6 @@ import {ListActions} from "./redux/actions/list-actions";
 import {CardActions} from "./redux/actions/card-actions";
 import {UserActions} from "./redux/actions/user-actions";
 import {BoardActions} from "./redux/actions/board-actions";
-const createLogger = require('redux-logger');
 const project = require("../../package.json");
 declare let ga: Function;
 
@@ -75,23 +73,17 @@ export class AppComponent implements OnInit {
       }
     });
 
-    const logger = environment.production ? [] : [createLogger()];
-
     this.ngRedux.configureStore(
       reducer,
       this.initStore,
-      [], // logger
+      [],
       enhancers
     );
     ngReduxRouter.initialize();
-    this.trelloPullService.continuousFetch();
 
     this.settings$.subscribe(settings => this.settings = settings);
   }
 
-  refresh() {
-    this.trelloPullService.pull();
-  }
 
   logout() {
     this.trelloAuthService.logout();

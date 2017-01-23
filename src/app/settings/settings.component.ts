@@ -34,6 +34,10 @@ export class SettingsComponent implements OnInit {
     this.settingsActions.setLanguage(locale);
   }
 
+  public updateIncludeDoneCards(includePref: boolean) {
+    this.settingsActions.toggleIncludeDoneCards(includePref);
+  }
+
 
   ngOnInit() {
     this.subscriptions.push(

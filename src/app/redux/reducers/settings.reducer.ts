@@ -27,6 +27,10 @@ export default (state: Settings = initialState, action: any) => {
         boardColorPrefs: {},
         boardVisibilityPrefs: {}
       });
+    case SettingsActions.TOGGLE_INCLUDE_DONE:
+      return Object.assign({}, state, {
+        includeDoneCards: action.payload
+      });
     default:
       return state;
   }

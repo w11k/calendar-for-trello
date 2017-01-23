@@ -5,4 +5,5 @@ export class Settings {
   public boardVisibilityPrefs: Object = {};
   public language: string = "en";
   public type: CalendarType = CalendarType.Month;
+  public includeDoneCards: boolean = true;
 }

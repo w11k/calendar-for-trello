@@ -20,6 +20,7 @@ export class SettingsActions {
   static SET_BOARD_VISIBILITY: string = 'SET_BOARD_VISIBILITY';
   static REMOVE_BOARD_PREFERENCES: string = 'REMOVE_BOARD_PREFERENCES';
   static CHANGE_TYPE: string = 'CHANGE_TYPE';
+  static TOGGLE_INCLUDE_DONE: string = 'TOGGLE_INCLUDE_DONE';
 
   public toggleObserverMode() {
     this.ngRedux.dispatch({type: SettingsActions.TOGGLE_OBSERVER_MODE});
@@ -27,6 +28,10 @@ export class SettingsActions {
 
   public setLanguage(locale: string) {
     this.ngRedux.dispatch({type: SettingsActions.SET_LANG, payload: locale});
+  };
+
+  public toggleIncludeDoneCards(preference: boolean) {
+    this.ngRedux.dispatch({type: SettingsActions.TOGGLE_INCLUDE_DONE, payload: preference});
   };
 
 

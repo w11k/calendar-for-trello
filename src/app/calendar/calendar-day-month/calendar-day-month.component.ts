@@ -53,7 +53,19 @@ export class CalendarDayForMonthComponent implements OnInit {
     this.subscriptions.push(
       this.cards$.subscribe(
         cards => {
-          this.cards = cards.filter(card => moment(card.due).isSame(this.calendarDay.date, "day"));
+          this.cards = cards
+            .filter(card => moment(card.due).isSame(this.calendarDay.date, "day"))
+            .sort((a, b) => {
+              const cardADue = moment(a.due);
+              const cardBADue = moment(b.due);
+              if (cardADue.isBefore(cardBADue)) {
+                return -1;
+              }
+              if (cardADue.isAfter(cardBADue)) {
+                return 1;
+              }
+              return 0;
+            });
         }
       ));
   }

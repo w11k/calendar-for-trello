@@ -1,5 +1,5 @@
 <md-sidenav-layout>
-  <md-sidenav #start [mode]="'side'" style="width:70%; max-width:300px;" [opened]="false">
+  <md-sidenav #start [mode]="'side'" style="width:70%; max-width:300px;" [opened]="isSidenavOpen">
     <app-sidebar [start]="start"></app-sidebar>
   </md-sidenav>
   <md-toolbar [color]="'primary'">

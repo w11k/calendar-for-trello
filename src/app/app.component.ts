@@ -1,4 +1,4 @@
-import {Component, OnInit} from "@angular/core";
+import {Component, OnInit, HostListener} from "@angular/core";
 import {RootState, enhancers} from "./redux/store/index";
 import {NgReduxRouter} from "ng2-redux-router";
 import reducer from "../app/redux/reducers/index";
@@ -44,6 +44,8 @@ export class AppComponent implements OnInit {
     lists: {}
   };
 
+  private isSidenavOpen = false;
+
   constructor(private ngRedux: NgRedux<RootState>,
               private ngReduxRouter: NgReduxRouter,
               public router: Router,
@@ -88,13 +90,25 @@ export class AppComponent implements OnInit {
 
     this.subscriptions.push(
       this.settings$.subscribe(settings => this.settings = settings)
-    )
+    );
+
+    this.checkWidth(window.innerWidth)
   }
 
 
   ngOnDestroy() {
     this.subscriptions.forEach(subscription => subscription.unsubscribe());
   }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+    this.checkWidth(event.target.innerWidth)
+  }
+
+  checkWidth(width) {
+    this.isSidenavOpen = width > 1499;
+  }
+
 
   logout() {
     this.trelloAuthService.logout();

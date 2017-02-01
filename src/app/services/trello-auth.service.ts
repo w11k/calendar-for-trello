@@ -5,6 +5,7 @@ import {UserActions} from "../redux/actions/user-actions";
 import {CardActions} from "../redux/actions/card-actions";
 import {RootState} from "../redux/store/index";
 import {NgRedux} from "ng2-redux";
+const config = require("../../config.json");
 
 @Injectable()
 export class TrelloAuthService {
@@ -20,9 +21,8 @@ export class TrelloAuthService {
   }
 
   login() {
-    const key = "41485cd87d154168dd6db06cdd3ffd69";
     const href = window.location.href + "/setToken";
-    window.location.href = 'https://trello.com/1/authorize?response_type=token&key=' + key + '&return_url=' + encodeURI(href) + '&callback_method=fragment&scope=read%2Cwrite%2Caccount&expiration=never&name=Calendar+for+Trello';
+    window.location.href = 'https://trello.com/1/authorize?response_type=token&key=' + config.apiKey + '&return_url=' + encodeURI(href) + '&callback_method=fragment&scope=read%2Cwrite%2Caccount&expiration=never&name=Calendar+for+Trello';
   }
 
   logout() {

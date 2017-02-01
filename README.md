@@ -18,6 +18,8 @@ The local dev server runs on `http://localhost:4200`
     npm install
     npm run start
     
+**Please** replace the API key if you want to host the calendar on your own. You can find it in `src/config.json`. Get your own Trello API Key at: https://trello.com/app-key 
+    
 ## Privacy Information
 All accrued data is only stored on your own computer. The communication with Trello API is encrypted via https.
 

@@ -1,8 +1,8 @@
-import {Injectable} from '@angular/core';
+import {Injectable} from "@angular/core";
 import {Http, Request, RequestOptionsArgs, Response, RequestMethod} from "@angular/http";
 import {Observable} from "rxjs";
 import {TrelloAuthService} from "./trello-auth.service";
-
+const config = require("../../config.json");
 
 @Injectable()
 export class TrelloHttpService {
@@ -57,7 +57,7 @@ export class TrelloHttpService {
     if (!token) {
       return Observable.throw('No Token Provided!');
     }
-    options.url = "https://api.trello.com/1/" + url + "?key=41485cd87d154168dd6db06cdd3ffd69&token=" + token + (params ? "&" + params : "");
+    options.url = "https://api.trello.com/1/" + url + "?key=" + config.apiKey + "&token=" + token + (params ? "&" + params : "");
     return this.http.request(url, options)
   }
 }

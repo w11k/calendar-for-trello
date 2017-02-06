@@ -7,6 +7,7 @@ import {Board} from "../models/board";
 import * as moment from "moment";
 import {ListActions} from "../redux/actions/list-actions";
 import {Observable, Subject, ReplaySubject} from "rxjs";
+import {MemberActions} from "../redux/actions/member-actions";
 
 @Injectable()
 export class TrelloPullService {
@@ -16,7 +17,8 @@ export class TrelloPullService {
               public userActons: UserActions,
               public boardActions: BoardActions,
               public cardActions: CardActions,
-              public listActions: ListActions) {
+              public listActions: ListActions,
+              private memberActions: MemberActions) {
   }
 
   public pull = () => {
@@ -70,9 +72,9 @@ export class TrelloPullService {
     let delay = 50;
 
     function getDelay() {
-      delay = delay * 1.10;
-      if (delay > 800) {
-        return 800;
+      delay = delay * 1.15;
+      if (delay > 1200) {
+        return 1200;
       }
       return delay;
     }
@@ -104,9 +106,21 @@ export class TrelloPullService {
         );
 
 
+      // Fetch Members of Board
+      let memberRequest = this.tHttp.get("boards/" + board.id + "/members");
+      memberRequest
+        .subscribe(
+          response => {
+            console.log(response.json());
+            this.memberActions.rebuildStorePartially(response.json(), board, new Date())
+          }
+        );
+
+
+
       if (i === boards.length) {
         Observable
-          .combineLatest(boardRequest, listRequest)
+          .combineLatest(boardRequest, memberRequest)
           .subscribe(() => {
             // => this is last request
             this.loadingState$.next(false)

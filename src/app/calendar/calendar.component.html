@@ -10,6 +10,7 @@
 
 
   <div class="pull-right">
+    <app-member-selector></app-member-selector>
     <button md-raised-button (click)="addCard()" color="primary" i18n="Button label: create a new card"
             mdTooltip="Create a new Card">
       Add Card
@@ -17,9 +18,6 @@
     <button md-raised-button (click)="toggleMode()" color="primary"
             mdTooltip="{{calendarType === CalendarType.Month ? 'Switch to Week View' : 'Switch to Month View'}}">
       {{calendarType === CalendarType.Month ? "Week" : "Month"}}
-    </button>
-    <button (click)="toggleObserverMode()" md-raised-button color="primary" mdTooltip="Toggle Mode">
-      {{ settings.observerMode ? "Show My Cards only" : "Show Cards of all Members"}}
     </button>
   </div>
 

@@ -3,6 +3,7 @@ import {User} from "../../models/user";
 import {Board} from "../../models/board";
 import {CalendarState} from "../reducers/calendar.reducer";
 import {Settings} from "../../models/settings";
+import {Member} from "../../models/member";
 
 const persistState = require('redux-localstorage'); // switch with https://www.npmjs.com/package/redux-replicate-localforage? Since localstorage is sync.
 
@@ -12,6 +13,7 @@ export const enhancers = [
   persistState('user', {key: 'w11k.trello-cal/user'}),
   persistState('settings', {key: 'w11k.trello-cal/settings'}),
   persistState('lists', {key: 'w11k.trello-cal/lists'}),
+  persistState('members', {key: 'w11k.trello-cal/members'}),
 ];
 
 if (window.devToolsExtension) {
@@ -25,4 +27,5 @@ export interface RootState {
   calendar: CalendarState;
   settings: Settings,
   lists: Object
+  members: Object;
 }

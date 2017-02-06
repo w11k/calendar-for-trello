@@ -1,0 +1,5 @@
+<md-select [(ngModel)]="selected">
+  <md-option *ngFor="let member of membersArr" [value]="member.id" (onSelect)="update(member)">
+    {{member.fullName | cutString:10}}
+  </md-option>
+</md-select>

@@ -13,7 +13,6 @@ export class SettingsActions {
   constructor(private ngRedux: NgRedux<RootState>) {
   }
 
-  static TOGGLE_OBSERVER_MODE: string = 'TOGGLE_OBSERVER_MODE';
   static SET_LANG: string = 'SET_LANG';
   static RESET_SETTINGS_STORE: string = 'RESET_SETTINGS_STORE';
   static SET_BOARD_COLOR: string = 'SET_BOARD_COLOR';
@@ -21,10 +20,7 @@ export class SettingsActions {
   static REMOVE_BOARD_PREFERENCES: string = 'REMOVE_BOARD_PREFERENCES';
   static CHANGE_TYPE: string = 'CHANGE_TYPE';
   static TOGGLE_INCLUDE_DONE: string = 'TOGGLE_INCLUDE_DONE';
-
-  public toggleObserverMode() {
-    this.ngRedux.dispatch({type: SettingsActions.TOGGLE_OBSERVER_MODE});
-  };
+  static SET_FILTER_FOR_USER: string = 'SET_FILTER_FOR_USER';
 
   public setLanguage(locale: string) {
     this.ngRedux.dispatch({type: SettingsActions.SET_LANG, payload: locale});
@@ -54,5 +50,9 @@ export class SettingsActions {
 
   public setBoardVisibility(boardId: string, visibility: boolean) {
     this.ngRedux.dispatch({type: SettingsActions.SET_BOARD_VISIBILITY, payload: {boardId, visibility}})
+  }
+
+  public setFilterForUser(userId: string) {
+    this.ngRedux.dispatch({type: SettingsActions.SET_FILTER_FOR_USER, payload: userId})
   }
 }

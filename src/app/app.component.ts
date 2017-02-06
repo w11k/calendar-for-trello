@@ -41,7 +41,8 @@ export class AppComponent implements OnInit {
       date: null
     },
     settings: new Settings(),
-    lists: {}
+    lists: {},
+    members: {}
   };
 
   private isSidenavOpen = false;

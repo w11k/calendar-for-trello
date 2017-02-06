@@ -89,10 +89,6 @@ export class CalendarComponent implements OnInit {
     this.calendarActions.buildDays(moment(), this.calendarType);
   }
 
-  public toggleObserverMode() {
-    this.settingsActions.toggleObserverMode();
-  }
-
   public determineCurrent(date: Moment, type: CalendarType) {
     switch (type) {
       case CalendarType.Month:

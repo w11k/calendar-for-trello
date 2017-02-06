@@ -15,6 +15,8 @@ import {ContextMenuHolderComponent} from './context-menu-holder/context-menu-hol
 import {ContextMenuService} from "./context-menu-holder/context-menu.service";
 import {WeekComponent} from './week/week.component';
 import {FlexLayoutModule} from "@angular/flex-layout";
+import { MemberSelectorComponent } from './member-selector/member-selector.component';
+import {CutStringPipe} from "../shared/cut-string.pipe";
 
 @NgModule({
   imports: [
@@ -35,6 +37,8 @@ import {FlexLayoutModule} from "@angular/flex-layout";
     NoDueAreaComponent,
     ContextMenuHolderComponent,
     WeekComponent,
+    MemberSelectorComponent,
+    CutStringPipe,
   ],
   exports: [
     CalendarCardComponent,

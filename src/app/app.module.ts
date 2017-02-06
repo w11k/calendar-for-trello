@@ -30,6 +30,7 @@ import {AboutModule} from "./about/about.module";
 import {SidebarComponent} from './sidebar/sidebar.component';
 import {RavenErrorHandler} from "./shared/RavenErrorHandler";
 import {LoadingSpinnerComponent} from './loading-spinner/loading-spinner.component';
+import {MemberActions} from "./redux/actions/member-actions";
 
 
 @NgModule({
@@ -70,6 +71,7 @@ import {LoadingSpinnerComponent} from './loading-spinner/loading-spinner.compone
     VisitorGuard,
     TrelloPullService,
     DateTimeFormatService,
+    MemberActions,
     {provide: ErrorHandler, useClass: RavenErrorHandler}
 
   ],

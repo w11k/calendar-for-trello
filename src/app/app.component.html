@@ -2,49 +2,54 @@
   <md-sidenav #start [mode]="'side'" style="width:70%; max-width:300px;" [opened]="isSidenavOpen">
     <app-sidebar [start]="start"></app-sidebar>
   </md-sidenav>
-  <md-toolbar [color]="'primary'">
-    <button (click)="start.toggle()" md-icon-button>
-      <md-icon>menu</md-icon>
-    </button>
-    <div class="flex">Calendar for <img
-      src="https://d78fikflryjgj.cloudfront.net/images/50b4ebc64391dc394a38e73aed57f0e2/header-logo.png" alt=""></div>
+  <div class="app">
 
-    <!-- Place this tag where you want the button to render. -->
-    <a class="github-button" target="_blank" href="https://github.com/w11k/calendar-for-trello" data-icon="octicon-star"
-       data-style="mega" data-count-href="/w11k/calendar-for-trello/stargazers"
-       data-count-api="/repos/w11k/calendar-for-trello#stargazers_count" data-count-aria-label="# stargazers on GitHub"
-       aria-label="Star w11k/calendar-for-trello on GitHub">Star</a>
-
-
-    <app-loading-spinner></app-loading-spinner>
-
-    <button md-icon-button [md-menu-trigger-for]="menu" mdTooltip="More">
-      <md-icon>more_vert</md-icon>
-    </button>
-
-    <md-menu #menu="mdMenu">
-      <button md-menu-item (click)="toIssue()">
-        <md-icon>lightbulb_outline</md-icon>
-        Submit Feature Request
+    <md-toolbar [color]="'primary'">
+      <button (click)="start.toggle()" md-icon-button>
+        <md-icon>menu</md-icon>
       </button>
-      <button md-menu-item (click)="toIssue()">
-        <md-icon>report_problem</md-icon>
-        Report a Problem
+      <div class="flex">Calendar for <img
+        src="https://d78fikflryjgj.cloudfront.net/images/50b4ebc64391dc394a38e73aed57f0e2/header-logo.png" alt=""></div>
+
+      <!-- Place this tag where you want the button to render. -->
+      <a class="github-button" target="_blank" href="https://github.com/w11k/calendar-for-trello"
+         data-icon="octicon-star"
+         data-style="mega" data-count-href="/w11k/calendar-for-trello/stargazers"
+         data-count-api="/repos/w11k/calendar-for-trello#stargazers_count"
+         data-count-aria-label="# stargazers on GitHub"
+         aria-label="Star w11k/calendar-for-trello on GitHub">Star</a>
+
+
+      <app-loading-spinner></app-loading-spinner>
+
+      <button md-icon-button [md-menu-trigger-for]="menu" mdTooltip="More">
+        <md-icon>more_vert</md-icon>
       </button>
-      <button md-menu-item (click)="clearData()">
-        <md-icon>delete</md-icon>
-        Clear Data
-      </button>
-      <button md-menu-item (click)="logout()">
-        <md-icon>clear</md-icon>
-        Logout
-      </button>
-    </md-menu>
 
-  </md-toolbar>
+      <md-menu #menu="mdMenu">
+        <button md-menu-item (click)="toIssue()">
+          <md-icon>lightbulb_outline</md-icon>
+          Submit Feature Request
+        </button>
+        <button md-menu-item (click)="toIssue()">
+          <md-icon>report_problem</md-icon>
+          Report a Problem
+        </button>
+        <button md-menu-item (click)="clearData()">
+          <md-icon>delete</md-icon>
+          Clear Data
+        </button>
+        <button md-menu-item (click)="logout()">
+          <md-icon>clear</md-icon>
+          Logout
+        </button>
+      </md-menu>
 
-  <br>
-  <router-outlet></router-outlet>
+    </md-toolbar>
+
+    <br>
+    <router-outlet></router-outlet>
 
 
+  </div>
 </md-sidenav-layout>

@@ -31,7 +31,13 @@ function check() {
   let dataVersion = localStorage.getItem("version");
 
   if (dataVersion !== PROJECT_VERSION) {
+    // older v2 version
     IS_UPDATE = true;
+    localStorage.setItem("version", PROJECT_VERSION);
+  }
+
+  if (!dataVersion) {
+    // old v1 version, clear everything
     localStorage.clear();
     localStorage.setItem("token", token);
     localStorage.setItem("version", PROJECT_VERSION);

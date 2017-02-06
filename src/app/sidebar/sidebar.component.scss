@@ -14,3 +14,25 @@
   margin-bottom: 15px;
   margin-top: 15px;
 }
+
+:host {
+  display: flex;
+  flex-direction: column;
+  align-self: stretch;
+  flex: 1;
+  justify-content: space-between;
+}
+
+.top,
+.bottom {
+  flex: 0 1 auto;
+  align-self: auto;
+}
+
+.bottom {
+  padding: 15px 25px;
+
+  img {
+    opacity: 1;
+  }
+}

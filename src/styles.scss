@@ -12,6 +12,8 @@ body {
   padding: 0;
   margin: 0;
   background: md-color($md-gray, 50);
+  display: flex;
+  flex-direction: column;
 }
 
 *, *:before, *:after {
@@ -22,4 +24,17 @@ body {
   &.error {
     color: red;
   }
+}
+
+.md-sidenav-focus-trap > .cdk-focus-trap-content {
+  display: flex;
+  align-items: stretch;
+}
+
+html, body {
+  min-height: 100%;
+}
+
+md-sidenav-layout {
+  flex: 1 1 auto;
 }

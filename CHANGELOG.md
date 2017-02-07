@@ -1,4 +1,15 @@
-# 2.0.0-beta.12 (2017-02-10)
+# 2.0.0-beta.12.1 (2017-02-07)
+
+### Features
+
+* **update:** remove usage data on update (cards, boards, members)
+
+### Bug Fixes
+
+* **cards:** prevent error on faulty user data (avatar)
+
+
+# 2.0.0-beta.12 (2017-02-07)
 
 ### Features
 

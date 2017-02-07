@@ -32,6 +32,12 @@ function check() {
 
   if (dataVersion !== PROJECT_VERSION) {
     // older v2 version
+
+    // remove usage data (keeps settings!)
+    localStorage.removeItem('w11k.trello-cal/members');
+    localStorage.removeItem('w11k.trello-cal/boards');
+    localStorage.removeItem('w11k.trello-cal/cards');
+
     IS_UPDATE = true;
     localStorage.setItem("version", PROJECT_VERSION);
   }
@@ -41,10 +47,6 @@ function check() {
     localStorage.clear();
     localStorage.setItem("token", token);
     localStorage.setItem("version", PROJECT_VERSION);
-  }
-
-  if (dataVersion === "2.0.0-beta.11") {
-    localStorage.removeItem('w11k.trello-cal/user');
   }
 }
 

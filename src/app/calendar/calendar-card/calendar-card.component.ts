@@ -33,7 +33,7 @@ export class CalendarCardComponent implements OnInit {
   }
 
   getAvatar(userId: string) {
-    return this.memberMap ? this.memberMap[userId].avatarHash : "";
+    return this.memberMap ? (this.memberMap[userId] ? this.memberMap[userId].avatarHash : "" ) : "";
   }
 
   ngOnInit() {

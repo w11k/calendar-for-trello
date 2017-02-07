@@ -7,6 +7,9 @@
 * **pipe:** added cutString Pipe 
 * **card:** show members on card (***experimental***)
 
+### Bug Fixes
+
+* **css:** hotfix scroll-bug [#140](/w11k/calendar-for-trello/issues/140)
 
 
 

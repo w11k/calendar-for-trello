@@ -38,6 +38,10 @@ export class SettingsComponent implements OnInit {
     this.settingsActions.toggleIncludeDoneCards(includePref);
   }
 
+  public updateShowMembers(includePref: boolean) {
+    this.settingsActions.toggleShowMembers(includePref);
+  }
+
 
   ngOnInit() {
     this.subscriptions.push(

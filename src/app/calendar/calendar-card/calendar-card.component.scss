@@ -91,3 +91,19 @@ a {
   .due {
   }
 }
+
+.memberPictures {
+  margin-bottom: 2px;
+  text-align: right;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  img {
+    border: 1px solid transparent;
+    margin: 0;
+    width: 33.3%;
+    align-self: center;
+    padding: 0;
+  }
+}

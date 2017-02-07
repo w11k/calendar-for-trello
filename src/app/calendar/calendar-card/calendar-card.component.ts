@@ -6,6 +6,7 @@ import {Board} from "../../models/board";
 import * as _ from "lodash";
 import {List} from "../../models/list";
 import {selectBoardColorPrefs} from "../../redux/store/selects";
+import {MemberMap} from "../../redux/reducers/member.reducer";
 
 @Component({
   selector: 'app-calendar-card',
@@ -17,10 +18,12 @@ export class CalendarCardComponent implements OnInit {
   public list: List;
   public board: Board;
   private subscriptions: Subscription[] = [];
+  public memberMap: MemberMap;
 
   @select(selectBoardColorPrefs) public boardColorPrefs$: Observable<Object>;
   @select("boards") public boards$: Observable<Board[]>;
   @select("lists") public lists$: Observable<Object>;
+  @select("members") public members$: Observable<MemberMap>;
 
   @HostBinding('style.border-left-color') borderLeft;
   @HostBinding('class.dueComplete') dueComplete;
@@ -29,8 +32,8 @@ export class CalendarCardComponent implements OnInit {
   constructor() {
   }
 
-  call() {
-    console.log(1)
+  getAvatar(userId: string) {
+    return this.memberMap ? this.memberMap[userId].avatarHash : "";
   }
 
   ngOnInit() {
@@ -45,6 +48,12 @@ export class CalendarCardComponent implements OnInit {
           this.board = _.find(boards, (board: Board) => board.id === this.card.idBoard);
           this.borderLeft = boardColorPrefs[this.card.idBoard] || (this.board ? this.board.prefs.backgroundColor : null);
         }));
+
+    this.subscriptions.push(
+      this.members$.subscribe(
+        memberMap => this.memberMap = memberMap
+      )
+    );
 
     this.dueComplete = this.card.dueComplete;
   }

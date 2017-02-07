@@ -107,7 +107,7 @@ export class TrelloPullService {
 
 
       // Fetch Members of Board
-      let memberRequest = this.tHttp.get("boards/" + board.id + "/members");
+      let memberRequest = this.tHttp.get("boards/" + board.id + "/members", null, "fields=all");
       memberRequest
         .subscribe(
           response => {

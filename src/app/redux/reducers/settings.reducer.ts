@@ -27,7 +27,11 @@ export default (state: Settings = initialState, action: any) => {
       });
     case SettingsActions.TOGGLE_INCLUDE_DONE:
       return Object.assign({}, state, {
-        includeDoneCards: action.payload
+        includeDoneCards: action.payload as boolean
+      });
+    case SettingsActions.TOGGLE_SHOW_MEMBERS:
+      return Object.assign({}, state, {
+        showMembers: action.payload as boolean
       });
     case SettingsActions.SET_FILTER_FOR_USER:
       return Object.assign({}, state, {

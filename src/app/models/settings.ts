@@ -6,4 +6,5 @@ export class Settings {
   public type: CalendarType = CalendarType.Month;
   public includeDoneCards: boolean = true;
   public filterForUser: string = null;
+  public showMembers: boolean = false;
 }

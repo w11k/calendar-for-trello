@@ -20,6 +20,7 @@ export class SettingsActions {
   static REMOVE_BOARD_PREFERENCES: string = 'REMOVE_BOARD_PREFERENCES';
   static CHANGE_TYPE: string = 'CHANGE_TYPE';
   static TOGGLE_INCLUDE_DONE: string = 'TOGGLE_INCLUDE_DONE';
+  static TOGGLE_SHOW_MEMBERS: string = 'TOGGLE_SHOW_MEMBERS';
   static SET_FILTER_FOR_USER: string = 'SET_FILTER_FOR_USER';
 
   public setLanguage(locale: string) {
@@ -28,6 +29,10 @@ export class SettingsActions {
 
   public toggleIncludeDoneCards(preference: boolean) {
     this.ngRedux.dispatch({type: SettingsActions.TOGGLE_INCLUDE_DONE, payload: preference});
+  };
+
+  public toggleShowMembers(preference: boolean) {
+    this.ngRedux.dispatch({type: SettingsActions.TOGGLE_SHOW_MEMBERS, payload: preference});
   };
 
 

@@ -5,6 +5,7 @@
 * **trello api:** load board members from Trello API
 * **members:** replace observer-mode with filter by user 
 * **pipe:** added cutString Pipe 
+* **card:** show members on card (***experimental***)
 
 
 

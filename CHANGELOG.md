@@ -1,3 +1,14 @@
+# 2.0.0-beta.12 (2017-02-10)
+
+### Features
+
+* **trello api:** load board members from Trello API
+* **members:** replace observer-mode with filter by user 
+* **pipe:** added cutString Pipe 
+
+
+
+
 # 2.0.0-beta.11 (2017-02-06)
 
 ### Features

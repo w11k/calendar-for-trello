@@ -43,6 +43,9 @@ function check() {
     localStorage.setItem("version", PROJECT_VERSION);
   }
 
+  if (dataVersion === "2.0.0-beta.11") {
+    localStorage.removeItem('w11k.trello-cal/user');
+  }
 }
 
 check();

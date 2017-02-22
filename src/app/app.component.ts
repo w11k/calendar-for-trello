@@ -17,6 +17,8 @@ import {CardActions} from "./redux/actions/card-actions";
 import {UserActions} from "./redux/actions/user-actions";
 import {BoardActions} from "./redux/actions/board-actions";
 const project = require("../../package.json");
+const createLogger = require('redux-logger');
+
 declare let ga: Function;
 
 // declare const IS_UPDATE:boolean;
@@ -38,7 +40,7 @@ export class AppComponent implements OnInit {
     user: null,
     calendar: {
       days: [],
-      date: null
+      date: moment()
     },
     settings: new Settings(),
     lists: {},
@@ -72,7 +74,7 @@ export class AppComponent implements OnInit {
     this.ngRedux.configureStore(
       reducer,
       this.initStore,
-      [],
+      [], //createLogger()
       enhancers
     );
     ngReduxRouter.initialize();

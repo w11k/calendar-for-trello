@@ -29,11 +29,11 @@ export class CalendarActions {
   };
 
   public buildDays(date: Moment, calendarType: CalendarType = CalendarType.Month) {
-    this.calendarService.buildDaysAsync(date, calendarType)
-      .then(days => {
-        this.ngRedux.dispatch({type: CalendarActions.BUILD_DAYS, payload: days, date: date})
-      })
-    ;
+    // this.calendarService.buildDaysAsync(date, calendarType)
+    //   .then(days => {
+    //     this.ngRedux.dispatch({type: CalendarActions.BUILD_DAYS, payload: days, date: date})
+    //   })
+    // ;
   };
 
 
@@ -61,12 +61,12 @@ export class CalendarActions {
         }
         break;
     }
-    this.buildDays(date, calendarType);
+    // this.buildDays(date, calendarType);
   };
 
   // navigates to a date
   public navigateToDate(date: Moment, calendarType: CalendarType) {
-    this.buildDays(date, calendarType);
+    // this.buildDays(date, calendarType);
 
   }
 

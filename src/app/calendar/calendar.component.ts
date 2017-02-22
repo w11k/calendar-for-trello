@@ -16,6 +16,7 @@ import {
   selectSettingsLanguage
 } from "../redux/store/selects";
 import {CalendarTypeSelectEvent} from "./calendar-type-selector/calendar-type-selector.component";
+import {CalendarService} from "../services/calendar.service";
 
 @Component({
   selector: 'app-calendar',
@@ -37,7 +38,11 @@ export class CalendarComponent implements OnInit {
   public settings: Settings = new Settings();
   private subscriptions: Subscription[] = [];
 
-  constructor(public calendarActions: CalendarActions, private settingsActions: SettingsActions, public mdDialog: MdDialog, public trelloPullService: TrelloPullService) {
+  constructor(public calendarActions: CalendarActions, private settingsActions: SettingsActions,
+              public mdDialog: MdDialog, public trelloPullService: TrelloPullService, private calendarService: CalendarService) {
+    this.calendarService.days$.subscribe(
+      days => console.log("days received", days)
+    )
   }
 
 
@@ -59,7 +64,7 @@ export class CalendarComponent implements OnInit {
         .combineLatest(this.language$, this.settings$).subscribe(x => {
         const lang = x[0]; // only needed for async reasons.
         this.settings = x[1];
-        this.calendarActions.buildDays(this._returnCalDate(lang), this.calendarType)
+        // this.calendarActions.buildDays(this._returnCalDate(lang), this.calendarType)
       }));
 
   }

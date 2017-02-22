@@ -1,56 +1,89 @@
-import {Injectable} from '@angular/core';
+import {Injectable} from "@angular/core";
 import * as moment from "moment";
+import {Moment} from "moment";
 import * as _ from "lodash";
 import {CalendarDay} from "../models/calendar-day";
-import {Moment} from "moment";
 import {CalendarType} from "../redux/actions/settings-actions";
+import {Observable, ReplaySubject} from "rxjs";
+import {NgRedux} from "ng2-redux";
+import {RootState} from "../redux/store/index";
+import {
+  selectCalendarDate,
+  selectSettingsType,
+  selectCardsByDate,
+  selectSettingsLanguage
+} from "../redux/store/selects";
 
 
 @Injectable()
 export class CalendarService {
 
+
   days: CalendarDay[] = [];
+  days$: ReplaySubject<CalendarDay[]> = new ReplaySubject<CalendarDay[]>(1);
+  date$: Observable<Moment>;
 
+  constructor(private ngRedux: NgRedux<RootState>) {
 
-  public buildDays(date: Moment = moment()) {
-    this.days = [
-      ...this._buildBeforehandDaysMonth(date.clone()),
-      ...this._buildRegularDaysMonth(date.clone()),
-      ...this._buildAfterwardsDaysMonth(date.clone())
-    ];
-    return this.days;
+    Observable.combineLatest(
+      ngRedux.select(selectCalendarDate),
+      ngRedux.select(selectSettingsType),
+      ngRedux.select(selectCardsByDate),
+      ngRedux.select(selectSettingsLanguage),
+    ).subscribe(
+      x => {
+        let date: Moment = x[0];
+        let calendarType: CalendarType = x[1];
+        let cardsByDate = x[2];
+        let language = x[3];
+        let days = this.buildDaysSync(date, calendarType);
+        days = days.map(day => {
+          day.cards = cardsByDate[date.format('YYYY-MM-DD')];
+          return day;
+        });
+
+        this.days$.next(days);
+      }
+    );
+
   }
 
-  public buildDaysAsync(date: Moment = moment(), calendarType: CalendarType): Promise<CalendarDay[]> {
-    return new Promise((resolve, reject) => {
 
-      let days: CalendarDay[] = [];
+  public buildDaysSync(date: Moment, calendarType: CalendarType): CalendarDay[] {
 
-      switch (calendarType) {
-        case CalendarType.Month:
-          days = [
-            ...this._buildBeforehandDaysMonth(date.clone()),
-            ...this._buildRegularDaysMonth(date.clone()),
-            ...this._buildAfterwardsDaysMonth(date.clone())
-          ];
-          break;
-        case CalendarType.Week:
-          days = [
-            ...this._buildWeekDays(date.clone())
-          ];
-          break;
-      }
+    let days: CalendarDay[] = [];
 
-      resolve(days)
+    switch (calendarType) {
+      case CalendarType.Month:
+        days = [
+          ...this._buildBeforehandDaysMonth(date.clone()),
+          ...this._buildRegularDaysMonth(date.clone()),
+          ...this._buildAfterwardsDaysMonth(date.clone())
+        ];
+        break;
 
-    })
+      case CalendarType.Week:
+        days = [
+          ...this._buildWeekDays(date.clone())
+        ];
+        break;
+
+      case CalendarType.Agenda:
+        days = [
+          ...this._buildWeekDays(date.clone())
+        ];
+        break;
+    }
+
+    return days;
+
   }
 
   private _buildRegularDaysMonth(date: Moment): CalendarDay[] {
     let days: CalendarDay[] = [];
-    var monthDate = date.startOf('month'); // change to a date in the month of interest
+    let monthDate = date.startOf('month'); // change to a date in the month of interest
     _.times(monthDate.daysInMonth(), n => {
-      days.push(new CalendarDay(monthDate.toDate(), false, date.isSame(moment(), "day")));
+      days.push(new CalendarDay(monthDate.toDate(), false, date.isSame(moment(), 'day')));
       monthDate.add(1, 'day');
     });
     return days;
@@ -67,11 +100,11 @@ export class CalendarService {
   // this will fill up the first calendar row with days from the last month
   // to do so, determine the first day of the month and its weekday number.
   private _buildBeforehandDaysMonth(date: Moment): CalendarDay[] {
-    // date = date.add("month",1 ).toDate();   // Manipulate Date to test this function manually
+    // date = date.add('month',1 ).toDate();   // Manipulate Date to test this function manually
     let days: CalendarDay[] = [];
     let firstDay = date.startOf('month');
     let weekdayOfFirstDay = moment(firstDay).weekday();
-    _.times(weekdayOfFirstDay, ()=> {
+    _.times(weekdayOfFirstDay, () => {
       firstDay.subtract(1, 'day');
       days.push(new CalendarDay(firstDay.toDate(), true));
     });
@@ -108,7 +141,7 @@ export class CalendarService {
         runs = 0;
         break;
     }
-    _.times(runs, ()=> {
+    _.times(runs, () => {
       lastDay.add(1, 'day');
       days.push(new CalendarDay(lastDay.toDate(), true));
     });
@@ -119,8 +152,8 @@ export class CalendarService {
   private _buildWeekDays(date: Moment): CalendarDay[] {
     let days: CalendarDay[] = [];
     date = moment(date).startOf('week');
-    _.times(7, ()=> {
-      days.push(new CalendarDay(date.toDate(), false, date.isSame(moment(), "day")));
+    _.times(7, () => {
+      days.push(new CalendarDay(date.toDate(), false, date.isSame(moment(), 'day')));
       date.add(1, 'day');
     });
     return days;

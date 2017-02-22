@@ -1,10 +1,12 @@
-import {RootState} from "./index";
-import * as Reselect from "reselect";
-import * as _ from "lodash";
-import {Card} from "../../models/card";
-import {Settings} from "../../models/settings";
-import {User} from "../../models/user";
-import {Board} from "../../models/board";
+import {RootState} from './index';
+import * as Reselect from 'reselect';
+import {groupBy} from 'lodash';
+import {Card} from '../../models/card';
+import {Settings} from '../../models/settings';
+import {User} from '../../models/user';
+import {Board} from '../../models/board';
+import * as moment from 'moment';
+import Moment = moment.Moment;
 
 export function selectBoardColorPrefs(state: RootState) {
   return state.settings.boardColorPrefs;
@@ -44,5 +46,13 @@ export const selectVisibleCards = Reselect.createSelector(
 export const selectOpenBoards = Reselect.createSelector(
   (state: RootState) => state.boards,
   (boards: Board[]) => boards.filter(board => !board.closed)
+);
+
+
+export const selectCardsByDate = Reselect.createSelector(
+  (state: RootState) => state.cards,
+  (cards: Card[]) => groupBy(cards, (card) => {
+    return card.due ? moment(card.due).format('YYYY-MM-DD') : 'noDue';
+  })
 );
 

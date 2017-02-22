@@ -1,0 +1,5 @@
+<md-select [(ngModel)]="selected">
+  <md-option *ngFor="let type of typesArr" (onSelect)="update(type)">
+    {{type}}
+  </md-option>
+</md-select>

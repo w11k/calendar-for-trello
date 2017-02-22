@@ -5,13 +5,11 @@ import {NgRedux} from 'ng2-redux';
 import {RootState} from '../store';
 
 export enum CalendarType {
-  Week, Month
+  Week, Month, Agenda
 }
 
 @Injectable()
 export class SettingsActions {
-  constructor(private ngRedux: NgRedux<RootState>) {
-  }
 
   static SET_LANG: string = 'SET_LANG';
   static RESET_SETTINGS_STORE: string = 'RESET_SETTINGS_STORE';
@@ -22,6 +20,9 @@ export class SettingsActions {
   static TOGGLE_INCLUDE_DONE: string = 'TOGGLE_INCLUDE_DONE';
   static TOGGLE_SHOW_MEMBERS: string = 'TOGGLE_SHOW_MEMBERS';
   static SET_FILTER_FOR_USER: string = 'SET_FILTER_FOR_USER';
+
+  constructor(private ngRedux: NgRedux<RootState>) {
+  }
 
   public setLanguage(locale: string) {
     this.ngRedux.dispatch({type: SettingsActions.SET_LANG, payload: locale});
@@ -36,8 +37,8 @@ export class SettingsActions {
   };
 
 
-  public changeCalendarType() {
-    this.ngRedux.dispatch({type: SettingsActions.CHANGE_TYPE})
+  public changeCalendarType(type: CalendarType) {
+    this.ngRedux.dispatch({type: SettingsActions.CHANGE_TYPE, payload: type})
   }
 
   public resetStore() {

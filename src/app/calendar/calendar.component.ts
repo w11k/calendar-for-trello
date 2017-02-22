@@ -15,6 +15,7 @@ import {
   selectCalendarDate,
   selectSettingsLanguage
 } from "../redux/store/selects";
+import {CalendarTypeSelectEvent} from "./calendar-type-selector/calendar-type-selector.component";
 
 @Component({
   selector: 'app-calendar',
@@ -84,9 +85,8 @@ export class CalendarComponent implements OnInit {
     this.calendarActions.navigate(this._returnCalDate(), PeriodChange.add, this.calendarType);
   }
 
-  public toggleMode() {
-    this.settingsActions.changeCalendarType();
-    this.calendarActions.buildDays(moment(), this.calendarType);
+  public toggleMode($event: CalendarTypeSelectEvent) {
+    this.settingsActions.changeCalendarType($event.calendarType);
   }
 
   public determineCurrent(date: Moment, type: CalendarType) {

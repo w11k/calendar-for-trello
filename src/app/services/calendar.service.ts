@@ -1,17 +1,68 @@
-import {Injectable} from '@angular/core';
+import {Injectable} from "@angular/core";
 import * as moment from "moment";
+import {Moment} from "moment";
 import * as _ from "lodash";
 import {CalendarDay} from "../models/calendar-day";
-import {Moment} from "moment";
 import {CalendarType} from "../redux/actions/settings-actions";
+import {NgRedux} from "ng2-redux";
+import {RootState} from "../redux/store/index";
+import {Observable} from "rxjs";
+import {selectCalendarInfo, selectCalendarDate, selectSettingsType} from "../redux/store/selects";
 
 
 @Injectable()
 export class CalendarService {
 
   days: CalendarDay[] = [];
+  // date$:Observable<Moment>;
+
+  constructor(ngRedux: NgRedux<RootState>) {
+    console.log(ngRedux);
+    // ngRedux.select("cards").subscribe(
+    //   cards => console.log(cards, "from store")
+    // );
 
 
+    ngRedux.select(selectCalendarInfo).subscribe(
+      date => {
+        console.log(date);
+      }
+    )
+
+    // Observable.combineLatest(
+    //   ngRedux.select(selectCalendarDate),
+    //   ngRedux.select(selectSettingsType),
+    // ).subscribe(x => console.log("x",x));
+
+    /*
+     *
+     * also ich komme an die cards im service.
+     *
+     *
+     * Was mache ich nun damit? Brainz...
+     * Mappen im Stream. Das geht auch schon.
+     *
+     *
+     * Grundgedanke war, ich wollte ströme durchreichen. Da bin ich aber nicht abhängig vom Service eigentlich. Sondern von der ID
+     *
+     *
+     * */
+    // console.log(ngRedux.getState());
+    // console.log(22);
+  }
+
+
+  public days$: Observable<CalendarDay[]>;
+
+  public next() {
+    // -> next days
+  }
+
+  public previous() {
+    // next das
+  }
+
+  // wird privat!
   public buildDays(date: Moment = moment()) {
     this.days = [
       ...this._buildBeforehandDaysMonth(date.clone()),
@@ -21,6 +72,31 @@ export class CalendarService {
     return this.days;
   }
 
+  public buildDaysSync(date: Moment = moment(), calendarType: CalendarType): CalendarDay[] {
+
+    let days: CalendarDay[] = [];
+
+    switch (calendarType) {
+      case CalendarType.Month:
+        days = [
+          ...this._buildBeforehandDaysMonth(date.clone()),
+          ...this._buildRegularDaysMonth(date.clone()),
+          ...this._buildAfterwardsDaysMonth(date.clone())
+        ];
+        break;
+      case CalendarType.Week:
+        days = [
+          ...this._buildWeekDays(date.clone())
+        ];
+        break;
+    }
+
+    return days
+
+  }
+
+
+  // wird privat!
   public buildDaysAsync(date: Moment = moment(), calendarType: CalendarType): Promise<CalendarDay[]> {
     return new Promise((resolve, reject) => {
 
@@ -71,7 +147,7 @@ export class CalendarService {
     let days: CalendarDay[] = [];
     let firstDay = date.startOf('month');
     let weekdayOfFirstDay = moment(firstDay).weekday();
-    _.times(weekdayOfFirstDay, ()=> {
+    _.times(weekdayOfFirstDay, () => {
       firstDay.subtract(1, 'day');
       days.push(new CalendarDay(firstDay.toDate(), true));
     });
@@ -108,7 +184,7 @@ export class CalendarService {
         runs = 0;
         break;
     }
-    _.times(runs, ()=> {
+    _.times(runs, () => {
       lastDay.add(1, 'day');
       days.push(new CalendarDay(lastDay.toDate(), true));
     });
@@ -119,7 +195,7 @@ export class CalendarService {
   private _buildWeekDays(date: Moment): CalendarDay[] {
     let days: CalendarDay[] = [];
     date = moment(date).startOf('week');
-    _.times(7, ()=> {
+    _.times(7, () => {
       days.push(new CalendarDay(date.toDate(), false, date.isSame(moment(), "day")));
       date.add(1, 'day');
     });

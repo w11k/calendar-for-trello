@@ -17,6 +17,9 @@ import {WeekComponent} from './week/week.component';
 import {FlexLayoutModule} from "@angular/flex-layout";
 import { MemberSelectorComponent } from './member-selector/member-selector.component';
 import {CutStringPipe} from "../shared/cut-string.pipe";
+import {CalendarTypeSelectorComponent} from './calendar-type-selector/calendar-type-selector.component';
+import {CombinedCalendarComponent} from './combined-calendar/combined-calendar.component';
+import {CombinedCalendarDayComponent} from './combined-calendar-day/combined-calendar-day.component';
 
 @NgModule({
   imports: [
@@ -39,6 +42,9 @@ import {CutStringPipe} from "../shared/cut-string.pipe";
     WeekComponent,
     MemberSelectorComponent,
     CutStringPipe,
+    CalendarTypeSelectorComponent,
+    CombinedCalendarComponent,
+    CombinedCalendarDayComponent,
   ],
   exports: [
     CalendarCardComponent,

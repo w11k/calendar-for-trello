@@ -11,17 +11,27 @@
 
   <div class="pull-right">
     <app-member-selector></app-member-selector>
-    <button md-raised-button (click)="addCard()" color="primary" i18n="Button label: create a new card"
-            mdTooltip="Create a new Card">
-      Add Card
-    </button>
-    <button md-raised-button (click)="toggleMode()" color="primary"
-            mdTooltip="{{calendarType === CalendarType.Month ? 'Switch to Week View' : 'Switch to Month View'}}">
-      {{calendarType === CalendarType.Month ? "Week" : "Month"}}
-    </button>
+    <!--<button md-raised-button (click)="addCard()" color="primary" i18n="Button label: create a new card"-->
+    <!--mdTooltip="Create a new Card">-->
+    <!--Add Card-->
+    <!--</button>-->
+    <app-calendar-type-selector (switchMode)="toggleMode($event)"></app-calendar-type-selector>
+    <!--<button md-raised-button (click)="toggleMode()" color="primary"-->
+    <!--mdTooltip="{{calendarType === CalendarType.Month ? 'Switch to Week View' : 'Switch to Month View'}}">-->
+    <!--{{calendarType === CalendarType.Month ? "Week" : "Month"}}-->
+    <!--</button>-->
   </div>
 
 </div>
+
+<app-combined-calendar>
+
+</app-combined-calendar>
+
+<hr>
+<br><br><br><br><br>
+
+
 
 <div class="wrap">
   <app-calendar-toolbar></app-calendar-toolbar>

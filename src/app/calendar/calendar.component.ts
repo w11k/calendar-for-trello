@@ -85,7 +85,7 @@ export class CalendarComponent implements OnInit {
   }
 
   public toggleMode() {
-    this.settingsActions.changeCalendarType();
+    // this.settingsActions.changeCalendarType();
     this.calendarActions.buildDays(moment(), this.calendarType);
   }
 

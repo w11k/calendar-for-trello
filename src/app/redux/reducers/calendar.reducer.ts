@@ -7,7 +7,7 @@ import {CalendarType} from "../actions/settings-actions";
 
 export interface CalendarState {
   days: CalendarDay[];
-  date: Moment;
+  date: Moment;  // shouldnt this be a date?
 }
 const initialState = {days: [], date: moment(), type: CalendarType.Month};
 

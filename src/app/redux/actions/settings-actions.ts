@@ -5,8 +5,16 @@ import {NgRedux} from 'ng2-redux';
 import {RootState} from '../store';
 
 export enum CalendarType {
-  Week, Month
+  Week, Month, Agenda
 }
+
+export const CalendarTypes = {
+  WEEK: "Week",
+  MONTH: "Month",
+  AGENDA: "AGENDA",
+
+}
+
 
 @Injectable()
 export class SettingsActions {
@@ -36,8 +44,8 @@ export class SettingsActions {
   };
 
 
-  public changeCalendarType() {
-    this.ngRedux.dispatch({type: SettingsActions.CHANGE_TYPE})
+  public changeCalendarType(type: CalendarType) {
+    this.ngRedux.dispatch({type: SettingsActions.CHANGE_TYPE, payload: type})
   }
 
   public resetStore() {

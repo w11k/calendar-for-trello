@@ -1,0 +1,47 @@
+@import '~@angular/material/core/theming/theming';
+@import '../../../material/theme';
+
+$day-border-color: md-color($md-gray, 300);
+$day-background: md-color($md-gray, A100);
+$day-offset-background: md-color($md-trello-business, 50);
+$day-primary: md-color($md-trello-business, 500);
+
+:host {
+  width: 14.28%;
+  min-height: 100px;
+  background: $day-background;
+  border-left: 1px solid $day-border-color;
+  border-top: 1px solid $day-border-color;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-content: stretch;
+  align-items: stretch;
+  position: relative;
+}
+
+.dropZone {
+  padding: 25px 3px 0;
+  flex: 1 0 auto;
+}
+
+.day {
+  position: absolute;
+  top: 3px;
+  right: 3px;
+}
+
+:host(.offsetDay) {
+  background: $day-offset-background !important;
+}
+
+:host(.today) {
+  border-top: 3px $day-primary solid;
+  margin-top: -1px;
+  .day {
+    font-weight: bold;
+    color: $day-primary;
+  }
+}
+

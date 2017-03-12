@@ -50,9 +50,22 @@ export const selectOpenBoards = Reselect.createSelector(
 
 
 export const selectCardsByDate = Reselect.createSelector(
-  (state: RootState) => state.cards,
-  (cards: Card[]) => groupBy(cards, (card) => {
-    return card.due ? moment(card.due).format('YYYY-MM-DD') : 'noDue';
-  })
+    (state: RootState) => state.cards,
+    (state: RootState) => state.settings,
+    (state: RootState) => state.user,
+    (cards: Card[], settings: Settings, user: User) => {
+
+      console.log("2222222222222222222222222   selectCardsByDateselectCardsByDateselectCardsByDate");
+      // get visible cards
+      cards = cards.filter(
+          card => !settings.boardVisibilityPrefs[card.idBoard] && (settings.includeDoneCards ? true : !card.dueComplete ) && ( settings.filterForUser ? card.idMembers.indexOf(settings.filterForUser) > -1 : true)
+      );
+
+      // group by date or no due
+      return groupBy(cards, (card) => {
+        return card.due ? moment(card.due).format('YYYY-MM-DD') : 'noDue';
+      })
+
+    }
 );
 

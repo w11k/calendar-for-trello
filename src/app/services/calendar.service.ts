@@ -4,7 +4,7 @@ import {Moment} from "moment";
 import * as _ from "lodash";
 import {CalendarDay} from "../models/calendar-day";
 import {CalendarType} from "../redux/actions/settings-actions";
-import {Observable, ReplaySubject} from "rxjs";
+import {Observable, ReplaySubject, Subject} from "rxjs";
 import {NgRedux} from "ng2-redux";
 import {RootState} from "../redux/store/index";
 import {
@@ -14,10 +14,10 @@ import {
   selectSettingsLanguage
 } from "../redux/store/selects";
 
-
 @Injectable()
 export class CalendarService {
 
+  private static AGENDA_LENGTH = 4;
 
   days: CalendarDay[] = [];
   days$: ReplaySubject<CalendarDay[]> = new ReplaySubject<CalendarDay[]>(1);
@@ -36,11 +36,14 @@ export class CalendarService {
         let calendarType: CalendarType = x[1];
         let cardsByDate = x[2];
         let language = x[3];
+        console.log("cardsByDate", cardsByDate);
         let days = this.buildDaysSync(date, calendarType);
         days = days.map(day => {
-          day.cards = cardsByDate[date.format('YYYY-MM-DD')];
+          day.cards = cardsByDate[moment(day.date).format('YYYY-MM-DD')];
           return day;
         });
+        console.log("days1", days)
+
 
         this.days$.next(days);
       }
@@ -70,7 +73,7 @@ export class CalendarService {
 
       case CalendarType.Agenda:
         days = [
-          ...this._buildWeekDays(date.clone())
+          ...this._buildAgendaDays(date.clone(), CalendarService.AGENDA_LENGTH)
         ];
         break;
     }
@@ -156,6 +159,18 @@ export class CalendarService {
       days.push(new CalendarDay(date.toDate(), false, date.isSame(moment(), 'day')));
       date.add(1, 'day');
     });
+    return days;
+  }
+
+  private _buildAgendaDays(inDate: Moment, dayAmount: number): CalendarDay[] {
+    let date = inDate.clone();
+    let days: CalendarDay[] = [];
+
+    _.times(dayAmount, () => {
+      days.push(new CalendarDay(date.toDate(), false, date.isSame(moment(), 'day')));
+      date.add(1, 'day');
+    });
+
     return days;
   }
 

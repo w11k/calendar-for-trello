@@ -24,4 +24,8 @@ $primary-font: md-contrast($md-trello-business, 500);
   display: flex;
   flex-direction: row;
   margin-top: 10px;
+
+  &.agenda {
+    flex-direction: column;
+  }
 }

@@ -1,0 +1,40 @@
+{{slot?.date  | date: "d"}}
+
+
+<!-- Month -->
+<div *ngIf="(calendarType | async) === CalendarType.Month ">
+    Month
+    <div *ngIf="slot">
+        <app-calendar-card
+                *ngFor="let card of slot.cards"
+                [card]="card"
+                dnd-draggable
+                [dragData]="card"
+                [dragEnabled]="true"
+        ></app-calendar-card>
+    </div>
+</div>
+
+<!-- Week & Agenda -->
+<div *ngIf="(calendarType | async) !== CalendarType.Month ">
+    <div class="slot" *ngFor="let slot of slots">
+        <div class="inner" dnd-droppable
+             (onDropSuccess)="onDropSuccess($event, slot)"
+             (onDragSuccess)="onDropSuccess($event, slot)">
+            <div class="time">{{slot.time}}</div>
+            <app-calendar-card
+                    *ngFor="let card of slot.cards; let x = index"
+                    [dragData]="card" [card]="card"
+                    [dragEnabled]="true"
+                    dnd-draggable>
+            </app-calendar-card>
+        </div>
+    </div>
+</div>
+
+
+<!--<pre>-->
+<!--{{slots | json}}-->
+<!--</pre>-->
+
+

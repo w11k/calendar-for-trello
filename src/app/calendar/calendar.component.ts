@@ -2,7 +2,7 @@ import {Component, OnInit} from "@angular/core";
 import * as moment from "moment";
 import {Moment} from "moment";
 import {select} from "ng2-redux";
-import {Observable, Subscription} from "rxjs";
+import {Observable, Subscription, ReplaySubject} from "rxjs";
 import {CalendarActions, PeriodChange} from "../redux/actions/calendar-actions";
 import {SettingsActions, CalendarType} from "../redux/actions/settings-actions";
 import {TrelloPullService} from "../services/trello-pull.service";
@@ -17,6 +17,8 @@ import {
 } from "../redux/store/selects";
 import {CalendarTypeSelectEvent} from "./calendar-type-selector/calendar-type-selector.component";
 import {CalendarService} from "../services/calendar.service";
+import {times} from "lodash";
+import {CalendarDay} from "../models/calendar-day";
 
 @Component({
   selector: 'app-calendar',
@@ -38,15 +40,45 @@ export class CalendarComponent implements OnInit {
   public settings: Settings = new Settings();
   private subscriptions: Subscription[] = [];
 
+
+  daySlots: ReplaySubject<CalendarDay>[] = [];
+
   constructor(public calendarActions: CalendarActions, private settingsActions: SettingsActions,
               public mdDialog: MdDialog, public trelloPullService: TrelloPullService, private calendarService: CalendarService) {
-    this.calendarService.days$.subscribe(
-      days => console.log("days received", days)
-    )
+
+    times(42, () => {
+      this.daySlots.push(new ReplaySubject<CalendarDay>(1));
+    });
+
+
+
   }
 
 
   ngOnInit() {
+
+    this.calendarService.days$.subscribe(
+        days => {
+          console.log("DAYS2", days);
+
+          // fill in existing days
+          days.map((day, index) => {
+            this.daySlots[index].next(day);
+          });
+
+          // emit null to other days:
+          let remaining = 42 - days.length;
+          let i = 0;
+          times(remaining, () => {
+
+            this.daySlots[i + days.length].next(null);
+            i++;
+          });
+
+
+        }
+    )
+
 
     this.subscriptions.push(this.calendarDate$.subscribe(
       date => {
@@ -87,6 +119,7 @@ export class CalendarComponent implements OnInit {
   }
 
   public next() {
+    console.log("next", this._returnCalDate(), PeriodChange.add, this.calendarType);
     this.calendarActions.navigate(this._returnCalDate(), PeriodChange.add, this.calendarType);
   }
 

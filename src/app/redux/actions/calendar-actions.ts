@@ -39,6 +39,7 @@ export class CalendarActions {
 
 
   public navigate(date: Moment, change: PeriodChange, calendarType: CalendarType) {
+    console.log(date, change, calendarType)
     switch (calendarType) {
       case CalendarType.Month:
         switch (change) {
@@ -60,7 +61,23 @@ export class CalendarActions {
             break;
         }
         break;
+
+      case CalendarType.Agenda:
+        switch (change) {
+          case PeriodChange.add:
+            date.add(4, "days");
+            break;
+          case PeriodChange.subtract:
+            date.subtract(4, "days");
+            break;
+        }
+        break;
+
+
     }
+
+    this.ngRedux.dispatch({type: CalendarActions.BUILD_DAYS, payload: null, date: date});
+
     // this.buildDays(date, calendarType);
   };
 

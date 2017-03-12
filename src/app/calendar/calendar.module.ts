@@ -18,6 +18,7 @@ import {FlexLayoutModule} from "@angular/flex-layout";
 import { MemberSelectorComponent } from './member-selector/member-selector.component';
 import {CutStringPipe} from "../shared/cut-string.pipe";
 import {CalendarTypeSelectorComponent} from "./calendar-type-selector/calendar-type-selector.component";
+import {UniversalDayComponent} from "./universal-day/universal-day.component";
 
 @NgModule({
   imports: [
@@ -41,6 +42,7 @@ import {CalendarTypeSelectorComponent} from "./calendar-type-selector/calendar-t
     MemberSelectorComponent,
     CutStringPipe,
     CalendarTypeSelectorComponent,
+    UniversalDayComponent,
   ],
   exports: [
     CalendarCardComponent,

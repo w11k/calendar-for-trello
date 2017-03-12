@@ -1,14 +1,12 @@
 import {Injectable} from '@angular/core';
 import {NgRedux} from 'ng2-redux';
 import {RootState} from '../store';
-import {Card} from "../../models/card";
-import {TrelloHttpService} from "../../services/trello-http.service";
-import {BoardActions} from "./board-actions";
+import {Card} from '../../models/card';
+import {TrelloHttpService} from '../../services/trello-http.service';
+import {BoardActions} from './board-actions';
 
 @Injectable()
 export class CardActions {
-  constructor(private ngRedux: NgRedux<RootState>, private tHttp: TrelloHttpService) {
-  }
 
   static ADD_CARD: string = 'ADD_CARD';
   static UPDATE_CARD: string = 'UPDATE_CARD';
@@ -20,6 +18,9 @@ export class CardActions {
   static MARK_CARD_DONE: string = 'MARK_CARD_DONE';
   static REMOVE_CARD: string = 'REMOVE_CARD';
   static RESET_CARD_STORE: string = 'RESET_CARD_STORE';
+
+  constructor(private ngRedux: NgRedux<RootState>, private tHttp: TrelloHttpService) {
+  }
 
   public addCard(card: Card) {
     this.ngRedux.dispatch({type: CardActions.ADD_CARD, payload: card});
@@ -36,7 +37,7 @@ export class CardActions {
   };
 
   public updateCardsDue(cardId: string, due: Date) {
-    this.tHttp.put("cards/" + cardId + "", {
+    this.tHttp.put('cards/' + cardId + '', {
       due: due
     }).subscribe(
       success => this.ngRedux.dispatch({type: CardActions.UPDATE_DUE, id: cardId, due: due}),
@@ -69,19 +70,21 @@ export class CardActions {
   };
 
   public removeDue(cardId: string) {
-    this.tHttp.put("cards/" + cardId + "", {
-      due: "null"
+    this.tHttp.put('cards/' + cardId + '', {
+      due: 'null'
     }).subscribe(
       success => this.ngRedux.dispatch({type: CardActions.REMOVE_DUE, id: cardId}),
       error => console.log(error)
-    )
+    );
   }
 
   public archiveCard(cardId: string) {
-    this.tHttp.delete("cards/" + cardId).subscribe(
+    this.tHttp.put('cards/' + cardId, {
+      closed: true
+    }).subscribe(
       success => this.ngRedux.dispatch({type: CardActions.ARCHIVE_CARD, id: cardId}),
       error => console.log(error)
-    )
+    );
 
   }
 
@@ -90,12 +93,12 @@ export class CardActions {
   }
 
   public markCardDone(card: Card) {
-    this.tHttp.put("cards/" + card.id + "", {
+    this.tHttp.put('cards/' + card.id, {
       dueComplete: !card.dueComplete
     }).subscribe(
       success => this.ngRedux.dispatch({type: CardActions.MARK_CARD_DONE, payload: card}),
       error => console.log(error)
-    )
+    );
 
 
   }

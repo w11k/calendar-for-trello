@@ -22,20 +22,6 @@ export class CardActions {
   constructor(private ngRedux: NgRedux<RootState>, private tHttp: TrelloHttpService) {
   }
 
-  public addCard(card: Card) {
-    this.ngRedux.dispatch({type: CardActions.ADD_CARD, payload: card});
-  };
-
-  // inserts new cards from API
-  public rebuildStore(cards: Card[]) {
-    this.ngRedux.dispatch({type: CardActions.REBUILD_STORE, payload: cards});
-  };
-
-  // i think this is bad:
-  public updateCard(card: Card) {
-    this.ngRedux.dispatch({type: CardActions.UPDATE_CARD, payload: card});
-  };
-
   public updateCardsDue(cardId: string, due: Date) {
     this.tHttp.put('cards/' + cardId + '', {
       due: due
@@ -62,12 +48,7 @@ export class CardActions {
         time
       }
     });
-
   }
-
-  public removeCards(cardId: string) {
-    this.ngRedux.dispatch({type: CardActions.REMOVE_CARD, id: cardId});
-  };
 
   public removeDue(cardId: string) {
     this.tHttp.put('cards/' + cardId + '', {
@@ -85,11 +66,6 @@ export class CardActions {
       success => this.ngRedux.dispatch({type: CardActions.ARCHIVE_CARD, id: cardId}),
       error => console.log(error)
     );
-
-  }
-
-  public resetStore() {
-    this.ngRedux.dispatch({type: CardActions.RESET_CARD_STORE})
   }
 
   public markCardDone(card: Card) {
@@ -99,8 +75,6 @@ export class CardActions {
       success => this.ngRedux.dispatch({type: CardActions.MARK_CARD_DONE, payload: card}),
       error => console.log(error)
     );
-
-
   }
 
 }

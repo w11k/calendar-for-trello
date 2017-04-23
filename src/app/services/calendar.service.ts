@@ -4,14 +4,14 @@ import {Moment} from "moment";
 import * as _ from "lodash";
 import {CalendarDay} from "../models/calendar-day";
 import {CalendarType} from "../redux/actions/settings-actions";
-import {Observable, ReplaySubject, Subject} from "rxjs";
+import {Observable, ReplaySubject} from "rxjs";
 import {NgRedux} from "ng2-redux";
 import {RootState} from "../redux/store/index";
 import {
   selectCalendarDate,
-  selectSettingsType,
   selectCardsByDate,
-  selectSettingsLanguage
+  selectSettingsLanguage,
+  selectSettingsType
 } from "../redux/store/selects";
 
 @Injectable()
@@ -31,20 +31,12 @@ export class CalendarService {
       ngRedux.select(selectCardsByDate),
       ngRedux.select(selectSettingsLanguage),
     ).subscribe(
-      x => {
-        let date: Moment = x[0];
-        let calendarType: CalendarType = x[1];
-        let cardsByDate = x[2];
-        let language = x[3];
-        console.log("cardsByDate", cardsByDate);
+      ([date, calendarType, cardsByDate, language]) => {
         let days = this.buildDaysSync(date, calendarType);
         days = days.map(day => {
           day.cards = cardsByDate[moment(day.date).format('YYYY-MM-DD')];
           return day;
         });
-        console.log("days1", days)
-
-
         this.days$.next(days);
       }
     );
@@ -67,13 +59,13 @@ export class CalendarService {
 
       case CalendarType.Week:
         days = [
-          ...this._buildWeekDays(date.clone())
+          ...this._buildAgendaDays(date, 7)
         ];
         break;
 
       case CalendarType.Agenda:
         days = [
-          ...this._buildAgendaDays(date.clone(), CalendarService.AGENDA_LENGTH)
+          ...this._buildAgendaDays(date, CalendarService.AGENDA_LENGTH)
         ];
         break;
     }
@@ -151,16 +143,6 @@ export class CalendarService {
     return days;
   }
 
-
-  private _buildWeekDays(date: Moment): CalendarDay[] {
-    let days: CalendarDay[] = [];
-    date = moment(date).startOf('week');
-    _.times(7, () => {
-      days.push(new CalendarDay(date.toDate(), false, date.isSame(moment(), 'day')));
-      date.add(1, 'day');
-    });
-    return days;
-  }
 
   private _buildAgendaDays(inDate: Moment, dayAmount: number): CalendarDay[] {
     let date = inDate.clone();

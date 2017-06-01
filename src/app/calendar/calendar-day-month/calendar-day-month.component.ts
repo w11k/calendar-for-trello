@@ -77,11 +77,17 @@ export class CalendarDayForMonthComponent implements OnInit {
 
   onDropSuccess(event: DragDropData) {
     let card: Card = event.dragData;
-    let hours = moment(card.due).hours();
-    let minutes = moment(card.due).minutes();
-    let seconds = moment(card.due).seconds();
+
+    let hours = 12, minutes = 0, seconds = 0;
+
+    if (card.due) {
+      hours = moment(card.due).hours();
+      minutes = moment(card.due).minutes();
+      seconds = moment(card.due).seconds();
+    }
+
     let due = moment(this.calendarDay.date).hours(hours).minutes(minutes).seconds(seconds);
-    this.cardActions.updateCardsDue(card.id, due.toDate())
+    this.cardActions.updateCardsDue(card.id, due.toDate());
   }
 }
 

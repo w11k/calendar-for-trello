@@ -1,5 +1,5 @@
 import {Component, OnInit, Input, OnDestroy} from '@angular/core';
-import {select} from 'ng2-redux';
+import {select} from '@angular-redux/store';
 import {Observable, Subscription} from 'rxjs';
 import {User} from '../models/user';
 import {MenuItem} from '../models/menu-item';

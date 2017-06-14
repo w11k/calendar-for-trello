@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {NgRedux} from 'ng2-redux';
+import {NgRedux} from '@angular-redux/store';
 import {RootState} from '../store';
 import {User} from '../../models/user';
 

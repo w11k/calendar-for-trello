@@ -1,13 +1,13 @@
-@import '~@angular/material/core/theming/theming';
+@import '~@angular/material/theming';
 @import '../../../material/theme';
 
 $card-background: #edeff4;
 $card-border-color: #e0e0e0;
 $card-border-color-hover: #bdbdbd;
 
-$card-background: md-color($md-trello-business, A100);
-$card-border-color: md-color($md-trello-business, A200);
-$card-border-color-hover: md-color($md-trello-business, A400);
+$card-background: mat-color($md-trello-business, A100);
+$card-border-color: mat-color($md-trello-business, A200);
+$card-border-color-hover: mat-color($md-trello-business, A400);
 
 a {
   position: relative;
@@ -21,7 +21,7 @@ a {
   padding: 6px 5px 5px;
   font-size: 10px;
   cursor: move !important;
-  color: md-contrast($md-trello-business, A100);
+  color: mat-contrast($md-trello-business, A100);
   border-left: solid 7px;
   position: relative;
   line-height: 1.3;

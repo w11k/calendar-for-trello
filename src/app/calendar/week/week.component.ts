@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import * as moment from 'moment';
 import {Card} from '../../models/card';
-import {select} from 'ng2-redux';
+import {select} from '@angular-redux/store';
 import {Observable, Subscription} from 'rxjs';
 import {CalendarDay} from '../../models/calendar-day';
 import {DateTimeFormatService} from '../../services/date-time-format.service';

@@ -1,6 +1,6 @@
 import {Component, OnInit, Input, Renderer, ElementRef, HostListener, OnDestroy} from '@angular/core';
 import {CalendarDay} from '../../models/calendar-day';
-import {select} from 'ng2-redux';
+import {select} from '@angular-redux/store';
 import {Observable, Subscription} from 'rxjs';
 import {Card} from '../../models/card';
 import * as moment from 'moment';

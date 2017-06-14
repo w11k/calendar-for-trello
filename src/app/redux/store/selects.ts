@@ -32,6 +32,7 @@ export function selectSettingsLanguage(state: RootState) {
  * 2) should done cards be displayed
  * 3) filter for user
  * */
+
 export const selectVisibleCards = Reselect.createSelector(
   (state: RootState) => state.cards,
   (state: RootState) => state.settings,

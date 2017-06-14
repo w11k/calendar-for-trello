@@ -1,7 +1,7 @@
 // Hint: Action is triggered by user interaction, network request, ...
 
 import {Injectable} from '@angular/core';
-import {NgRedux} from 'ng2-redux';
+import {NgRedux} from '@angular-redux/store';
 import {RootState} from '../store';
 import {CalendarDay} from '../../models/calendar-day';
 import {CalendarService} from '../../services/calendar.service';

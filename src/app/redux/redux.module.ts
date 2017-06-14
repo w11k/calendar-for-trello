@@ -5,8 +5,8 @@ import {CalendarActions} from './actions/calendar-actions';
 import {UserActions} from './actions/user-actions';
 import {BoardActions} from './actions/board-actions';
 import {CardActions} from './actions/card-actions';
-import {NgReduxModule} from 'ng2-redux';
-import {NgReduxRouter} from 'ng2-redux-router';
+import {NgReduxModule} from '@angular-redux/store';
+import {NgReduxRouter} from '@angular-redux/router';
 import {ListActions} from './actions/list-actions';
 
 @NgModule({

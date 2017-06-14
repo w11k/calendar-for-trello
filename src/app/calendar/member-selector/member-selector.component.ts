@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {select} from 'ng2-redux';
+import {select} from '@angular-redux/store';
 import {Member} from '../../models/member';
 import {Observable, Subscription} from 'rxjs';
 import {SettingsActions} from '../../redux/actions/settings-actions';

@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild, ElementRef, Renderer, OnDestroy} from '@angular/core';
 import {Subject, Observable, Subscription} from 'rxjs';
-import {select} from 'ng2-redux';
+import {select} from '@angular-redux/store';
 import {Card} from '../../models/card';
 
 @Component({

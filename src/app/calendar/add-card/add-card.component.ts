@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Card} from '../../models/card';
-import {select} from 'ng2-redux';
+import {select, select$} from '@angular-redux/store';
 import {Observable, Subscription} from 'rxjs';
 import {Board} from '../../models/board';
 import {TrelloHttpService} from '../../services/trello-http.service';
@@ -26,7 +26,8 @@ export class AddCardComponent implements OnInit, OnDestroy {
   public cardForm: FormGroup;
   private subscriptions: Subscription[] = [];
 
-  @select(selectOpenBoards) public boards$: Observable<Board[]>;
+  // @select(selectOpenBoards) public boards$: Observable<Board[]>; //Reselect does not work anymore, please #FIXME
+  @select$('boards', (boards) => boards.filter(board => !board.closed)) public boards$: Observable<Board[]>;
 
   constructor(public dialogRef: MdDialogRef<AddCardComponent>, private tHttp: TrelloHttpService, private formBuilder: FormBuilder) {
   }

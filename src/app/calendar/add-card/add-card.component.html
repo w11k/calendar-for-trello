@@ -4,18 +4,18 @@
 
   <div md-dialog-content>
     <md-input-container class="full-width">
-      <input md-input placeholder="Card Title" formControlName="name">
+      <input mdInput placeholder="Card Title" formControlName="name">
       <md-hint *ngIf="cardForm.get('name').touched && cardForm.get('name').hasError('required')" class="error">
         Card Title is required!
       </md-hint>
     </md-input-container>
 
     <md-input-container class="full-width">
-      <input md-input placeholder="Due Date" formControlName="due" type="datetime-local">
+      <input mdInput placeholder="Due Date" formControlName="due" type="datetime-local">
     </md-input-container>
 
     <md-input-container class="full-width">
-      <input md-input placeholder="Card Description" formControlName="desc">
+      <input mdInput placeholder="Card Description" formControlName="desc">
     </md-input-container>
 
     <div class="md-select-wrapper">

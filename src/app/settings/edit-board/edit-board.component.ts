@@ -1,6 +1,6 @@
 import {Component, OnInit, Input, OnDestroy} from '@angular/core';
 import {Observable, Subscription} from 'rxjs';
-import {select} from 'ng2-redux';
+import {select} from '@angular-redux/store';
 import {SettingsActions} from '../../redux/actions/settings-actions';
 import {Board} from '../../models/board';
 import {selectBoardColorPrefs, selectBoardVisibilityPrefs} from '../../redux/store/selects';

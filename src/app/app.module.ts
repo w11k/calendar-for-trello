@@ -31,6 +31,7 @@ import {SidebarComponent} from './sidebar/sidebar.component';
 import {RavenErrorHandler} from './shared/RavenErrorHandler';
 import {LoadingSpinnerComponent} from './loading-spinner/loading-spinner.component';
 import {MemberActions} from './redux/actions/member-actions';
+import {NoopAnimationsModule} from "@angular/platform-browser/animations";
 
 
 @NgModule({
@@ -53,15 +54,16 @@ import {MemberActions} from './redux/actions/member-actions';
     AboutModule,
     ReduxModule,
     FrontPageModule,
-    MaterialModule.forRoot(),
-    MdCoreModule.forRoot(),
-    MdToolbarModule.forRoot(),
-    MdButtonModule.forRoot(),
-    MdSidenavModule.forRoot(),
-    MdSelectModule.forRoot(),
-    MdListModule.forRoot(),
-    MdCardModule.forRoot(),
-    FlexLayoutModule.forRoot(),
+    MaterialModule,
+    MdCoreModule,
+    MdToolbarModule,
+    MdButtonModule,
+    MdSidenavModule,
+    MdSelectModule,
+    MdListModule,
+    MdCardModule,
+    NoopAnimationsModule,
+    FlexLayoutModule,
   ],
   providers: [
     CalendarService,

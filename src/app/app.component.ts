@@ -1,10 +1,10 @@
 import {Component, OnInit, HostListener, OnDestroy} from '@angular/core';
 import {RootState, enhancers} from './redux/store/index';
-import {NgReduxRouter} from 'ng2-redux-router';
+import {NgReduxRouter} from '@angular-redux/router';
 import reducer from '../app/redux/reducers/index';
 import * as moment from 'moment';
 import {Router, NavigationEnd} from '@angular/router';
-import {NgRedux, select} from 'ng2-redux';
+import {NgRedux, select} from '@angular-redux/store';
 import {TrelloPullService} from './services/trello-pull.service';
 import {Settings} from './models/settings';
 import {Observable, Subscription} from 'rxjs';

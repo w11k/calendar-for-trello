@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import * as moment from 'moment';
 import {Moment} from 'moment';
-import {select} from 'ng2-redux';
+import {select} from '@angular-redux/store';
 import {Observable, Subscription} from 'rxjs';
 import {CalendarActions, PeriodChange} from '../redux/actions/calendar-actions';
 import {SettingsActions, CalendarType} from '../redux/actions/settings-actions';

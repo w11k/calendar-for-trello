@@ -3,7 +3,7 @@
 import {Injectable} from '@angular/core';
 import {NgRedux} from 'ng2-redux';
 import {RootState} from '../store';
-import {Board} from "../../models/board";
+import {Board} from '../../models/board';
 
 @Injectable()
 export class BoardActions {
@@ -25,7 +25,7 @@ export class BoardActions {
   };
 
   public resetStore() {
-    this.ngRedux.dispatch({type: BoardActions.RESET_BOARD_STORE})
+    this.ngRedux.dispatch({type: BoardActions.RESET_BOARD_STORE});
   }
 
 }

@@ -89,7 +89,7 @@ export class CardActions {
   }
 
   public resetStore() {
-    this.ngRedux.dispatch({type: CardActions.RESET_CARD_STORE})
+    this.ngRedux.dispatch({type: CardActions.RESET_CARD_STORE});
   }
 
   public markCardDone(card: Card) {

@@ -1,7 +1,7 @@
-import {Component, OnInit, ViewChild, ElementRef, Renderer} from "@angular/core";
-import {Subject, Observable, Subscription} from "rxjs";
-import {select} from "ng2-redux";
-import {Card} from "../../models/card";
+import {Component, OnInit, ViewChild, ElementRef, Renderer} from '@angular/core';
+import {Subject, Observable, Subscription} from 'rxjs';
+import {select} from 'ng2-redux';
+import {Card} from '../../models/card';
 
 @Component({
   selector: 'app-search',
@@ -14,9 +14,9 @@ export class SearchComponent implements OnInit {
   public results: Card[] = [];
   private subscriptions: Subscription[] = [];
 
-  @select("cards") public cards$: Observable<Card[]>;
+  @select('cards') public cards$: Observable<Card[]>;
 
-  @ViewChild("input") inputEl: ElementRef;
+  @ViewChild('input') inputEl: ElementRef;
 
   constructor(private renderer: Renderer) {
     this.subscriptions.push(
@@ -30,7 +30,7 @@ export class SearchComponent implements OnInit {
           if (term.length > 0) {
             this.results = cards.filter(
               card => card.name.toLocaleLowerCase().indexOf(term.toLocaleLowerCase()) === -1 ? false : true
-            )
+            );
           }
           else {
             this.results = [];

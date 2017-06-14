@@ -1,9 +1,9 @@
-import {Component, OnInit} from "@angular/core";
-import {Observable, Subscription} from "rxjs";
-import {Card} from "../../models/card";
-import {select} from "ng2-redux";
-import * as moment from "moment";
-import {selectVisibleCards} from "../../redux/store/selects";
+import {Component, OnInit} from '@angular/core';
+import {Observable, Subscription} from 'rxjs';
+import {Card} from '../../models/card';
+import {select} from 'ng2-redux';
+import * as moment from 'moment';
+import {selectVisibleCards} from '../../redux/store/selects';
 
 @Component({
   selector: 'app-over-due-area',

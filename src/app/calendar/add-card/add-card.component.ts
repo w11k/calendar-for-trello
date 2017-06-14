@@ -1,15 +1,15 @@
-import {Component, OnInit} from "@angular/core";
-import {Card} from "../../models/card";
-import {select} from "ng2-redux";
-import {Observable, Subscription} from "rxjs";
-import {Board} from "../../models/board";
-import {TrelloHttpService} from "../../services/trello-http.service";
-import {Member} from "../../models/member";
-import {List} from "../../models/list";
-import * as moment from "moment";
-import {MdDialogRef} from "@angular/material";
-import {FormGroup, Validators, FormBuilder} from "@angular/forms";
-import {selectOpenBoards} from "../../redux/store/selects";
+import {Component, OnInit} from '@angular/core';
+import {Card} from '../../models/card';
+import {select} from 'ng2-redux';
+import {Observable, Subscription} from 'rxjs';
+import {Board} from '../../models/board';
+import {TrelloHttpService} from '../../services/trello-http.service';
+import {Member} from '../../models/member';
+import {List} from '../../models/list';
+import * as moment from 'moment';
+import {MdDialogRef} from '@angular/material';
+import {FormGroup, Validators, FormBuilder} from '@angular/forms';
+import {selectOpenBoards} from '../../redux/store/selects';
 
 
 @Component({
@@ -36,7 +36,7 @@ export class AddCardComponent implements OnInit {
 
     this.cardForm = this.formBuilder.group({
       name: [this.card ? this.card.name : '', Validators.required],
-      due: [this.card && this.card.due ? this.card.due : moment().format("YYYY-MM-DD HH:mm").replace(" ", "T"), []],
+      due: [this.card && this.card.due ? this.card.due : moment().format('YYYY-MM-DD HH:mm').replace(' ', 'T'), []],
       desc: [this.card && this.card.desc ? this.card.desc : ''],
       idBoard: [this.card && this.card.idBoard ? this.card.idBoard : null, [Validators.required]],
       idList: [this.card && this.card.idList ? this.card.idList : null, [Validators.required]],
@@ -44,21 +44,21 @@ export class AddCardComponent implements OnInit {
     });
 
 
-    this.subscriptions.push(this.cardForm.get("idBoard").valueChanges.subscribe(boardId => {
+    this.subscriptions.push(this.cardForm.get('idBoard').valueChanges.subscribe(boardId => {
 
       // reset values
       this.members = [];
       this.lists = [];
-      this.cardForm.get("idList").setValue(null);
-      this.cardForm.get("idMembers").setValue(null);
+      this.cardForm.get('idList').setValue(null);
+      this.cardForm.get('idMembers').setValue(null);
 
 
-      this.tHttp.get("boards/" + boardId + "/members")
+      this.tHttp.get('boards/' + boardId + '/members')
         .subscribe(
           success => this.members = success.json(),
           error => this.members = []
         );
-      this.tHttp.get("boards/" + boardId + "/lists")
+      this.tHttp.get('boards/' + boardId + '/lists')
         .subscribe(
           success => this.lists = success.json(),
           error => this.lists = []
@@ -74,13 +74,13 @@ export class AddCardComponent implements OnInit {
 
   onSubmit(cardForm: FormGroup) {
     if (cardForm && cardForm.valid) {
-      this.tHttp.post("cards/", cardForm.value)
+      this.tHttp.post('cards/', cardForm.value)
         .subscribe(
           success => this.dialogRef.close(true),
           error => {
-            throw new Error(error)
+            throw new Error(error);
           }
-        )
+        );
     }
   }
 

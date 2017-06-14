@@ -1,6 +1,6 @@
 // -> Takes previous state + action, returnes new // new state
 import {UserActions} from '../actions/user-actions';
-import {User} from "../../models/user";
+import {User} from '../../models/user';
 
 const initialState = new User();
 
@@ -17,4 +17,4 @@ export default (state: User = initialState, action: any) => {
     default:
       return state;
   }
-}
+};

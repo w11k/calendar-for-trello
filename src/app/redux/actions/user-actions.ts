@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {NgRedux} from 'ng2-redux';
 import {RootState} from '../store';
-import {User} from "../../models/user";
+import {User} from '../../models/user';
 
 @Injectable()
 export class UserActions {
@@ -27,7 +27,7 @@ export class UserActions {
 
 
   public resetStore() {
-    this.ngRedux.dispatch({type: UserActions.RESET_USER_STORE})
+    this.ngRedux.dispatch({type: UserActions.RESET_USER_STORE});
   }
 
 }

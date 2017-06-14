@@ -4,20 +4,20 @@ import {Injectable} from '@angular/core';
 export class DateTimeFormatService {
 
   // returns the correct momentjs format
-  getTimeFormat(language: string = "en"): string {
+  getTimeFormat(language: string = 'en'): string {
     let format;
     switch (language) {
-      case "de":
-        format = "HH:mm";
+      case 'de':
+        format = 'HH:mm';
         break;
-      case "fr":
-        format = "HH:mm";
+      case 'fr':
+        format = 'HH:mm';
         break;
-      case "en":
-        format = "hh a";
+      case 'en':
+        format = 'hh a';
         break;
       default:
-        format = "hh a";
+        format = 'hh a';
     }
     return format;
   }

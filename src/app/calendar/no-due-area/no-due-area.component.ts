@@ -1,8 +1,8 @@
-import {Component, OnInit} from "@angular/core";
-import {Observable, Subscription} from "rxjs";
-import {Card} from "../../models/card";
-import {select} from "ng2-redux";
-import {selectVisibleCards} from "../../redux/store/selects";
+import {Component, OnInit} from '@angular/core';
+import {Observable, Subscription} from 'rxjs';
+import {Card} from '../../models/card';
+import {select} from 'ng2-redux';
+import {selectVisibleCards} from '../../redux/store/selects';
 
 @Component({
   selector: 'app-no-due-area',
@@ -24,7 +24,7 @@ export class NoDueAreaComponent implements OnInit {
       this.cards$.subscribe(
         cards => this.cards = cards.filter(card => !card.due)
       )
-    )
+    );
   }
 
   ngOnDestroy() {

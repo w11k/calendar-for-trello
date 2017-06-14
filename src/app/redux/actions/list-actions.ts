@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
 import {NgRedux} from 'ng2-redux';
 import {RootState} from '../store';
-import {List} from "../../models/list";
-import {Board} from "../../models/board";
+import {List} from '../../models/list';
+import {Board} from '../../models/board';
 
 @Injectable()
 export class ListActions {
@@ -15,7 +15,7 @@ export class ListActions {
 
 
   public resetStore() {
-    this.ngRedux.dispatch({type: ListActions.RESET_LIST_STORE})
+    this.ngRedux.dispatch({type: ListActions.RESET_LIST_STORE});
   }
 
 

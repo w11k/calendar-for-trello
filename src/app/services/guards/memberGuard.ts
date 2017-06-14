@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {CanActivate, Router, RouterStateSnapshot, ActivatedRouteSnapshot} from "@angular/router";
+import {CanActivate, Router, RouterStateSnapshot, ActivatedRouteSnapshot} from '@angular/router';
 
 @Injectable()
 export class MemberGuard implements CanActivate {
@@ -8,7 +8,7 @@ export class MemberGuard implements CanActivate {
   }
 
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    if (localStorage.getItem("token")) {
+    if (localStorage.getItem('token')) {
       return true;
     } else
       this.router.navigate(['/start']);

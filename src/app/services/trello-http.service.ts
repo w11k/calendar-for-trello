@@ -1,8 +1,8 @@
-import {Injectable} from "@angular/core";
-import {Http, Request, RequestOptionsArgs, Response, RequestMethod} from "@angular/http";
-import {Observable} from "rxjs";
-import {TrelloAuthService} from "./trello-auth.service";
-const config = require("../../config.json");
+import {Injectable} from '@angular/core';
+import {Http, Request, RequestOptionsArgs, Response, RequestMethod} from '@angular/http';
+import {Observable} from 'rxjs';
+import {TrelloAuthService} from './trello-auth.service';
+const config = require('../../config.json');
 
 @Injectable()
 export class TrelloHttpService {
@@ -15,39 +15,39 @@ export class TrelloHttpService {
     let options: RequestOptionsArgs = {};
     options.method = RequestMethod.Get;
     if (opts) {
-      Object.assign(options, opts)
+      Object.assign(options, opts);
     }
-    return this._request(url, options, params)
+    return this._request(url, options, params);
   }
 
   put(url: string, body: Object, opts?: RequestOptionsArgs): Observable<Response> {
     let options: RequestOptionsArgs = {};
     options.method = RequestMethod.Put;
     if (opts) {
-      Object.assign(options, opts)
+      Object.assign(options, opts);
     }
     options.body = body;
-    return this._request(url, options)
+    return this._request(url, options);
   }
 
   post(url: string, body?: Object, opts?: RequestOptionsArgs): Observable<Response> {
     let options: RequestOptionsArgs = {};
     options.method = RequestMethod.Post;
     if (opts) {
-      Object.assign(options, opts)
+      Object.assign(options, opts);
     }
     options.body = body;
-    return this._request(url, options)
+    return this._request(url, options);
   }
 
   delete(url: string, body?: Object, opts?: RequestOptionsArgs): Observable<Response> {
     let options: RequestOptionsArgs = {};
     options.method = RequestMethod.Delete;
     if (opts) {
-      Object.assign(options, opts)
+      Object.assign(options, opts);
     }
     options.body = body;
-    return this._request(url, options)
+    return this._request(url, options);
 
   }
 
@@ -57,8 +57,8 @@ export class TrelloHttpService {
     if (!token) {
       return Observable.throw('No Token Provided!');
     }
-    options.url = "https://api.trello.com/1/" + url + "?key=" + config.apiKey + "&token=" + token + (params ? "&" + params : "");
-    return this.http.request(url, options)
+    options.url = 'https://api.trello.com/1/' + url + '?key=' + config.apiKey + '&token=' + token + (params ? '&' + params : '');
+    return this.http.request(url, options);
   }
 }
 

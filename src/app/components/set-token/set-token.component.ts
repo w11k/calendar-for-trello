@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {Router} from "@angular/router";
-import {TrelloPullService} from "../../services/trello-pull.service";
+import {Router} from '@angular/router';
+import {TrelloPullService} from '../../services/trello-pull.service';
 
 @Component({
   selector: 'app-set-token',
@@ -15,7 +15,7 @@ export class SetTokenComponent implements OnInit {
   ngOnInit() {
     let hash = window.location.hash;
     let token = hash.split('=')[1];
-    localStorage.setItem("token", token);
+    localStorage.setItem('token', token);
     this.trelloPullService.pull();
     this.router.navigate(['/']);
   }

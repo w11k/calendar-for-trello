@@ -1,14 +1,14 @@
-import {Component, OnInit} from "@angular/core";
-import * as moment from "moment";
-import {Card} from "../../models/card";
-import {select} from "ng2-redux";
-import {Observable, Subscription} from "rxjs";
-import {CalendarDay} from "../../models/calendar-day";
-import {DateTimeFormatService} from "../../services/date-time-format.service";
-import {DragDropData} from "ng2-dnd";
-import {CardActions} from "../../redux/actions/card-actions";
-import {WeekDaySlot} from "./WeekDaySlot";
-import {selectCalendarDays, selectSettingsLanguage, selectVisibleCards} from "../../redux/store/selects";
+import {Component, OnInit} from '@angular/core';
+import * as moment from 'moment';
+import {Card} from '../../models/card';
+import {select} from 'ng2-redux';
+import {Observable, Subscription} from 'rxjs';
+import {CalendarDay} from '../../models/calendar-day';
+import {DateTimeFormatService} from '../../services/date-time-format.service';
+import {DragDropData} from 'ng2-dnd';
+import {CardActions} from '../../redux/actions/card-actions';
+import {WeekDaySlot} from './WeekDaySlot';
+import {selectCalendarDays, selectSettingsLanguage, selectVisibleCards} from '../../redux/store/selects';
 
 @Component({
   selector: 'app-week',
@@ -46,7 +46,7 @@ export class WeekComponent implements OnInit {
   createHours = (calendarDays: CalendarDay[], cards: Card[], lang) => {
     this.cardHolder = {};
     calendarDays.map(day => {
-      this.cardHolder[moment(day.date).format("MM-DD-YYYY")] = cards.filter(card => moment(card.due).isSame(day.date, "day"))
+      this.cardHolder[moment(day.date).format('MM-DD-YYYY')] = cards.filter(card => moment(card.due).isSame(day.date, 'day'));
       return day;
     });
     for (let i = 0; i < 24; i++) {
@@ -54,13 +54,13 @@ export class WeekComponent implements OnInit {
         let baseDate = moment(calendarDay.date).hours(i).minutes(0).seconds(0).milliseconds(0);
         this.slots.push(
           new WeekDaySlot(baseDate.format(this.dateTimeFormatService.getTimeFormat(lang)),
-            this.cardHolder[moment(calendarDay.date).format("MM-DD-YYYY")].filter(card => i === moment(card.due).hour()),
+            this.cardHolder[moment(calendarDay.date).format('MM-DD-YYYY')].filter(card => i === moment(card.due).hour()),
             calendarDay,
             i
           ));
-      })
+      });
     }
-  };
+  }
 
   onDropSuccess(event: DragDropData, slot: WeekDaySlot) {
     let card: Card = event.dragData;
@@ -68,7 +68,7 @@ export class WeekComponent implements OnInit {
     let seconds = moment(card.due).seconds();
     let hours = slot.hours;
     let due = moment(slot.CalendarDay.date).hours(hours).minutes(minutes).seconds(seconds);
-    this.cardActions.updateCardsDue(card.id, due.toDate())
+    this.cardActions.updateCardsDue(card.id, due.toDate());
   }
 
 

@@ -1,14 +1,14 @@
-import {Component, OnInit, Input, Renderer, ElementRef, HostListener} from "@angular/core";
-import {CalendarDay} from "../../models/calendar-day";
-import {select} from "ng2-redux";
-import {Observable, Subscription} from "rxjs";
-import {Card} from "../../models/card";
-import * as moment from "moment";
-import * as _ from "lodash";
-import {CardActions} from "../../redux/actions/card-actions";
-import {DragDropData} from "ng2-dnd";
-import {ContextMenuService} from "../context-menu-holder/context-menu.service";
-import {selectVisibleCards} from "../../redux/store/selects";
+import {Component, OnInit, Input, Renderer, ElementRef, HostListener} from '@angular/core';
+import {CalendarDay} from '../../models/calendar-day';
+import {select} from 'ng2-redux';
+import {Observable, Subscription} from 'rxjs';
+import {Card} from '../../models/card';
+import * as moment from 'moment';
+import * as _ from 'lodash';
+import {CardActions} from '../../redux/actions/card-actions';
+import {DragDropData} from 'ng2-dnd';
+import {ContextMenuService} from '../context-menu-holder/context-menu.service';
+import {selectVisibleCards} from '../../redux/store/selects';
 import Dictionary = _.Dictionary;
 
 @Component({
@@ -43,18 +43,18 @@ export class CalendarDayForMonthComponent implements OnInit {
   ngOnInit() {
 
     if (this.calendarDay.isDayOff) {
-      this.renderer.setElementClass(this.element.nativeElement, "offsetDay", true);
+      this.renderer.setElementClass(this.element.nativeElement, 'offsetDay', true);
     }
 
     if (this.calendarDay.isToday) {
-      this.renderer.setElementClass(this.element.nativeElement, "today", true);
+      this.renderer.setElementClass(this.element.nativeElement, 'today', true);
     }
 
     this.subscriptions.push(
       this.cards$.subscribe(
         cards => {
           this.cards = cards
-            .filter(card => moment(card.due).isSame(this.calendarDay.date, "day"))
+            .filter(card => moment(card.due).isSame(this.calendarDay.date, 'day'))
             .sort((a, b) => {
               const cardADue = moment(a.due);
               const cardBADue = moment(b.due);

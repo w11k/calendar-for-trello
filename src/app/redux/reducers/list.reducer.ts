@@ -1,5 +1,5 @@
 // -> Takes previous state + action, returnes new // new state
-import {ListActions} from "../actions/list-actions";
+import {ListActions} from '../actions/list-actions';
 
 
 const initialState = {};
@@ -15,4 +15,4 @@ export default (state: Object = initialState, action: any) => {
     default:
       return state;
   }
-}
+};

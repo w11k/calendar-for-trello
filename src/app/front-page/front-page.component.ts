@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {TrelloAuthService} from "../services/trello-auth.service";
+import {TrelloAuthService} from '../services/trello-auth.service';
 import {MdDialog, MdDialogConfig} from '@angular/material';
-import {DialogComponent} from "./dialog/dialog.component";
+import {DialogComponent} from './dialog/dialog.component';
 
 @Component({
   selector: 'app-front-page',

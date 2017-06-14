@@ -1,20 +1,20 @@
-import {Component, OnInit} from "@angular/core";
-import * as moment from "moment";
-import {Moment} from "moment";
-import {select} from "ng2-redux";
-import {Observable, Subscription} from "rxjs";
-import {CalendarActions, PeriodChange} from "../redux/actions/calendar-actions";
-import {SettingsActions, CalendarType} from "../redux/actions/settings-actions";
-import {TrelloPullService} from "../services/trello-pull.service";
-import {Settings} from "../models/settings";
-import {MdDialog} from "@angular/material";
-import {AddCardComponent} from "./add-card/add-card.component";
+import {Component, OnInit} from '@angular/core';
+import * as moment from 'moment';
+import {Moment} from 'moment';
+import {select} from 'ng2-redux';
+import {Observable, Subscription} from 'rxjs';
+import {CalendarActions, PeriodChange} from '../redux/actions/calendar-actions';
+import {SettingsActions, CalendarType} from '../redux/actions/settings-actions';
+import {TrelloPullService} from '../services/trello-pull.service';
+import {Settings} from '../models/settings';
+import {MdDialog} from '@angular/material';
+import {AddCardComponent} from './add-card/add-card.component';
 import {
   selectCalendarDays,
   selectSettingsType,
   selectCalendarDate,
   selectSettingsLanguage
-} from "../redux/store/selects";
+} from '../redux/store/selects';
 
 @Component({
   selector: 'app-calendar',
@@ -32,7 +32,7 @@ export class CalendarComponent implements OnInit {
   @select(selectSettingsLanguage) public language$: Observable<string>;
   public current: string;
 
-  @select("settings") public settings$: Observable<Settings>;
+  @select('settings') public settings$: Observable<Settings>;
   public settings: Settings = new Settings();
   private subscriptions: Subscription[] = [];
 
@@ -58,7 +58,7 @@ export class CalendarComponent implements OnInit {
         .combineLatest(this.language$, this.settings$).subscribe(x => {
         const lang = x[0]; // only needed for async reasons.
         this.settings = x[1];
-        this.calendarActions.buildDays(this._returnCalDate(lang), this.calendarType)
+        this.calendarActions.buildDays(this._returnCalDate(lang), this.calendarType);
       }));
 
   }
@@ -70,7 +70,7 @@ export class CalendarComponent implements OnInit {
   private _returnCalDate(lang?): Moment {
     let date = this.calendarDate ? this.calendarDate.clone() : moment();
     if (lang) {
-      date.locale(lang)
+      date.locale(lang);
     }
     return date;
   }
@@ -92,9 +92,9 @@ export class CalendarComponent implements OnInit {
   public determineCurrent(date: Moment, type: CalendarType) {
     switch (type) {
       case CalendarType.Month:
-        return date.format("MMMM,YYYY");
+        return date.format('MMMM,YYYY');
       case CalendarType.Week:
-        return "KW" + date.format("W, MMMM YYYY");
+        return 'KW' + date.format('W, MMMM YYYY');
     }
   }
 
@@ -116,6 +116,6 @@ export class CalendarComponent implements OnInit {
           }
         }
       )
-    )
+    );
   }
 }

@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Observable, Subscription} from 'rxjs';
 import {Card} from '../../models/card';
 import {select} from 'ng2-redux';
@@ -9,15 +9,15 @@ import {selectVisibleCards} from '../../redux/store/selects';
   templateUrl: './no-due-area.component.html',
   styleUrls: ['./no-due-area.component.scss']
 })
-export class NoDueAreaComponent implements OnInit {
+export class NoDueAreaComponent implements OnInit, OnDestroy {
+
+  @select(selectVisibleCards) public cards$: Observable<Card[]>;
+  private subscriptions: Subscription[] = [];
+  public cards: Card[];
+  public show = false;
 
   constructor() {
   }
-
-  @select(selectVisibleCards) public cards$: Observable<Card[]>;
-
-  private subscriptions: Subscription[] = [];
-  public cards: Card[];
 
   ngOnInit() {
     this.subscriptions.push(

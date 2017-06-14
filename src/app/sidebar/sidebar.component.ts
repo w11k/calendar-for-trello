@@ -1,4 +1,4 @@
-import {Component, OnInit, Input} from '@angular/core';
+import {Component, OnInit, Input, OnDestroy} from '@angular/core';
 import {select} from 'ng2-redux';
 import {Observable, Subscription} from 'rxjs';
 import {User} from '../models/user';
@@ -10,15 +10,14 @@ import {MdSidenav} from '@angular/material';
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.scss']
 })
-export class SidebarComponent implements OnInit {
+export class SidebarComponent implements OnInit, OnDestroy {
 
   @Input('start') start: MdSidenav;
 
   @select('user') public user$: Observable<User>;
   public user: User;
+  public activeSearch: boolean;
   private subscriptions: Subscription[] = [];
-  private activeSearch: boolean;
-
 
   navigation: MenuItem[];
 

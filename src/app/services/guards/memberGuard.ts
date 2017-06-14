@@ -10,8 +10,9 @@ export class MemberGuard implements CanActivate {
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     if (localStorage.getItem('token')) {
       return true;
-    } else
+    } else {
       this.router.navigate(['/start']);
+    }
     return false;
   }
 

@@ -71,7 +71,7 @@ export class CalendarService {
     let days: CalendarDay[] = [];
     let firstDay = date.startOf('month');
     let weekdayOfFirstDay = moment(firstDay).weekday();
-    _.times(weekdayOfFirstDay, ()=> {
+    _.times(weekdayOfFirstDay, () => {
       firstDay.subtract(1, 'day');
       days.push(new CalendarDay(firstDay.toDate(), true));
     });
@@ -108,7 +108,7 @@ export class CalendarService {
         runs = 0;
         break;
     }
-    _.times(runs, ()=> {
+    _.times(runs, () => {
       lastDay.add(1, 'day');
       days.push(new CalendarDay(lastDay.toDate(), true));
     });
@@ -119,7 +119,7 @@ export class CalendarService {
   private _buildWeekDays(date: Moment): CalendarDay[] {
     let days: CalendarDay[] = [];
     date = moment(date).startOf('week');
-    _.times(7, ()=> {
+    _.times(7, () => {
       days.push(new CalendarDay(date.toDate(), false, date.isSame(moment(), 'day')));
       date.add(1, 'day');
     });

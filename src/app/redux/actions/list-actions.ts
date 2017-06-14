@@ -6,13 +6,12 @@ import {Board} from '../../models/board';
 
 @Injectable()
 export class ListActions {
-  constructor(private ngRedux: NgRedux<RootState>) {
-  }
-
   static SET_LIST: string = 'SET_LIST';
   static RESET_LIST_STORE: string = 'RESET_LIST_STORE';
   static UPDATE_PULLED_AT: string = 'UPDATE_PULLED_AT';
 
+  constructor(private ngRedux: NgRedux<RootState>) {
+  }
 
   public resetStore() {
     this.ngRedux.dispatch({type: ListActions.RESET_LIST_STORE});

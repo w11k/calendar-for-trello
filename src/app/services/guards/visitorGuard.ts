@@ -11,8 +11,9 @@ export class VisitorGuard implements CanActivate {
     if (localStorage.getItem('token')) {
       this.router.navigate(['']);
       return false;
-    } else
+    } else {
       return true;
+    }
   }
 
 }

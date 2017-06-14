@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild, ElementRef, Renderer} from '@angular/core';
+import {Component, OnInit, ViewChild, ElementRef, Renderer, OnDestroy} from '@angular/core';
 import {Subject, Observable, Subscription} from 'rxjs';
 import {select} from 'ng2-redux';
 import {Card} from '../../models/card';
@@ -8,7 +8,7 @@ import {Card} from '../../models/card';
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.scss']
 })
-export class SearchComponent implements OnInit {
+export class SearchComponent implements OnInit, OnDestroy {
 
   term$: Subject<string> = new Subject<string>();
   public results: Card[] = [];
@@ -29,10 +29,9 @@ export class SearchComponent implements OnInit {
           const cards: Card[] = x[1];
           if (term.length > 0) {
             this.results = cards.filter(
-              card => card.name.toLocaleLowerCase().indexOf(term.toLocaleLowerCase()) === -1 ? false : true
+              card => card.name.toLocaleLowerCase().indexOf(term.toLocaleLowerCase()) !== -1
             );
-          }
-          else {
+          } else {
             this.results = [];
           }
         }

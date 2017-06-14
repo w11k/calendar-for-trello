@@ -1,4 +1,4 @@
-import {Component, OnInit, Input, HostBinding} from '@angular/core';
+import {Component, OnInit, Input, HostBinding, OnDestroy} from '@angular/core';
 import {Card} from '../../models/card';
 import {select} from 'ng2-redux';
 import {Observable, Subscription} from 'rxjs';
@@ -13,7 +13,7 @@ import {MemberMap} from '../../redux/reducers/member.reducer';
   templateUrl: './calendar-card.component.html',
   styleUrls: ['./calendar-card.component.scss']
 })
-export class CalendarCardComponent implements OnInit {
+export class CalendarCardComponent implements OnInit, OnDestroy {
 
   public list: List;
   public board: Board;

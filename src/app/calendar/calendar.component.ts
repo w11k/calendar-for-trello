@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import * as moment from 'moment';
 import {Moment} from 'moment';
 import {select} from 'ng2-redux';
@@ -21,7 +21,7 @@ import {
   templateUrl: './calendar.component.html',
   styleUrls: ['./calendar.component.scss']
 })
-export class CalendarComponent implements OnInit {
+export class CalendarComponent implements OnInit, OnDestroy {
 
   calendarType: CalendarType;
   CalendarType = CalendarType;
@@ -36,9 +36,9 @@ export class CalendarComponent implements OnInit {
   public settings: Settings = new Settings();
   private subscriptions: Subscription[] = [];
 
-  constructor(public calendarActions: CalendarActions, private settingsActions: SettingsActions, public mdDialog: MdDialog, public trelloPullService: TrelloPullService) {
+  constructor(public calendarActions: CalendarActions, private settingsActions: SettingsActions,
+              public mdDialog: MdDialog, public trelloPullService: TrelloPullService) {
   }
-
 
   ngOnInit() {
 

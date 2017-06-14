@@ -1,4 +1,4 @@
-import {Component, OnInit, HostListener} from '@angular/core';
+import {Component, OnInit, HostListener, OnDestroy} from '@angular/core';
 import {RootState, enhancers} from './redux/store/index';
 import {NgReduxRouter} from 'ng2-redux-router';
 import reducer from '../app/redux/reducers/index';
@@ -26,7 +26,7 @@ declare let ga: Function;
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, OnDestroy {
 
   @select('settings') public settings$: Observable<Settings>;
 
@@ -45,7 +45,7 @@ export class AppComponent implements OnInit {
     members: {}
   };
 
-  private isSidenavOpen = false;
+  public isSidenavOpen = false;
 
   constructor(private ngRedux: NgRedux<RootState>,
               private ngReduxRouter: NgReduxRouter,

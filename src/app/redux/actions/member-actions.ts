@@ -6,13 +6,12 @@ import {Board} from '../../models/board';
 
 @Injectable()
 export class MemberActions {
-  constructor(private ngRedux: NgRedux<RootState>) {
-  }
-
   static SET_MEMBER: string = 'SET_MEMBER';
   static RESET_MEMBER_STORE: string = 'RESET_MEMBER_STORE';
   static UPDATE_PULLED_AT: string = 'UPDATE_PULLED_AT';
 
+  constructor(private ngRedux: NgRedux<RootState>) {
+  }
 
   public resetStore() {
     this.ngRedux.dispatch({type: MemberActions.RESET_MEMBER_STORE});

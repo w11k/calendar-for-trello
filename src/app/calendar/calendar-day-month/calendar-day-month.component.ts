@@ -1,4 +1,4 @@
-import {Component, OnInit, Input, Renderer, ElementRef, HostListener} from '@angular/core';
+import {Component, OnInit, Input, Renderer, ElementRef, HostListener, OnDestroy} from '@angular/core';
 import {CalendarDay} from '../../models/calendar-day';
 import {select} from 'ng2-redux';
 import {Observable, Subscription} from 'rxjs';
@@ -16,7 +16,7 @@ import Dictionary = _.Dictionary;
   templateUrl: './calendar-day-month.component.html',
   styleUrls: ['./calendar-day-month.component.scss'],
 })
-export class CalendarDayForMonthComponent implements OnInit {
+export class CalendarDayForMonthComponent implements OnInit, OnDestroy {
 
   @select(selectVisibleCards) public cards$: Observable<Card[]>;
   @Input() public calendarDay: CalendarDay;

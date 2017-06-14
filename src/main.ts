@@ -15,7 +15,7 @@ const bootstrap = () => {
 };
 
 
-export let IS_UPDATE: boolean = false;
+export let IS_UPDATE = false;
 const PROJECT_VERSION: string = project.version;
 
 function check() {

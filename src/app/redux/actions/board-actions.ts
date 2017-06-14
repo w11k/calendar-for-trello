@@ -7,13 +7,13 @@ import {Board} from '../../models/board';
 
 @Injectable()
 export class BoardActions {
-  constructor(private ngRedux: NgRedux<RootState>) {
-  }
-
   static UPDATE_BOARD_COLOR: string = 'UPDATE_BOARD_COLOR';
   static LOAD_BOARDS: string = 'LOAD_BOARDS';
   static RESET_BOARD_STORE: string = 'RESET_BOARD_STORE';
   static UPDATE_PULLED_AT: string = 'UPDATE_PULLED_AT';
+
+  constructor(private ngRedux: NgRedux<RootState>) {
+  }
 
   public updateBoardColor(id: string, backgroundColor: string) {
     this.ngRedux.dispatch({type: BoardActions.UPDATE_BOARD_COLOR, id, backgroundColor});

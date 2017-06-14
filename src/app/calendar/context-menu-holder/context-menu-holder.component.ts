@@ -9,13 +9,6 @@ import {ContextMenuService} from './context-menu.service';
 })
 export class ContextMenuHolderComponent implements OnInit {
 
-  constructor(private contextMenuService: ContextMenuService) {
-    this.contextMenuService.register(this);
-  }
-
-  ngOnInit() {
-  }
-
   @ViewChild(MdMenuTrigger) trigger: MdMenuTrigger;
   @ViewChild(MdMenu) menu: MdMenu;
 
@@ -23,6 +16,12 @@ export class ContextMenuHolderComponent implements OnInit {
   @HostBinding('style.top') top: string = '200px';
   @HostBinding('style.left') left: string = '200px';
 
+  constructor(private contextMenuService: ContextMenuService) {
+    this.contextMenuService.register(this);
+  }
+
+  ngOnInit() {
+  }
 
   move = (left, top) => {
     this.top = top + 'px';

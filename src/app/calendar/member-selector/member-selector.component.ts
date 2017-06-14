@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {select} from 'ng2-redux';
 import {Member} from '../../models/member';
 import {Observable, Subscription} from 'rxjs';
@@ -11,7 +11,7 @@ import {MemberMap} from '../../redux/reducers/member.reducer';
   templateUrl: './member-selector.component.html',
   styleUrls: ['./member-selector.component.scss']
 })
-export class MemberSelectorComponent implements OnInit {
+export class MemberSelectorComponent implements OnInit, OnDestroy {
 
   private subscriptions: Subscription[] = [];
 
@@ -43,6 +43,7 @@ export class MemberSelectorComponent implements OnInit {
   update(member: Member) {
     this.settingsActions.setFilterForUser(member.id);
   }
+
   ngOnDestroy() {
     this.subscriptions.forEach(subscription => subscription.unsubscribe());
   }

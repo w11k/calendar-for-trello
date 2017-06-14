@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Card} from '../../models/card';
 import {select} from 'ng2-redux';
 import {Observable, Subscription} from 'rxjs';
@@ -17,19 +17,19 @@ import {selectOpenBoards} from '../../redux/store/selects';
   templateUrl: './add-card.component.html',
   styleUrls: ['./add-card.component.scss']
 })
-export class AddCardComponent implements OnInit {
+export class AddCardComponent implements OnInit, OnDestroy {
 
   public card: Card = new Card();
   public boards: Board[] = [];
   public members: Member[] = [];
   public lists: List[] = [];
-  private cardForm: FormGroup;
+  public cardForm: FormGroup;
   private subscriptions: Subscription[] = [];
+
+  @select(selectOpenBoards) public boards$: Observable<Board[]>;
 
   constructor(public dialogRef: MdDialogRef<AddCardComponent>, private tHttp: TrelloHttpService, private formBuilder: FormBuilder) {
   }
-
-  @select(selectOpenBoards) public boards$: Observable<Board[]>;
 
   ngOnInit() {
     this.subscriptions.push(this.boards$.subscribe(boards => this.boards = boards));

@@ -1,4 +1,4 @@
-import {Component, OnInit, Input} from '@angular/core';
+import {Component, OnInit, Input, OnDestroy} from '@angular/core';
 import {Observable, Subscription} from 'rxjs';
 import {select} from 'ng2-redux';
 import {SettingsActions} from '../../redux/actions/settings-actions';
@@ -11,7 +11,7 @@ import {selectBoardColorPrefs, selectBoardVisibilityPrefs} from '../../redux/sto
   templateUrl: './edit-board.component.html',
   styleUrls: ['./edit-board.component.scss']
 })
-export class EditBoardComponent implements OnInit {
+export class EditBoardComponent implements OnInit, OnDestroy {
 
   @select(selectBoardColorPrefs) public boardColorPrefs$: Observable<Object>;
   @select(selectBoardVisibilityPrefs) public boardVisibilityPrefs$: Observable<Object>;
@@ -35,6 +35,17 @@ export class EditBoardComponent implements OnInit {
     {key: 'Gold', name: 'Gold', font: 'rgba(0,0,0,0.75)'},
   ];
   public color: string;
+  public visibility;
+  public visibilities = [
+    {
+        key: true,
+        name: 'Hidden'
+    },
+    {
+        key: false,
+        'name': 'Visible'
+    },
+  ];
   private subscriptions: Subscription[] = [];
 
   @Input() board: Board;
@@ -76,18 +87,6 @@ export class EditBoardComponent implements OnInit {
   ngOnDestroy() {
     this.subscriptions.forEach(subscription => subscription.unsubscribe());
   }
-
-  public visibility;
-  public visibilities = [
-    {
-      key: true,
-      name: 'Hidden'
-    },
-    {
-      key: false,
-      'name': 'Visible'
-    },
-  ];
 
   public updateVisibility(boolStr: boolean) {
     this.settingsActions.setBoardVisibility(this.board.id, boolStr);

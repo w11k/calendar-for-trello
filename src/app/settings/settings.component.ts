@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {select} from 'ng2-redux';
 import {Observable, Subscription} from 'rxjs';
 import {Board} from '../models/board';
@@ -13,7 +13,7 @@ import {selectOpenBoards} from '../redux/store/selects';
   templateUrl: './settings.component.html',
   styleUrls: ['./settings.component.scss']
 })
-export class SettingsComponent implements OnInit {
+export class SettingsComponent implements OnInit, OnDestroy {
 
   public languages: Language[] = [];
   private subscriptions: Subscription[] = [];

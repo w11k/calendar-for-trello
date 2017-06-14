@@ -17,7 +17,7 @@ export class BoardPreferences {
               public canBePublic?: boolean,
               public canBeOrg?: boolean,
               public canBePrivate?: boolean,
-              public canInvite?: boolean,) {
+              public canInvite?: boolean, ) {
   }
 
 }

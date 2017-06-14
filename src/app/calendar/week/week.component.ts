@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import * as moment from 'moment';
 import {Card} from '../../models/card';
 import {select} from 'ng2-redux';
@@ -15,7 +15,7 @@ import {selectCalendarDays, selectSettingsLanguage, selectVisibleCards} from '..
   templateUrl: './week.component.html',
   styleUrls: ['./week.component.scss']
 })
-export class WeekComponent implements OnInit {
+export class WeekComponent implements OnInit, OnDestroy {
 
   private subscription: Subscription = null;
   public slots: WeekDaySlot[] = [];

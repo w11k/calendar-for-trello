@@ -22,8 +22,23 @@
 
 <div class="wrap">
   <app-calendar-toolbar></app-calendar-toolbar>
-  <app-universal-day *ngFor="let day of daySlots" [day]="day" [calendarType]="calendarType$">
-  </app-universal-day>
+  <!--
+  <app-universal-day
+    *ngFor="let day of daySlots"
+    [day]="day"
+    [calendarType]="calendarType$"
+  ></app-universal-day>
+-->
+
+  <ng-container [ngSwitch]="calendarType">
+    <ng-container *ngSwitchCase="CalendarType.Month">
+      <app-calendar-day-month *ngFor="let day of calendar$ | async" [calendarDay]="day"></app-calendar-day-month>
+    </ng-container>
+    <ng-container *ngSwitchCase="CalendarType.Week">
+      <app-week></app-week>
+    </ng-container>
+  </ng-container>
+
 </div>
 
 

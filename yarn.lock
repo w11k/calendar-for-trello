@@ -2,13 +2,13 @@
 # yarn lockfile v1
 
 
-"@angular-redux/router@^2.0.0":
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/@angular-redux/router/-/router-2.0.0.tgz#4ef4f06aacce516398a9c342091aa7167de31929"
+"@angular-redux/router@^6.3.0":
+  version "6.3.0"
+  resolved "https://registry.yarnpkg.com/@angular-redux/router/-/router-6.3.0.tgz#0ece17ad5a4eb8a40f54d7e3a67e67598f03d2cd"
 
-"@angular-redux/store@^5.1.0":
-  version "5.1.0"
-  resolved "https://registry.yarnpkg.com/@angular-redux/store/-/store-5.1.0.tgz#a2277a88b012a4695bf2d0e596d038e6e3c772e3"
+"@angular-redux/store@^6.4.5":
+  version "6.5.3"
+  resolved "https://registry.yarnpkg.com/@angular-redux/store/-/store-6.5.3.tgz#5b8090c3204aa3581c9d6a4e8c145cd997b777a5"
 
 "@angular/animations@^4.2.2":
   version "4.2.2"
@@ -3313,9 +3313,9 @@ negotiator@0.6.1:
   version "0.6.1"
   resolved "https://registry.yarnpkg.com/negotiator/-/negotiator-0.6.1.tgz#2b327184e8992101177b28563fb5e7102acd0ca9"
 
-ng2-dnd@^2.1.1:
-  version "2.1.1"
-  resolved "https://registry.yarnpkg.com/ng2-dnd/-/ng2-dnd-2.1.1.tgz#8eec6d4767dd3f7e3ba6c92573ab6f8448d867ee"
+ng2-dnd@^4.1.0:
+  version "4.2.0"
+  resolved "https://registry.yarnpkg.com/ng2-dnd/-/ng2-dnd-4.2.0.tgz#85d7ac75199f39a3434b7c32b9ab006677b19b59"
 
 no-case@^2.2.0:
   version "2.3.0"
@@ -4419,9 +4419,9 @@ requires-port@1.0.x, requires-port@1.x.x:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/requires-port/-/requires-port-1.0.0.tgz#925d2601d39ac485e091cf0da5c6e694dc3dcaff"
 
-reselect@^2.5.4:
-  version "2.5.4"
-  resolved "https://registry.yarnpkg.com/reselect/-/reselect-2.5.4.tgz#b7d23fdf00b83fa7ad0279546f8dbbbd765c7047"
+reselect@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/reselect/-/reselect-3.0.1.tgz#efdaa98ea7451324d092b2b2163a6a1d7a9a2147"
 
 resolve@^1.1.6, resolve@^1.1.7:
   version "1.1.7"
@@ -5185,7 +5185,7 @@ type-is@~1.6.13:
   version "2.0.8"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-2.0.8.tgz#c249f530890e0f992e71733b2e0554d792cb8970"
 
-typescript@^2.3.4:
+typescript@~2.3.1:
   version "2.3.4"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-2.3.4.tgz#3d38321828231e434f287514959c37a82b629f42"
 

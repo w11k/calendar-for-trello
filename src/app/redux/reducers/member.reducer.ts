@@ -1,7 +1,7 @@
 // -> Takes previous state + action, returnes new // new state
-import {MemberActions} from "../actions/member-actions";
-import {Member} from "../../models/member";
-import {Action} from "./action";
+import {MemberActions} from '../actions/member-actions';
+import {Member} from '../../models/member';
+import {Action} from './action';
 
 export interface MemberMap { [s: string]: Member;
 }
@@ -19,4 +19,4 @@ export default (state: MemberMap = initialState, action: Action<Member>) => {
     default:
       return state;
   }
-}
+};

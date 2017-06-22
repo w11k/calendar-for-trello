@@ -1,16 +1,16 @@
-import {Component, OnInit} from "@angular/core";
-import * as moment from "moment";
-import {select} from "ng2-redux";
-import {Observable, Subscription} from "rxjs";
-import * as _ from "lodash";
-import {selectSettingsLanguage} from "../../redux/store/selects";
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import * as moment from 'moment';
+import {select} from '@angular-redux/store';
+import {Observable, Subscription} from 'rxjs';
+import * as _ from 'lodash';
+import {selectSettingsLanguage} from '../../redux/store/selects';
 
 @Component({
   selector: 'app-calendar-toolbar',
   templateUrl: './calendar-toolbar.component.html',
   styleUrls: ['./calendar-toolbar.component.scss']
 })
-export class CalendarToolbarComponent implements OnInit {
+export class CalendarToolbarComponent implements OnInit, OnDestroy {
 
   public headers: string[] = [];
   private subscriptions: Subscription[] = [];
@@ -36,7 +36,7 @@ export class CalendarToolbarComponent implements OnInit {
     let arr = [];
     _.times(7, () => {
       arr.push(date.format('dddd'));
-      date.add(1, "days")
+      date.add(1, 'days');
     });
     return arr;
   }

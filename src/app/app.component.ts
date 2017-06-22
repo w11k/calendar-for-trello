@@ -1,22 +1,22 @@
-import {Component, OnInit, HostListener} from "@angular/core";
-import {RootState, enhancers} from "./redux/store/index";
-import {NgReduxRouter} from "ng2-redux-router";
-import reducer from "../app/redux/reducers/index";
-import * as moment from "moment";
-import {Router, NavigationEnd} from "@angular/router";
-import {NgRedux, select} from "ng2-redux";
-import {TrelloPullService} from "./services/trello-pull.service";
-import {Settings} from "./models/settings";
-import {Observable, Subscription} from "rxjs";
-import {TrelloAuthService} from "./services/trello-auth.service";
-import {MdSnackBar} from "@angular/material";
-import {IS_UPDATE} from "../main";
-import {SettingsActions} from "./redux/actions/settings-actions";
-import {ListActions} from "./redux/actions/list-actions";
-import {CardActions} from "./redux/actions/card-actions";
-import {UserActions} from "./redux/actions/user-actions";
-import {BoardActions} from "./redux/actions/board-actions";
-const project = require("../../package.json");
+import {Component, OnInit, HostListener, OnDestroy} from '@angular/core';
+import {RootState, enhancers} from './redux/store/index';
+import {NgReduxRouter} from '@angular-redux/router';
+import reducer from '../app/redux/reducers/index';
+import * as moment from 'moment';
+import {Router, NavigationEnd} from '@angular/router';
+import {NgRedux, select} from '@angular-redux/store';
+import {TrelloPullService} from './services/trello-pull.service';
+import {Settings} from './models/settings';
+import {Observable, Subscription} from 'rxjs';
+import {TrelloAuthService} from './services/trello-auth.service';
+import {MdSnackBar} from '@angular/material';
+import {IS_UPDATE} from '../main';
+import {SettingsActions} from './redux/actions/settings-actions';
+import {ListActions} from './redux/actions/list-actions';
+import {CardActions} from './redux/actions/card-actions';
+import {UserActions} from './redux/actions/user-actions';
+import {BoardActions} from './redux/actions/board-actions';
+const project = require('../../package.json');
 declare let ga: Function;
 
 // declare const IS_UPDATE:boolean;
@@ -26,9 +26,9 @@ declare let ga: Function;
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, OnDestroy {
 
-  @select("settings") public settings$: Observable<Settings>;
+  @select('settings') public settings$: Observable<Settings>;
 
   public settings: Settings = new Settings();
   private subscriptions: Subscription[] = [];
@@ -45,7 +45,7 @@ export class AppComponent implements OnInit {
     members: {}
   };
 
-  private isSidenavOpen = false;
+  public isSidenavOpen = false;
 
   constructor(private ngRedux: NgRedux<RootState>,
               private ngReduxRouter: NgReduxRouter,
@@ -55,10 +55,10 @@ export class AppComponent implements OnInit {
               private snackBar: MdSnackBar) {
 
     if (IS_UPDATE) {
-      this.snackBar.open("Calendar for Trello was updated to version " + project.version + "!", "OK")
+      this.snackBar.open('Calendar for Trello was updated to version ' + project.version + '!', 'OK');
     }
 
-    ga('send', 'event', "version", project.version);
+    ga('send', 'event', 'version', project.version);
 
     this.subscriptions.push(
       this.router.events.subscribe(event => {
@@ -93,7 +93,7 @@ export class AppComponent implements OnInit {
       this.settings$.subscribe(settings => this.settings = settings)
     );
 
-    this.checkWidth(window.innerWidth)
+    this.checkWidth(window.innerWidth);
   }
 
 
@@ -103,7 +103,7 @@ export class AppComponent implements OnInit {
 
   @HostListener('window:resize', ['$event'])
   onResize(event) {
-    this.checkWidth(event.target.innerWidth)
+    this.checkWidth(event.target.innerWidth);
   }
 
   checkWidth(width) {
@@ -127,7 +127,7 @@ export class AppComponent implements OnInit {
   }
 
   toIssue() {
-    const win = window.open("https://github.com/w11k/calendar-for-trello/issues", '_blank');
+    const win = window.open('https://github.com/w11k/calendar-for-trello/issues', '_blank');
     win.focus();
   }
 

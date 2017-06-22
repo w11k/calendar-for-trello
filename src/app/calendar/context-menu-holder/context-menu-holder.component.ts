@@ -1,6 +1,6 @@
 import {Component, OnInit, HostBinding, ViewChild} from '@angular/core';
-import {MdMenuTrigger, MdMenu} from "@angular/material";
-import {ContextMenuService} from "./context-menu.service";
+import {MdMenuTrigger, MdMenu} from '@angular/material';
+import {ContextMenuService} from './context-menu.service';
 
 @Component({
   selector: 'app-context-menu-holder',
@@ -9,24 +9,23 @@ import {ContextMenuService} from "./context-menu.service";
 })
 export class ContextMenuHolderComponent implements OnInit {
 
+  @ViewChild(MdMenuTrigger) trigger: MdMenuTrigger;
+  @ViewChild(MdMenu) menu: MdMenu;
+
+
+  @HostBinding('style.top') top: string = '200px';
+  @HostBinding('style.left') left: string = '200px';
+
   constructor(private contextMenuService: ContextMenuService) {
-    this.contextMenuService.register(this)
+    this.contextMenuService.register(this);
   }
 
   ngOnInit() {
   }
 
-  @ViewChild(MdMenuTrigger) trigger: MdMenuTrigger;
-  @ViewChild(MdMenu) menu: MdMenu;
-
-
-  @HostBinding('style.top') top: string = "200px";
-  @HostBinding('style.left') left: string = "200px";
-
-
   move = (left, top) => {
-    this.top = top + "px";
-    this.left = left + "px";
+    this.top = top + 'px';
+    this.left = left + 'px';
     setTimeout(() => {
       this.trigger.openMenu();
 

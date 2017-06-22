@@ -10,7 +10,7 @@ import settingsReducer from './settings.reducer';
 import listReducer from './list.reducer';
 import memberReducer from './member.reducer';
 
-import {routerReducer} from 'ng2-redux-router';
+import {routerReducer} from '@angular-redux/router';
 
 const rootReducer = combineReducers<RootState>({
   router: routerReducer,

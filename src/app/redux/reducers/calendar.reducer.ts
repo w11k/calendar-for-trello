@@ -1,9 +1,9 @@
 // -> Takes previous state + action, returnes new // new state
 import {CalendarActions} from '../actions/calendar-actions';
-import {CalendarDay} from "../../models/calendar-day";
-import {Moment} from "moment";
-import * as moment from "moment";
-import {CalendarType} from "../actions/settings-actions";
+import {CalendarDay} from '../../models/calendar-day';
+import {Moment} from 'moment';
+import * as moment from 'moment';
+import {CalendarType} from '../actions/settings-actions';
 
 export interface CalendarState {
   days: CalendarDay[];
@@ -24,4 +24,4 @@ export default (state: CalendarState = initialState, action: any) => {
     default:
       return state;
   }
-}
+};

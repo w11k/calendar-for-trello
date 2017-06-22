@@ -1,6 +1,6 @@
 // -> Takes previous state + action, returnes new // new state
 import {CardActions} from '../actions/card-actions';
-import {Card} from "../../models/card";
+import {Card} from '../../models/card';
 
 const initialState = [];
 
@@ -11,22 +11,22 @@ export default (state: Card[] = initialState, action: any) => {
     case CardActions.UPDATE_CARD:
       return state.map(card => {
         if (action.id !== card.id) {
-          return card
+          return card;
         }
-        return Object.assign({}, card)
+        return Object.assign({}, card);
       });
     case CardActions.MARK_CARD_DONE:
       return state.map(card => {
         if (action.payload.id !== card.id) {
-          return card
+          return card;
         }
-        return Object.assign({}, card, {dueComplete: !action.payload.dueComplete})
+        return Object.assign({}, card, {dueComplete: !action.payload.dueComplete});
       });
 
     case CardActions.UPDATE_DUE:
       return state.map(card => {
         if (action.id !== card.id) {
-          return card
+          return card;
         }
         return Object.assign({}, card, {due: action.due});
       });
@@ -41,7 +41,7 @@ export default (state: Card[] = initialState, action: any) => {
     case CardActions.REMOVE_DUE:
       return state.map(card => {
         if (action.id !== card.id) {
-          return card
+          return card;
         }
         return Object.assign({}, card, {due: null});
       });
@@ -59,4 +59,4 @@ export default (state: Card[] = initialState, action: any) => {
     default:
       return state;
   }
-}
+};

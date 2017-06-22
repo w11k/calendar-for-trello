@@ -1,9 +1,9 @@
 import {Injectable} from '@angular/core';
-import * as moment from "moment";
-import * as _ from "lodash";
-import {CalendarDay} from "../models/calendar-day";
-import {Moment} from "moment";
-import {CalendarType} from "../redux/actions/settings-actions";
+import * as moment from 'moment';
+import * as _ from 'lodash';
+import {CalendarDay} from '../models/calendar-day';
+import {Moment} from 'moment';
+import {CalendarType} from '../redux/actions/settings-actions';
 
 
 @Injectable()
@@ -41,16 +41,16 @@ export class CalendarService {
           break;
       }
 
-      resolve(days)
+      resolve(days);
 
-    })
+    });
   }
 
   private _buildRegularDaysMonth(date: Moment): CalendarDay[] {
     let days: CalendarDay[] = [];
-    var monthDate = date.startOf('month'); // change to a date in the month of interest
+    let monthDate = date.startOf('month'); // change to a date in the month of interest
     _.times(monthDate.daysInMonth(), n => {
-      days.push(new CalendarDay(monthDate.toDate(), false, date.isSame(moment(), "day")));
+      days.push(new CalendarDay(monthDate.toDate(), false, date.isSame(moment(), 'day')));
       monthDate.add(1, 'day');
     });
     return days;
@@ -71,7 +71,7 @@ export class CalendarService {
     let days: CalendarDay[] = [];
     let firstDay = date.startOf('month');
     let weekdayOfFirstDay = moment(firstDay).weekday();
-    _.times(weekdayOfFirstDay, ()=> {
+    _.times(weekdayOfFirstDay, () => {
       firstDay.subtract(1, 'day');
       days.push(new CalendarDay(firstDay.toDate(), true));
     });
@@ -108,7 +108,7 @@ export class CalendarService {
         runs = 0;
         break;
     }
-    _.times(runs, ()=> {
+    _.times(runs, () => {
       lastDay.add(1, 'day');
       days.push(new CalendarDay(lastDay.toDate(), true));
     });
@@ -119,8 +119,8 @@ export class CalendarService {
   private _buildWeekDays(date: Moment): CalendarDay[] {
     let days: CalendarDay[] = [];
     date = moment(date).startOf('week');
-    _.times(7, ()=> {
-      days.push(new CalendarDay(date.toDate(), false, date.isSame(moment(), "day")));
+    _.times(7, () => {
+      days.push(new CalendarDay(date.toDate(), false, date.isSame(moment(), 'day')));
       date.add(1, 'day');
     });
     return days;

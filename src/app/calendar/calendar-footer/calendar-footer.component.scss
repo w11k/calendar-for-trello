@@ -1,11 +1,11 @@
-@import '~@angular/material/core/theming/theming';
+@import '~@angular/material/theming';
 @import '../../../material/theme';
 
-$remove-due-background: md-color($md-trello-business, A100);
-$remove-due-font: md-contrast($md-trello-business, A100);
+$remove-due-background: mat-color($md-trello-business, A100);
+$remove-due-font: mat-contrast($md-trello-business, A100);
 
-$archive-card-background: md-color($md-trello-business, 100);
-$archive-card-font: md-contrast($md-trello-business, 100);
+$archive-card-background: mat-color($md-trello-business, 100);
+$archive-card-font: mat-contrast($md-trello-business, 100);
 
 .removeDue,
 .archiveCard,

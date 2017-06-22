@@ -1,4 +1,5 @@
 {
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "project": {
     "version": "1.0.0-beta.23",
     "name": "calendar-for-trello"
@@ -13,8 +14,9 @@
       ],
       "index": "index.html",
       "main": "main.ts",
+      "polyfills": "polyfills.ts",
       "test": "test.ts",
-      "tsconfig": "tsconfig.json",
+      "tsconfig": "tsconfig.app.json",
       "prefix": "app",
       "mobile": false,
       "styles": [
@@ -22,8 +24,8 @@
         "../node_modules/ng2-dnd/style.css"
       ],
       "scripts": [],
+      "environmentSource": "environments/environment.ts",
       "environments": {
-        "source": "environments/environment.ts",
         "dev": "environments/environment.ts",
         "prod": "environments/environment.prod.ts",
         "hmr": "environments/environment.hmr.ts"
@@ -37,6 +39,11 @@
       "config": "./protractor.conf.js"
     }
   },
+  "lint": [
+    {
+      "project": "src/tsconfig.app.json"
+    }
+  ],
   "test": {
     "karma": {
       "config": "./karma.conf.js"

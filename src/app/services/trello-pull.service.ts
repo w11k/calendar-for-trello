@@ -1,13 +1,13 @@
-import {Injectable} from "@angular/core";
-import {CardActions} from "../redux/actions/card-actions";
-import {BoardActions} from "../redux/actions/board-actions";
-import {UserActions} from "../redux/actions/user-actions";
-import {TrelloHttpService} from "./trello-http.service";
-import {Board} from "../models/board";
-import * as moment from "moment";
-import {ListActions} from "../redux/actions/list-actions";
-import {Observable, Subject, ReplaySubject} from "rxjs";
-import {MemberActions} from "../redux/actions/member-actions";
+import {Injectable} from '@angular/core';
+import {CardActions} from '../redux/actions/card-actions';
+import {BoardActions} from '../redux/actions/board-actions';
+import {UserActions} from '../redux/actions/user-actions';
+import {TrelloHttpService} from './trello-http.service';
+import {Board} from '../models/board';
+import * as moment from 'moment';
+import {ListActions} from '../redux/actions/list-actions';
+import {Observable, Subject, ReplaySubject} from 'rxjs';
+import {MemberActions} from '../redux/actions/member-actions';
 
 @Injectable()
 export class TrelloPullService {
@@ -25,11 +25,11 @@ export class TrelloPullService {
     this.loadingState$.next(true);
     this._fetchBoards();
     this._fetchUser();
-  };
+  }
 
 
   private _fetchBoards = () => {
-    this.tHttp.get("member/me/boards", null, "filter=open").subscribe(
+    this.tHttp.get('member/me/boards', null, 'filter=open').subscribe(
       data => {
         let boards: Board[] = data.json();
         this.boardActions.loadBoards(boards);
@@ -44,14 +44,14 @@ export class TrelloPullService {
         // no token, do nothing;
       });
 
-  };
+  }
 
   private _fetchUser = () => {
-    this.tHttp.get("/members/me").subscribe(
+    this.tHttp.get('/members/me').subscribe(
       data => this.userActons.addUser(data.json()),
       error => console.log(error)
-    )
-  };
+    );
+  }
 
 
   // determines if each Board in an array is fresh (pulled)
@@ -63,10 +63,10 @@ export class TrelloPullService {
           return moment(board.lastPulledAt).isBefore(moment(board.dateLastActivity));
         } else {
           // board cards are yet not pulled, add it to toLoadBoardArray
-          return true
+          return true;
         }
       });
-  };
+  }
 
   private _loadCardsOfBoard(boards: Board[]) {
     let delay = 50;
@@ -88,31 +88,31 @@ export class TrelloPullService {
     delayedBoards$.subscribe((board) => {
       i++;
       // Fetch Cards of Board
-      let boardRequest = this.tHttp.get("boards/" + board.id + "/cards");
+      let boardRequest = this.tHttp.get('boards/' + board.id + '/cards');
       boardRequest
         .subscribe(
           response => {
-            this.cardActions.rebuildStorePartially(response.json(), board, new Date())
+            this.cardActions.rebuildStorePartially(response.json(), board, new Date());
           }
         );
 
       // Fetch Lists of Board
-      let listRequest = this.tHttp.get("boards/" + board.id + "/lists");
+      let listRequest = this.tHttp.get('boards/' + board.id + '/lists');
       listRequest
         .subscribe(
           response => {
-            this.listActions.rebuildStorePartially(response.json(), board, new Date())
+            this.listActions.rebuildStorePartially(response.json(), board, new Date());
           }
         );
 
 
       // Fetch Members of Board
-      let memberRequest = this.tHttp.get("boards/" + board.id + "/members", null, "fields=all");
+      let memberRequest = this.tHttp.get('boards/' + board.id + '/members', null, 'fields=all');
       memberRequest
         .subscribe(
           response => {
             console.log(response.json());
-            this.memberActions.rebuildStorePartially(response.json(), board, new Date())
+            this.memberActions.rebuildStorePartially(response.json(), board, new Date());
           }
         );
 
@@ -123,8 +123,8 @@ export class TrelloPullService {
           .combineLatest(boardRequest, memberRequest)
           .subscribe(() => {
             // => this is last request
-            this.loadingState$.next(false)
-          })
+            this.loadingState$.next(false);
+          });
       }
     });
   }

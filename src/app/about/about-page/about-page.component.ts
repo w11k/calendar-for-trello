@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-const PROJECT = require("../../../../package.json");
+const PROJECT = require('../../../../package.json');
 
 @Component({
   selector: 'app-about-page',

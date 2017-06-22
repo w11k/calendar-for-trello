@@ -1,5 +1,5 @@
 <md-input-container>
-  <input type="text" md-input placeholder="Card Title" (input)="term$.next($event.target.value)" #input>
+  <input type="text" mdInput placeholder="Card Title" (input)="term$.next($event.target.value)" #input>
 </md-input-container>
 <div *ngIf="results">
   <app-calendar-card

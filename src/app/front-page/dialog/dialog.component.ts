@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {TrelloAuthService} from "../../services/trello-auth.service";
-import {Router} from "@angular/router";
-import {MdDialogRef} from "@angular/material";
+import {TrelloAuthService} from '../../services/trello-auth.service';
+import {Router} from '@angular/router';
+import {MdDialogRef} from '@angular/material';
 
 @Component({
   selector: 'app-dialog',
@@ -22,7 +22,7 @@ export class DialogComponent implements OnInit {
 
   toAbout() {
     this.dialogRef.close();
-    this.router.navigate(["/about"])
+    this.router.navigate(['/about']);
   }
 
 }

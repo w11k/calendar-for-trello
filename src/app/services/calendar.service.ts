@@ -18,7 +18,7 @@ import {
 export class CalendarService {
 
   private static AGENDA_LENGTH = 4;
-  private readonly days$: ReplaySubject<CalendarDay[]> = new ReplaySubject<CalendarDay[]>(1);
+  public readonly days$: ReplaySubject<CalendarDay[]> = new ReplaySubject<CalendarDay[]>(1);
 
   constructor(private ngRedux: NgRedux<RootState>) {
 

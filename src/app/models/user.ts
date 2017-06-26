@@ -1,4 +1,4 @@
-import {Board} from "./board";
+import {Board} from './board';
 export interface Prefs {
   sendSummaries: boolean;
   minutesBetweenSummaries: number;

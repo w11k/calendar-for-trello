@@ -1,4 +1,4 @@
-import {BoardPreferences} from "./board-preferences";
+import {BoardPreferences} from './board-preferences';
 export class Board {
 
 

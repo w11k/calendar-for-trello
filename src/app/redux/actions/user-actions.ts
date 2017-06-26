@@ -1,17 +1,17 @@
 import {Injectable} from '@angular/core';
-import {NgRedux} from 'ng2-redux';
+import {NgRedux} from '@angular-redux/store';
 import {RootState} from '../store';
-import {User} from "../../models/user";
+import {User} from '../../models/user';
 
 @Injectable()
 export class UserActions {
-  constructor(private ngRedux: NgRedux<RootState>) {
-  }
-
   static ADD_USER: string = 'ADD_USER';
   static UPDATE_USER: string = 'UPDATE_USER';
   static REMOVE_USER: string = 'REMOVE_USER';
   static RESET_USER_STORE: string = 'RESET_USER_STORE';
+
+  constructor(private ngRedux: NgRedux<RootState>) {
+  }
 
   public addUser(user: User) {
     this.ngRedux.dispatch({type: UserActions.ADD_USER, payload: user});
@@ -27,7 +27,7 @@ export class UserActions {
 
 
   public resetStore() {
-    this.ngRedux.dispatch({type: UserActions.RESET_USER_STORE})
+    this.ngRedux.dispatch({type: UserActions.RESET_USER_STORE});
   }
 
 }

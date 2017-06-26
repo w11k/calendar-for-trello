@@ -1,11 +1,12 @@
-import {Card} from "../../models/card";
-import {User} from "../../models/user";
-import {Board} from "../../models/board";
-import {CalendarState} from "../reducers/calendar.reducer";
-import {Settings} from "../../models/settings";
-import {Member} from "../../models/member";
+import {Card} from '../../models/card';
+import {User} from '../../models/user';
+import {Board} from '../../models/board';
+import {CalendarState} from '../reducers/calendar.reducer';
+import {Settings} from '../../models/settings';
+import {Member} from '../../models/member';
 
-const persistState = require('redux-localstorage'); // switch with https://www.npmjs.com/package/redux-replicate-localforage? Since localstorage is sync.
+// switch with https://www.npmjs.com/package/redux-replicate-localforage? Since localstorage is sync.
+const persistState = require('redux-localstorage');
 
 export const enhancers = [
   persistState('cards', {key: 'w11k.trello-cal/cards'}),
@@ -25,7 +26,7 @@ export interface RootState {
   boards: Board[];
   user: User;
   calendar: CalendarState;
-  settings: Settings,
-  lists: Object
+  settings: Settings;
+  lists: Object;
   members: Object;
 }

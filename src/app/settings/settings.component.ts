@@ -1,33 +1,32 @@
-import {Component, OnInit} from "@angular/core";
-import {select} from "ng2-redux";
-import {Observable, Subscription} from "rxjs";
-import {Board} from "../models/board";
-import {SettingsActions} from "../redux/actions/settings-actions";
-import {Language} from "./language";
-import {Settings} from "../models/settings";
-import * as moment from "moment";
-import {selectOpenBoards} from "../redux/store/selects";
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {select, select$} from '@angular-redux/store';
+import {Observable, Subscription} from 'rxjs';
+import {Board} from '../models/board';
+import {SettingsActions} from '../redux/actions/settings-actions';
+import {Language} from './language';
+import {Settings} from '../models/settings';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-board-settings',
   templateUrl: './settings.component.html',
   styleUrls: ['./settings.component.scss']
 })
-export class SettingsComponent implements OnInit {
+export class SettingsComponent implements OnInit, OnDestroy {
 
   public languages: Language[] = [];
   private subscriptions: Subscription[] = [];
 
-  @select(selectOpenBoards) public boards$: Observable<Board[]>;
+  @select$('boards', (boards) => boards.filter(board => !board.closed)) public boards$: Observable<Board[]>;
   boards: Board[];
 
-  @select("settings") public settings$: Observable<Settings>;
+  @select('settings') public settings$: Observable<Settings>;
   public settings: Settings = new Settings();
 
   constructor(private settingsActions: SettingsActions) {
-    this.languages.push(new Language("de", "Deutsch"));
-    this.languages.push(new Language("en", "English"));
-    this.languages.push(new Language("fr", "Français"));
+    this.languages.push(new Language('de', 'Deutsch'));
+    this.languages.push(new Language('en', 'English'));
+    this.languages.push(new Language('fr', 'Français'));
   }
 
   public updateLang(locale: string) {

@@ -10,9 +10,17 @@
       </md-hint>
     </md-input-container>
 
-    <md-input-container class="full-width">
-      <input mdInput placeholder="Due Date" formControlName="due" type="datetime-local">
-    </md-input-container>
+    <div class="due-row full-width">
+      <md-input-container class="date-width">
+        <input mdInput [mdDatepicker]="datepicker" placeholder="Due Date" formControlName="dueDate">
+        <button mdSuffix [mdDatepickerToggle]="datepicker"></button>
+      </md-input-container>
+      <md-datepicker #datepicker></md-datepicker>
+
+      <md-input-container class="time-width">
+        <input mdInput placeholder="Due Time" formControlName="dueTime" type="time">
+      </md-input-container>
+    </div>
 
     <md-input-container class="full-width">
       <input mdInput placeholder="Card Description" formControlName="desc">

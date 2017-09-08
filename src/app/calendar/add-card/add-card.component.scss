@@ -3,6 +3,22 @@
   margin-bottom: 20px;
 }
 
+.due-row{
+  margin-top: -10px;
+  margin-bottom: -10px;
+  display: flex;
+  align-items: stretch;
+}
+
+.date-width {
+  width: 75%;
+  margin-bottom: 20px;
+}
+.time-width {
+  margin-left: 10px;
+  margin-bottom: 20px;
+}
+
 .md-select-wrapper {
   position: relative;
   margin-bottom: 20px;

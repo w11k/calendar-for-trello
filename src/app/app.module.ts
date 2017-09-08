@@ -22,7 +22,7 @@ import {CalendarModule} from './calendar/calendar.module';
 import {ReduxModule} from './redux/redux.module';
 import {
   MaterialModule, MdToolbarModule, MdCoreModule, MdButtonModule, MdSidenavModule, MdSelectModule, MdOption, MdSelect,
-  MdListModule, MdCardModule
+  MdListModule, MdCardModule, MdDatepickerModule, MdNativeDateModule
 } from '@angular/material';
 import {FrontPageModule} from './front-page/front-page.module';
 import {FlexLayoutModule} from '@angular/flex-layout';
@@ -62,6 +62,8 @@ import {NoopAnimationsModule} from "@angular/platform-browser/animations";
     MdSelectModule,
     MdListModule,
     MdCardModule,
+    MdDatepickerModule,
+    MdNativeDateModule,
     NoopAnimationsModule,
     FlexLayoutModule,
   ],

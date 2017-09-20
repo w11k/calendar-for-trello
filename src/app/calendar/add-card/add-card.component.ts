@@ -37,7 +37,9 @@ export class AddCardComponent implements OnInit, OnDestroy {
 
     this.cardForm = this.formBuilder.group({
       name: [this.card ? this.card.name : '', Validators.required],
-      due: [this.card && this.card.due ? this.card.due : moment().format('YYYY-MM-DD HH:mm').replace(' ', 'T'), []],
+      due: [this.card && this.card.due ? this.card.due : new Date(), []],
+      dueDate: [this.card && this.card.due ? this.card.due : new Date(), []],
+      dueTime: [this.card && this.card.due ? this.card.due : moment().format('HH:mm'), []],
       desc: [this.card && this.card.desc ? this.card.desc : ''],
       idBoard: [this.card && this.card.idBoard ? this.card.idBoard : null, [Validators.required]],
       idList: [this.card && this.card.idList ? this.card.idList : null, [Validators.required]],
@@ -75,6 +77,8 @@ export class AddCardComponent implements OnInit, OnDestroy {
 
   onSubmit(cardForm: FormGroup) {
     if (cardForm && cardForm.valid) {
+      cardForm.value.due = moment(moment(cardForm.value.dueDate).format("YYYY-MM-DD") + "T" + cardForm.value.dueTime, moment.ISO_8601);
+
       this.tHttp.post('cards/', cardForm.value)
         .subscribe(
           success => this.dialogRef.close(true),

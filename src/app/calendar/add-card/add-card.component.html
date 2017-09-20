@@ -4,46 +4,54 @@
 
   <div md-dialog-content>
     <md-input-container class="full-width">
-      <input mdInput placeholder="Card Title" formControlName="name">
+      <input mdInput placeholder="Card Title *" formControlName="name">
       <md-hint *ngIf="cardForm.get('name').touched && cardForm.get('name').hasError('required')" class="error">
-        Card Title is required!
+        Error: Card Title is required
       </md-hint>
     </md-input-container>
 
-    <md-input-container class="full-width">
-      <input mdInput placeholder="Due Date" formControlName="due" type="datetime-local">
-    </md-input-container>
+    <div class="due-row full-width">
+      <md-input-container class="date-width">
+        <input mdInput [mdDatepicker]="datepicker" placeholder="Due Date" formControlName="dueDate">
+        <button mdSuffix [mdDatepickerToggle]="datepicker"></button>
+      </md-input-container>
+      <md-datepicker #datepicker></md-datepicker>
+
+      <md-input-container class="time-width">
+        <input mdInput placeholder="Due Time" formControlName="dueTime" type="time">
+      </md-input-container>
+    </div>
 
     <md-input-container class="full-width">
       <input mdInput placeholder="Card Description" formControlName="desc">
     </md-input-container>
 
     <div class="md-select-wrapper">
-      <md-select class="full-width" class="full-width" formControlName="idBoard" placeholder="Board">
+      <md-select class="full-width" formControlName="idBoard" placeholder="Board *">
         <md-option *ngFor="let board of boards" [value]="board.id">{{board.name}}</md-option>
       </md-select>
       <md-hint *ngIf="cardForm.get('idBoard').touched && cardForm.get('idBoard').hasError('required')" class="error">
-        Board is required!
+        Error: Board is required
       </md-hint>
     </div>
 
     <div class="md-select-wrapper">
-      <md-select class="full-width" class="full-width" formControlName="idList" placeholder="List">
+      <md-select class="full-width" formControlName="idList" placeholder="List *">
         <md-option *ngFor="let list of lists" [value]="list.id">{{list.name}}</md-option>
       </md-select>
       <md-hint *ngIf="cardForm.get('idList').touched && cardForm.get('idList').hasError('required')" class="error">
-        List is required!
+        Error: List is required
       </md-hint>
     </div>
 
     <div class="md-select-wrapper">
       <!-- ToDo: add support for multiple members - currently blocked because of material2 -->
-      <md-select class="full-width" class="full-width" formControlName="idMembers" multiple placeholder="Members">
+      <md-select class="full-width" formControlName="idMembers" multiple placeholder="Members">
         <md-option *ngFor="let member of members" [value]="member.id">{{member.fullName}}, {{member.username}}
         </md-option>
       </md-select>
     </div>
-
+    <p class="required-hint">* required</p>
   </div>
 
   <div md-dialog-actions fxLayout="row" fxLayoutAlign="end center">

@@ -5,6 +5,7 @@ import {Observable, Subscription} from 'rxjs';
 import {SettingsActions} from '../../redux/actions/settings-actions';
 import {Settings} from '../../models/settings';
 import {MemberMap} from '../../redux/reducers/member.reducer';
+import {MdSelectChange} from '@angular/material';
 
 @Component({
   selector: 'app-member-selector',
@@ -40,8 +41,8 @@ export class MemberSelectorComponent implements OnInit, OnDestroy {
       ));
   }
 
-  update(member: Member) {
-    this.settingsActions.setFilterForUser(member.id);
+  update(event: MdSelectChange) {
+    this.settingsActions.setFilterForUser(event.value);
   }
 
   ngOnDestroy() {

@@ -122,9 +122,9 @@
   dependencies:
     tslib "^1.7.1"
 
-"@angular/material@^2.0.0-beta.6":
-  version "2.0.0-beta.6"
-  resolved "https://registry.yarnpkg.com/@angular/material/-/material-2.0.0-beta.6.tgz#83bfdf00f540a8c7db900a1e7b8ed2cff49df821"
+"@angular/material@2.0.0-beta.7":
+  version "2.0.0-beta.7"
+  resolved "https://registry.yarnpkg.com/@angular/material/-/material-2.0.0-beta.7.tgz#2584aaf1ffbe24779916345f1ac82921ccbc2577"
   dependencies:
     tslib "^1.7.1"
 
@@ -3317,6 +3317,12 @@ ng2-dnd@^4.1.0:
   version "4.2.0"
   resolved "https://registry.yarnpkg.com/ng2-dnd/-/ng2-dnd-4.2.0.tgz#85d7ac75199f39a3434b7c32b9ab006677b19b59"
 
+ng2-rx-componentdestroyed@^1.1.2:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/ng2-rx-componentdestroyed/-/ng2-rx-componentdestroyed-1.1.2.tgz#f3d80e946d2801738ce79014b6f5c270afb1142f"
+  dependencies:
+    rxjs "5.x"
+
 no-case@^2.2.0:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/no-case/-/no-case-2.3.0.tgz#ca2825ccb76b18e6f79d573dcfbf1eace33dd164"
@@ -4479,6 +4485,12 @@ rx-lite-aggregates@^4.0.8:
 rx-lite@*, rx-lite@^4.0.8:
   version "4.0.8"
   resolved "https://registry.yarnpkg.com/rx-lite/-/rx-lite-4.0.8.tgz#0b1e11af8bc44836f04a6407e92da42467b79444"
+
+rxjs@5.x:
+  version "5.4.3"
+  resolved "https://registry.yarnpkg.com/rxjs/-/rxjs-5.4.3.tgz#0758cddee6033d68e0fd53676f0f3596ce3d483f"
+  dependencies:
+    symbol-observable "^1.0.1"
 
 rxjs@^5.0.1, rxjs@^5.1.0:
   version "5.4.0"

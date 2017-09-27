@@ -1,4 +1,4 @@
-<md-select [(ngModel)]="selected" (change)="update($event)">
+<md-select [formControl]="memberCtrl" placeholder="Filter for Member">
   <md-option *ngFor="let member of membersArr" [value]="member.id" >
     {{member.fullName | cutString:10}}
   </md-option>

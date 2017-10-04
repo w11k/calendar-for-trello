@@ -11,6 +11,9 @@ import {MdDialogRef} from '@angular/material';
 import {FormGroup, Validators, FormBuilder} from '@angular/forms';
 import {selectOpenBoards} from '../../redux/store/selects';
 
+export function getOpenBoards(boards) {
+  return boards.filter(board => !board.closed)
+}
 
 @Component({
   selector: 'app-add-card',
@@ -25,9 +28,8 @@ export class AddCardComponent implements OnInit, OnDestroy {
   public lists: List[] = [];
   public cardForm: FormGroup;
   private subscriptions: Subscription[] = [];
-
   // @select(selectOpenBoards) public boards$: Observable<Board[]>; //Reselect does not work anymore, please #FIXME
-  @select$('boards', (boards) => boards.filter(board => !board.closed)) public boards$: Observable<Board[]>;
+  @select$('boards', getOpenBoards) public boards$: Observable<Board[]>;
 
   constructor(public dialogRef: MdDialogRef<AddCardComponent>, private tHttp: TrelloHttpService, private formBuilder: FormBuilder) {
   }

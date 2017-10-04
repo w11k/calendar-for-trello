@@ -6,6 +6,7 @@ import {SettingsActions} from '../redux/actions/settings-actions';
 import {Language} from './language';
 import {Settings} from '../models/settings';
 import * as moment from 'moment';
+import {getOpenBoards} from '../calendar/add-card/add-card.component';
 
 @Component({
   selector: 'app-board-settings',
@@ -17,7 +18,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
   public languages: Language[] = [];
   private subscriptions: Subscription[] = [];
 
-  @select$('boards', (boards) => boards.filter(board => !board.closed)) public boards$: Observable<Board[]>;
+  @select$('boards', getOpenBoards) public boards$: Observable<Board[]>;
   boards: Board[];
 
   @select('settings') public settings$: Observable<Settings>;

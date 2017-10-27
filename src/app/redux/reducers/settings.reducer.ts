@@ -11,17 +11,15 @@ export default (state: Settings = initialState, action: any) => {
     case SettingsActions.RESET_SETTINGS_STORE:
       return initialState;
     case SettingsActions.SET_BOARD_COLOR:
-      return Object.assign({}, state, {
-        boardColorPrefs: {
-          [action.payload.boardId]: action.payload.color
-        }
-      });
+      state.boardColorPrefs[action.payload.boardId] = action.payload.color;
+      return {
+        ...state
+      };
     case SettingsActions.SET_BOARD_VISIBILITY:
-      return Object.assign({}, state, {
-        boardVisibilityPrefs: {
-          [action.payload.boardId]: action.payload.visibility
-        }
-      });
+      state.boardVisibilityPrefs[action.payload.boardId] = action.payload.visibility;
+      return {
+        ...state
+      };
     case SettingsActions.CHANGE_TYPE:
       return Object.assign({}, state, {type: state.type === CalendarType.Month ? CalendarType.Week : CalendarType.Month});
     case SettingsActions.REMOVE_BOARD_PREFERENCES:

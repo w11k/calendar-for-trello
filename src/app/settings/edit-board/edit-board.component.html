@@ -10,7 +10,5 @@
     </md-option>
   </md-select>
 
-  <md-select [(ngModel)]="visibility" (ngModelChange)="updateVisibility($event)">
-    <md-option *ngFor="let state of visibilities" [value]="state.key">{{state.name}}</md-option>
-  </md-select>
+  <mat-slide-toggle [(ngModel)]="visibility" (ngModelChange)="updateVisibility($event)">Invisible</mat-slide-toggle>
 </div>

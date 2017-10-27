@@ -50,10 +50,15 @@ export default (state: Card[] = initialState, action: any) => {
     case CardActions.RESET_CARD_STORE:
       return initialState;
     case CardActions.UPDATE_CARDS_OF_BOARD:
-      // remove all cards from board
+      // 1) remove all cards from board
+      // 2) remove cards, which have been moved to/from another board
       // add fresh loaded cards
       // return store
-      let newStore = state.filter(card => card.idBoard !== action.payload.boardId);
+      let newStore = state.filter(card => {
+        let isNotInUpdatedBoard = card.idBoard !== action.payload.boardId;
+        let cardWasMoved = action.payload.cards.find(c => c.id === card.id);
+        return isNotInUpdatedBoard  && !cardWasMoved;
+      });
       newStore.push(...action.payload.cards);
       return newStore;
     default:

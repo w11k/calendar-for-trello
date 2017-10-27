@@ -1,6 +1,5 @@
 import {RootState} from './index';
 import * as Reselect from 'reselect';
-import * as _ from 'lodash';
 import {Card} from '../../models/card';
 import {Settings} from '../../models/settings';
 import {User} from '../../models/user';
@@ -41,6 +40,11 @@ export const selectVisibleCards = Reselect.createSelector(
     card => !settings.boardVisibilityPrefs[card.idBoard] && (settings.includeDoneCards ? true : !card.dueComplete) &&
     (settings.filterForUser ? card.idMembers.indexOf(settings.filterForUser) > -1 : true)
   )
+);
+
+export const selectClosedBoards = Reselect.createSelector(
+  (state: RootState) => state.boards,
+  (boards: Board[]) => boards.filter(board => board.closed)
 );
 
 export const selectOpenBoards = Reselect.createSelector(

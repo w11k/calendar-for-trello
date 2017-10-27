@@ -8,7 +8,9 @@ import {Board} from '../../models/board';
 @Injectable()
 export class BoardActions {
   static UPDATE_BOARD_COLOR: string = 'UPDATE_BOARD_COLOR';
-  static LOAD_BOARDS: string = 'LOAD_BOARDS';
+  static UPDATE_BOARDS: string = 'UPDATE_BOARDS';
+  static REMOVE_ALL_BOARDS: string = 'REMOVE_ALL_BOARDS';
+  static REMOVE_BOARDS: string = 'REMOVE_BOARDS';
   static RESET_BOARD_STORE: string = 'RESET_BOARD_STORE';
   static UPDATE_PULLED_AT: string = 'UPDATE_PULLED_AT';
 
@@ -19,9 +21,17 @@ export class BoardActions {
     this.ngRedux.dispatch({type: BoardActions.UPDATE_BOARD_COLOR, id, backgroundColor});
   };
 
-  // inserts new cards from API
-  public loadBoards(boards: Board[]) {
-    this.ngRedux.dispatch({type: BoardActions.LOAD_BOARDS, payload: boards});
+  // updates Boards from API
+  public updateBoards(boards: Board[]) {
+    this.ngRedux.dispatch({type: BoardActions.UPDATE_BOARDS, payload: boards});
+  };
+
+  public removeAllBoards() {
+    this.ngRedux.dispatch({type: BoardActions.REMOVE_BOARDS});
+  };
+
+  public removeBoards(boards: Board[]) {
+    this.ngRedux.dispatch({type: BoardActions.REMOVE_BOARDS, payload: boards});
   };
 
   public resetStore() {

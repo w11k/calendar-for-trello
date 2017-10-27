@@ -7,7 +7,7 @@ const initialState = [];
 
 export default (state: Board[] = initialState, action: any) => {
   switch (action.type) {
-    case BoardActions.LOAD_BOARDS:
+    case BoardActions.UPDATE_BOARDS:
       let storeAsObject = _.keyBy(state, 'id');
       return action.payload.map((board: Board) => {
           if (storeAsObject[board.id] && storeAsObject[board.id].lastPulledAt) {
@@ -19,13 +19,10 @@ export default (state: Board[] = initialState, action: any) => {
           return board;
         }
       );
-    // case BoardActions.UPDATE_BOARD_COLOR:
-    //   return state.map(board => {
-    //     if (action.id !== board.id) {
-    //       return board
-    //     }
-    //     return Object.assign({}, board, {backgroundColor: action.backgroundColor});
-    //   });
+    case BoardActions.REMOVE_ALL_BOARDS:
+      return initialState;
+    case BoardActions.REMOVE_BOARDS:
+      return state.filter(board => action.payload.includes(board) === false);
     case BoardActions.RESET_BOARD_STORE:
       return initialState;
     case BoardActions.UPDATE_PULLED_AT:

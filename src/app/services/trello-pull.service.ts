@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {Injectable, OnInit} from '@angular/core';
 import {CardActions} from '../redux/actions/card-actions';
 import {BoardActions} from '../redux/actions/board-actions';
 import {UserActions} from '../redux/actions/user-actions';
@@ -8,10 +8,17 @@ import * as moment from 'moment';
 import {ListActions} from '../redux/actions/list-actions';
 import {Observable, Subject, ReplaySubject} from 'rxjs';
 import {MemberActions} from '../redux/actions/member-actions';
+import * as _ from 'lodash';
+import {select} from '@angular-redux/store';
+import {selectClosedBoards} from '../redux/store/selects';
 
 @Injectable()
 export class TrelloPullService {
+
   public loadingState$: Subject<boolean> = new ReplaySubject();
+
+  @select(selectClosedBoards) private closedBoards$: Observable<Board[]>;
+  private closedBoards: Board[];
 
   constructor(private tHttp: TrelloHttpService,
               public userActons: UserActions,
@@ -21,6 +28,12 @@ export class TrelloPullService {
               private memberActions: MemberActions) {
   }
 
+  /*ngOnInit(): void {
+    this.closedBoards$.subscribe(boards => {
+      this.closedBoards = boards;
+    });
+  }*/
+
   public pull = () => {
     this.loadingState$.next(true);
     this._fetchBoards();
@@ -29,16 +42,30 @@ export class TrelloPullService {
 
 
   private _fetchBoards = () => {
-    this.tHttp.get('member/me/boards', null, 'filter=open').subscribe(
+    this.tHttp.get('member/me/boards', null).subscribe(
       data => {
         let boards: Board[] = data.json();
-        this.boardActions.loadBoards(boards);
-        const toLoadBoards = this._checkBoards(boards);
+
+        let boardsGroupedByClosed = _.groupBy(boards, 'closed');
+
+        let closedBoards = boardsGroupedByClosed['true'];
+
+        if (closedBoards) {
+          this._removeBoards(closedBoards);
+        }
+
+        let openBoards = boardsGroupedByClosed['false'];
+        const toLoadBoards = this._checkBoards(openBoards);
+
         if (toLoadBoards && toLoadBoards.length) {
-          this._loadCardsOfBoard(toLoadBoards);
+
+
+          this._loadCardsOfBoard(openBoards);
         } else {
           this.loadingState$.next(false);
         }
+
+        this.boardActions.updateBoards(boards);
       },
       err => {
         // no token, do nothing;
@@ -117,7 +144,6 @@ export class TrelloPullService {
         );
 
 
-
       if (i === boards.length) {
         Observable
           .combineLatest(boardRequest, memberRequest)
@@ -129,4 +155,19 @@ export class TrelloPullService {
     });
   }
 
+  private _removeBoards(closedBoards: Board[]) {
+
+    this.closedBoards$.take(1).subscribe(closedBoardsStore => {
+
+      //TODO jblankenhorn 27.10.17 # filter not working right ..
+      let toCloseBoards = closedBoardsStore.filter(board => false === closedBoards.find(cb => cb.id === board.id));
+
+      toCloseBoards.forEach(board => {
+        this.cardActions.removeCardsByBoardId(board.id);
+      });
+      this.boardActions.removeBoards(toCloseBoards);
+    });
+
+
+  }
 }

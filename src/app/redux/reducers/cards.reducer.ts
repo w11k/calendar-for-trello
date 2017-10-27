@@ -30,9 +30,9 @@ export default (state: Card[] = initialState, action: any) => {
         }
         return Object.assign({}, card, {due: action.due});
       });
-    case CardActions.REMOVE_CARD:
+    case CardActions.REMOVE_CARDS_BY_BOARDID:
       return state.filter(card => {
-        return card.id !== action.id;
+        return card.idBoard !== action.boardId;
       });
     case CardActions.REBUILD_STORE:
       return [

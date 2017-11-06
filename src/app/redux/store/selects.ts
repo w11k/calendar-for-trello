@@ -24,6 +24,10 @@ export function selectSettingsLanguage(state: RootState) {
   return state.settings.language;
 }
 
+export function selectBoards(state: RootState) {
+  return state.boards;
+}
+
 /**
  * returns the visible cards per User
  * takes care of:

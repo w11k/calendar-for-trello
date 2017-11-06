@@ -10,7 +10,7 @@ import {Observable, Subject, ReplaySubject} from 'rxjs';
 import {MemberActions} from '../redux/actions/member-actions';
 import * as _ from 'lodash';
 import {select} from '@angular-redux/store';
-import {selectClosedBoards} from '../redux/store/selects';
+import {selectBoards, selectClosedBoards} from '../redux/store/selects';
 
 @Injectable()
 export class TrelloPullService {
@@ -18,7 +18,7 @@ export class TrelloPullService {
   public loadingState$: Subject<boolean> = new ReplaySubject();
 
   @select(selectClosedBoards) private closedBoards$: Observable<Board[]>;
-  private closedBoards: Board[];
+  @select(selectBoards) private allBoards$: Observable<Board[]>;
 
   constructor(private tHttp: TrelloHttpService,
               public userActons: UserActions,
@@ -27,12 +27,6 @@ export class TrelloPullService {
               public listActions: ListActions,
               private memberActions: MemberActions) {
   }
-
-  /*ngOnInit(): void {
-    this.closedBoards$.subscribe(boards => {
-      this.closedBoards = boards;
-    });
-  }*/
 
   public pull = () => {
     this.loadingState$.next(true);
@@ -46,15 +40,10 @@ export class TrelloPullService {
       data => {
         let boards: Board[] = data.json();
 
-        let boardsGroupedByClosed = _.groupBy(boards, 'closed');
+        let openBoards = _.filter(boards, {'closed': false});
 
-        let closedBoards = boardsGroupedByClosed['true'];
+        this._removeBoards(openBoards);
 
-        if (closedBoards) {
-          this._removeBoards(closedBoards);
-        }
-
-        let openBoards = boardsGroupedByClosed['false'];
         const toLoadBoards = this._checkBoards(openBoards);
 
         if (toLoadBoards && toLoadBoards.length) {
@@ -155,19 +144,39 @@ export class TrelloPullService {
     });
   }
 
-  private _removeBoards(closedBoards: Board[]) {
+  /**
+   * not the nicest way, of how to remove Boards.
+   * The problem is, boards can either be closed, or completely removed
+   * Closed Boards, are still sent from trello, with the property closed = true
+   * But deleted boards are not sent at all ...
+   */
+  private _removeBoards(openBoards: Board[]) {
 
-    this.closedBoards$.take(1).subscribe(closedBoardsStore => {
+    this.allBoards$.take(1).subscribe(allBoardsStore => {
+      // console.log('allBoardsStore');
+      // console.log(allBoardsStore);
 
-      //TODO jblankenhorn 27.10.17 # filter not working right ..
-      let toCloseBoards = closedBoardsStore.filter(board => false === closedBoards.find(cb => cb.id === board.id));
+      let toCloseBoards = allBoardsStore.filter(board => {
+        let isOpen = openBoards.find(boardFromStore => boardFromStore.id === board.id);
 
-      toCloseBoards.forEach(board => {
-        this.cardActions.removeCardsByBoardId(board.id);
+        if (isOpen) {
+          return false;
+        } else {
+          return true;
+        }
       });
-      this.boardActions.removeBoards(toCloseBoards);
+
+      // console.log('toCloseBoards');
+      // console.log(toCloseBoards);
+
+      if (toCloseBoards.length > 0) {
+        // console.log('Removing ' + toCloseBoards.length + ' boards.');
+        toCloseBoards.forEach(board => {
+          this.cardActions.removeCardsByBoardId(board.id);
+        });
+        this.boardActions.removeBoards(toCloseBoards);
+      }
+
     });
-
-
   }
 }

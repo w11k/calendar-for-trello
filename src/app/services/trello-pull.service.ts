@@ -10,7 +10,7 @@ import {Observable, ReplaySubject, Subject} from 'rxjs';
 import {MemberActions} from '../redux/actions/member-actions';
 import * as _ from 'lodash';
 import {select} from '@angular-redux/store';
-import {selectBoards, selectClosedBoards} from '../redux/store/selects';
+import {selectBoards} from '../redux/store/selects';
 import 'rxjs/add/operator/take';
 
 @Injectable()
@@ -18,7 +18,6 @@ export class TrelloPullService {
 
   public loadingState$: Subject<boolean> = new ReplaySubject();
 
-  // @select(selectClosedBoards) private closedBoards$: Observable<Board[]>;
   @select(selectBoards) private allBoards$: Observable<Board[]>;
 
   constructor(private tHttp: TrelloHttpService,

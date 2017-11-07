@@ -152,31 +152,33 @@ export class TrelloPullService {
    */
   private _removeBoards(openBoards: Board[]) {
 
-    this.allBoards$.take(1).subscribe(allBoardsStore => {
-      // console.log('allBoardsStore');
-      // console.log(allBoardsStore);
+    if (this.allBoards$) {
+      this.allBoards$.take(1).subscribe(allBoardsStore => {
+        // console.log('allBoardsStore');
+        // console.log(allBoardsStore);
 
-      let toCloseBoards = allBoardsStore.filter(board => {
-        let isOpen = openBoards.find(boardFromStore => boardFromStore.id === board.id);
+        let toCloseBoards = allBoardsStore.filter(board => {
+          let isOpen = openBoards.find(boardFromStore => boardFromStore.id === board.id);
 
-        if (isOpen) {
-          return false;
-        } else {
-          return true;
-        }
-      });
-
-      // console.log('toCloseBoards');
-      // console.log(toCloseBoards);
-
-      if (toCloseBoards.length > 0) {
-        // console.log('Removing ' + toCloseBoards.length + ' boards.');
-        toCloseBoards.forEach(board => {
-          this.cardActions.removeCardsByBoardId(board.id);
+          if (isOpen) {
+            return false;
+          } else {
+            return true;
+          }
         });
-        this.boardActions.removeBoards(toCloseBoards);
-      }
 
-    });
+        // console.log('toCloseBoards');
+        // console.log(toCloseBoards);
+
+        if (toCloseBoards.length > 0) {
+          // console.log('Removing ' + toCloseBoards.length + ' boards.');
+          toCloseBoards.forEach(board => {
+            this.cardActions.removeCardsByBoardId(board.id);
+          });
+          this.boardActions.removeBoards(toCloseBoards);
+        }
+
+      });
+    }
   }
 }

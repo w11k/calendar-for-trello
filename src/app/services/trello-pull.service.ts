@@ -11,6 +11,7 @@ import {MemberActions} from '../redux/actions/member-actions';
 import * as _ from 'lodash';
 import {select} from '@angular-redux/store';
 import {selectBoards, selectClosedBoards} from '../redux/store/selects';
+// import 'rxjs/add/operator/take';
 
 @Injectable()
 export class TrelloPullService {

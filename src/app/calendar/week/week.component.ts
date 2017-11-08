@@ -54,7 +54,9 @@ export class WeekComponent implements OnInit, OnDestroy {
         let baseDate = moment(calendarDay.date).hours(i).minutes(0).seconds(0).milliseconds(0);
         this.slots.push(
           new WeekDaySlot(baseDate.format(this.dateTimeFormatService.getTimeFormat(lang)),
-            this.cardHolder[moment(calendarDay.date).format('MM-DD-YYYY')].filter(card => i === moment(card.due).hour()),
+            this.cardHolder[moment(calendarDay.date).format('MM-DD-YYYY')]
+              .filter(card => i === moment(card.due).hour())
+              .sort((a, b) => a.name.localeCompare(b.name)),
             calendarDay,
             i
           ));

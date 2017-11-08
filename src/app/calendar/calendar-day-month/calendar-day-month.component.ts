@@ -64,7 +64,8 @@ export class CalendarDayForMonthComponent implements OnInit, OnDestroy {
               if (cardADue.isAfter(cardBADue)) {
                 return 1;
               }
-              return 0;
+
+              return a.name.localeCompare(b.name);
             });
         }
       ));

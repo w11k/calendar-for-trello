@@ -40,21 +40,18 @@ export class TrelloPullService {
       data => {
         let boards: Board[] = data.json();
 
+        this._removeBoards(boards);
+
         let openBoards = _.filter(boards, {'closed': false});
-
-        this._removeBoards(openBoards);
-
         const toLoadBoards = this._checkBoards(openBoards);
+        this.boardActions.updateBoards(boards);
 
-        if (toLoadBoards && toLoadBoards.length) {
-
-
+        /*if (toLoadBoards && toLoadBoards.length) {
           this._loadCardsOfBoard(openBoards);
         } else {
           this.loadingState$.next(false);
-        }
+        }*/
 
-        this.boardActions.updateBoards(boards);
       },
       err => {
         // no token, do nothing;
@@ -150,35 +147,50 @@ export class TrelloPullService {
    * Closed Boards, are still sent from trello, with the property closed = true
    * But deleted boards are not sent at all ...
    */
-  private _removeBoards(openBoards: Board[]) {
+  private _removeBoards(allBoardsFromTrello: Board[]) {
 
-    if (this.allBoards$) {
-      this.allBoards$.take(1).subscribe(allBoardsStore => {
-        // console.log('allBoardsStore');
-        // console.log(allBoardsStore);
+    this.allBoards$.take(1).subscribe(boardsFromStore => {
+      // console.log('boardsFromStore');
+      // console.log(boardsFromStore);
 
-        let toCloseBoards = allBoardsStore.filter(board => {
-          let isOpen = openBoards.find(boardFromStore => boardFromStore.id === board.id);
+      // Board has to be closed if
+      // open -> closed
+      // not sent from trello
 
-          if (isOpen) {
-            return false;
-          } else {
-            return true;
-          }
-        });
+      let toCloseBoards = boardsFromStore.filter(board => {
 
-        // console.log('toCloseBoards');
-        // console.log(toCloseBoards);
-
-        if (toCloseBoards.length > 0) {
-          // console.log('Removing ' + toCloseBoards.length + ' boards.');
-          toCloseBoards.forEach(board => {
-            this.cardActions.removeCardsByBoardId(board.id);
-          });
-          this.boardActions.removeBoards(toCloseBoards);
+        // board was already closed ... do nothing
+        if (board.closed === true) {
+          return false;
         }
 
+        // board was active, find the matching board sent from trello
+        let boardFromTrello = allBoardsFromTrello.find(boardFromStore => boardFromStore.id === board.id);
+
+        if (boardFromTrello) {
+          // board was closed in trello
+          if (boardFromTrello.closed === true) {
+            return true;
+          } else {
+            return false;
+          }
+          // board was not sent from trello anymore ... must have been deleted
+        } else {
+          return true;
+        }
       });
-    }
+
+      // console.log('toCloseBoards');
+      // console.log(toCloseBoards);
+
+      if (toCloseBoards.length > 0) {
+        // console.log('Removing ' + toCloseBoards.length + ' boards.');
+        toCloseBoards.forEach(board => {
+          this.cardActions.removeCardsByBoardId(board.id);
+        });
+        this.boardActions.removeBoards(toCloseBoards);
+      }
+
+    });
   }
 }

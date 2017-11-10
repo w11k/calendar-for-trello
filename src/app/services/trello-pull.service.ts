@@ -40,17 +40,18 @@ export class TrelloPullService {
       data => {
         let boards: Board[] = data.json();
 
+        // first, remove boards, because otherwise the change in the closed property is not recognized
         this._removeBoards(boards);
+        this.boardActions.updateBoards(boards);
 
         let openBoards = _.filter(boards, {'closed': false});
         const toLoadBoards = this._checkBoards(openBoards);
-        this.boardActions.updateBoards(boards);
 
-        /*if (toLoadBoards && toLoadBoards.length) {
+        if (toLoadBoards && toLoadBoards.length) {
           this._loadCardsOfBoard(openBoards);
         } else {
           this.loadingState$.next(false);
-        }*/
+        }
 
       },
       err => {

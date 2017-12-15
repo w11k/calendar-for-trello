@@ -84,7 +84,7 @@ export class AppComponent implements OnInit, OnDestroy {
       this.settings$.subscribe(
         settings => {
           this.settings = settings;
-          moment.locale(settings.language);
+          // moment.locale(settings.language);
         }
       )
     );

@@ -2,3 +2,12 @@
   max-width: 600px;
   margin: 20px auto;
 }
+
+.week-start-radio-group {
+  display: inline-flex;
+  flex-direction: row;
+}
+
+.week-start-radio-button {
+  margin: 5px;
+}

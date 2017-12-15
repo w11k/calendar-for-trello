@@ -13,22 +13,24 @@
     </div>
   </md-card-content>
 </md-card>
+<md-card class="board-card">
+  <md-card-header>
+    <md-card-title>Wekstart</md-card-title>
+    <md-card-subtitle></md-card-subtitle>
+  </md-card-header>
+  <md-card-content>
 
-<!--<md-card class="board-card">-->
-<!--<md-card-header>-->
-<!--<md-card-title>Show Members</md-card-title>-->
-<!--<md-card-subtitle>Show cards which are marked as done</md-card-subtitle>-->
-<!--</md-card-header>-->
-<!--<md-card-content>-->
-<!--<div style="padding:10px">-->
-<!--<md-select placeholder="" [(ngModel)]="settings.showMembers"-->
-<!--(ngModelChange)="updateShowMembers($event)">-->
-<!--<md-option [value]="true">Show</md-option>-->
-<!--<md-option [value]="false">Hide</md-option>-->
-<!--</md-select>-->
-<!--</div>-->
-<!--</md-card-content>-->
-<!--</md-card>-->
+    <div style="padding:10px">
+      <md-radio-group class="week-start-radio-group" [(ngModel)]="settings.weekStart">
+        <md-radio-button class="week-start-radio-button" *ngFor="let weekstartDay of weekStartDays" [value]="weekstartDay.key">
+          {{weekstartDay.name}}
+        </md-radio-button>
+      </md-radio-group>
+
+    </div>
+  </md-card-content>
+</md-card>
+
 
 
 <md-card class="board-card">

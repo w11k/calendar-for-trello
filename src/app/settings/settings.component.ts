@@ -2,11 +2,11 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {select} from '@angular-redux/store';
 import {Observable, Subscription} from 'rxjs';
 import {Board} from '../models/board';
-import {SettingsActions} from '../redux/actions/settings-actions';
-import {Language} from './language';
+import {SettingsActions, WeekStart} from '../redux/actions/settings-actions';
 import {Settings} from '../models/settings';
 import * as moment from 'moment';
 import {selectOpenBoards} from '../redux/store/selects';
+import {Language, WeekStartWithTranslation} from './setting.models';
 
 @Component({
   selector: 'app-board-settings',
@@ -16,6 +16,10 @@ import {selectOpenBoards} from '../redux/store/selects';
 export class SettingsComponent implements OnInit, OnDestroy {
 
   public languages: Language[] = [];
+  public weekStartDays: WeekStartWithTranslation[] = [
+    new WeekStartWithTranslation(WeekStart.Monday, 'Monday'),
+    new WeekStartWithTranslation(WeekStart.Sunday, 'Sunday')
+  ];
   private subscriptions: Subscription[] = [];
 
   @select(selectOpenBoards) public boards$: Observable<Board[]>;
@@ -31,6 +35,10 @@ export class SettingsComponent implements OnInit, OnDestroy {
   }
 
   public updateLang(locale: string) {
+    this.settingsActions.setLanguage(locale);
+  }
+
+  public updateWekStart(locale: string) {
     this.settingsActions.setLanguage(locale);
   }
 

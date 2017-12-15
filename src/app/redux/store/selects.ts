@@ -23,6 +23,9 @@ export function selectSettingsType(state: RootState) {
 export function selectSettingsLanguage(state: RootState) {
   return state.settings.language;
 }
+export function selectSettingsWeekStart(state: RootState) {
+  return state.settings.weekStart;
+}
 
 export function selectBoards(state: RootState) {
   return state.boards;

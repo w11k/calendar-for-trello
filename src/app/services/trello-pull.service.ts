@@ -125,7 +125,7 @@ export class TrelloPullService {
       memberRequest
         .subscribe(
           response => {
-            console.log(response.json());
+            // console.log(response.json());
             this.memberActions.rebuildStorePartially(response.json(), board, new Date());
           }
         );

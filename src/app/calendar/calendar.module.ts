@@ -10,22 +10,31 @@ import {CalendarToolbarComponent} from './calendar-toolbar/calendar-toolbar.comp
 import {DndModule} from 'ng2-dnd';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AddCardComponent} from './add-card/add-card.component';
-import {MaterialModule} from '@angular/material';
 import {ContextMenuHolderComponent} from './context-menu-holder/context-menu-holder.component';
 import {ContextMenuService} from './context-menu-holder/context-menu.service';
 import {WeekComponent} from './week/week.component';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import { MemberSelectorComponent } from './member-selector/member-selector.component';
 import {CutStringPipe} from '../shared/cut-string.pipe';
+import {
+  MdButtonModule, MdDatepickerModule, MdIconModule, MdInputModule, MdMenuModule, MdSelectModule,
+  MdTooltipModule
+} from "@angular/material";
 
 @NgModule({
   imports: [
     CommonModule,
     DndModule,
     FormsModule,
-    MaterialModule,
     ReactiveFormsModule,
     FlexLayoutModule,
+    MdButtonModule,
+    MdTooltipModule,
+    MdIconModule,
+    MdInputModule,
+    MdSelectModule,
+    MdDatepickerModule,
+    MdMenuModule,
   ],
   declarations: [CalendarComponent,
     CalendarDayForMonthComponent,

@@ -1,5 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
-@import "material/theme";
+@import "../../kill/versions1/src/material/theme";
 @import '~@angular/material/theming';
 
 html {
@@ -21,9 +21,9 @@ body {
 }
 
 .md-hint {
-  &.error {
-    color: red;
-  }
+&.error {
+   color: red;
+ }
 }
 
 .md-sidenav-focus-trap > .cdk-focus-trap-content {

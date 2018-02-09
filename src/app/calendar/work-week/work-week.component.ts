@@ -7,16 +7,16 @@ import {CalendarDay} from '../../models/calendar-day';
 import {DateTimeFormatService} from '../../services/date-time-format.service';
 import {DragDropData} from 'ng2-dnd';
 import {CardActions} from '../../redux/actions/card-actions';
-import {WeekDaySlot} from './WeekDaySlot';
+import {WeekDaySlot} from '../week/WeekDaySlot';
 import {Settings} from '../../models/settings';
 import {selectCalendarDays, selectSettingsLanguage, selectVisibleCards} from '../../redux/store/selects';
 
 @Component({
-  selector: 'app-week',
-  templateUrl: './week.component.html',
-  styleUrls: ['./week.component.scss']
+  selector: 'app-work-week',
+  templateUrl: './work-week.component.html',
+  styleUrls: ['./work-week.component.scss']
 })
-export class WeekComponent implements OnInit, OnDestroy {
+export class WorkWeekComponent implements OnInit, OnDestroy {
 
   private subscriptions: Subscription[] = [];
   public slots: WeekDaySlot[] = [];
@@ -57,6 +57,7 @@ export class WeekComponent implements OnInit, OnDestroy {
 
   createHours = (calendarDays: CalendarDay[], cards: Card[], lang) => {
     this.cardHolder = {};
+    console.log("calendarDays", calendarDays);
     calendarDays.map(day => {
       this.cardHolder[moment(day.date).format('MM-DD-YYYY')] = cards.filter(card => moment(card.due).isSame(day.date, 'day'));
       return day;

@@ -6,7 +6,6 @@ $primary-font: mat-contrast($md-trello-business, 500);
 
 
 .header {
-  width: 14.28%;
   text-align: center;
   color: $primary-font;
   background: $primary;
@@ -16,6 +15,7 @@ $primary-font: mat-contrast($md-trello-business, 500);
   justify-content: flex-start;
   align-content: stretch;
   align-items: stretch;
+  flex-grow: 1;
   padding: 5px;
 }
 

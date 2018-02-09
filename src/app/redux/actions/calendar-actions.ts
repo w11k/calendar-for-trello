@@ -27,8 +27,8 @@ export class CalendarActions {
     this.ngRedux.dispatch({type: CalendarActions.FILL_DAYS, payload: days});
   };
 
-  public buildDays(date: Moment, calendarType: CalendarType = CalendarType.Month) {
-    this.calendarService.buildDaysAsync(date, calendarType)
+  public buildDays(date: Moment, calendarType: CalendarType = CalendarType.Month, weekdays: number = 5) {
+    this.calendarService.buildDaysAsync(date, calendarType, weekdays)
       .then(days => {
         this.ngRedux.dispatch({type: CalendarActions.BUILD_DAYS, payload: days, date: date});
       })
@@ -50,6 +50,7 @@ export class CalendarActions {
         }
         break;
       case CalendarType.Week:
+      case CalendarType.WorkWeek:
         switch (change) {
           case PeriodChange.add:
             date.add(1, 'weeks');

@@ -9,20 +9,29 @@ import {Board} from '../../models/board';
 export function selectBoardColorPrefs(state: RootState) {
   return state.settings.boardColorPrefs;
 }
+
 export function selectBoardVisibilityPrefs(state: RootState) {
   return state.settings.boardVisibilityPrefs;
 }
+
 export function selectCalendarDays(state: RootState) {
   return state.calendar.days;
 }
+
 export function selectCalendarDate(state: RootState) {
   return state.calendar.date;
 }
+
 export function selectSettingsType(state: RootState) {
   return state.settings.type;
 }
+
 export function selectSettingsLanguage(state: RootState) {
   return state.settings.language;
+}
+
+export function selectSettingsWorkdays(state: RootState) {
+  return state.settings.weekDays;
 }
 
 /**
@@ -39,7 +48,7 @@ export const selectVisibleCards = Reselect.createSelector(
   (state: RootState) => state.user,
   (cards: Card[], settings: Settings, user: User) => cards.filter(
     card => !settings.boardVisibilityPrefs[card.idBoard] && (settings.includeDoneCards ? true : !card.dueComplete) &&
-    (settings.filterForUser ? card.idMembers.indexOf(settings.filterForUser) > -1 : true)
+      (settings.filterForUser ? card.idMembers.indexOf(settings.filterForUser) > -1 : true)
   )
 );
 

@@ -41,6 +41,21 @@ export class SettingsComponent implements OnInit, OnDestroy {
     this.settingsActions.toggleShowMembers(includePref);
   }
 
+  public updateWeekviewShowHours(includePref: boolean) {
+    this.settingsActions.toggleWeekviewShowHours(includePref);
+  }
+
+  public updateWeekdays(days: number) {
+    this.settingsActions.setWeekdays(days);
+  }
+
+  public updateBusinessHoursStart(startHour: number) {
+    this.settingsActions.setBusinessHoursStart(startHour);
+  }
+
+  public updateBusinessHoursEnd(endHour: number) {
+    this.settingsActions.setBusinessHoursEnd(endHour);
+  }
 
   ngOnInit() {
     this.subscriptions.push(

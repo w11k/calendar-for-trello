@@ -58,7 +58,7 @@ export class CalendarComponent implements OnInit, OnDestroy {
         .combineLatest(this.language$, this.settings$).subscribe(x => {
         const lang = x[0]; // only needed for async reasons.
         this.settings = x[1];
-        this.calendarActions.buildDays(this._returnCalDate(lang), this.calendarType);
+        this.calendarActions.buildDays(this._returnCalDate(lang), this.calendarType, this.settings.weekDays);
       }));
 
   }
@@ -84,8 +84,9 @@ export class CalendarComponent implements OnInit, OnDestroy {
     this.calendarActions.navigate(this._returnCalDate(), PeriodChange.add, this.calendarType);
   }
 
-  public toggleMode() {
-    this.settingsActions.changeCalendarType();
+  public toggleMode(calendarType: CalendarType) {
+    this.calendarType = calendarType;
+    this.settingsActions.changeCalendarType(calendarType);
     this.calendarActions.buildDays(moment(), this.calendarType);
   }
 
@@ -94,6 +95,7 @@ export class CalendarComponent implements OnInit, OnDestroy {
       case CalendarType.Month:
         return date.format('MMMM,YYYY');
       case CalendarType.Week:
+      case CalendarType.WorkWeek:
         return 'KW' + date.format('W, MMMM YYYY');
     }
   }

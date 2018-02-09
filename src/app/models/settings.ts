@@ -7,4 +7,8 @@ export class Settings {
   public includeDoneCards: boolean = true;
   public filterForUser: string = null;
   public showMembers: boolean = false;
+  public weekViewShowHours: boolean | undefined = true;
+  public weekDays: number | undefined = 5;
+  public businessHoursStart: number | undefined = 9;
+  public businessHoursEnd: number | undefined = 18;
 }

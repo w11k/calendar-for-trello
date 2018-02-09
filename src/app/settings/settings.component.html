@@ -33,6 +33,67 @@
 
 <md-card class="board-card">
   <md-card-header>
+    <md-card-title>Week Views</md-card-title>
+    <md-card-subtitle>Configure your week and work week view</md-card-subtitle>
+  </md-card-header>
+  <md-card-content>
+
+    <div style="padding:10px">
+      <md-checkbox [(ngModel)]="settings.weekViewShowHours" (ngModelChange)="updateWeekviewShowHours($event)">Show
+        hours
+      </md-checkbox>
+    </div>
+
+    <div style="padding:10px">
+      <md-select placeholder="Work days" [(ngModel)]="settings.weekDays"
+                 (ngModelChange)="updateWeekdays($event)">
+        <md-option [value]="5">5</md-option>
+        <md-option [value]="6">6</md-option>
+        <md-option [value]="7">7</md-option>
+      </md-select>
+    </div>
+
+    <div style="padding:10px">
+      <md-select placeholder="Core labor time from" [(ngModel)]="settings.businessHoursStart"
+                 (ngModelChange)="updateBusinessHoursStart($event)">
+        <md-option [value]="0">24 pm</md-option>
+        <md-option [value]="1">1 am</md-option>
+        <md-option [value]="2">2 am</md-option>
+        <md-option [value]="3">3 am</md-option>
+        <md-option [value]="4">4 am</md-option>
+        <md-option [value]="5">5 am</md-option>
+        <md-option [value]="6">6 am</md-option>
+        <md-option [value]="7">7 am</md-option>
+        <md-option [value]="8">8 am</md-option>
+        <md-option [value]="9">9 am</md-option>
+        <md-option [value]="10">10 am</md-option>
+        <md-option [value]="11">11 am</md-option>
+        <md-option [value]="12">12 am</md-option>
+      </md-select>
+    </div>
+
+    <div style="padding:10px">
+      <md-select placeholder="to" [(ngModel)]="settings.businessHoursEnd"
+                 (ngModelChange)="updateBusinessHoursEnd($event)">
+        <md-option [value]="13">1 pm</md-option>
+        <md-option [value]="14">2 pm</md-option>
+        <md-option [value]="15">3 pm</md-option>
+        <md-option [value]="16">4 pm</md-option>
+        <md-option [value]="17">5 pm</md-option>
+        <md-option [value]="18">6 pm</md-option>
+        <md-option [value]="19">7 pm</md-option>
+        <md-option [value]="20">8 pm</md-option>
+        <md-option [value]="21">9 pm</md-option>
+        <md-option [value]="22">10 pm</md-option>
+        <md-option [value]="23">11 pm</md-option>
+        <md-option [value]="24">12 pm</md-option>
+      </md-select>
+    </div>
+  </md-card-content>
+</md-card>
+
+<md-card class="board-card">
+  <md-card-header>
     <md-card-title>Done Cards</md-card-title>
     <md-card-subtitle>Show cards which are marked as done</md-card-subtitle>
   </md-card-header>

@@ -14,8 +14,7 @@ export class CalendarService {
 
   @select(selectSettingsWeekStart) public weekStart$: Observable<WeekStart>;
 
-  public buildDaysAsync(date: Moment = moment(), calendarType: CalendarType): Promise<CalendarDay[]> {
-
+  public buildDaysAsync(date: Moment = moment(), calendarType: CalendarType, weekdays: number): Promise<CalendarDay[]> {
     return new Promise((resolve, reject) => {
 
       let days: CalendarDay[] = [];
@@ -32,7 +31,13 @@ export class CalendarService {
             break;
           case CalendarType.Week:
             days = [
-              ...this._buildWeekDays(date.clone(), weekStart)
+              ...this._buildWeekDays(date.clone(), weekStart, 7)
+            ];
+            break;
+          case CalendarType.WorkWeek:
+            console.log("weekdays",weekdays)
+            days = [
+              ...this._buildWeekDays(date.clone(), weekStart, weekdays)
             ];
             break;
         }
@@ -144,13 +149,16 @@ export class CalendarService {
     return localLang;
   }
 
-  private _buildWeekDays(date: moment.Moment, weekStart: WeekStart): CalendarDay[] {
+  private _buildWeekDays(date: moment.Moment, weekStart: WeekStart, weekdays: number): CalendarDay[] {
     let days: CalendarDay[] = [];
     const firstDay = this.getFirstDayOfWeek(date, weekStart);
     let day = moment(firstDay);
 
     _.times(7, () => {
-      days.push(new CalendarDay(day.toDate(), false, day.isSame(moment(), 'day')));
+      let dayOfWeek = moment(day.toDate()).isoWeekday();
+      if (dayOfWeek <= weekdays) {
+        days.push(new CalendarDay(day.toDate(), false, day.isSame(moment(), 'day')));
+      }
       day.add(1, 'day');
     });
     return days;

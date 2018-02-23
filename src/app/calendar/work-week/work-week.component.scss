@@ -14,7 +14,6 @@ $day-primary: mat-color($md-trello-business, 500);
 }
 
 .day {
-  width: 14.28%;
   border-left: 1px solid $day-border-color;
   padding-right: 2px;
   padding-left: 2px;
@@ -25,6 +24,16 @@ $day-primary: mat-color($md-trello-business, 500);
   justify-content: flex-start;
   align-content: stretch;
   align-items: stretch;
+}
+
+.nighttime{
+  background-color: lightgray;
+}
+
+@for $i from 1 through 7 {
+  .basis#{$i} {
+    width: 100% / $i;
+  }
 }
 
 .slot {
@@ -46,7 +55,6 @@ $day-primary: mat-color($md-trello-business, 500);
     border-style: dashed;
   }
 }
-
 
 .time {
   font-size: 11px;

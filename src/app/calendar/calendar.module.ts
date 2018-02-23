@@ -20,6 +20,7 @@ import {
   MdButtonModule, MdDatepickerModule, MdIconModule, MdInputModule, MdMenuModule, MdSelectModule,
   MdTooltipModule
 } from "@angular/material";
+import { WorkWeekComponent } from './work-week/work-week.component';
 
 @NgModule({
   imports: [
@@ -48,6 +49,7 @@ import {
     WeekComponent,
     MemberSelectorComponent,
     CutStringPipe,
+    WorkWeekComponent,
   ],
   exports: [
     CalendarCardComponent,

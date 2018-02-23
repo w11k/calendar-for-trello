@@ -21,7 +21,7 @@ export default (state: Settings = initialState, action: any) => {
         ...state
       };
     case SettingsActions.CHANGE_TYPE:
-      return Object.assign({}, state, {type: state.type === CalendarType.Month ? CalendarType.Week : CalendarType.Month});
+      return Object.assign({}, state, {type: action.payload});
     case SettingsActions.REMOVE_BOARD_PREFERENCES:
       return Object.assign({}, state, {
         boardColorPrefs: {},
@@ -38,6 +38,22 @@ export default (state: Settings = initialState, action: any) => {
     case SettingsActions.SET_FILTER_FOR_USER:
       return Object.assign({}, state, {
         filterForUser: action.payload
+      });
+    case SettingsActions.TOGGLE_WEEKVIEW_SHOW_HOURS:
+      return Object.assign({}, state, {
+        weekViewShowHours: action.payload as boolean
+      });
+    case SettingsActions.SET_WEEKDAYS:
+      return Object.assign({}, state, {
+        weekDays: action.payload as number
+      });
+    case SettingsActions.SET_BUSINESS_HOURS_START:
+      return Object.assign({}, state, {
+        businessHoursStart: action.payload as number
+      });
+    case SettingsActions.SET_BUSINESS_HOURS_END:
+      return Object.assign({}, state, {
+        businessHoursEnd: action.payload as number
       });
     default:
       return state;

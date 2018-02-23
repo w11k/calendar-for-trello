@@ -15,9 +15,17 @@
             mdTooltip="Create a new Card">
       Add Card
     </button>
-    <button md-raised-button (click)="toggleMode()" color="primary"
-            mdTooltip="{{calendarType === CalendarType.Month ? 'Switch to Week View' : 'Switch to Month View'}}">
-      {{calendarType === CalendarType.Month ? "Week" : "Month"}}
+    <button md-raised-button (click)="toggleMode(CalendarType.Month)" color="primary"
+            mdTooltip="Switch to Month View" *ngIf="calendarType != CalendarType.Month">
+      Month
+    </button>
+    <button md-raised-button (click)="toggleMode(CalendarType.Week)" color="primary"
+            mdTooltip="Switch to Week View" *ngIf="calendarType != CalendarType.Week">
+      Week
+    </button>
+    <button md-raised-button (click)="toggleMode(CalendarType.WorkWeek)" color="primary"
+            mdTooltip="Switch to Work Week View"  *ngIf="calendarType != CalendarType.WorkWeek">
+      Work Week
     </button>
   </div>
 
@@ -31,6 +39,9 @@
     </ng-container>
     <ng-container *ngSwitchCase="CalendarType.Week">
       <app-week></app-week>
+    </ng-container>
+    <ng-container *ngSwitchCase="CalendarType.WorkWeek">
+      <app-work-week></app-work-week>
     </ng-container>
   </ng-container>
 </div>

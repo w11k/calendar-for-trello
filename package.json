@@ -50,7 +50,7 @@
     "zone.js": "^0.8.14"
   },
   "devDependencies": {
-    "@angular/cli": "1.6.0-rc.1",
+    "@angular/cli": "1.7.0",
     "@angular/compiler-cli": "^5.0.0",
     "@angular/language-service": "^5.0.0",
     "@types/hammerjs": "^2.0.33",

@@ -8,6 +8,10 @@ export enum CalendarType {
   Week, Month, WorkWeek
 }
 
+export enum WeekStart {
+  Sunday, Monday
+}
+
 @Injectable()
 export class SettingsActions {
 

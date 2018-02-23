@@ -1,14 +1,14 @@
-import {CalendarForTrelloPage} from './app.po';
+import { AppPage } from './app.po';
 
-describe('calendar-for-trello App', function () {
-  let page: CalendarForTrelloPage;
+describe('versions1 App', () => {
+  let page: AppPage;
 
   beforeEach(() => {
-    page = new CalendarForTrelloPage();
+    page = new AppPage();
   });
 
-  it('should display message saying app works', () => {
+  it('should display welcome message', () => {
     page.navigateTo();
-    expect(page.getParagraphText()).toEqual('app works!');
+    expect(page.getParagraphText()).toEqual('Welcome to app!');
   });
 });

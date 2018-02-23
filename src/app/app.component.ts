@@ -84,7 +84,7 @@ export class AppComponent implements OnInit, OnDestroy {
       this.settings$.subscribe(
         settings => {
           this.settings = settings;
-          moment.locale(settings.language);
+          // moment.locale(settings.language);
         }
       )
     );
@@ -142,6 +142,90 @@ export class AppComponent implements OnInit, OnDestroy {
   toIssue() {
     const win = window.open('https://github.com/w11k/calendar-for-trello/issues', '_blank');
     win.focus();
+  }
+
+  trigger() {
+
+    let myform = document.createElement('form');
+    myform.action = 'https://www.paypal.com/cgi-bin/webscr';
+    myform.method = 'post';
+    myform.target = '_blank';
+    myform.className = 'hidden';
+
+    let cmd = document.createElement('input');
+    cmd.name = 'cmd';
+    cmd.type = 'hidden';
+    cmd.value = '_donations';
+
+    let encrypted = document.createElement('input');
+    encrypted.type = 'hidden';
+    encrypted.name = 'business';
+    encrypted.value = 'payments@w11k.de';
+
+    let lc = document.createElement('input');
+    lc.type = 'hidden';
+    lc.name = 'lc';
+    lc.value = 'GB';
+
+    let itemname = document.createElement('input');
+    itemname.type = 'hidden';
+    itemname.name = 'item_name';
+    itemname.value = 'Trello Calendar - W11K GmbH';
+
+    let itemnumber = document.createElement('input');
+    itemnumber.type = 'hidden';
+    itemnumber.name = 'item_number';
+    itemnumber.value = '2013';
+
+    let note = document.createElement('input');
+    note.type = 'hidden';
+    note.name = 'no_note';
+    note.value = '0';
+
+    let currency = document.createElement('input');
+    currency.type = 'hidden';
+    currency.name = 'currency_code';
+    currency.value = 'USD';
+
+    let bn = document.createElement('input');
+    bn.type = 'hidden';
+    bn.name = 'bn';
+    bn.value = 'PP-DonationsBF:btn_donate_LG.gif:NonHostedGuest';
+
+    let image = document.createElement('input');
+    image.type = 'image';
+    image.src = 'https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif';
+    image.border = '0';
+    image.id = 'Dimage';
+    image.name = 'submit';
+    image.alt = 'PayPal - The safer, easier way to pay online!';
+
+    //Most probably this can be skipped, but I left it in here since it was present in the generated code
+    let pixel: any = document.createElement('image');
+    pixel.border = '0';
+    pixel.alt = '';
+    pixel.src = 'https://www.paypalobjects.com/en_US/i/scr/pixel.gif';
+    pixel.width = '1';
+    pixel.height = '1';
+
+    myform.appendChild(cmd);
+    myform.appendChild(encrypted);
+    myform.appendChild(lc);
+    myform.appendChild(itemname);
+    myform.appendChild(note);
+    myform.appendChild(currency);
+    myform.appendChild(bn);
+    myform.appendChild(image);
+    myform.appendChild(pixel);
+    document.body.appendChild(myform); // Not sure if this step is necessary
+
+    myform.submit();
+
+    // cleanup
+    setTimeout(() => {
+      myform.remove();
+    }, 500);
+
   }
 
 }

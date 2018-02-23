@@ -36,16 +36,6 @@ export class EditBoardComponent implements OnInit, OnDestroy {
   ];
   public color: string;
   public visibility;
-  public visibilities = [
-    {
-        key: true,
-        name: 'Hidden'
-    },
-    {
-        key: false,
-        'name': 'Visible'
-    },
-  ];
   private subscriptions: Subscription[] = [];
 
   @Input() board: Board;

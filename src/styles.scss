@@ -21,9 +21,9 @@ body {
 }
 
 .md-hint {
-  &.error {
-    color: red;
-  }
+&.error {
+   color: red;
+ }
 }
 
 .md-sidenav-focus-trap > .cdk-focus-trap-content {
@@ -37,4 +37,8 @@ html, body {
 
 md-sidenav-layout {
   flex: 1 1 auto;
+}
+
+.hidden {
+  display: none;
 }

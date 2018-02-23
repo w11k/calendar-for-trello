@@ -1,5 +1,5 @@
 import {BrowserModule} from '@angular/platform-browser';
-import {NgModule, ErrorHandler} from '@angular/core';
+import {ErrorHandler, NgModule} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpModule} from '@angular/http';
 
@@ -21,8 +21,9 @@ import {SettingsModule} from './settings/settings.module';
 import {CalendarModule} from './calendar/calendar.module';
 import {ReduxModule} from './redux/redux.module';
 import {
-  MaterialModule, MdToolbarModule, MdCoreModule, MdButtonModule, MdSidenavModule, MdSelectModule, MdOption, MdSelect,
-  MdListModule, MdCardModule, MdDatepickerModule, MdNativeDateModule
+  MdButtonModule, MdCardModule, MdCoreModule, MdDatepickerModule, MdIconModule, MdInputModule, MdListModule, MdMenuModule,
+  MdNativeDateModule,
+  MdSelectModule, MdSidenavModule, MdSnackBarModule, MdToolbarModule
 } from '@angular/material';
 import {FrontPageModule} from './front-page/front-page.module';
 import {FlexLayoutModule} from '@angular/flex-layout';
@@ -31,7 +32,7 @@ import {SidebarComponent} from './sidebar/sidebar.component';
 import {RavenErrorHandler} from './shared/RavenErrorHandler';
 import {LoadingSpinnerComponent} from './loading-spinner/loading-spinner.component';
 import {MemberActions} from './redux/actions/member-actions';
-import {NoopAnimationsModule} from "@angular/platform-browser/animations";
+import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 
 
 @NgModule({
@@ -54,7 +55,6 @@ import {NoopAnimationsModule} from "@angular/platform-browser/animations";
     AboutModule,
     ReduxModule,
     FrontPageModule,
-    MaterialModule,
     MdCoreModule,
     MdToolbarModule,
     MdButtonModule,
@@ -66,6 +66,10 @@ import {NoopAnimationsModule} from "@angular/platform-browser/animations";
     MdNativeDateModule,
     NoopAnimationsModule,
     FlexLayoutModule,
+    MdMenuModule,
+    MdInputModule,
+    MdSnackBarModule,
+    MdIconModule,
   ],
   providers: [
     CalendarService,

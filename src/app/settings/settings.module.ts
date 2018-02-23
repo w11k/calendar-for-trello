@@ -3,7 +3,7 @@ import {CommonModule} from '@angular/common';
 import {SettingsComponent} from './settings.component';
 import {EditBoardComponent} from './edit-board/edit-board.component';
 import {FormsModule} from '@angular/forms';
-import {MdListModule, MdSelectModule, MdCardModule, MdCheckboxModule} from '@angular/material';
+import {MdListModule, MdSelectModule, MdCardModule, MdSlideToggleModule, MdRadioModule, MdIconModule, MdCheckboxModule} from '@angular/material';
 import {FlexLayoutModule} from '@angular/flex-layout';
 
 @NgModule({
@@ -12,8 +12,11 @@ import {FlexLayoutModule} from '@angular/flex-layout';
     FormsModule,
     MdListModule,
     MdSelectModule,
+    MdRadioModule,
     FlexLayoutModule,
     MdCardModule,
+    MdSlideToggleModule,
+    MdIconModule,
     MdCheckboxModule,
   ],
   declarations: [

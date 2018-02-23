@@ -16,7 +16,7 @@ export class CardActions {
   static REMOVE_DUE: string = 'REMOVE_DUE';
   static ARCHIVE_CARD: string = 'ARCHIVE_CARD';
   static MARK_CARD_DONE: string = 'MARK_CARD_DONE';
-  static REMOVE_CARD: string = 'REMOVE_CARD';
+  static REMOVE_CARDS_BY_BOARDID: string = 'REMOVE_CARDS_BY_BOARDID';
   static RESET_CARD_STORE: string = 'RESET_CARD_STORE';
 
   constructor(private ngRedux: NgRedux<RootState>, private tHttp: TrelloHttpService) {
@@ -65,8 +65,8 @@ export class CardActions {
 
   }
 
-  public removeCards(cardId: string) {
-    this.ngRedux.dispatch({type: CardActions.REMOVE_CARD, id: cardId});
+  public removeCardsByBoardId(boardId: string) {
+    this.ngRedux.dispatch({type: CardActions.REMOVE_CARDS_BY_BOARDID, boardId: boardId});
   };
 
   public removeDue(cardId: string) {

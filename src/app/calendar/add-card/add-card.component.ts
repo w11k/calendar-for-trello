@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Card} from '../../models/card';
-import {select, select$} from '@angular-redux/store';
+import {select} from '@angular-redux/store';
 import {Observable, Subscription} from 'rxjs';
 import {Board} from '../../models/board';
 import {TrelloHttpService} from '../../services/trello-http.service';
@@ -8,9 +8,8 @@ import {Member} from '../../models/member';
 import {List} from '../../models/list';
 import * as moment from 'moment';
 import {MdDialogRef} from '@angular/material';
-import {FormGroup, Validators, FormBuilder} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {selectOpenBoards} from '../../redux/store/selects';
-
 
 @Component({
   selector: 'app-add-card',
@@ -25,9 +24,7 @@ export class AddCardComponent implements OnInit, OnDestroy {
   public lists: List[] = [];
   public cardForm: FormGroup;
   private subscriptions: Subscription[] = [];
-
-  // @select(selectOpenBoards) public boards$: Observable<Board[]>; //Reselect does not work anymore, please #FIXME
-  @select$('boards', (boards) => boards.filter(board => !board.closed)) public boards$: Observable<Board[]>;
+  @select(selectOpenBoards) public boards$: Observable<Board[]>;
 
   constructor(public dialogRef: MdDialogRef<AddCardComponent>, private tHttp: TrelloHttpService, private formBuilder: FormBuilder) {
   }
@@ -77,7 +74,7 @@ export class AddCardComponent implements OnInit, OnDestroy {
 
   onSubmit(cardForm: FormGroup) {
     if (cardForm && cardForm.valid) {
-      cardForm.value.due = moment(moment(cardForm.value.dueDate).format("YYYY-MM-DD") + "T" + cardForm.value.dueTime, moment.ISO_8601);
+      cardForm.value.due = moment(moment(cardForm.value.dueDate).format('YYYY-MM-DD') + 'T' + cardForm.value.dueTime, moment.ISO_8601);
 
       this.tHttp.post('cards/', cardForm.value)
         .subscribe(

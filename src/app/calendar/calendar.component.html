@@ -1,4 +1,7 @@
-<div class="navigation">
+<div class="navigation flex-container">
+  <div class="left">
+
+
   <button md-icon-button md-raised-button color="primary" (click)="previous()">
     <md-icon>chevron_left</md-icon>
   </button>
@@ -7,9 +10,10 @@
     <md-icon>chevron_right</md-icon>
   </button>
   {{current}}
+  </div>
 
 
-  <div class="pull-right">
+  <div class="right">
     <app-member-selector></app-member-selector>
     <button md-raised-button (click)="addCard()" color="primary" i18n="Button label: create a new card"
             mdTooltip="Create a new Card">

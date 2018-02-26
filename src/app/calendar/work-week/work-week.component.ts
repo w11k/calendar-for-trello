@@ -57,39 +57,40 @@ export class WorkWeekComponent implements OnInit, OnDestroy {
 
   createHours = (calendarDays: CalendarDay[], cards: Card[], lang) => {
     this.cardHolder = {};
-    console.log("calendarDays", calendarDays);
+    console.log('calendarDays', calendarDays);
     calendarDays.map(day => {
       this.cardHolder[moment(day.date).format('MM-DD-YYYY')] = cards.filter(card => moment(card.due).isSame(day.date, 'day'));
       return day;
     });
     for (let i = 0; i < 24; i++) {
       calendarDays.forEach((calendarDay) => {
-          let baseDate = moment(calendarDay.date).hours(i).minutes(0).seconds(0).milliseconds(0);
+          const baseDate = moment(calendarDay.date).hours(i).minutes(0).seconds(0).milliseconds(0);
           this.slots.push(
             new WeekDaySlot(baseDate.format(this.dateTimeFormatService.getTimeFormat(lang)),
-              this.cardHolder[moment(calendarDay.date).format('MM-DD-YYYY')].filter(card => i === moment(card.due).hour()),
+              this.cardHolder[moment(calendarDay.date).format('MM-DD-YYYY')]
+                .filter(card => i === moment(card.due).hour())
+                .sort((a, b) => a.name.localeCompare(b.name)),
               calendarDay,
               i
             ));
         }
       );
     }
-  }
+  };
 
   onDropSuccess(event: DragDropData, slot: WeekDaySlot) {
-    let card: Card = event.dragData;
-    let minutes = moment(card.due).minutes();
-    let seconds = moment(card.due).seconds();
+    const card: Card = event.dragData;
+    const minutes = moment(card.due).minutes();
+    const seconds = moment(card.due).seconds();
 
     let hours;
     if (this.settings.weekViewShowHours) {
       hours = slot.hours;
-    }
-    else {
+    } else {
       hours = moment(card.due).hours();
     }
 
-    let due = moment(slot.CalendarDay.date).hours(hours).minutes(minutes).seconds(seconds);
+    const due = moment(slot.CalendarDay.date).hours(hours).minutes(minutes).seconds(seconds);
     this.cardActions.updateCardsDue(card.id, due.toDate());
   }
 

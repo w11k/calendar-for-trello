@@ -28,6 +28,7 @@ export class CalendarCardComponent implements OnInit, OnDestroy {
   @HostBinding('style.border-left-color') borderLeft;
   @HostBinding('class.dueComplete') dueComplete;
   @Input() public card: Card;
+  @Input() public showTime: Boolean = false;
 
   constructor() {
   }

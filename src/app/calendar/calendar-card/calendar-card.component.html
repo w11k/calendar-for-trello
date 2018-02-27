@@ -5,11 +5,10 @@
 </div>
 
 <div class="right">
-  <br>
   <div class="memberPictures">
     <ng-container *ngFor="let id of card.idMembers">
       <img *ngIf="getAvatar(id)" src="https://trello-avatars.s3.amazonaws.com/{{getAvatar(id)}}/50.png">
     </ng-container>
   </div>
-  <span class="due">{{card.dueComplete ? "✔" : card.due | date:'shortTime'}}</span>
+  <span class="due" *ngIf="showTime">{{card.dueComplete ? "✔" : card.due | date:'shortTime'}}</span>
 </div>

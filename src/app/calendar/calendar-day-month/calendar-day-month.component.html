@@ -9,6 +9,7 @@
   <app-calendar-card
     *ngFor="let card of cards"
     [card]="card"
+    [showTime]="true"
     dnd-draggable
     [dragData]="card"
     [dragEnabled]="true"

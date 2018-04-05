@@ -3,7 +3,7 @@ import {CommonModule} from '@angular/common';
 import {FrontPageComponent} from './front-page.component';
 import {DialogComponent} from './dialog/dialog.component';
 import {CalendarModule} from '../calendar/calendar.module';
-import {MdIconModule, MdToolbarModule} from '@angular/material';
+import {MdButtonModule, MdIconModule, MdToolbarModule} from '@angular/material';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {AboutModule} from '../about/about.module';
 import {RouterModule} from '@angular/router';
@@ -17,6 +17,7 @@ import {RouterModule} from '@angular/router';
     AboutModule,
     RouterModule,
     MdIconModule,
+    MdButtonModule,
   ],
   declarations: [
     FrontPageComponent,

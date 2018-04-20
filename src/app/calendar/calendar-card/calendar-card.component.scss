@@ -55,6 +55,7 @@ a {
 
   &.dueComplete {
     opacity: .7;
+    background: darken($card-background, 20%);
     .title {
       text-decoration: line-through;
       &:hover {

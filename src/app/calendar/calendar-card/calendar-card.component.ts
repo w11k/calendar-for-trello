@@ -1,4 +1,4 @@
-import {Component, OnInit, Input, HostBinding, OnDestroy} from '@angular/core';
+import {Component, OnInit, Input, HostBinding, OnDestroy, ChangeDetectionStrategy} from '@angular/core';
 import {Card} from '../../models/card';
 import {select} from '@angular-redux/store';
 import {Observable, Subscription} from 'rxjs';
@@ -11,7 +11,8 @@ import {MemberMap} from '../../redux/reducers/member.reducer';
 @Component({
   selector: 'app-calendar-card',
   templateUrl: './calendar-card.component.html',
-  styleUrls: ['./calendar-card.component.scss']
+  styleUrls: ['./calendar-card.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CalendarCardComponent implements OnInit, OnDestroy {
 

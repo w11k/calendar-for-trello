@@ -1,10 +1,10 @@
 <div class="left">
   <a href="{{card.url}}" target="_blank" class="title" title="{{card.name}}">{{card.name}} </a>
-  <div class="list" title="{{list?.name}}">{{list?.name}}</div>
-  <a href="{{board?.url}}" class="board" target="_blank" title="{{board?.name}}">{{board?.name}}</a>
+  <div *ngIf="!card.dueComplete" class="list" title="{{list?.name}}">{{list?.name}}</div>
+  <a *ngIf="!card.dueComplete"href="{{board?.url}}" class="board" target="_blank" title="{{board?.name}}">{{board?.name}}</a>
 </div>
 
-<div class="right">
+<div class="right" *ngIf="!card.dueComplete">
   <div class="memberPictures">
     <ng-container *ngFor="let id of card.idMembers">
       <img *ngIf="getAvatar(id)" src="https://trello-avatars.s3.amazonaws.com/{{getAvatar(id)}}/50.png">
@@ -12,3 +12,4 @@
   </div>
   <span class="due" *ngIf="showTime">{{card.dueComplete ? "✔" : card.due | date:'shortTime'}}</span>
 </div>
+

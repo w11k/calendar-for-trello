@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {DragDropData} from 'ng2-dnd';
 import {CardActions} from '../../redux/actions/card-actions';
 import {Card} from '../../models/card';
+import {DropZoneService} from '../../services/drop-zone.service';
+import {Observable} from 'rxjs/Observable';
 
 @Component({
   selector: 'app-calendar-footer',
@@ -9,11 +11,13 @@ import {Card} from '../../models/card';
   styleUrls: ['./calendar-footer.component.scss']
 })
 export class CalendarFooterComponent implements OnInit {
+  private show$: Observable<boolean>;
 
-  constructor(public cardActions: CardActions) {
+  constructor(public cardActions: CardActions, private dropZoneService: DropZoneService) {
   }
 
   ngOnInit() {
+    this.show$ = this.dropZoneService.getUpdates();
   }
 
   removeDue(event: DragDropData) {

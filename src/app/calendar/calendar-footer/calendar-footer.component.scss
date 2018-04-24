@@ -7,6 +7,12 @@ $remove-due-font: mat-contrast($md-trello-business, A100);
 $archive-card-background: mat-color($md-trello-business, 100);
 $archive-card-font: mat-contrast($md-trello-business, 100);
 
+:host {
+  position: fixed;
+  top: 0;
+  left: 100px;
+}
+
 .removeDue,
 .archiveCard,
 .markDone {

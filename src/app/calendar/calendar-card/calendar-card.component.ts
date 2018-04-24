@@ -7,6 +7,7 @@ import * as _ from 'lodash';
 import {List} from '../../models/list';
 import {selectBoardColorPrefs} from '../../redux/store/selects';
 import {MemberMap} from '../../redux/reducers/member.reducer';
+import {DraggableComponent} from 'ng2-dnd';
 
 @Component({
   selector: 'app-calendar-card',

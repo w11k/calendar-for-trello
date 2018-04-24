@@ -38,7 +38,7 @@
     "intl": "^1.2.5",
     "lodash": "^4.17.2",
     "moment": "^2.15.1",
-    "ng2-dnd": "^2.1.1",
+    "ng2-dnd": "^4.1.0",
     "ng2-rx-componentdestroyed": "^1.1.2",
     "raven-js": "^3.8.1",
     "redux": "^3.6.0",

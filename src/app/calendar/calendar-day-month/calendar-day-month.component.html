@@ -13,6 +13,8 @@
     dnd-draggable
     [dragData]="card"
     [dragEnabled]="true"
+    (onDragStart)="dragStart($event)"
+    (onDragEnd)="dragEnd($event)"
   ></app-calendar-card>
 </div>
 

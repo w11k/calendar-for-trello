@@ -6,11 +6,11 @@ import {DropZoneService} from '../../services/drop-zone.service';
 import {Observable} from 'rxjs/Observable';
 
 @Component({
-  selector: 'app-calendar-footer',
-  templateUrl: './calendar-footer.component.html',
-  styleUrls: ['./calendar-footer.component.scss']
+  selector: 'app-card-drop-zone',
+  templateUrl: './card-drop-zone.component.html',
+  styleUrls: ['./card-drop-zone.component.scss']
 })
-export class CalendarFooterComponent implements OnInit {
+export class CardDropZoneComponent implements OnInit {
   private show$: Observable<boolean>;
 
   constructor(public cardActions: CardActions, private dropZoneService: DropZoneService) {

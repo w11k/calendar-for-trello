@@ -101,12 +101,10 @@ export class WorkWeekComponent implements OnInit, OnDestroy {
   }
 
   dragStart($event: DragDropData) {
-    console.log("dragStart " + $event);
     this.dropZoneService.dragStart();
   }
 
   dragEnd($event: DragDropData) {
-    console.log("dragEnd " + $event);
     this.dropZoneService.dragStop();
   }
 }

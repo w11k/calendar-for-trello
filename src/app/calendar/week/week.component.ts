@@ -10,6 +10,7 @@ import {CardActions} from '../../redux/actions/card-actions';
 import {WeekDaySlot} from './WeekDaySlot';
 import {Settings} from '../../models/settings';
 import {selectCalendarDays, selectSettingsLanguage, selectVisibleCards} from '../../redux/store/selects';
+import {DropZoneService} from '../../services/drop-zone.service';
 
 @Component({
   selector: 'app-week',
@@ -31,7 +32,7 @@ export class WeekComponent implements OnInit, OnDestroy {
   @select('settings') public settings$: Observable<Settings>;
   public settings: Settings = new Settings();
 
-  constructor(private dateTimeFormatService: DateTimeFormatService, private cardActions: CardActions) {
+  constructor(private dateTimeFormatService: DateTimeFormatService, private cardActions: CardActions, private dropZoneService: DropZoneService) {
   }
 
   ngOnInit() {
@@ -97,5 +98,13 @@ export class WeekComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.subscriptions.forEach(subscription => subscription.unsubscribe());
+  }
+
+  dragStart($event: DragDropData) {
+    this.dropZoneService.dragStart();
+  }
+
+  dragEnd($event: DragDropData) {
+    this.dropZoneService.dragStop();
   }
 }

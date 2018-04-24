@@ -9,8 +9,10 @@ $archive-card-font: mat-contrast($md-trello-business, 100);
 
 :host {
   position: fixed;
+  width: 80%;
   top: 0;
-  left: 100px;
+  left: 10%;
+  z-index: 100;
 }
 
 .removeDue,

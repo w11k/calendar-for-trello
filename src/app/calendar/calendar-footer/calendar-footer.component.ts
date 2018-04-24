@@ -23,6 +23,7 @@ export class CalendarFooterComponent implements OnInit {
 
   archiveCard(event: DragDropData) {
     let card: Card = event.dragData;
+    this.cardActions.markCardDone(card);
     this.cardActions.archiveCard(card.id);
   }
 

@@ -43,6 +43,7 @@
   -webkit-align-self: flex-start;
   -ms-flex-item-align: start;
   align-self: flex-start;
+  padding-left: 18px;
 }
 
 .right {
@@ -55,4 +56,5 @@
   -webkit-align-self: auto;
   -ms-flex-item-align: auto;
   align-self: auto;
+  padding-right: 35px;
 }

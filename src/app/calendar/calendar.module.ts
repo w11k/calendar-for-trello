@@ -30,6 +30,7 @@ import { WorkWeekComponent } from './work-week/work-week.component';
     ReactiveFormsModule,
     FlexLayoutModule,
     MdButtonModule,
+    MdMenuModule,
     MdTooltipModule,
     MdIconModule,
     MdInputModule,

@@ -6,7 +6,7 @@ $card-border-color: #e0e0e0;
 $card-border-color-hover: #bdbdbd;
 
 $card-background: mat-color($md-trello-business, A100);
-$card-border-color: mat-color($md-trello-business, A200);
+$card-border-color: mat-color($md-trello-business, A100);
 $card-border-color-hover: mat-color($md-trello-business, A400);
 
 a {
@@ -87,24 +87,52 @@ a {
 .right {
   float: right;
   width: 30%;
-  margin-top: 3px;
+  //margin-top: 3px;
   position: relative;
+
   .due {
+    float: left;
+    width: 50%;
+  }
+
+  $context-menu-size: 12px;
+  .contextMenu {
+    float: right;
+
+    .mat-icon-button {
+      width: $context-menu-size;
+      height: $context-menu-size;
+      line-height: $context-menu-size;
+    }
+
+    .mat-icon-button .mat-icon, .mat-icon-button i {
+      line-height: $context-menu-size;
+    }
+
+    md-icon {
+      font-size: $context-menu-size;
+    }
+  }
+
+  .memberPictures {
+    margin-bottom: 2px;
+    text-align: right;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    img {
+      border: 1px solid transparent;
+      margin: 0;
+      width: 33.3%;
+      align-self: center;
+      padding: 0;
+    }
   }
 }
 
-.memberPictures {
-  margin-bottom: 2px;
-  text-align: right;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: flex-end;
-  img {
-    border: 1px solid transparent;
-    margin: 0;
-    width: 33.3%;
-    align-self: center;
-    padding: 0;
-  }
+.mat-menu-item {
+  font-size: 12px;
+  height: 20px;
+  line-height: 20px;
 }

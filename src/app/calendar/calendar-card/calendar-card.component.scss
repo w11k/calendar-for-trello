@@ -41,61 +41,36 @@ a {
   &:hover:before {
     border-color: $card-border-color-hover;
   }
-
-  .due {
-    float: right;
-  }
-
-  a {
-    &.title {
-      margin-bottom: 3px;
-      font-weight: 700;
-    }
-  }
-
-  &.dueComplete {
-    opacity: .7;
-    background: darken($card-background, 20%);
-    .title {
-      text-decoration: line-through;
-      &:hover {
-        text-decoration: underline;
-      }
-    }
-  }
-
 }
 
 a {
   color: #30364C;
 }
 
-.left {
-  float: left;
-  width: 70%;
-  overflow: hidden;
-
-  > * {
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
-    width: 100%;
-    display: block;
-  }
-}
-
-.right {
-  float: right;
-  width: 30%;
-  //margin-top: 3px;
-  position: relative;
-
-  .due {
+.headerRow {
+  .left {
     float: left;
-    width: 50%;
+    width: 90%;
+
+    overflow: hidden;
+    > * {
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+      width: 100%;
+      display: block;
+    }
+
+    a {
+      &.title {
+        margin-bottom: 3px;
+        font-weight: 400;
+        font-size: 12px;
+      }
+    }
   }
 
-  $context-menu-size: 12px;
+  $context-menu-size: 13px;
   .contextMenu {
     float: right;
 
@@ -113,6 +88,19 @@ a {
       font-size: $context-menu-size;
     }
   }
+}
+
+.left {
+  float: left;
+  width: 50%;
+
+}
+
+.right {
+  float: right;
+  width: 50%;
+  //margin-top: 3px;
+  position: relative;
 
   .memberPictures {
     margin-bottom: 2px;
@@ -121,10 +109,12 @@ a {
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: flex-end;
+
     img {
       border: 1px solid transparent;
       margin: 0;
-      width: 33.3%;
+      max-width: 24px;
+      width: 25%;
       align-self: center;
       padding: 0;
     }

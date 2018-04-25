@@ -1,27 +1,28 @@
-<div class="left">
+<div class="headerRow">
+  <div class="left">
+
   <a href="{{card.url}}" target="_blank" class="title" title="{{card.name}}">{{card.name}} </a>
-  <div *ngIf="!card.dueComplete" class="list" title="{{list?.name}}">{{list?.name}}</div>
-  <a *ngIf="!card.dueComplete"href="{{board?.url}}" class="board" target="_blank" title="{{board?.name}}">{{board?.name}}</a>
+  </div>
+  <div class="contextMenu">
+    <button md-icon-button="" [matMenuTriggerFor]="menu" aria-label="Open basic menu">
+      <md-icon>more_vert</md-icon>
+    </button>
+    <md-menu #menu="mdMenu">
+      <button md-menu-item (click)="plus(1, 'week')">+1 Week</button>
+      <button md-menu-item (click)="plus(1, 'month')">+1 Month</button>
+      <button md-menu-item (click)="plus(2, 'month')">+2 Months</button>
+    </md-menu>
+  </div>
 </div>
 
-<div class="right" *ngIf="!card.dueComplete">
-  <div class="row">
-    <div class="due" *ngIf="showTime">{{card.dueComplete ? "✔" : card.due | date:'HH:mm'}}</div>
 
+<div class="left">
+  <div *ngIf="!card.dueComplete" class="list" title="{{list?.name}}">{{list?.name}}</div>
+  <a *ngIf="!card.dueComplete" href="{{board?.url}}" class="board" target="_blank" title="{{board?.name}}">{{board?.name}}</a>
+</div>
 
-    <div class="contextMenu">
-      <button md-icon-button="" [matMenuTriggerFor]="menu" aria-label="Open basic menu">
-        <md-icon>more_vert</md-icon>
-      </button>
-      <md-menu #menu="mdMenu">
-        <button md-menu-item (click)="plus(1, 'week')">+1 Week</button>
-        <button md-menu-item (click)="plus(1, 'month')">+1 Month</button>
-        <button md-menu-item (click)="plus(2, 'month')">+2 Months</button>
-      </md-menu>
-    </div>
-  </div>
-  <br>
-  <div class="memberPictures">
+<div class="right">
+  <div class="memberPictures"  *ngIf="!card.dueComplete">
     <ng-container *ngFor="let id of card.idMembers">
       <img *ngIf="getAvatar(id)" src="https://trello-avatars.s3.amazonaws.com/{{getAvatar(id)}}/50.png">
     </ng-container>

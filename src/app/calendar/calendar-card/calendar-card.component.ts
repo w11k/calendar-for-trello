@@ -7,9 +7,8 @@ import * as _ from 'lodash';
 import {List} from '../../models/list';
 import {selectBoardColorPrefs} from '../../redux/store/selects';
 import {MemberMap} from '../../redux/reducers/member.reducer';
-import {CalendarActions} from '../../redux/actions/calendar-actions';
 import {CardActions} from '../../redux/actions/card-actions';
-import moment = require('moment');
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-calendar-card',

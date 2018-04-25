@@ -11,7 +11,7 @@ import {Observable} from 'rxjs/Observable';
   styleUrls: ['./card-drop-zone.component.scss']
 })
 export class CardDropZoneComponent implements OnInit {
-  private show$: Observable<boolean>;
+  public show$: Observable<boolean>;
 
   constructor(public cardActions: CardActions, private dropZoneService: DropZoneService) {
   }

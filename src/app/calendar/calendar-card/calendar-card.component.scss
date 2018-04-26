@@ -53,19 +53,24 @@ a {
     width: 90%;
 
     overflow: hidden;
-    > * {
+
+    a {
+      float: left;
       text-overflow: ellipsis;
       white-space: nowrap;
       overflow: hidden;
-      width: 100%;
+      width: 95%;
       display: block;
-    }
 
-    a {
       &.title {
         margin-bottom: 3px;
         font-weight: 400;
         font-size: 12px;
+      }
+
+      &.done {
+        text-decoration: line-through;
+        font-weight: 100;
       }
     }
   }
@@ -99,7 +104,6 @@ a {
 .right {
   float: right;
   width: 50%;
-  //margin-top: 3px;
   position: relative;
 
   .memberPictures {

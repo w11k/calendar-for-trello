@@ -1,7 +1,6 @@
 <div class="headerRow">
   <div class="left">
-
-  <a href="{{card.url}}" target="_blank" class="title" title="{{card.name}}">{{card.name}} </a>
+    <a href="{{card.url}}" target="_blank" class="title" [class.done]="card.dueComplete" title="{{card.name}}">{{card.dueComplete ? "✔ " : ''}} {{card.name}}</a>
   </div>
   <div class="contextMenu">
     <button md-icon-button="" [matMenuTriggerFor]="menu" aria-label="Open basic menu">

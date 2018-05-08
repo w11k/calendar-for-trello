@@ -34,6 +34,7 @@ import {LoadingSpinnerComponent} from './loading-spinner/loading-spinner.compone
 import {MemberActions} from './redux/actions/member-actions';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {DropZoneService} from './services/drop-zone.service';
+import {LegalModule} from './legal/legal.module';
 
 
 @NgModule({
@@ -71,6 +72,7 @@ import {DropZoneService} from './services/drop-zone.service';
     MdInputModule,
     MdSnackBarModule,
     MdIconModule,
+    LegalModule,
   ],
   providers: [
     CalendarService,

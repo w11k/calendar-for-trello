@@ -6,6 +6,8 @@ import {VisitorGuard} from './services/guards/visitorGuard';
 import {SettingsComponent} from './settings/settings.component';
 import {CalendarComponent} from './calendar/calendar.component';
 import {AboutPageComponent} from './about/about-page/about-page.component';
+import {ImprintComponent} from './legal/imprint/imprint.component';
+import {PrivacyComponent} from './legal/privacy/privacy.component';
 
 
 let routes: Routes = [
@@ -30,6 +32,14 @@ let routes: Routes = [
   {
     path: 'about',
     component: AboutPageComponent,
+  },
+  {
+    path: 'imprint',
+    component: ImprintComponent,
+  },
+  {
+    path: 'privacy',
+    component: PrivacyComponent,
   },
   {
     path: '**', redirectTo: '/',

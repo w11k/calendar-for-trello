@@ -3,7 +3,7 @@
 
 $day-border-color: mat-color($md-gray, 300);
 $day-background: mat-color($md-gray, A100);
-$day-offset-background: mat-color($md-trello-business, 50);
+$day-offset-background: mat-color($md-trello-business, 100);
 $day-primary: mat-color($md-trello-business, 500);
 
 :host {
@@ -34,7 +34,7 @@ $day-primary: mat-color($md-trello-business, 500);
 
 
 :host(.offsetDay) {
-  background: $day-offset-background !important;
+  background-color: lightgray;
 }
 
 :host(.today) {

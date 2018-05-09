@@ -33,6 +33,8 @@ import {RavenErrorHandler} from './shared/RavenErrorHandler';
 import {LoadingSpinnerComponent} from './loading-spinner/loading-spinner.component';
 import {MemberActions} from './redux/actions/member-actions';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
+import {DropZoneService} from './services/drop-zone.service';
+import {LegalModule} from './legal/legal.module';
 
 
 @NgModule({
@@ -70,6 +72,7 @@ import {NoopAnimationsModule} from '@angular/platform-browser/animations';
     MdInputModule,
     MdSnackBarModule,
     MdIconModule,
+    LegalModule,
   ],
   providers: [
     CalendarService,
@@ -80,6 +83,7 @@ import {NoopAnimationsModule} from '@angular/platform-browser/animations';
     TrelloPullService,
     DateTimeFormatService,
     MemberActions,
+    DropZoneService,
     {provide: ErrorHandler, useClass: RavenErrorHandler}
 
   ],

@@ -1,4 +1,4 @@
-import {Component, OnInit, Input, HostBinding, OnDestroy} from '@angular/core';
+import {Component, OnInit, Input, HostBinding, OnDestroy, ChangeDetectionStrategy} from '@angular/core';
 import {Card} from '../../models/card';
 import {select} from '@angular-redux/store';
 import {Observable, Subscription} from 'rxjs';
@@ -7,11 +7,14 @@ import * as _ from 'lodash';
 import {List} from '../../models/list';
 import {selectBoardColorPrefs} from '../../redux/store/selects';
 import {MemberMap} from '../../redux/reducers/member.reducer';
+import {CardActions} from '../../redux/actions/card-actions';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-calendar-card',
   templateUrl: './calendar-card.component.html',
-  styleUrls: ['./calendar-card.component.scss']
+  styleUrls: ['./calendar-card.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CalendarCardComponent implements OnInit, OnDestroy {
 
@@ -30,7 +33,7 @@ export class CalendarCardComponent implements OnInit, OnDestroy {
   @Input() public card: Card;
   @Input() public showTime: Boolean = false;
 
-  constructor() {
+  constructor(private cardActions: CardActions) {
   }
 
   getAvatar(userId: string) {
@@ -63,4 +66,8 @@ export class CalendarCardComponent implements OnInit, OnDestroy {
     this.subscriptions.forEach(subscription => subscription.unsubscribe());
   }
 
+  plus(amount: number, unit: 'week' | 'month') {
+    const nextDue = moment(this.card.due).add(amount, unit);
+    this.cardActions.updateCardsDue(this.card.id, nextDue.toDate());
+  }
 }

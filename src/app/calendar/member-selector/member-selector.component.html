@@ -1,5 +1,5 @@
-<md-select [formControl]="memberCtrl" placeholder="Filter for Member">
+<md-select [formControl]="memberCtrl" placeholder="Filter for User">
   <md-option *ngFor="let member of membersArr" [value]="member.id" >
-    {{member.fullName | cutString:10}}
+    {{member.fullName | cutString:30}}
   </md-option>
 </md-select>

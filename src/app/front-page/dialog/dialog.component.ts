@@ -21,8 +21,11 @@ export class DialogComponent implements OnInit {
   }
 
   toAbout() {
-    this.dialogRef.close();
+    this.close();
     this.router.navigate(['/about']);
   }
 
+  close() {
+    this.dialogRef.close();
+  }
 }

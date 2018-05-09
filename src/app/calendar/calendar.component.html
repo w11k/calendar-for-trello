@@ -1,4 +1,5 @@
 <div class="navigation flex-container">
+  <app-card-drop-zone></app-card-drop-zone>
   <div class="left">
 
 
@@ -9,15 +10,17 @@
   <button md-icon-button md-raised-button color="primary" (click)="next()">
     <md-icon>chevron_right</md-icon>
   </button>
+  <button md-button [disabled]="true">
   {{current}}
+  </button>
   </div>
 
 
   <div class="right">
     <app-member-selector></app-member-selector>
-    <button md-raised-button (click)="addCard()" color="primary" i18n="Button label: create a new card"
+    <button md-icon-button (click)="addCard()" color="primary" i18n="Button label: create a new card"
             mdTooltip="Create a new Card">
-      Add Card
+      <md-icon>add_circle</md-icon>
     </button>
     <button md-raised-button (click)="toggleMode(CalendarType.Month)" color="primary"
             mdTooltip="Switch to Month View" *ngIf="calendarType != CalendarType.Month">
@@ -51,6 +54,6 @@
 </div>
 
 
-<app-calendar-footer></app-calendar-footer>
+
 
 <app-context-menu-holder></app-context-menu-holder>

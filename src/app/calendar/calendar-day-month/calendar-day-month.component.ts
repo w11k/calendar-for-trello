@@ -10,6 +10,7 @@ import {DragDropData} from 'ng2-dnd';
 import {ContextMenuService} from '../context-menu-holder/context-menu.service';
 import {selectVisibleCards} from '../../redux/store/selects';
 import Dictionary = _.Dictionary;
+import {DropZoneService} from '../../services/drop-zone.service';
 
 @Component({
   selector: 'app-calendar-day-month',
@@ -26,7 +27,7 @@ export class CalendarDayForMonthComponent implements OnInit, OnDestroy {
   constructor(public cardActions: CardActions,
               private renderer: Renderer,
               private element: ElementRef,
-              private contextMenuService: ContextMenuService) {
+              private contextMenuService: ContextMenuService, private dropZoneService: DropZoneService) {
   }
 
 
@@ -89,6 +90,14 @@ export class CalendarDayForMonthComponent implements OnInit, OnDestroy {
 
     let due = moment(this.calendarDay.date).hours(hours).minutes(minutes).seconds(seconds);
     this.cardActions.updateCardsDue(card.id, due.toDate());
+  }
+
+  dragStart($event: DragDropData) {
+    this.dropZoneService.dragStart();
+  }
+
+  dragEnd($event: DragDropData) {
+    this.dropZoneService.dragStop();
   }
 }
 

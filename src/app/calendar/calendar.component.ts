@@ -93,7 +93,7 @@ export class CalendarComponent implements OnInit, OnDestroy {
   public determineCurrent(date: Moment, type: CalendarType) {
     switch (type) {
       case CalendarType.Month:
-        return date.format('MMMM,YYYY');
+        return date.format('MMMM, YYYY');
       case CalendarType.Week:
       case CalendarType.WorkWeek:
         return 'KW' + date.format('W, MMMM YYYY');

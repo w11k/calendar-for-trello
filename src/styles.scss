@@ -42,3 +42,8 @@ md-sidenav-layout {
 .hidden {
   display: none;
 }
+
+//Fix width of Select Label
+span.mat-select-placeholder.mat-floating-placeholder {
+  width: auto !important;
+}

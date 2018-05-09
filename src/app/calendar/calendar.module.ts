@@ -5,7 +5,7 @@ import {NoDueAreaComponent} from './no-due-area/no-due-area.component';
 import {CalendarDayForMonthComponent} from './calendar-day-month/calendar-day-month.component';
 import {CalendarCardComponent} from './calendar-card/calendar-card.component';
 import {OverDueAreaComponent} from './over-due-area/over-due-area.component';
-import {CalendarFooterComponent} from './calendar-footer/calendar-footer.component';
+import {CardDropZoneComponent} from './card-drop-zone/card-drop-zone.component';
 import {CalendarToolbarComponent} from './calendar-toolbar/calendar-toolbar.component';
 import {DndModule} from 'ng2-dnd';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -30,6 +30,7 @@ import { WorkWeekComponent } from './work-week/work-week.component';
     ReactiveFormsModule,
     FlexLayoutModule,
     MdButtonModule,
+    MdMenuModule,
     MdTooltipModule,
     MdIconModule,
     MdInputModule,
@@ -41,7 +42,7 @@ import { WorkWeekComponent } from './work-week/work-week.component';
     CalendarDayForMonthComponent,
     CalendarCardComponent,
     OverDueAreaComponent,
-    CalendarFooterComponent,
+    CardDropZoneComponent,
     CalendarToolbarComponent,
     AddCardComponent,
     NoDueAreaComponent,

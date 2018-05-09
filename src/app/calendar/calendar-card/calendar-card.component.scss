@@ -6,7 +6,7 @@ $card-border-color: #e0e0e0;
 $card-border-color-hover: #bdbdbd;
 
 $card-background: mat-color($md-trello-business, A100);
-$card-border-color: mat-color($md-trello-business, A200);
+$card-border-color: mat-color($md-trello-business, A100);
 $card-border-color-hover: mat-color($md-trello-business, A400);
 
 a {
@@ -41,69 +41,92 @@ a {
   &:hover:before {
     border-color: $card-border-color-hover;
   }
-
-  .due {
-    float: right;
-  }
-
-  a {
-    &.title {
-      margin-bottom: 3px;
-      font-weight: 700;
-    }
-  }
-
-  &.dueComplete {
-    opacity: .7;
-    .title {
-      text-decoration: line-through;
-      &:hover {
-        text-decoration: underline;
-      }
-    }
-  }
-
 }
 
 a {
   color: #30364C;
 }
 
+.headerRow {
+  .left {
+    float: left;
+    width: 90%;
+
+    overflow: hidden;
+
+    a {
+      float: left;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+      width: 95%;
+      display: block;
+
+      &.title {
+        margin-bottom: 3px;
+        font-weight: 400;
+        font-size: 12px;
+      }
+
+      &.done {
+        text-decoration: line-through;
+        font-weight: 100;
+      }
+    }
+  }
+
+  $context-menu-size: 13px;
+  .contextMenu {
+    float: right;
+
+    .mat-icon-button {
+      width: $context-menu-size;
+      height: $context-menu-size;
+      line-height: $context-menu-size;
+    }
+
+    .mat-icon-button .mat-icon, .mat-icon-button i {
+      line-height: $context-menu-size;
+    }
+
+    md-icon {
+      font-size: $context-menu-size;
+    }
+  }
+}
+
 .left {
   float: left;
-  width: 70%;
-  overflow: hidden;
+  width: 50%;
 
-  > * {
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
-    width: 100%;
-    display: block;
-  }
 }
 
 .right {
   float: right;
-  width: 30%;
-  margin-top: 3px;
+  width: 50%;
   position: relative;
-  .due {
+
+  .memberPictures {
+    margin-bottom: 2px;
+    text-align: right;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+
+    img {
+      border: 1px solid transparent;
+      margin: 0;
+      max-width: 24px;
+      width: 25%;
+      align-self: center;
+      padding: 0;
+    }
   }
 }
 
-.memberPictures {
-  margin-bottom: 2px;
-  text-align: right;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: flex-end;
-  img {
-    border: 1px solid transparent;
-    margin: 0;
-    width: 33.3%;
-    align-self: center;
-    padding: 0;
-  }
+.mat-menu-item {
+  font-size: 12px;
+  height: 20px;
+  line-height: 20px;
 }

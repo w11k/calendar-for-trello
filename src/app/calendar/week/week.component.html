@@ -14,6 +14,8 @@
         *ngFor="let card of slot.cards; let x = index"
         [dragData]="card" [card]="card"
         [dragEnabled]="true"
+        (onDragStart)="dragStart($event)"
+        (onDragEnd)="dragEnd($event)"
         dnd-draggable>
       </app-calendar-card>
     </div>

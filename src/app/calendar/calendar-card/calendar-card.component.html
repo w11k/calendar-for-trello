@@ -14,17 +14,19 @@
   </div>
 </div>
 
+<div class="content">
 
-<div class="left">
-  <div *ngIf="!card.dueComplete" class="list" title="{{list?.name}}">{{list?.name}}</div>
-  <a *ngIf="!card.dueComplete" href="{{board?.url}}" class="board" target="_blank" title="{{board?.name}}">{{board?.name}}</a>
-</div>
+  <div class="left">
+    <span *ngIf="!card.dueComplete" class="list" title="{{list?.name}}">{{list?.name}}</span>
+    <a *ngIf="!card.dueComplete" href="{{board?.url}}" class="board" target="_blank" title="{{board?.name}}">{{board?.name}}</a>
+  </div>
 
-<div class="right">
-  <div class="memberPictures"  *ngIf="!card.dueComplete">
-    <ng-container *ngFor="let id of card.idMembers">
-      <img *ngIf="getAvatar(id)" src="https://trello-avatars.s3.amazonaws.com/{{getAvatar(id)}}/50.png">
-    </ng-container>
+  <div class="right">
+    <div class="memberPictures"  *ngIf="!card.dueComplete">
+      <ng-container *ngFor="let id of card.idMembers">
+        <img *ngIf="getAvatar(id)" src="https://trello-avatars.s3.amazonaws.com/{{getAvatar(id)}}/50.png">
+      </ng-container>
+    </div>
   </div>
 </div>
 

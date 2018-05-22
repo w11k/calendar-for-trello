@@ -21,9 +21,12 @@
       "prefix": "app",
       "styles": [
         "styles.scss",
+        "../node_modules/cookieconsent/build/cookieconsent.min.css",
         "../node_modules/ng2-dnd/style.css"
       ],
-      "scripts": [],
+      "scripts": [
+        "../node_modules/cookieconsent/build/cookieconsent.min.js"
+      ],
       "environmentSource": "environments/environment.ts",
       "environments": {
         "dev": "environments/environment.ts",

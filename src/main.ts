@@ -1,10 +1,11 @@
-import {hmrBootstrap} from "./hmr";
+import {hmrBootstrap} from './hmr';
 
-import { enableProdMode } from '@angular/core';
-import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import {enableProdMode} from '@angular/core';
+import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
 
-import { AppModule } from './app/app.module';
-import { environment } from './environments/environment';
+import {AppModule} from './app/app.module';
+import {environment} from './environments/environment';
+
 const project = require('../package.json');
 
 if (environment.production) {
@@ -65,3 +66,21 @@ if (environment.hmr) {
 } else {
   bootstrap();
 }
+
+(window as any).cookieconsent.initialise({
+  'palette': {
+    'popup': {
+      'background': '#3A476F'
+    },
+    'button': {
+      'background': '#eb5a46',
+      'text': '#fff'
+    },
+  },
+  'content': {
+    'href': 'https://calendar-for-trello.com/privacy',
+    'message': 'This website uses cookies to ensure you get the best experience on our website.',
+    'dismiss': 'Ok',
+    'link': 'Learn more in our privacy policy',
+  }
+});

@@ -1,6 +1,15 @@
 @import '~@angular/material/theming';
 @import '../../../material/theme';
 
+.mdMenu_element{
+  border-bottom: 1px solid lightgrey;
+}
+
+.mdMenu_title{
+  font-size: 12px; 
+  padding-left: 10px;
+}
+
 $card-background: #edeff4;
 $card-border-color: #e0e0e0;
 $card-border-color-hover: #bdbdbd;

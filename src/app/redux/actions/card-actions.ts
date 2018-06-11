@@ -18,7 +18,8 @@ export class CardActions {
   static MARK_CARD_DONE: string = 'MARK_CARD_DONE';
   static REMOVE_CARDS_BY_BOARDID: string = 'REMOVE_CARDS_BY_BOARDID';
   static RESET_CARD_STORE: string = 'RESET_CARD_STORE';
-
+  static CARD_CHANGE_LIST: string = 'CARD_CHANGE_LIST';
+  
   constructor(private ngRedux: NgRedux<RootState>, private tHttp: TrelloHttpService) {
   }
 
@@ -102,5 +103,17 @@ export class CardActions {
 
 
   }
+
+  //  Feature change card list - 05.06.18
+  public changerCardList(cardId: string, idBoard: string, idList: string) {
+    this.tHttp.put('cards/' + cardId + '', {
+      idList: idList,
+      cardId: cardId,
+      idBoard: idBoard,
+    }).subscribe(
+      success => this.ngRedux.dispatch({type: CardActions.CARD_CHANGE_LIST, id: cardId, idList: idList}),
+      error => console.log(error)
+    );
+  };
 
 }

@@ -4,11 +4,16 @@ import {select} from '@angular-redux/store';
 import {Observable, Subscription} from 'rxjs';
 import {Board} from '../../models/board';
 import * as _ from 'lodash';
+import {Member} from '../../models/member';
 import {List} from '../../models/list';
+
 import {selectBoardColorPrefs} from '../../redux/store/selects';
 import {MemberMap} from '../../redux/reducers/member.reducer';
 import {CardActions} from '../../redux/actions/card-actions';
 import * as moment from 'moment';
+import {TrelloHttpService} from '../../services/trello-http.service'; 
+import { getLocaleDateFormat } from '@angular/common';
+
 
 @Component({
   selector: 'app-calendar-card',
@@ -20,8 +25,11 @@ export class CalendarCardComponent implements OnInit, OnDestroy {
 
   public list: List;
   public board: Board;
+  public members: Member[] = [];
   private subscriptions: Subscription[] = [];
   public memberMap: MemberMap;
+
+  public lists: List[] = []; 
 
   @select(selectBoardColorPrefs) public boardColorPrefs$: Observable<Object>;
   @select('boards') public boards$: Observable<Board[]>;
@@ -33,7 +41,8 @@ export class CalendarCardComponent implements OnInit, OnDestroy {
   @Input() public card: Card;
   @Input() public showTime: Boolean = false;
 
-  constructor(private cardActions: CardActions) {
+  constructor(private cardActions: CardActions, private tHttp: TrelloHttpService) {
+
   }
 
   getAvatar(userId: string) {
@@ -60,6 +69,13 @@ export class CalendarCardComponent implements OnInit, OnDestroy {
     );
 
     this.dueComplete = this.card.dueComplete;
+
+    // Feature change card list - 05.06.18
+    this.tHttp.get('boards/' + this.board.id + '/lists').subscribe(
+      success => this.lists = success.json(),
+      error => this.lists = []
+    );
+
   }
 
   ngOnDestroy() {
@@ -70,4 +86,11 @@ export class CalendarCardComponent implements OnInit, OnDestroy {
     const nextDue = moment(this.card.due).add(amount, unit);
     this.cardActions.updateCardsDue(this.card.id, nextDue.toDate());
   }
+
+
+  //  Feature change card list - 05.06.18
+  changeToList(clist: string) {
+    this.cardActions.changerCardList(this.card.id, this.board.id, clist);
+  }
+
 }

@@ -1,32 +1,49 @@
 <div class="headerRow">
+
   <div class="left">
-    <a href="{{card.url}}" target="_blank" class="title" [class.done]="card.dueComplete" title="{{card.name}}">{{card.dueComplete ? "✔ " : ''}} {{card.name}}</a>
+    <a href="{{card.url}}" target="_blank" class="title" [class.done]="card.dueComplete" title="{{card.name}}"><b>{{card.dueComplete ? "✔ " : ''}} {{card.name}}</b></a>
   </div>
+
   <div class="contextMenu">
-    <button md-icon-button="" [matMenuTriggerFor]="menu" aria-label="Open basic menu">
-      <md-icon>more_vert</md-icon>
-    </button>
-    <md-menu #menu="mdMenu">
-      <button md-menu-item (click)="plus(1, 'week')">+1 Week</button>
-      <button md-menu-item (click)="plus(1, 'month')">+1 Month</button>
-      <button md-menu-item (click)="plus(2, 'month')">+2 Months</button>
-    </md-menu>
+
+    <!-- Feature: Change card list-->
+    <!-- Added a new md-menù for the list where the user can choose the destination list for the card-->
+    <div>
+      <button md-icon-button="" [matMenuTriggerFor]="menu" aria-label="Open basic menu">
+        <md-icon i18n="Cambia lista" mdTooltip="Cambia lista">more_vert</md-icon>
+      </button>
+      <md-menu #menu="mdMenu" >
+        <p class="mdMenu_title" > Change list</p>
+        <button class="mdMenu_element" *ngFor="let clist of lists"  md-menu-item [value]="clist.id" (click)="changeToList(clist.id)">{{clist.name}}</button>
+        <p class="mdMenu_title" > Postpone due</p>
+        <button class="mdMenu_element" md-menu-item (click)="plus(1, 'week')">+1 Week</button>
+        <button class="mdMenu_element" md-menu-item (click)="plus(2, 'week')">+2 Week</button>
+        <button class="mdMenu_element" md-menu-item (click)="plus(1, 'month')">+1 Month</button>
+        <button class="mdMenu_element" md-menu-item (click)="plus(2, 'month')">+2 Months</button>
+      </md-menu>
+    </div>
+
+    
   </div>
+  
 </div>
 
-<div class="content">
+<div class="content" >
 
   <div class="left">
-    <span *ngIf="!card.dueComplete" class="list" title="{{list?.name}}">{{list?.name}}</span>
-    <a *ngIf="!card.dueComplete" href="{{board?.url}}" class="board" target="_blank" title="{{board?.name}}">{{board?.name}}</a>
+    <span *ngIf="flag_scaduto && !card.dueComplete" id="title_completed"> Expired activity</span>
+    <span *ngIf="!card.dueComplete" class="list" title="{{list?.name}}"><b>List:</b> {{list?.name}}</span>
+    <a *ngIf="!card.dueComplete" href="{{board?.url}}" class="board" target="_blank" title="{{board?.name}}"><b>Board:</b> {{board?.name}}</a>
   </div>
 
-  <div class="right">
+  <div class="right" >
     <div class="memberPictures"  *ngIf="!card.dueComplete">
       <ng-container *ngFor="let id of card.idMembers">
         <img *ngIf="getAvatar(id)" src="https://trello-avatars.s3.amazonaws.com/{{getAvatar(id)}}/50.png">
       </ng-container>
     </div>
   </div>
+
 </div>
+
 

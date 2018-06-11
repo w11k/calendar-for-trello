@@ -45,6 +45,15 @@ export default (state: Card[] = initialState, action: any) => {
         }
         return Object.assign({}, card, {due: null});
       });
+
+    // Feature change card list - 05.06.18
+    case CardActions.CARD_CHANGE_LIST:
+      return state.map(card => {
+        if (action.id !== card.id) {
+          return card;
+        }
+        return Object.assign({}, card, {idList: action.idList});
+      });
     case CardActions.ARCHIVE_CARD:
       return state.filter(card => card.id !== action.id);
     case CardActions.RESET_CARD_STORE:

@@ -9,7 +9,7 @@ import {TrelloPullService} from './services/trello-pull.service';
 import {Settings} from './models/settings';
 import {Observable, Subscription} from 'rxjs';
 import {TrelloAuthService} from './services/trello-auth.service';
-import {MdSnackBar} from '@angular/material';
+import {MatSnackBar} from '@angular/material';
 import {IS_UPDATE} from '../main';
 import {SettingsActions} from './redux/actions/settings-actions';
 import {ListActions} from './redux/actions/list-actions';
@@ -52,7 +52,7 @@ export class AppComponent implements OnInit, OnDestroy {
               public router: Router,
               private trelloPullService: TrelloPullService,
               private trelloAuthService: TrelloAuthService,
-              private snackBar: MdSnackBar) {
+              private snackBar: MatSnackBar) {
 
     if (IS_UPDATE) {
       this.snackBar.open('Calendar for Trello was updated to version ' + project.version + '!', 'OK');
@@ -152,10 +152,10 @@ export class AppComponent implements OnInit, OnDestroy {
     myform.target = '_blank';
     myform.className = 'hidden';
 
-    let cmd = document.createElement('input');
-    cmd.name = 'cmd';
-    cmd.type = 'hidden';
-    cmd.value = '_donations';
+    let cmat = document.createElement('input');
+    cmat.name = 'cmat';
+    cmat.type = 'hidden';
+    cmat.value = '_donations';
 
     let encrypted = document.createElement('input');
     encrypted.type = 'hidden';
@@ -208,7 +208,7 @@ export class AppComponent implements OnInit, OnDestroy {
     pixel.width = '1';
     pixel.height = '1';
 
-    myform.appendChild(cmd);
+    myform.appendChild(cmat);
     myform.appendChild(encrypted);
     myform.appendChild(lc);
     myform.appendChild(itemname);

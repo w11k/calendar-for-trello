@@ -7,20 +7,20 @@
   <div class="contextMenu">
 
     <!-- Feature: Change card list-->
-    <!-- Added a new md-menù for the list where the user can choose the destination list for the card-->
+    <!-- Added a new mat-menù for the list where the user can choose the destination list for the card-->
     <div>
-      <button md-icon-button="" [matMenuTriggerFor]="menu" aria-label="Open basic menu">
-        <md-icon i18n="Change list" mdTooltip="Change list">more_vert</md-icon>
+      <button mat-icon-button="" [matMenuTriggerFor]="menu" aria-label="Open basic menu">
+        <mat-icon i18n="Change list" matTooltip="Change list">more_vert</mat-icon>
       </button>
-      <md-menu #menu="mdMenu" >
-        <p class="mdMenu_title" > Change list</p>
-        <button class="mdMenu_element" *ngFor="let clist of lists"  md-menu-item [value]="clist.id" (click)="changeToList(clist.id)">{{clist.name}}</button>
-        <p class="mdMenu_title" > Postpone due</p>
-        <button class="mdMenu_element" md-menu-item (click)="plus(1, 'week')">+1 Week</button>
-        <button class="mdMenu_element" md-menu-item (click)="plus(2, 'week')">+2 Week</button>
-        <button class="mdMenu_element" md-menu-item (click)="plus(1, 'month')">+1 Month</button>
-        <button class="mdMenu_element" md-menu-item (click)="plus(2, 'month')">+2 Months</button>
-      </md-menu>
+      <mat-menu #menu="matMenu" >
+        <p class="matMenu_title" > Change list</p>
+        <button class="matMenu_element" *ngFor="let clist of lists"  mat-menu-item [value]="clist.id" (click)="changeToList(clist.id)">{{clist.name}}</button>
+        <p class="matMenu_title" > Postpone due</p>
+        <button class="matMenu_element" mat-menu-item (click)="plus(1, 'week')">+1 Week</button>
+        <button class="matMenu_element" mat-menu-item (click)="plus(2, 'week')">+2 Week</button>
+        <button class="matMenu_element" mat-menu-item (click)="plus(1, 'month')">+1 Month</button>
+        <button class="matMenu_element" mat-menu-item (click)="plus(2, 'month')">+2 Months</button>
+      </mat-menu>
     </div>
 
     

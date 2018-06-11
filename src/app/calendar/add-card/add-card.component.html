@@ -1,64 +1,64 @@
-<h1 md-dialog-title>Add a Card</h1>
+<h1 mat-dialog-title>Add a Card</h1>
 
 <form [formGroup]="cardForm" #form="ngForm" (ngSubmit)="onSubmit(cardForm)" novalidate>
 
-  <div md-dialog-content>
-    <md-input-container class="full-width">
-      <input mdInput placeholder="Card Title *" formControlName="name">
-      <md-hint *ngIf="cardForm.get('name').touched && cardForm.get('name').hasError('required')" class="error">
+  <div mat-dialog-content>
+    <mat-input-container class="full-width">
+      <input matInput placeholder="Card Title *" formControlName="name">
+      <mat-hint *ngIf="cardForm.get('name').touched && cardForm.get('name').hasError('required')" class="error">
         Error: Card Title is required
-      </md-hint>
-    </md-input-container>
+      </mat-hint>
+    </mat-input-container>
 
     <div class="due-row full-width">
-      <md-input-container class="date-width">
-        <input mdInput [mdDatepicker]="datepicker" placeholder="Due Date" formControlName="dueDate">
-        <button mdSuffix [mdDatepickerToggle]="datepicker"></button>
-      </md-input-container>
-      <md-datepicker #datepicker></md-datepicker>
+      <mat-input-container class="date-width">
+        <input matInput [matDatepicker]="datepicker" placeholder="Due Date" formControlName="dueDate">
+        <button matSuffix [matDatepickerToggle]="datepicker"></button>
+      </mat-input-container>
+      <mat-datepicker #datepicker></mat-datepicker>
 
-      <md-input-container class="time-width">
-        <input mdInput placeholder="Due Time" formControlName="dueTime" type="time">
-      </md-input-container>
+      <mat-input-container class="time-width">
+        <input matInput placeholder="Due Time" formControlName="dueTime" type="time">
+      </mat-input-container>
     </div>
 
-    <md-input-container class="full-width">
-      <input mdInput placeholder="Card Description" formControlName="desc">
-    </md-input-container>
+    <mat-input-container class="full-width">
+      <input matInput placeholder="Card Description" formControlName="desc">
+    </mat-input-container>
 
-    <div class="md-select-wrapper">
-      <md-select class="full-width" formControlName="idBoard" placeholder="Board *">
-        <md-option *ngFor="let board of boards" [value]="board.id">{{board.name}}</md-option>
-      </md-select>
-      <md-hint *ngIf="cardForm.get('idBoard').touched && cardForm.get('idBoard').hasError('required')" class="error">
+    <div class="mat-select-wrapper">
+      <mat-select class="full-width" formControlName="idBoard" placeholder="Board *">
+        <mat-option *ngFor="let board of boards" [value]="board.id">{{board.name}}</mat-option>
+      </mat-select>
+      <mat-hint *ngIf="cardForm.get('idBoard').touched && cardForm.get('idBoard').hasError('required')" class="error">
         Error: Board is required
-      </md-hint>
+      </mat-hint>
     </div>
 
-    <div class="md-select-wrapper">
-      <md-select class="full-width" formControlName="idList" placeholder="List *">
-        <md-option *ngFor="let list of lists" [value]="list.id">{{list.name}}</md-option>
-      </md-select>
-      <md-hint *ngIf="cardForm.get('idList').touched && cardForm.get('idList').hasError('required')" class="error">
+    <div class="mat-select-wrapper">
+      <mat-select class="full-width" formControlName="idList" placeholder="List *">
+        <mat-option *ngFor="let list of lists" [value]="list.id">{{list.name}}</mat-option>
+      </mat-select>
+      <mat-hint *ngIf="cardForm.get('idList').touched && cardForm.get('idList').hasError('required')" class="error">
         Error: List is required
-      </md-hint>
+      </mat-hint>
     </div>
 
-    <div class="md-select-wrapper">
+    <div class="mat-select-wrapper">
       <!-- ToDo: add support for multiple members - currently blocked because of material2 -->
-      <md-select class="full-width" formControlName="idMembers" multiple placeholder="Members">
-        <md-option *ngFor="let member of members" [value]="member.id">{{member.fullName}}, {{member.username}}
-        </md-option>
-      </md-select>
+      <mat-select class="full-width" formControlName="idMembers" multiple placeholder="Members">
+        <mat-option *ngFor="let member of members" [value]="member.id">{{member.fullName}}, {{member.username}}
+        </mat-option>
+      </mat-select>
     </div>
     <p class="required-hint">* required</p>
   </div>
 
-  <div md-dialog-actions fxLayout="row" fxLayoutAlign="end center">
-    <button md-button="" type="button" (click)="dialogRef.close(false)">
+  <div mat-dialog-actions fxLayout="row" fxLayoutAlign="end center">
+    <button mat-button="" type="button" (click)="dialogRef.close(false)">
       Cancel
     </button>
-    <button type="submit" md-button color="primary" [disabled]="!cardForm.valid">
+    <button type="submit" mat-button color="primary" [disabled]="!cardForm.valid">
       Save
     </button>
   </div>

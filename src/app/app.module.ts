@@ -21,9 +21,9 @@ import {SettingsModule} from './settings/settings.module';
 import {CalendarModule} from './calendar/calendar.module';
 import {ReduxModule} from './redux/redux.module';
 import {
-  MdButtonModule, MdCardModule, MdCoreModule, MdDatepickerModule, MdIconModule, MdInputModule, MdListModule, MdMenuModule,
-  MdNativeDateModule,
-  MdSelectModule, MdSidenavModule, MdSnackBarModule, MdToolbarModule
+  MatButtonModule, MatCardModule, MatDatepickerModule, MatIconModule, MatInputModule, MatListModule, MatMenuModule,
+  MatNativeDateModule,
+  MatSelectModule, MatSidenavModule, MatSnackBarModule, MatToolbarModule
 } from '@angular/material';
 import {FrontPageModule} from './front-page/front-page.module';
 import {FlexLayoutModule} from '@angular/flex-layout';
@@ -57,21 +57,20 @@ import {LegalModule} from './legal/legal.module';
     AboutModule,
     ReduxModule,
     FrontPageModule,
-    MdCoreModule,
-    MdToolbarModule,
-    MdButtonModule,
-    MdSidenavModule,
-    MdSelectModule,
-    MdListModule,
-    MdCardModule,
-    MdDatepickerModule,
-    MdNativeDateModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatSidenavModule,
+    MatSelectModule,
+    MatListModule,
+    MatCardModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     NoopAnimationsModule,
     FlexLayoutModule,
-    MdMenuModule,
-    MdInputModule,
-    MdSnackBarModule,
-    MdIconModule,
+    MatMenuModule,
+    MatInputModule,
+    MatSnackBarModule,
+    MatIconModule,
     LegalModule,
   ],
   providers: [

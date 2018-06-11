@@ -17,8 +17,8 @@ import {FlexLayoutModule} from '@angular/flex-layout';
 import { MemberSelectorComponent } from './member-selector/member-selector.component';
 import {CutStringPipe} from '../shared/cut-string.pipe';
 import {
-  MdButtonModule, MdDatepickerModule, MdIconModule, MdInputModule, MdMenuModule, MdSelectModule,
-  MdTooltipModule
+  MatButtonModule, MatDatepickerModule, MatIconModule, MatInputModule, MatMenuModule, MatSelectModule,
+  MatTooltipModule
 } from "@angular/material";
 import { WorkWeekComponent } from './work-week/work-week.component';
 
@@ -29,14 +29,14 @@ import { WorkWeekComponent } from './work-week/work-week.component';
     FormsModule,
     ReactiveFormsModule,
     FlexLayoutModule,
-    MdButtonModule,
-    MdMenuModule,
-    MdTooltipModule,
-    MdIconModule,
-    MdInputModule,
-    MdSelectModule,
-    MdDatepickerModule,
-    MdMenuModule,
+    MatButtonModule,
+    MatMenuModule,
+    MatTooltipModule,
+    MatIconModule,
+    MatInputModule,
+    MatSelectModule,
+    MatDatepickerModule,
+    MatMenuModule,
   ],
   declarations: [CalendarComponent,
     CalendarDayForMonthComponent,

@@ -3,14 +3,14 @@
   <div class="left">
 
 
-  <button md-icon-button md-raised-button color="primary" (click)="previous()">
-    <md-icon>chevron_left</md-icon>
+  <button mat-icon-button mat-raised-button color="primary" (click)="previous()">
+    <mat-icon>chevron_left</mat-icon>
   </button>
-  <button md-button color="primary" (click)="toToday()" i18n="Button label: navigate to current date">TODAY</button>
-  <button md-icon-button md-raised-button color="primary" (click)="next()">
-    <md-icon>chevron_right</md-icon>
+  <button mat-button color="primary" (click)="toToday()" i18n="Button label: navigate to current date">TODAY</button>
+  <button mat-icon-button mat-raised-button color="primary" (click)="next()">
+    <mat-icon>chevron_right</mat-icon>
   </button>
-  <button md-button [disabled]="true">
+  <button mat-button [disabled]="true">
   {{current}}
   </button>
   </div>
@@ -18,20 +18,20 @@
 
   <div class="right">
     <app-member-selector></app-member-selector>
-    <button md-icon-button (click)="addCard()" color="primary" i18n="Button label: create a new card"
-            mdTooltip="Create a new Card">
-      <md-icon>add_circle</md-icon>
+    <button mat-icon-button (click)="addCard()" color="primary" i18n="Button label: create a new card"
+            matTooltip="Create a new Card">
+      <mat-icon>add_circle</mat-icon>
     </button>
-    <button md-raised-button (click)="toggleMode(CalendarType.Month)" color="primary"
-            mdTooltip="Switch to Month View" *ngIf="calendarType != CalendarType.Month">
+    <button mat-raised-button (click)="toggleMode(CalendarType.Month)" color="primary"
+            matTooltip="Switch to Month View" *ngIf="calendarType != CalendarType.Month">
       Month
     </button>
-    <button md-raised-button (click)="toggleMode(CalendarType.Week)" color="primary"
-            mdTooltip="Switch to Week View" *ngIf="calendarType != CalendarType.Week">
+    <button mat-raised-button (click)="toggleMode(CalendarType.Week)" color="primary"
+            matTooltip="Switch to Week View" *ngIf="calendarType != CalendarType.Week">
       Week
     </button>
-    <button md-raised-button (click)="toggleMode(CalendarType.WorkWeek)" color="primary"
-            mdTooltip="Switch to Work Week View"  *ngIf="calendarType != CalendarType.WorkWeek">
+    <button mat-raised-button (click)="toggleMode(CalendarType.WorkWeek)" color="primary"
+            matTooltip="Switch to Work Week View"  *ngIf="calendarType != CalendarType.WorkWeek">
       Work Week
     </button>
   </div>

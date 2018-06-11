@@ -3,21 +3,21 @@ import {CommonModule} from '@angular/common';
 import {SettingsComponent} from './settings.component';
 import {EditBoardComponent} from './edit-board/edit-board.component';
 import {FormsModule} from '@angular/forms';
-import {MdListModule, MdSelectModule, MdCardModule, MdSlideToggleModule, MdRadioModule, MdIconModule, MdCheckboxModule} from '@angular/material';
+import {MatListModule, MatSelectModule, MatCardModule, MatSlideToggleModule, MatRadioModule, MatIconModule, MatCheckboxModule} from '@angular/material';
 import {FlexLayoutModule} from '@angular/flex-layout';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
-    MdListModule,
-    MdSelectModule,
-    MdRadioModule,
+    MatListModule,
+    MatSelectModule,
+    MatRadioModule,
     FlexLayoutModule,
-    MdCardModule,
-    MdSlideToggleModule,
-    MdIconModule,
-    MdCheckboxModule,
+    MatCardModule,
+    MatSlideToggleModule,
+    MatIconModule,
+    MatCheckboxModule,
   ],
   declarations: [
     SettingsComponent,

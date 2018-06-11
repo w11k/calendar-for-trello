@@ -1,8 +1,8 @@
 @import '~@angular/material/theming';
 @import '../../../material/theme';
 
-$primary: mat-color($md-trello-business, 500);
-$primary-font: mat-contrast($md-trello-business, 500);
+$primary: mat-color($mat-trello-business, 500);
+$primary-font: mat-contrast($mat-trello-business, 500);
 
 
 .header {

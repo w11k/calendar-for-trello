@@ -45,6 +45,8 @@ export default (state: Card[] = initialState, action: any) => {
         }
         return Object.assign({}, card, {due: null});
       });
+
+    // Feature change card list - 05.06.18
     case CardActions.CARD_CHANGE_LIST:
       return state.map(card => {
         if (action.id !== card.id) {

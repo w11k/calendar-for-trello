@@ -104,7 +104,7 @@ export class CardActions {
 
   }
 
-  // Feature spostamento Card in lista - 05.06.18
+  //  Feature change card list - 05.06.18
   public changerCardList(cardId: string, idBoard: string, idList: string) {
     this.tHttp.put('cards/' + cardId + '', {
       idList: idList,

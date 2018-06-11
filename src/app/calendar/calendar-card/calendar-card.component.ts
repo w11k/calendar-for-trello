@@ -76,7 +76,7 @@ export class CalendarCardComponent implements OnInit, OnDestroy {
 
     this.dueComplete = this.card.dueComplete;
 
-    // Feature spostamento Card in lista - 05.06.18
+    // Feature change card list - 05.06.18
     this.tHttp.get('boards/' + this.board.id + '/lists').subscribe(
       success => this.lists = success.json(),
       error => this.lists = []
@@ -88,16 +88,13 @@ export class CalendarCardComponent implements OnInit, OnDestroy {
     this.subscriptions.forEach(subscription => subscription.unsubscribe());
   }
 
-
-
-  // Prolunga la scadenza di una card.
   plus(amount: number, unit: 'week' | 'month') {
     const nextDue = moment(this.card.due).add(amount, unit);
     this.cardActions.updateCardsDue(this.card.id, nextDue.toDate());
   }
 
 
-  // Feature spostamento Card in lista. - 05.06.18
+  //  Feature change card list - 05.06.18
   changeToList(lista: string) {
     this.cardActions.changerCardList(this.card.id, this.board.id, lista);
   }

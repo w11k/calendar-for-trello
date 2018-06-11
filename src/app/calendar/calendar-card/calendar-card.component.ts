@@ -11,8 +11,7 @@ import {selectBoardColorPrefs} from '../../redux/store/selects';
 import {MemberMap} from '../../redux/reducers/member.reducer';
 import {CardActions} from '../../redux/actions/card-actions';
 import * as moment from 'moment';
-
-import {TrelloHttpService} from '../../services/trello-http.service'; // Feature spostamento Card in lista - 05.06.18
+import {TrelloHttpService} from '../../services/trello-http.service'; 
 import { getLocaleDateFormat } from '@angular/common';
 
 
@@ -30,12 +29,7 @@ export class CalendarCardComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription[] = [];
   public memberMap: MemberMap;
 
-  public lists: List[] = []; // Perfeature spostamento lista
-
-  // Feature calcolo della scadenza  08.06.18
-  public scadenza_card;
-  public data_odierna;
-  public flag_scaduto: boolean;
+  public lists: List[] = []; 
 
   @select(selectBoardColorPrefs) public boardColorPrefs$: Observable<Object>;
   @select('boards') public boards$: Observable<Board[]>;
@@ -95,8 +89,8 @@ export class CalendarCardComponent implements OnInit, OnDestroy {
 
 
   //  Feature change card list - 05.06.18
-  changeToList(lista: string) {
-    this.cardActions.changerCardList(this.card.id, this.board.id, lista);
+  changeToList(clist: string) {
+    this.cardActions.changerCardList(this.card.id, this.board.id, clist);
   }
 
 }

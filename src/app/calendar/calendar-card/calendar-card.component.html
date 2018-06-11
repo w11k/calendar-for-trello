@@ -14,22 +14,15 @@
       </button>
       <md-menu #menu="mdMenu" >
         <p class="mdMenu_title" > Change list</p>
-        <button class="mdMenu_element" *ngFor="let lista of lists"  md-menu-item [value]="lista.id" (click)="changeToList(lista.id)">{{lista.name}}</button>
+        <button class="mdMenu_element" *ngFor="let clist of lists"  md-menu-item [value]="clist.id" (click)="changeToList(clist.id)">{{clist.name}}</button>
+        <p class="mdMenu_title" > Postpone due</p>
+        <button class="mdMenu_element" md-menu-item (click)="plus(1, 'week')">+1 Week</button>
+        <button class="mdMenu_element" md-menu-item (click)="plus(2, 'week')">+2 Week</button>
+        <button class="mdMenu_element" md-menu-item (click)="plus(1, 'month')">+1 Month</button>
+        <button class="mdMenu_element" md-menu-item (click)="plus(2, 'month')">+2 Months</button>
       </md-menu>
     </div>
 
-    <div *ngIf="!card.dueComplete">
-      <button md-icon-button="" [matMenuTriggerFor]="menu1" aria-label="Open basic menu">
-        <md-icon i18n="Sposta scadenza" mdTooltip="Sposta scadenza"> control_point</md-icon>
-      </button>
-      <md-menu #menu1="mdMenu" >
-        <p class="mdMenu_title" > Postpone due</p>
-        <button class="mdMenu_element" md-menu-item (click)="plus(1, 'week')">+1 Settimana</button>
-        <button class="mdMenu_element" md-menu-item (click)="plus(2, 'week')">+2 Settimane</button>
-        <button class="mdMenu_element" md-menu-item (click)="plus(1, 'month')">+1 Mese</button>
-        <button class="mdMenu_element" md-menu-item (click)="plus(2, 'month')">+2 Mesi</button>
-      </md-menu>
-    </div>
     
   </div>
   
@@ -38,9 +31,8 @@
 <div class="content" >
 
   <div class="left">
-    <span *ngIf="flag_scaduto && !card.dueComplete" id="title_completed"> Attività scaduta</span>
-    <span *ngIf="card.dueComplete" id="title_completed"> Card completata</span>
-    <span *ngIf="!card.dueComplete" class="list" title="{{list?.name}}"><b>Lista:</b> {{list?.name}}</span>
+    <span *ngIf="flag_scaduto && !card.dueComplete" id="title_completed"> Expired activity</span>
+    <span *ngIf="!card.dueComplete" class="list" title="{{list?.name}}"><b>List:</b> {{list?.name}}</span>
     <a *ngIf="!card.dueComplete" href="{{board?.url}}" class="board" target="_blank" title="{{board?.name}}"><b>Board:</b> {{board?.name}}</a>
   </div>
 

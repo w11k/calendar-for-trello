@@ -31,9 +31,8 @@
 <div class="content" >
 
   <div class="left">
-    <span *ngIf="flag_scaduto && !card.dueComplete" id="title_completed"> Expired activity</span>
-    <span *ngIf="!card.dueComplete" class="list" title="{{list?.name}}"><b>List:</b> {{list?.name}}</span>
-    <a *ngIf="!card.dueComplete" href="{{board?.url}}" class="board" target="_blank" title="{{board?.name}}"><b>Board:</b> {{board?.name}}</a>
+    <span *ngIf="!card.dueComplete" class="list" title="{{list?.name}}">List: {{list?.name}}</span>
+    <a *ngIf="!card.dueComplete" href="{{board?.url}}" class="board" target="_blank" title="{{board?.name}}">Board: {{board?.name}}</a>
   </div>
 
   <div class="right" >

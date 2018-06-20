@@ -17,8 +17,8 @@
   },
   "private": true,
   "dependencies": {
-    "@angular-redux/router": "7.0.0",
-    "@angular-redux/store": "7.0.0",
+    "@angular-redux/router": "9.0.0",
+    "@angular-redux/store": "9.0.0",
     "@angular/animations": "6.0.4",
     "@angular/common": "6.0.4",
     "@angular/cdk": "6.2.1",

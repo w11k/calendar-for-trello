@@ -35,6 +35,7 @@ import {MemberActions} from './redux/actions/member-actions';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {DropZoneService} from './services/drop-zone.service';
 import {LegalModule} from './legal/legal.module';
+import {NgReduxRouterModule} from '@angular-redux/router';
 
 
 @NgModule({
@@ -51,6 +52,7 @@ import {LegalModule} from './legal/legal.module';
     ReactiveFormsModule,
     HttpModule,
     routing,
+    NgReduxRouterModule.forRoot(),
     DndModule.forRoot(), // https://github.com/akserg/ng2-dnd/pull/90
     SettingsModule,
     CalendarModule,

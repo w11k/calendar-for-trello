@@ -20,6 +20,15 @@ export const enhancers = [
 if (window.devToolsExtension) {
   enhancers.push(window.devToolsExtension());
 }
+/*export type State = {
+  readonly cards: Card[];
+  readonly boards: Board[];
+  readonly user: User;
+  readonly calendar: CalendarState;
+  readonly settings: Settings;
+  readonly lists: Object;
+  readonly members: Object;
+}*/
 
 export interface RootState {
   cards: Card[];

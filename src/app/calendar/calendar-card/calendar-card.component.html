@@ -31,8 +31,8 @@
 <div class="content" >
 
   <div class="left">
-    <span *ngIf="!card.dueComplete" class="list" title="{{list?.name}}">List: {{list?.name}}</span>
-    <a *ngIf="!card.dueComplete" href="{{board?.url}}" class="board" target="_blank" title="{{board?.name}}">Board: {{board?.name}}</a>
+    <span *ngIf="!card.dueComplete" class="list" title="List: {{list?.name}}">{{list?.name}}</span>
+    <a *ngIf="!card.dueComplete" href="{{board?.url}}" class="board" target="_blank" title="Board: {{board?.name}}">{{board?.name}}</a>
   </div>
 
   <div class="right" >

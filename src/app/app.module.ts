@@ -32,6 +32,7 @@ import {SidebarComponent} from './sidebar/sidebar.component';
 import {RavenErrorHandler} from './shared/RavenErrorHandler';
 import {LoadingSpinnerComponent} from './loading-spinner/loading-spinner.component';
 import {MemberActions} from './redux/actions/member-actions';
+import {LabelActions} from './redux/actions/label-actions';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {DropZoneService} from './services/drop-zone.service';
 import {LegalModule} from './legal/legal.module';
@@ -83,6 +84,7 @@ import {LegalModule} from './legal/legal.module';
     TrelloPullService,
     DateTimeFormatService,
     MemberActions,
+    LabelActions,
     DropZoneService,
     {provide: ErrorHandler, useClass: RavenErrorHandler}
 

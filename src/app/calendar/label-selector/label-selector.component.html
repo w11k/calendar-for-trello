@@ -1,0 +1,5 @@
+<md-select [formControl]="labelCtrl" placeholder="Filtra per Label">
+  <md-option *ngFor="let key of labelsMap | keys" [value]="labelsMap[key]" >
+    {{key | cutString:30}}
+  </md-option>
+</md-select>

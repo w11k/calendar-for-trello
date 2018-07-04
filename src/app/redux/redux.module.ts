@@ -8,6 +8,7 @@ import {CardActions} from './actions/card-actions';
 import {NgReduxModule} from '@angular-redux/store';
 import {NgReduxRouter} from '@angular-redux/router';
 import {ListActions} from './actions/list-actions';
+import {LabelActions} from './actions/label-actions';
 
 @NgModule({
   imports: [
@@ -23,6 +24,7 @@ import {ListActions} from './actions/list-actions';
     CalendarActions,
     SettingsActions,
     ListActions,
+    LabelActions,
   ]
 })
 export class ReduxModule {

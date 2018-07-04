@@ -16,6 +16,7 @@ import {ListActions} from './redux/actions/list-actions';
 import {CardActions} from './redux/actions/card-actions';
 import {UserActions} from './redux/actions/user-actions';
 import {BoardActions} from './redux/actions/board-actions';
+import {LabelActions} from './redux/actions/label-actions';
 const project = require('../../package.json');
 declare let ga: Function;
 
@@ -42,7 +43,8 @@ export class AppComponent implements OnInit, OnDestroy {
     },
     settings: new Settings(),
     lists: {},
-    members: {}
+    members: {},
+    labels: {},
   };
 
   public isSidenavOpen = false;

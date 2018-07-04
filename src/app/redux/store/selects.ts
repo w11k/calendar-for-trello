@@ -54,7 +54,8 @@ export const selectVisibleCards = Reselect.createSelector(
   (state: RootState) => state.user,
   (cards: Card[], settings: Settings, user: User) => cards.filter(
     card => !settings.boardVisibilityPrefs[card.idBoard] && (settings.includeDoneCards ? true : !card.dueComplete) &&
-      (settings.filterForUser ? card.idMembers.indexOf(settings.filterForUser) > -1 : true)
+      (settings.filterForUser ? card.idMembers.indexOf(settings.filterForUser) > -1 : true) &&
+      (settings.filterForLabel ? (settings.filterForLabel.split(',').some(r => card.idLabels.indexOf(r) > -1)) : true)
   )
 );
 

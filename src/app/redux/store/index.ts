@@ -15,6 +15,7 @@ export const enhancers = [
   persistState('settings', {key: 'w11k.trello-cal/settings'}),
   persistState('lists', {key: 'w11k.trello-cal/lists'}),
   persistState('members', {key: 'w11k.trello-cal/members'}),
+  persistState('labels', {key: 'w11k.trello-cal/labels'}),
 ];
 
 if (window.devToolsExtension) {
@@ -29,4 +30,5 @@ export interface RootState {
   settings: Settings;
   lists: Object;
   members: Object;
+  labels: Object;
 }

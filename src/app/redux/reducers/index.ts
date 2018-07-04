@@ -9,6 +9,7 @@ import calendarReducer from './calendar.reducer';
 import settingsReducer from './settings.reducer';
 import listReducer from './list.reducer';
 import memberReducer from './member.reducer';
+import labelReducer from './label.reducer';
 
 import {routerReducer} from '@angular-redux/router';
 
@@ -20,7 +21,8 @@ const rootReducer = combineReducers<RootState>({
   calendar: calendarReducer,
   settings: settingsReducer,
   lists: listReducer,
-  members: memberReducer
+  members: memberReducer,
+  labels: labelReducer,
 });
 
 export default rootReducer;

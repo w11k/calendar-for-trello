@@ -1,4 +1,4 @@
-import {RootState} from './index';
+import {RootState} from '.';
 import * as Reselect from 'reselect';
 import {Card} from '../../models/card';
 import {Settings} from '../../models/settings';

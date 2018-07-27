@@ -5,7 +5,7 @@ import * as _ from 'lodash';
 import {CalendarDay} from '../models/calendar-day';
 import {CalendarType, WeekStart} from '../redux/actions/settings-actions';
 import {select} from '@angular-redux/store';
-import {Observable} from 'rxjs/Rx';
+import {Observable} from 'rxjs';
 import {selectSettingsWeekStart} from '../redux/store/selects';
 
 

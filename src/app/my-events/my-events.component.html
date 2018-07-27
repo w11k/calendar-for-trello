@@ -1,0 +1,15 @@
+<div class="myEventSize">
+  <h2>INBOX</h2>
+  <div *ngFor="let c of inBox">
+    <app-calendar-card [card]="c[0]">
+    </app-calendar-card><!--  -->
+  </div>
+</div>
+
+<div class="myEventSize">
+  <h2>OUTBOX</h2>
+  <div *ngFor="let c of outBox">
+    <app-calendar-card [card]="c[0]">
+    </app-calendar-card>
+  </div>
+</div>

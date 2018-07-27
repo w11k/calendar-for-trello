@@ -3,7 +3,7 @@ import {Router} from '@angular/router';
 import {BoardActions} from '../redux/actions/board-actions';
 import {UserActions} from '../redux/actions/user-actions';
 import {CardActions} from '../redux/actions/card-actions';
-import {RootState} from '../redux/store/index';
+import {RootState} from '../redux/store';
 import {NgRedux} from '@angular-redux/store';
 const config = require('../../config.json');
 

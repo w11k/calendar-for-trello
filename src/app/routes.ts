@@ -1,3 +1,4 @@
+import { MyEventsComponent } from './my-events/my-events.component';
 import {RouterModule, Routes} from '@angular/router';
 import {FrontPageComponent} from './front-page/front-page.component';
 import {SetTokenComponent} from './components/set-token/set-token.component';
@@ -8,7 +9,6 @@ import {CalendarComponent} from './calendar/calendar.component';
 import {AboutPageComponent} from './about/about-page/about-page.component';
 import {ImprintComponent} from './legal/imprint/imprint.component';
 import {PrivacyComponent} from './legal/privacy/privacy.component';
-
 
 let routes: Routes = [
   {
@@ -40,6 +40,10 @@ let routes: Routes = [
   {
     path: 'privacy',
     component: PrivacyComponent,
+  },
+  {
+    path: 'myEvents',
+    component: MyEventsComponent,
   },
   {
     path: '**', redirectTo: '/',

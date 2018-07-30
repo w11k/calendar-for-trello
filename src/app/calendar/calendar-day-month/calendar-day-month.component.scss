@@ -24,6 +24,11 @@ $day-primary: mat-color($mat-trello-business, 500);
 .dropZone {
   padding: 25px 3px 0;
   flex: 1 0 auto;
+
+}
+.dnd-drag-over {
+  border-color: #4d4d4d;
+  border-style: dashed;
 }
 
 .day {
@@ -31,6 +36,8 @@ $day-primary: mat-color($mat-trello-business, 500);
   top: 3px;
   right: 3px;
 }
+
+
 
 
 :host(.offsetDay) {

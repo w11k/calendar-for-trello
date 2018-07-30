@@ -25,7 +25,7 @@ import { ReduxModule } from './redux/redux.module';
 import {
   MdButtonModule, MdCardModule, MdCoreModule, MdDatepickerModule, MdIconModule, MdInputModule, MdListModule, MdMenuModule,
   MdNativeDateModule,
-  MdSelectModule, MdSidenavModule, MdSnackBarModule, MdToolbarModule
+  MdSelectModule, MdSidenavModule, MdSnackBarModule, MdToolbarModule, MdProgressSpinnerModule
 } from '@angular/material';
 import { FrontPageModule } from './front-page/front-page.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -80,6 +80,7 @@ import { HttpClientModule } from '@angular/common/http';
     MdSnackBarModule,
     MdIconModule,
     LegalModule,
+    MdProgressSpinnerModule
 
   ],
   providers: [

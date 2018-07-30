@@ -3,6 +3,7 @@ import { TrelloAuthService } from '../services/trello-auth.service';
 import { Injectable } from '@angular/core';
 const config = require('../../config.json');
 import { Observable } from '../../../node_modules/rxjs/Observable';
+import 'rxjs/add/operator/retry';
 
 @Injectable()
 export class MyEventsService {
@@ -14,7 +15,7 @@ export class MyEventsService {
 
   getCommentCards(id): Observable<any> {
     let token = this.trelloAuthService.getToken();
-    return this.httpClient.get('https://api.trello.com/1/cards/' + id + '/actions?filter=commentCard' + '&token=' + token + '&key=' + config.apiKey);
+    return this.httpClient.get('https://api.trello.com/1/cards/' + id + '/actions?filter=commentCard' + '&token=' + token + '&key=' + config.apiKey).retry(5);
   }
-  
+
 }

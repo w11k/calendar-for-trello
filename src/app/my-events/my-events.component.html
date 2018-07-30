@@ -1,15 +1,39 @@
-<div class="myEventSize">
-  <h2>INBOX</h2>
-  <div *ngFor="let c of inBox">
-    <app-calendar-card [card]="c[0]">
-    </app-calendar-card><!--  -->
-  </div>
-</div>
+<md-card class="board-card">
 
-<div class="myEventSize">
-  <h2>OUTBOX</h2>
-  <div *ngFor="let c of outBox">
-    <app-calendar-card [card]="c[0]">
-    </app-calendar-card>
+  <div fxLayout="column">
+
+    <div fxLayout="row">
+
+      <div class="myEventSize">
+        <h2>INBOX</h2>
+        <h5>All cards you have been mentioned.
+          <br> (@{{user.username}})
+        </h5>
+        <div *ngFor="let c of inBox">
+          <app-calendar-card [card]="c[0]">
+          </app-calendar-card>
+        </div>
+      </div>
+
+      <div class="myEventSize">
+        <h2>OUTBOX</h2>
+        <h5>All cards in which you mentioned someone. (@somenone)</h5>
+        <div *ngFor="let c of outBox">
+          <app-calendar-card [card]="c[0]">
+          </app-calendar-card>
+        </div>
+      </div>
+
+    </div>
+
+    <div>
+      <button class="showButton" md-raised-button (click)="startCardRequest()" color="primary" [disabled]="spinner">
+        Show my events!
+      </button>
+    </div>
+
+    <md-spinner class="spinner" *ngIf="spinner"></md-spinner>
+
   </div>
-</div>
+
+</md-card>

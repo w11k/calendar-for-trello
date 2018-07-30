@@ -19,7 +19,7 @@ const rootReducer = combineReducers<RootState>({
   settings: settingsReducer,
   lists: listReducer,
   members: memberReducer,
+  router: routerReducer
 });
-  // router: routerReducer
 
 export default rootReducer;

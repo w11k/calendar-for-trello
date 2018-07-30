@@ -85,7 +85,7 @@ import {NgReduxRouterModule} from '@angular-redux/router';
     DateTimeFormatService,
     MemberActions,
     DropZoneService,
-    {provide: ErrorHandler, useClass: RavenErrorHandler}
+    // {provide: ErrorHandler, useClass: RavenErrorHandler}
 
   ],
   bootstrap: [AppComponent]

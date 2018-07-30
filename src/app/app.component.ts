@@ -42,7 +42,8 @@ export class AppComponent implements OnInit, OnDestroy {
     },
     settings: new Settings(),
     lists: {},
-    members: {}
+    members: {},
+    router: {}
   };
 
   public isSidenavOpen = false;

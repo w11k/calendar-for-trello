@@ -31,6 +31,7 @@ if (window.devToolsExtension) {
 }*/
 
 export interface RootState {
+  router: any;
   cards: Card[];
   boards: Board[];
   user: User;

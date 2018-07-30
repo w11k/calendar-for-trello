@@ -3,28 +3,28 @@
 <form [formGroup]="cardForm" #form="ngForm" (ngSubmit)="onSubmit(cardForm)" novalidate>
 
   <div mat-dialog-content>
-    <mat-input-container class="full-width">
+    <mat-form-field class="full-width">
       <input matInput placeholder="Card Title *" formControlName="name">
       <mat-hint *ngIf="cardForm.get('name').touched && cardForm.get('name').hasError('required')" class="error">
         Error: Card Title is required
       </mat-hint>
-    </mat-input-container>
+    </mat-form-field>
 
     <div class="due-row full-width">
-      <mat-input-container class="date-width">
-        <input matInput [matDatepicker]="datepicker" placeholder="Due Date" formControlName="dueDate">
-        <button matSuffix [matDatepickerToggle]="datepicker"></button>
-      </mat-input-container>
-      <mat-datepicker #datepicker></mat-datepicker>
+      <mat-form-field class="date-width">
+        <input matInput [matDatepicker]="picker" placeholder="Due Date" formControlName="dueDate">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
 
-      <mat-input-container class="time-width">
+      <mat-form-field class="time-width">
         <input matInput placeholder="Due Time" formControlName="dueTime" type="time">
-      </mat-input-container>
+      </mat-form-field>
     </div>
 
-    <mat-input-container class="full-width">
+    <mat-form-field class="full-width">
       <input matInput placeholder="Card Description" formControlName="desc">
-    </mat-input-container>
+    </mat-form-field>
 
     <div class="mat-select-wrapper">
       <mat-select class="full-width" formControlName="idBoard" placeholder="Board *">

@@ -1,6 +1,6 @@
-<mat-input-container>
+<mat-form-field>
   <input type="text" matInput placeholder="Card Title" (input)="term$.next($event.target.value)" #input>
-</mat-input-container>
+</mat-form-field>
 <div *ngIf="results">
   <app-calendar-card
     *ngFor="let card of results"

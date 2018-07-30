@@ -12,6 +12,10 @@ import { selectOpenBoards } from '../redux/store/selects';
 import { Board } from '../models/board';
 import { User } from '../models/user';
 import { Member } from '../models/member';
+import {take} from 'rxjs/operators';
+import {Card} from '../models/card';
+import {interval} from 'rxjs/observable/interval';
+import {of} from 'rxjs/observable/of';
 
 @Component({
   selector: 'app-my-events',
@@ -23,8 +27,8 @@ export class MyEventsComponent implements OnInit {
 
   @select(selectOpenBoards) public boards$: Observable<Board[]>;
   @select('user') public user$: Observable<User>;
-  @select('members') public members$: Observable<Member>;
-  @select('cards') public cards$: Observable<any>;
+  @select('members') public members$: Observable<Member[]>;
+  @select('cards') public cards$: Observable<Card[]>;
 
   user: User;
   members: any;
@@ -54,21 +58,27 @@ export class MyEventsComponent implements OnInit {
     this.requestInterval = 10000;
     this.user$.subscribe((u) => {
       this.user = u;
-    })
+    });
   }
 
   initializeData() {
-    this.boards$.subscribe((b) => {
+    this.boards$
+      .pipe(take(1))
+      .subscribe((b) => {
       this.boards = b;
     });
-    this.members$.subscribe((m) => {
+    this.members$
+      .pipe(take(1))
+      .subscribe((m) => {
       this.members = m;
     });
-    let memberids = Object.keys(this.members);
-    memberids.forEach((element, index) => {
+    const memberIds = Object.keys(this.members);
+    memberIds.forEach((element, index) => {
       this.memberNames[index] = this.members[element].username;
     });
-    this.cards$.subscribe((c) => {
+    this.cards$
+      .pipe(take(1))
+      .subscribe((c) => {
       this.cards = c;
     });
   }
@@ -81,20 +91,19 @@ export class MyEventsComponent implements OnInit {
     this.spinner = true;
     this.cardsToBeRequested = [];
     this.requestCards();
-    this.intervalSubscription = Observable.interval(this.requestInterval).subscribe(() => {
+    this.intervalSubscription = interval(this.requestInterval).subscribe(() => {
       this.requestCards();
-    })
+    });
   }
 
   requestCards() {
     for (let i = 0; i < this.numberOfRequest; i++) {
-      if (this.cards[this.cardPosition] != undefined && this.cards[this.cardPosition] != null) {
-        this.cardsToBeRequested[i] = this.cards[this.cardPosition]
-      }
-      else {
+      if (this.cards[this.cardPosition] !== undefined && this.cards[this.cardPosition] != null) {
+        this.cardsToBeRequested[i] = this.cards[this.cardPosition];
+      } else {
         setTimeout(() => {
           this.spinner = false;
-          i = this.numberOfRequest
+          i = this.numberOfRequest;
           this.intervalSubscription.unsubscribe();
         }, 4000);
       }
@@ -105,41 +114,41 @@ export class MyEventsComponent implements OnInit {
   }
 
   getCards(): Observable<any> {
-    return Observable.of(this.cardsToBeRequested)
+    return of(this.cardsToBeRequested)
       .pipe(
         switchMap((result: any[]) => {
 
           const observables = result.map(card =>
-            Observable.combineLatest(Observable.of(card), this.myEventsService.getCommentCards(card.id))
+            Observable.combineLatest(of(card), this.myEventsService.getCommentCards(card.id))
           );
-          return Observable.combineLatest(observables)
+          return Observable.combineLatest(observables);
 
         })
-      )
+      );
   }
 
   checkInAndOutBox(cards: any) {
-    for (let card of cards) {
+    for (const card of cards) {
       if (card[1].length > 0) {
 
         if (card[1][0]['data']['text'].includes('@' + this.user.username)) {
           this.inBox.push(card);
         }
 
-        let index = this.memberNames.indexOf(this.user.username, 0);
+        const index = this.memberNames.indexOf(this.user.username, 0);
         if (index > -1) {
           this.memberNames.splice(index, 1);
         }
 
-        for (let name of this.memberNames) {
-          if (card[1][0]['data']['text'].includes('@' + name) && card[1][0].idMemberCreator == this.user.id) {
+        for (const name of this.memberNames) {
+          if (card[1][0]['data']['text'].includes('@' + name) && card[1][0].idMemberCreator === this.user.id) {
             this.outBox.push(card);
           }
         }
 
       }
     }
-    //Sort arrays by date
+    // Sort arrays by date
     this.inBox.sort(function (a, b) {
       return new Date(b[1][0].date).getTime() - new Date(a[1][0].date).getTime();
     });

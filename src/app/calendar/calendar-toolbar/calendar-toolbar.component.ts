@@ -10,6 +10,8 @@ import {componentDestroyed} from 'ng2-rx-componentdestroyed';
 import {selectSettingsType} from '../../redux/store/selects';
 import {selectSettingsWorkdays} from '../../redux/store/selects';
 import {CalendarType} from "../../redux/actions/settings-actions";
+import 'rxjs/add/operator/combineLatest';
+import 'rxjs/add/operator/takeUntil';
 
 @Component({
   selector: 'app-calendar-toolbar',

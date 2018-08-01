@@ -5,7 +5,7 @@
   "angular-cli": {},
   "scripts": {
     "ng": "ng",
-    "hmr": "ng serve --hmr -e=hmr",
+    "hmr": "ng serve --host 0.0.0.0 --hmr -e=hmr",
     "deploy": "ng github-pages:deploy",
     "build": "ng build --prod --env=prod --aot",
     "start": "npm run hmr",

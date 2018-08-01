@@ -18,4 +18,10 @@ export class MyEventsService {
     return this.httpClient.get('https://api.trello.com/1/cards/' + id + '/actions?filter=commentCard' + '&token=' + token + '&key=' + config.apiKey).retry(5);
   }
 
+  getCardsByUser(user: string) {
+    let token = this.trelloAuthService.getToken();
+    let stuff = 'https://api.trello.com/1/search?query=comment%3A%22%40' + user + '&token=' + token + '&key=' + config.apiKey;
+    return this.httpClient.get(stuff);
+  }
+
 }

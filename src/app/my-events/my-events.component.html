@@ -1,0 +1,42 @@
+<md-card class="board-card">
+
+  <div fxLayout="column">
+
+    <div fxLayout="row">
+
+      <div class="myEventSize">
+        <h2>INBOX</h2>
+        <h5>All cards you have been mentioned.
+          <br> (@{{user.username}})
+        </h5>
+        <div *ngFor="let c of inBox">
+          <app-calendar-card [card]="c[0]">
+          </app-calendar-card>
+        </div>
+      </div>
+
+      <div class="myEventSize">
+        <h2>OUTBOX</h2>
+        <h5>All cards in which you mentioned someone. (@somenone)</h5>
+        <div *ngFor="let c of outBox">
+          <app-calendar-card [card]="c[0]">
+          </app-calendar-card>
+        </div>
+      </div>
+
+    </div>
+
+    <div>
+      <button class="showButton" md-raised-button (click)="startCardRequest()" color="primary" [disabled]="spinnerCard || spinnerUser">
+        Show my events!
+      </button>
+    </div>
+
+    <md-spinner class="spinner" *ngIf="spinnerCard || spinnerUser"></md-spinner>
+
+    <h6 *ngIf="spinnerCard" class="progress">{{this.cardSpinnerCount}} / {{this.cards.size}} cards loaded.</h6>
+    <h6 *ngIf="spinnerUser" class="progress">{{this.userSpinnerCount}} / {{this.requests.length}} users loaded.</h6>
+
+  </div>
+
+</md-card>

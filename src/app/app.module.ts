@@ -15,6 +15,7 @@ import {TrelloPullService} from './services/trello-pull.service';
 import {DndModule} from 'ng2-dnd';
 import 'moment/locale/fr';
 import 'moment/locale/de';
+import { MyEventsComponent } from './my-events/my-events.component';
 import {SearchComponent} from './components/search/search.component';
 import {DateTimeFormatService} from './services/date-time-format.service';
 import {SettingsModule} from './settings/settings.module';
@@ -23,7 +24,8 @@ import {ReduxModule} from './redux/redux.module';
 import {
   MatButtonModule, MatCardModule, MatDatepickerModule, MatIconModule, MatInputModule, MatListModule, MatMenuModule,
   MatNativeDateModule,
-  MatSelectModule, MatSidenavModule, MatSnackBarModule, MatToolbarModule
+  MatSelectModule, MatSidenavModule, MatSnackBarModule, MatToolbarModule,
+  MatProgressSpinnerModule
 } from '@angular/material';
 import {FrontPageModule} from './front-page/front-page.module';
 import {FlexLayoutModule} from '@angular/flex-layout';
@@ -36,6 +38,8 @@ import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {DropZoneService} from './services/drop-zone.service';
 import {LegalModule} from './legal/legal.module';
 import {NgReduxRouterModule} from '@angular-redux/router';
+import {HttpClientModule} from '@angular/common/http';
+import {MyEventsService} from './my-events/my-events.service';
 
 
 @NgModule({
@@ -45,12 +49,15 @@ import {NgReduxRouterModule} from '@angular-redux/router';
     SearchComponent,
     SidebarComponent,
     LoadingSpinnerComponent,
+    MyEventsComponent,
+
   ],
   imports: [
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
     HttpModule,
+    HttpClientModule,
     routing,
     NgReduxRouterModule.forRoot(),
     DndModule.forRoot(), // https://github.com/akserg/ng2-dnd/pull/90
@@ -74,6 +81,8 @@ import {NgReduxRouterModule} from '@angular-redux/router';
     MatSnackBarModule,
     MatIconModule,
     LegalModule,
+    MatProgressSpinnerModule,
+
   ],
   providers: [
     CalendarService,
@@ -85,6 +94,7 @@ import {NgReduxRouterModule} from '@angular-redux/router';
     DateTimeFormatService,
     MemberActions,
     DropZoneService,
+    MyEventsService,
     // {provide: ErrorHandler, useClass: RavenErrorHandler}
 
   ],

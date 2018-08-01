@@ -24,6 +24,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
   constructor() {
     this.navigation = [
       new MenuItem('Calendar', '/', 'today'),
+      new MenuItem('My Events', '/myEvents', 'assignment_ind'),
       new MenuItem('Settings', '/settings', 'settings'),
       new MenuItem('About', '/about', 'info'),
     ];

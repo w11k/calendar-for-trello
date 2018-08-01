@@ -1,7 +1,7 @@
 import {Component, OnInit, HostListener, OnDestroy} from '@angular/core';
-import {RootState, enhancers} from './redux/store/index';
+import {RootState, enhancers} from './redux/store';
 import {NgReduxRouter} from '@angular-redux/router';
-import reducer from '../app/redux/reducers/index';
+import reducer from './redux/reducers';
 import * as moment from 'moment';
 import {Router, NavigationEnd} from '@angular/router';
 import {NgRedux, select} from '@angular-redux/store';

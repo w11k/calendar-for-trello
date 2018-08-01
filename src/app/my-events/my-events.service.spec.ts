@@ -1,6 +1,6 @@
-import { TestBed, inject } from '@angular/core/testing';
+import {TestBed, inject} from '@angular/core/testing';
 
-import { MyEventsService } from './my-events.service';
+import {MyEventsService} from './my-events.service';
 
 describe('MyEventsService', () => {
   beforeEach(() => {

@@ -15,7 +15,7 @@ import {TrelloPullService} from './services/trello-pull.service';
 import {DndModule} from 'ng2-dnd';
 import 'moment/locale/fr';
 import 'moment/locale/de';
-import { MyEventsComponent } from './my-events/my-events.component';
+import {MyEventsComponent} from './my-events/my-events.component';
 import {SearchComponent} from './components/search/search.component';
 import {DateTimeFormatService} from './services/date-time-format.service';
 import {SettingsModule} from './settings/settings.module';

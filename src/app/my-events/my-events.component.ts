@@ -1,21 +1,21 @@
-import { Card } from './../models/card';
-import { Component, OnInit } from '@angular/core';
-import { MyEventsService } from './my-events.service';
-import { Observable } from 'rxjs/Observable';
-import { Subscription } from 'rxjs/Subscription';
-import { switchMap } from 'rxjs/operators';
+import {Card} from './../models/card';
+import {Component, OnInit} from '@angular/core';
+import {MyEventsService} from './my-events.service';
+import {Observable} from 'rxjs/Observable';
+import {Subscription} from 'rxjs/Subscription';
+import {switchMap} from 'rxjs/operators';
 import 'rxjs/add/observable/combineLatest';
 import 'rxjs/add/observable/from';
 import 'rxjs/add/observable/interval';
 import 'rxjs/add/operator/delay';
-import { select } from '@angular-redux/store';
-import { selectOpenBoards } from '../redux/store/selects';
-import { Board } from '../models/board';
-import { User } from '../models/user';
-import { Member } from '../models/member';
-import { take } from 'rxjs/operators';
-import { interval } from 'rxjs/observable/interval';
-import { of } from 'rxjs/observable/of';
+import {select} from '@angular-redux/store';
+import {selectOpenBoards} from '../redux/store/selects';
+import {Board} from '../models/board';
+import {User} from '../models/user';
+import {Member} from '../models/member';
+import {take} from 'rxjs/operators';
+import {interval} from 'rxjs/observable/interval';
+import {of} from 'rxjs/observable/of';
 
 export interface Request {
   type: 'user' | 'card';
@@ -56,7 +56,8 @@ export class MyEventsComponent implements OnInit {
   requests: Request[];
   cardArray: any[];
 
-  constructor(private myEventsService: MyEventsService) { }
+  constructor(private myEventsService: MyEventsService) {
+  }
 
   ngOnInit() {
 
@@ -78,7 +79,7 @@ export class MyEventsComponent implements OnInit {
     this.user$.subscribe((u) => {
       this.user = u;
     });
-    this.requests.push({ 'type': 'user', 'id': this.user.username });
+    this.requests.push({'type': 'user', 'id': this.user.username});
     this.members$
       .pipe(take(1))
       .subscribe((m) => {
@@ -88,7 +89,7 @@ export class MyEventsComponent implements OnInit {
     memberIds.forEach((element, index) => {
       this.memberNames[index] = this.members[element].username;
       if (this.members[element].username !== this.user.username) {
-        this.requests.push({ 'type': 'user', 'id': this.members[element].username });
+        this.requests.push({'type': 'user', 'id': this.members[element].username});
       }
     });
 
@@ -118,12 +119,14 @@ export class MyEventsComponent implements OnInit {
             this.cardsToBeRequested.push(this.cardArray[i][1]);
             this.cardCount++;
             this.cardSpinnerCount++;
-            delete (this.cardArray[i])
+            delete (this.cardArray[i]);
           }
 
           delete (this.requests[i]);
         }
-        else { break; }
+        else {
+          break;
+        }
 
       }
 
@@ -160,7 +163,7 @@ export class MyEventsComponent implements OnInit {
     this.cardArray = Array.from(this.cards);
     this.cardArray.forEach(element => {
       if (element !== undefined && element !== null) {
-        this.requests.push({ 'type': 'card', 'id': element[0] });
+        this.requests.push({'type': 'card', 'id': element[0]});
       }
     });
 

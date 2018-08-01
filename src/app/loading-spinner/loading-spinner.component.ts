@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {TrelloPullService} from '../services/trello-pull.service';
-import {Observable, ReplaySubject, Subject, Subscription} from 'rxjs';
+import {Observable, ReplaySubject, Subject, Subscription, timer} from 'rxjs';
 
 @Component({
   selector: 'app-loading-spinner',
@@ -18,8 +18,7 @@ export class LoadingSpinnerComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.subscriptions.push(
-      Observable
-        .timer(0, 30000)
+      timer(0, 30000)
         .subscribe(() => {
           this.doRefresh();
         })

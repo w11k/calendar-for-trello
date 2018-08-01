@@ -1,4 +1,4 @@
-import { MyEventsComponent } from './my-events/my-events.component';
+import {MyEventsComponent} from './my-events/my-events.component';
 import {RouterModule, Routes} from '@angular/router';
 import {FrontPageComponent} from './front-page/front-page.component';
 import {SetTokenComponent} from './components/set-token/set-token.component';

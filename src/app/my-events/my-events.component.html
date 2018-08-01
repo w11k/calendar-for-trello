@@ -1,4 +1,4 @@
-<md-card class="board-card">
+<mat-card class="board-card">
 
   <div fxLayout="column">
 
@@ -27,16 +27,19 @@
     </div>
 
     <div>
-      <button class="showButton" md-raised-button (click)="startCardRequest()" color="primary" [disabled]="spinnerCard || spinnerUser">
+      <button class="showButton" mat-raised-button (click)="startCardRequest()" color="primary"
+              [disabled]="spinnerCard || spinnerUser">
         Show my events!
       </button>
     </div>
 
-    <md-spinner class="spinner" *ngIf="spinnerCard || spinnerUser"></md-spinner>
+    <mat-spinner class="spinner"
+                 mode="indeterminate"
+                 *ngIf="spinnerCard || spinnerUser"></mat-spinner>
 
     <h6 *ngIf="spinnerCard" class="progress">{{this.cardSpinnerCount}} / {{this.cards.size}} cards loaded.</h6>
     <h6 *ngIf="spinnerUser" class="progress">{{this.userSpinnerCount}} / {{this.requests.length}} users loaded.</h6>
 
   </div>
 
-</md-card>
+</mat-card>

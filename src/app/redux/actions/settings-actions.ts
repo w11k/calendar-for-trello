@@ -28,7 +28,6 @@ export class SettingsActions {
   static SET_WEEKDAYS: string = 'SET_WEEKDAYS';
   static SET_BUSINESS_HOURS_START: string = 'SET_BUSINESS_HOURS_START';
   static SET_BUSINESS_HOURS_END: string = 'SET_BUSINESS_HOURS_END';
-  static SET_FILTER_FOR_LABEL: string = 'SET_FILTER_FOR_LABEL';
 
   constructor(private ngRedux: NgRedux<RootState>) {
   }
@@ -68,10 +67,6 @@ export class SettingsActions {
 
   public setFilterForUser(userId: string) {
     this.ngRedux.dispatch({type: SettingsActions.SET_FILTER_FOR_USER, payload: userId});
-  }
-
-  public setFilterForLabel(labelId: string) {
-    this.ngRedux.dispatch({type: SettingsActions.SET_FILTER_FOR_LABEL, payload: labelId});
   }
 
   public toggleWeekviewShowHours(preference: boolean) {

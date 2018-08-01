@@ -15,9 +15,7 @@ import {ContextMenuService} from './context-menu-holder/context-menu.service';
 import {WeekComponent} from './week/week.component';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {MemberSelectorComponent} from './member-selector/member-selector.component';
-import {LabelSelectorComponent} from './label-selector/label-selector.component';
 import {CutStringPipe} from '../shared/cut-string.pipe';
-import {KeysPipe} from '../shared/keys.pipe';
 import {
   MdButtonModule, MdDatepickerModule, MdIconModule, MdInputModule, MdMenuModule, MdSelectModule,
   MdTooltipModule
@@ -51,9 +49,7 @@ import { WorkWeekComponent } from './work-week/work-week.component';
     ContextMenuHolderComponent,
     WeekComponent,
     MemberSelectorComponent,
-    LabelSelectorComponent,
     CutStringPipe,
-    KeysPipe,
     WorkWeekComponent,
   ],
   exports: [

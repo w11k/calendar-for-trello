@@ -39,10 +39,6 @@ export default (state: Settings = initialState, action: any) => {
       return Object.assign({}, state, {
         filterForUser: action.payload
       });
-    case SettingsActions.SET_FILTER_FOR_LABEL:
-      return Object.assign({}, state, {
-        filterForLabel: action.payload
-      });
     case SettingsActions.TOGGLE_WEEKVIEW_SHOW_HOURS:
       return Object.assign({}, state, {
         weekViewShowHours: action.payload as boolean

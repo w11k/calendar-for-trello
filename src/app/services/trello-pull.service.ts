@@ -8,7 +8,6 @@ import * as moment from 'moment';
 import {ListActions} from '../redux/actions/list-actions';
 import {Observable, ReplaySubject, Subject} from 'rxjs';
 import {MemberActions} from '../redux/actions/member-actions';
-import {LabelActions} from '../redux/actions/label-actions';
 import * as _ from 'lodash';
 import {select} from '@angular-redux/store';
 import {selectBoards} from '../redux/store/selects';
@@ -26,8 +25,7 @@ export class TrelloPullService {
               public boardActions: BoardActions,
               public cardActions: CardActions,
               public listActions: ListActions,
-              private memberActions: MemberActions,
-              private labelActions: LabelActions) {
+              private memberActions: MemberActions) {
   }
 
   public pull = () => {
@@ -131,15 +129,6 @@ export class TrelloPullService {
             this.memberActions.rebuildStorePartially(response.json(), board, new Date());
           }
         );
-
-        // Fetch Labels of Board -----------
-        let labelRequest = this.tHttp.get('boards/' + board.id + '/labels', null, 'fields=all');
-        labelRequest.subscribe(
-            response => {
-              // console.log('LABEL' + response.json());
-              this.labelActions.rebuildStorePartially(response.json(), board, new Date());
-            }
-          );
 
 
       if (i === boards.length) {

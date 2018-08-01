@@ -40,6 +40,7 @@ import {LegalModule} from './legal/legal.module';
 import {NgReduxRouterModule} from '@angular-redux/router';
 import {HttpClientModule} from '@angular/common/http';
 import {MyEventsService} from './my-events/my-events.service';
+import {MyEventsModule} from './my-events/my-events.module';
 
 
 @NgModule({
@@ -49,8 +50,6 @@ import {MyEventsService} from './my-events/my-events.service';
     SearchComponent,
     SidebarComponent,
     LoadingSpinnerComponent,
-    MyEventsComponent,
-
   ],
   imports: [
     BrowserModule,
@@ -81,8 +80,7 @@ import {MyEventsService} from './my-events/my-events.service';
     MatSnackBarModule,
     MatIconModule,
     LegalModule,
-    MatProgressSpinnerModule,
-
+    MyEventsModule,
   ],
   providers: [
     CalendarService,
@@ -94,7 +92,6 @@ import {MyEventsService} from './my-events/my-events.service';
     DateTimeFormatService,
     MemberActions,
     DropZoneService,
-    MyEventsService,
     // {provide: ErrorHandler, useClass: RavenErrorHandler}
 
   ],

@@ -7,7 +7,7 @@ import {TrelloHttpService} from '../../services/trello-http.service';
 import {Member} from '../../models/member';
 import {List} from '../../models/list';
 import * as moment from 'moment';
-import {MdDialogRef} from '@angular/material';
+import {MatDialogRef} from '@angular/material';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {selectOpenBoards} from '../../redux/store/selects';
 
@@ -26,7 +26,7 @@ export class AddCardComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription[] = [];
   @select(selectOpenBoards) public boards$: Observable<Board[]>;
 
-  constructor(public dialogRef: MdDialogRef<AddCardComponent>, private tHttp: TrelloHttpService, private formBuilder: FormBuilder) {
+  constructor(public dialogRef: MatDialogRef<AddCardComponent>, private tHttp: TrelloHttpService, private formBuilder: FormBuilder) {
   }
 
   ngOnInit() {

@@ -1,11 +1,11 @@
 @import '~@angular/material/theming';
 @import '../../../material/theme';
 
-.mdMenu_element{
+.matMenu_element{
   border-bottom: 1px solid lightgrey;
 }
 
-.mdMenu_title{
+.matMenu_title{
   font-size: 12px; 
   padding-left: 10px;
 }
@@ -14,9 +14,9 @@ $card-background: #edeff4;
 $card-border-color: #e0e0e0;
 $card-border-color-hover: #bdbdbd;
 
-$card-background: mat-color($md-trello-business, A100);
-$card-border-color: mat-color($md-trello-business, A100);
-$card-border-color-hover: mat-color($md-trello-business, A400);
+$card-background: mat-color($mat-trello-business, A100);
+$card-border-color: mat-color($mat-trello-business, A100);
+$card-border-color-hover: mat-color($mat-trello-business, A400);
 
 a {
   position: relative;
@@ -30,7 +30,7 @@ a {
   padding: 6px 5px 5px;
   font-size: 10px;
   cursor: move !important;
-  color: mat-contrast($md-trello-business, A100);
+  color: mat-contrast($mat-trello-business, A100);
   border-left: solid 7px;
   position: relative;
   line-height: 1.3;
@@ -98,7 +98,7 @@ a {
       line-height: $context-menu-size;
     }
 
-    md-icon {
+    mat-icon {
       font-size: $context-menu-size;
     }
   }

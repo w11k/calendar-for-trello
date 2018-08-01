@@ -21,9 +21,9 @@ import {SettingsModule} from './settings/settings.module';
 import {CalendarModule} from './calendar/calendar.module';
 import {ReduxModule} from './redux/redux.module';
 import {
-  MdButtonModule, MdCardModule, MdCoreModule, MdDatepickerModule, MdIconModule, MdInputModule, MdListModule, MdMenuModule,
-  MdNativeDateModule,
-  MdSelectModule, MdSidenavModule, MdSnackBarModule, MdToolbarModule
+  MatButtonModule, MatCardModule, MatDatepickerModule, MatIconModule, MatInputModule, MatListModule, MatMenuModule,
+  MatNativeDateModule,
+  MatSelectModule, MatSidenavModule, MatSnackBarModule, MatToolbarModule
 } from '@angular/material';
 import {FrontPageModule} from './front-page/front-page.module';
 import {FlexLayoutModule} from '@angular/flex-layout';
@@ -35,6 +35,7 @@ import {MemberActions} from './redux/actions/member-actions';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {DropZoneService} from './services/drop-zone.service';
 import {LegalModule} from './legal/legal.module';
+import {NgReduxRouterModule} from '@angular-redux/router';
 
 
 @NgModule({
@@ -51,27 +52,27 @@ import {LegalModule} from './legal/legal.module';
     ReactiveFormsModule,
     HttpModule,
     routing,
+    NgReduxRouterModule.forRoot(),
     DndModule.forRoot(), // https://github.com/akserg/ng2-dnd/pull/90
     SettingsModule,
     CalendarModule,
     AboutModule,
     ReduxModule,
     FrontPageModule,
-    MdCoreModule,
-    MdToolbarModule,
-    MdButtonModule,
-    MdSidenavModule,
-    MdSelectModule,
-    MdListModule,
-    MdCardModule,
-    MdDatepickerModule,
-    MdNativeDateModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatSidenavModule,
+    MatSelectModule,
+    MatListModule,
+    MatCardModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     NoopAnimationsModule,
     FlexLayoutModule,
-    MdMenuModule,
-    MdInputModule,
-    MdSnackBarModule,
-    MdIconModule,
+    MatMenuModule,
+    MatInputModule,
+    MatSnackBarModule,
+    MatIconModule,
     LegalModule,
   ],
   providers: [
@@ -84,7 +85,7 @@ import {LegalModule} from './legal/legal.module';
     DateTimeFormatService,
     MemberActions,
     DropZoneService,
-    {provide: ErrorHandler, useClass: RavenErrorHandler}
+    // {provide: ErrorHandler, useClass: RavenErrorHandler}
 
   ],
   bootstrap: [AppComponent]

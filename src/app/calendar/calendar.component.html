@@ -1,59 +1,63 @@
-<div class="navigation flex-container">
-  <app-card-drop-zone></app-card-drop-zone>
-  <div class="left">
+<div class="navigation">
+    <app-card-drop-zone></app-card-drop-zone>
+    <div class="row">
 
 
-  <button md-icon-button md-raised-button color="primary" (click)="previous()">
-    <md-icon>chevron_left</md-icon>
-  </button>
-  <button md-button color="primary" (click)="toToday()" i18n="Button label: navigate to current date">TODAY</button>
-  <button md-icon-button md-raised-button color="primary" (click)="next()">
-    <md-icon>chevron_right</md-icon>
-  </button>
-  <button md-button [disabled]="true">
-  {{current}}
-  </button>
-  </div>
+        <div class="col-auto">
 
 
-  <div class="right">
-    <app-member-selector></app-member-selector>
-    <button md-icon-button (click)="addCard()" color="primary" i18n="Button label: create a new card"
-            mdTooltip="Create a new Card">
-      <md-icon>add_circle</md-icon>
-    </button>
-    <button md-raised-button (click)="toggleMode(CalendarType.Month)" color="primary"
-            mdTooltip="Switch to Month View" *ngIf="calendarType != CalendarType.Month">
-      Month
-    </button>
-    <button md-raised-button (click)="toggleMode(CalendarType.Week)" color="primary"
-            mdTooltip="Switch to Week View" *ngIf="calendarType != CalendarType.Week">
-      Week
-    </button>
-    <button md-raised-button (click)="toggleMode(CalendarType.WorkWeek)" color="primary"
-            mdTooltip="Switch to Work Week View"  *ngIf="calendarType != CalendarType.WorkWeek">
-      Work Week
-    </button>
-  </div>
+            <button mat-icon-button mat-raised-button color="primary" (click)="previous()">
+                <mat-icon>chevron_left</mat-icon>
+            </button>
+            <button mat-button color="primary" (click)="toToday()" i18n="Button label: navigate to current date">TODAY</button>
+            <button mat-icon-button mat-raised-button color="primary" (click)="next()">
+                <mat-icon>chevron_right</mat-icon>
+            </button>
+            <button mat-button [disabled]="true">
+                {{current}}
+            </button>
+        </div>
+
+
+        <div class="col-2">
+            <app-member-selector></app-member-selector>
+        </div>
+        <div class="col text-right">
+            <button mat-icon-button (click)="addCard()" color="primary" i18n="Button label: create a new card"
+                    matTooltip="Create a new Card">
+                <mat-icon>add_circle</mat-icon>
+            </button>
+            <button mat-raised-button (click)="toggleMode(CalendarType.Month)" color="primary"
+                    matTooltip="Switch to Month View" *ngIf="calendarType != CalendarType.Month">
+                Month
+            </button>
+            <button mat-raised-button (click)="toggleMode(CalendarType.Week)" color="primary"
+                    matTooltip="Switch to Week View" *ngIf="calendarType != CalendarType.Week">
+                Week
+            </button>
+            <button mat-raised-button (click)="toggleMode(CalendarType.WorkWeek)" color="primary"
+                    matTooltip="Switch to Work Week View" *ngIf="calendarType != CalendarType.WorkWeek">
+                Work Week
+            </button>
+        </div>
+    </div>
 
 </div>
 
 <div class="wrap">
-  <app-calendar-toolbar></app-calendar-toolbar>
-  <ng-container [ngSwitch]="calendarType">
-    <ng-container *ngSwitchCase="CalendarType.Month">
-      <app-calendar-day-month *ngFor="let day of calendar$ | async" [calendarDay]="day"></app-calendar-day-month>
+    <app-calendar-toolbar></app-calendar-toolbar>
+    <ng-container [ngSwitch]="calendarType">
+        <ng-container *ngSwitchCase="CalendarType.Month">
+            <app-calendar-day-month *ngFor="let day of calendar$ | async" [calendarDay]="day"></app-calendar-day-month>
+        </ng-container>
+        <ng-container *ngSwitchCase="CalendarType.Week">
+            <app-week></app-week>
+        </ng-container>
+        <ng-container *ngSwitchCase="CalendarType.WorkWeek">
+            <app-work-week></app-work-week>
+        </ng-container>
     </ng-container>
-    <ng-container *ngSwitchCase="CalendarType.Week">
-      <app-week></app-week>
-    </ng-container>
-    <ng-container *ngSwitchCase="CalendarType.WorkWeek">
-      <app-work-week></app-work-week>
-    </ng-container>
-  </ng-container>
 </div>
-
-
 
 
 <app-context-menu-holder></app-context-menu-holder>

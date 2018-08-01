@@ -1,128 +1,128 @@
-<md-card class="board-card">
-  <md-card-header>
-    <md-card-title>Language</md-card-title>
-    <md-card-subtitle>Set your language</md-card-subtitle>
-  </md-card-header>
-  <md-card-content>
+<mat-card class="board-card">
+  <mat-card-header>
+    <mat-card-title>Language</mat-card-title>
+    <mat-card-subtitle>Set your language</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
 
     <div style="padding:10px">
-      <md-select placeholder="" [(ngModel)]="settings.language" (ngModelChange)="updateLang($event)">
-        <md-option *ngFor="let lang of languages" [value]="lang.key">{{lang.name}}</md-option>
-      </md-select>
+      <mat-select placeholder="" [(ngModel)]="settings.language" (ngModelChange)="updateLang($event)">
+        <mat-option *ngFor="let lang of languages" [value]="lang.key">{{lang.name}}</mat-option>
+      </mat-select>
 
     </div>
-  </md-card-content>
-</md-card>
-<md-card class="board-card">
-  <md-card-header>
-    <md-card-title>Wekstart</md-card-title>
-    <md-card-subtitle></md-card-subtitle>
-  </md-card-header>
-  <md-card-content>
+  </mat-card-content>
+</mat-card>
+<mat-card class="board-card">
+  <mat-card-header>
+    <mat-card-title>Wekstart</mat-card-title>
+    <mat-card-subtitle></mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
 
     <div style="padding:10px">
-      <md-radio-group class="week-start-radio-group" [(ngModel)]="settings.weekStart">
-        <md-radio-button class="week-start-radio-button" *ngFor="let weekstartDay of weekStartDays" [value]="weekstartDay.key">
+      <mat-radio-group class="week-start-radio-group" [(ngModel)]="settings.weekStart">
+        <mat-radio-button class="week-start-radio-button" *ngFor="let weekstartDay of weekStartDays" [value]="weekstartDay.key">
           {{weekstartDay.name}}
-        </md-radio-button>
-      </md-radio-group>
+        </mat-radio-button>
+      </mat-radio-group>
 
     </div>
-  </md-card-content>
-</md-card>
+  </mat-card-content>
+</mat-card>
 
 
 
-<md-card class="board-card">
-  <md-card-header>
-    <md-card-title>Week Views</md-card-title>
-    <md-card-subtitle>Configure your week and work week view</md-card-subtitle>
-  </md-card-header>
-  <md-card-content>
+<mat-card class="board-card">
+  <mat-card-header>
+    <mat-card-title>Week Views</mat-card-title>
+    <mat-card-subtitle>Configure your week and work week view</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
 
     <div style="padding:10px">
-      <md-checkbox [(ngModel)]="settings.weekViewShowHours" (ngModelChange)="updateWeekviewShowHours($event)">Show
+      <mat-checkbox [(ngModel)]="settings.weekViewShowHours" (ngModelChange)="updateWeekviewShowHours($event)">Show
         hours
-      </md-checkbox>
+      </mat-checkbox>
     </div>
 
     <div style="padding:10px">
-      <md-select placeholder="Work days" [(ngModel)]="settings.weekDays"
+      <mat-select placeholder="Work days" [(ngModel)]="settings.weekDays"
                  (ngModelChange)="updateWeekdays($event)">
-        <md-option [value]="5">5</md-option>
-        <md-option [value]="6">6</md-option>
-        <md-option [value]="7">7</md-option>
-      </md-select>
+        <mat-option [value]="5">5</mat-option>
+        <mat-option [value]="6">6</mat-option>
+        <mat-option [value]="7">7</mat-option>
+      </mat-select>
     </div>
 
     <div style="padding:10px">
-      <md-select placeholder="Core labor time from" [(ngModel)]="settings.businessHoursStart"
+      <mat-select placeholder="Core labor time from" [(ngModel)]="settings.businessHoursStart"
                  (ngModelChange)="updateBusinessHoursStart($event)">
-        <md-option [value]="0">24 pm</md-option>
-        <md-option [value]="1">1 am</md-option>
-        <md-option [value]="2">2 am</md-option>
-        <md-option [value]="3">3 am</md-option>
-        <md-option [value]="4">4 am</md-option>
-        <md-option [value]="5">5 am</md-option>
-        <md-option [value]="6">6 am</md-option>
-        <md-option [value]="7">7 am</md-option>
-        <md-option [value]="8">8 am</md-option>
-        <md-option [value]="9">9 am</md-option>
-        <md-option [value]="10">10 am</md-option>
-        <md-option [value]="11">11 am</md-option>
-        <md-option [value]="12">12 am</md-option>
-      </md-select>
+        <mat-option [value]="0">24 pm</mat-option>
+        <mat-option [value]="1">1 am</mat-option>
+        <mat-option [value]="2">2 am</mat-option>
+        <mat-option [value]="3">3 am</mat-option>
+        <mat-option [value]="4">4 am</mat-option>
+        <mat-option [value]="5">5 am</mat-option>
+        <mat-option [value]="6">6 am</mat-option>
+        <mat-option [value]="7">7 am</mat-option>
+        <mat-option [value]="8">8 am</mat-option>
+        <mat-option [value]="9">9 am</mat-option>
+        <mat-option [value]="10">10 am</mat-option>
+        <mat-option [value]="11">11 am</mat-option>
+        <mat-option [value]="12">12 am</mat-option>
+      </mat-select>
     </div>
 
     <div style="padding:10px">
-      <md-select placeholder="to" [(ngModel)]="settings.businessHoursEnd"
+      <mat-select placeholder="to" [(ngModel)]="settings.businessHoursEnd"
                  (ngModelChange)="updateBusinessHoursEnd($event)">
-        <md-option [value]="13">1 pm</md-option>
-        <md-option [value]="14">2 pm</md-option>
-        <md-option [value]="15">3 pm</md-option>
-        <md-option [value]="16">4 pm</md-option>
-        <md-option [value]="17">5 pm</md-option>
-        <md-option [value]="18">6 pm</md-option>
-        <md-option [value]="19">7 pm</md-option>
-        <md-option [value]="20">8 pm</md-option>
-        <md-option [value]="21">9 pm</md-option>
-        <md-option [value]="22">10 pm</md-option>
-        <md-option [value]="23">11 pm</md-option>
-        <md-option [value]="24">12 pm</md-option>
-      </md-select>
+        <mat-option [value]="13">1 pm</mat-option>
+        <mat-option [value]="14">2 pm</mat-option>
+        <mat-option [value]="15">3 pm</mat-option>
+        <mat-option [value]="16">4 pm</mat-option>
+        <mat-option [value]="17">5 pm</mat-option>
+        <mat-option [value]="18">6 pm</mat-option>
+        <mat-option [value]="19">7 pm</mat-option>
+        <mat-option [value]="20">8 pm</mat-option>
+        <mat-option [value]="21">9 pm</mat-option>
+        <mat-option [value]="22">10 pm</mat-option>
+        <mat-option [value]="23">11 pm</mat-option>
+        <mat-option [value]="24">12 pm</mat-option>
+      </mat-select>
     </div>
-  </md-card-content>
-</md-card>
+  </mat-card-content>
+</mat-card>
 
-<md-card class="board-card">
-  <md-card-header>
-    <md-card-title>Done Cards</md-card-title>
-    <md-card-subtitle>Show cards which are marked as done</md-card-subtitle>
-  </md-card-header>
-  <md-card-content>
+<mat-card class="board-card">
+  <mat-card-header>
+    <mat-card-title>Done Cards</mat-card-title>
+    <mat-card-subtitle>Show cards which are marked as done</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
 
     <div style="padding:10px">
-      <md-select placeholder="" [(ngModel)]="settings.includeDoneCards"
+      <mat-select placeholder="" [(ngModel)]="settings.includeDoneCards"
                  (ngModelChange)="updateIncludeDoneCards($event)">
-        <md-option [value]="true">Show</md-option>
-        <md-option [value]="false">Hide</md-option>
-      </md-select>
+        <mat-option [value]="true">Show</mat-option>
+        <mat-option [value]="false">Hide</mat-option>
+      </mat-select>
 
     </div>
-  </md-card-content>
-</md-card>
+  </mat-card-content>
+</mat-card>
 
 
-<md-card class="board-card">
-  <md-card-header>
-    <md-card-title>Board Settings</md-card-title>
-    <md-card-subtitle>Hide/Display Boards and overwrite Trello Board Colors</md-card-subtitle>
-  </md-card-header>
-  <md-card-content>
-    <md-list dense>
-      <md-list-item *ngFor="let board of boards">
+<mat-card class="board-card">
+  <mat-card-header>
+    <mat-card-title>Board Settings</mat-card-title>
+    <mat-card-subtitle>Hide/Display Boards and overwrite Trello Board Colors</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <mat-list dense>
+      <mat-list-item *ngFor="let board of boards">
         <app-edit-board [board]="board"></app-edit-board>
-      </md-list-item>
-    </md-list>
-  </md-card-content>
-</md-card>
+      </mat-list-item>
+    </mat-list>
+  </mat-card-content>
+</mat-card>

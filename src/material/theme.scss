@@ -5,8 +5,8 @@
 @import "links";
 @include mat-core();
 
-$trello-app-primary: mat-palette($md-trello-business);
-$trello-app-accent: mat-palette($md-trello-red);
+$trello-app-primary: mat-palette($mat-trello-business);
+$trello-app-accent: mat-palette($mat-trello-red);
 $trello-app-warn: mat-palette($mat-red);
 $trello-app-theme: mat-light-theme($trello-app-primary, $trello-app-accent, $trello-app-warn);
 

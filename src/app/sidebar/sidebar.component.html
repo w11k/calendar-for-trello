@@ -1,40 +1,40 @@
 <div class="top">
-  <md-toolbar color="primary">
+  <mat-toolbar color="primary">
     <img *ngIf="user?.avatarHash" class="profile-picture"
          src="https://trello-avatars.s3.amazonaws.com/{{user?.avatarHash}}/50.png"
          alt="{{user?.fullName}}">
     <span>{{user?.fullName}}</span>
-  </md-toolbar>
+  </mat-toolbar>
 
 
-  <md-list>
+  <mat-list>
 
-    <h3 md-subheader>Menu</h3>
-    <button md-menu-item md-list-item *ngFor="let item of navigation" routerLink="{{item.link}}">
-      <md-icon>{{item.icon}}</md-icon>
+    <h3 mat-subheader>Menu</h3>
+    <button mat-menu-item mat-list-item *ngFor="let item of navigation" routerLink="{{item.link}}">
+      <mat-icon>{{item.icon}}</mat-icon>
       {{ item.text }}
     </button>
-    <md-divider></md-divider>
+    <mat-divider></mat-divider>
 
 
-    <h3 md-subheader>Cards</h3>
-    <button md-menu-item md-list-item (click)="activeSearch = !activeSearch">
-      <md-icon>search</md-icon>
+    <h3 mat-subheader>Cards</h3>
+    <button mat-menu-item mat-list-item (click)="activeSearch = !activeSearch">
+      <mat-icon>search</mat-icon>
       Search
     </button>
     <app-search *ngIf="activeSearch"></app-search>
 
-    <app-over-due-area md-list-item></app-over-due-area>
-    <app-no-due-area md-list-item></app-no-due-area>
+    <app-over-due-area mat-list-item></app-over-due-area>
+    <app-no-due-area mat-list-item></app-no-due-area>
 
-    <md-divider class="spacer1"></md-divider>
+    <mat-divider class="spacer1"></mat-divider>
 
 
-    <button md-menu-item md-list-item (click)="start.close()">
-      <md-icon>close</md-icon>
+    <button mat-menu-item mat-list-item (click)="start.close()">
+      <mat-icon>close</mat-icon>
       Close Menu
     </button>
-  </md-list>
+  </mat-list>
 </div>
 
 <div class="bottom">

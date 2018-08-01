@@ -1,12 +1,12 @@
-<md-sidenav-container fullscreen>
-  <md-sidenav #start [mode]="'side'" style="width:70%; max-width:250px;" [opened]="isSidenavOpen">
+<mat-sidenav-container fullscreen>
+  <mat-sidenav #start [mode]="'side'" style="width:70%; max-width:250px;" [opened]="isSidenavOpen">
     <app-sidebar [start]="start"></app-sidebar>
-  </md-sidenav>
+  </mat-sidenav>
   <div class="app">
 
-    <md-toolbar [color]="'primary'">
-      <button (click)="start.toggle()" md-icon-button>
-        <md-icon>menu</md-icon>
+    <mat-toolbar [color]="'primary'">
+      <button (click)="start.toggle()" mat-icon-button>
+        <mat-icon>menu</mat-icon>
       </button>
       <div class="flex">Calendar for <img
         src="assets/header-logo.png" alt=""></div>
@@ -16,34 +16,34 @@
 
       <app-loading-spinner></app-loading-spinner>
 
-      <button md-icon-button [md-menu-trigger-for]="menu" mdTooltip="More">
-        <md-icon>more_vert</md-icon>
+      <button mat-icon-button [mat-menu-trigger-for]="menu" matTooltip="More">
+        <mat-icon>more_vert</mat-icon>
       </button>
 
-      <md-menu #menu="mdMenu">
-        <button md-menu-item (click)="toIssue()">
-          <md-icon>lightbulb_outline</md-icon>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="toIssue()">
+          <mat-icon>lightbulb_outline</mat-icon>
           Submit Feature Request
         </button>
-        <button md-menu-item (click)="toIssue()">
-          <md-icon>report_problem</md-icon>
+        <button mat-menu-item (click)="toIssue()">
+          <mat-icon>report_problem</mat-icon>
           Report a Problem
         </button>
-        <button md-menu-item (click)="clearData()">
-          <md-icon>delete</md-icon>
+        <button mat-menu-item (click)="clearData()">
+          <mat-icon>delete</mat-icon>
           Clear Data
         </button>
-        <button md-menu-item (click)="logout()">
-          <md-icon>clear</md-icon>
+        <button mat-menu-item (click)="logout()">
+          <mat-icon>clear</mat-icon>
           Logout
         </button>
-      </md-menu>
+      </mat-menu>
 
-    </md-toolbar>
+    </mat-toolbar>
 
     <br>
     <router-outlet></router-outlet>
 
 
   </div>
-</md-sidenav-container>
+</mat-sidenav-container>

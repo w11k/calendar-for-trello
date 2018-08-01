@@ -1,5 +1,5 @@
-<button (click)="show = !show" *ngIf="cards.length" md-menu-item>
-  <md-icon>{{cards.length ? "timer off" : ""}}</md-icon>
+<button (click)="show = !show" *ngIf="cards.length" mat-menu-item>
+  <mat-icon>{{cards.length ? "timer off" : ""}}</mat-icon>
   without Due Date <span class="label"> {{cards.length}}</span>
 </button>
 <div *ngIf="show">

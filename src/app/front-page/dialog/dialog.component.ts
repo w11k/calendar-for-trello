@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {TrelloAuthService} from '../../services/trello-auth.service';
 import {Router} from '@angular/router';
-import {MdDialogRef} from '@angular/material';
+import {MatDialogRef} from '@angular/material';
 
 @Component({
   selector: 'app-dialog',
@@ -10,7 +10,7 @@ import {MdDialogRef} from '@angular/material';
 })
 export class DialogComponent implements OnInit {
 
-  constructor(public dialogRef: MdDialogRef<DialogComponent>, public trelloAuthService: TrelloAuthService, public router: Router) {
+  constructor(public dialogRef: MatDialogRef<DialogComponent>, public trelloAuthService: TrelloAuthService, public router: Router) {
   }
 
   ngOnInit() {

@@ -1,12 +1,12 @@
 @import '~@angular/material/theming';
 @import '../../../material/theme';
 
-$day-border-color: mat-color($md-gray, 300);
-$day-background: mat-color($md-gray, A100);
-$day-offset-background: mat-color($md-trello-business, 50);
-$day-time-color: mat-color($md-gray, 500);
+$day-border-color: mat-color($mat-gray, 300);
+$day-background: mat-color($mat-gray, A100);
+$day-offset-background: mat-color($mat-trello-business, 50);
+$day-time-color: mat-color($mat-gray, 500);
 
-$day-primary: mat-color($md-trello-business, 500);
+$day-primary: mat-color($mat-trello-business, 500);
 
 .eqWrap {
   display: flex;

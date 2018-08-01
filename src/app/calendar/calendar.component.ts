@@ -7,7 +7,7 @@ import {CalendarActions, PeriodChange} from '../redux/actions/calendar-actions';
 import {SettingsActions, CalendarType} from '../redux/actions/settings-actions';
 import {TrelloPullService} from '../services/trello-pull.service';
 import {Settings} from '../models/settings';
-import {MdDialog} from '@angular/material';
+import {MatDialog} from '@angular/material';
 import {AddCardComponent} from './add-card/add-card.component';
 import {
   selectCalendarDays,
@@ -37,7 +37,7 @@ export class CalendarComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription[] = [];
 
   constructor(public calendarActions: CalendarActions, private settingsActions: SettingsActions,
-              public mdDialog: MdDialog, public trelloPullService: TrelloPullService) {
+              public matDialog: MatDialog, public trelloPullService: TrelloPullService) {
   }
 
   ngOnInit() {
@@ -105,7 +105,7 @@ export class CalendarComponent implements OnInit, OnDestroy {
   }
 
   public addCard() {
-    let dialogRef = this.mdDialog.open(AddCardComponent, {
+    let dialogRef = this.matDialog.open(AddCardComponent, {
       width: '600px',
     });
 

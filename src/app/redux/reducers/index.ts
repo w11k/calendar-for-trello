@@ -9,18 +9,17 @@ import calendarReducer from './calendar.reducer';
 import settingsReducer from './settings.reducer';
 import listReducer from './list.reducer';
 import memberReducer from './member.reducer';
-
 import {routerReducer} from '@angular-redux/router';
 
 const rootReducer = combineReducers<RootState>({
-  router: routerReducer,
   cards: cardsReducer,
   boards: boardsReducer,
   user: userReducer,
   calendar: calendarReducer,
   settings: settingsReducer,
   lists: listReducer,
-  members: memberReducer
+  members: memberReducer,
+  router: routerReducer
 });
 
 export default rootReducer;

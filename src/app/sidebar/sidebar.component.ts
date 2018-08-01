@@ -3,7 +3,7 @@ import {select} from '@angular-redux/store';
 import {Observable, Subscription} from 'rxjs';
 import {User} from '../models/user';
 import {MenuItem} from '../models/menu-item';
-import {MdSidenav} from '@angular/material';
+import {MatSidenav} from '@angular/material';
 
 @Component({
   selector: 'app-sidebar',
@@ -12,7 +12,7 @@ import {MdSidenav} from '@angular/material';
 })
 export class SidebarComponent implements OnInit, OnDestroy {
 
-  @Input('start') start: MdSidenav;
+  @Input('start') start: MatSidenav;
 
   @select('user') public user$: Observable<User>;
   public user: User;

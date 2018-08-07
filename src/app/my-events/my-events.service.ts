@@ -3,7 +3,7 @@ import {TrelloAuthService} from '../services/trello-auth.service';
 import {Injectable} from '@angular/core';
 
 const config = require('../../config.json');
-import {Observable} from '../../../node_modules/rxjs/Observable';
+import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/retry';
 
 @Injectable()

@@ -9,16 +9,17 @@
         <h5>All cards you have been mentioned.
           <br> (@{{user.username}})
         </h5>
-        <div *ngFor="let c of inBox">
+        <div *ngFor="let c of (inbox$ | async)">
           <app-calendar-card [card]="c[0]">
           </app-calendar-card>
         </div>
+
       </div>
 
       <div class="myEventSize">
         <h2>OUTBOX</h2>
         <h5>All cards in which you mentioned someone. (@somenone)</h5>
-        <div *ngFor="let c of outBox">
+        <div *ngFor="let c of (outbox$ | async)">
           <app-calendar-card [card]="c[0]">
           </app-calendar-card>
         </div>
@@ -27,18 +28,16 @@
     </div>
 
     <div>
-      <button class="showButton" mat-raised-button (click)="startCardRequest()" color="primary"
-              [disabled]="spinnerCard || spinnerUser">
+      <button class="showButton" mat-raised-button (click)="startCardRequest()" color="primary" [disabled]="spinnerCard || spinnerUser">
         Show my events!
       </button>
     </div>
 
-    <mat-spinner class="spinner"
-                 mode="indeterminate"
-                 *ngIf="spinnerCard || spinnerUser"></mat-spinner>
+    <mat-spinner class="spinner" mode="indeterminate" *ngIf="spinnerCard || spinnerUser"></mat-spinner>
 
     <h6 *ngIf="spinnerCard" class="progress">{{this.cardSpinnerCount}} / {{this.cards.size}} cards loaded.</h6>
     <h6 *ngIf="spinnerUser" class="progress">{{this.userSpinnerCount}} / {{this.requests.length}} users loaded.</h6>
+    <h6 *ngIf="!spinnerUser && !spinnerCard" class="progress">{{ (lastUpdate$ | async) }}</h6>
 
   </div>
 

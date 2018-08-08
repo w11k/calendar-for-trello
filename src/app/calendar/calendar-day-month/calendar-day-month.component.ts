@@ -6,11 +6,11 @@ import {Card} from '../../models/card';
 import * as moment from 'moment';
 import * as _ from 'lodash';
 import {CardActions} from '../../redux/actions/card-actions';
-import {DragDropData} from 'ng2-dnd';
 import {ContextMenuService} from '../context-menu-holder/context-menu.service';
 import {selectVisibleCards} from '../../redux/store/selects';
 import Dictionary = _.Dictionary;
 import {DropZoneService} from '../../services/drop-zone.service';
+import {DragDropData} from '@beyerleinf/ngx-dnd';
 
 @Component({
   selector: 'app-calendar-day-month',

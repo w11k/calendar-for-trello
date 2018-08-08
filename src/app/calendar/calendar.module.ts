@@ -7,7 +7,7 @@ import {CalendarCardComponent} from './calendar-card/calendar-card.component';
 import {OverDueAreaComponent} from './over-due-area/over-due-area.component';
 import {CardDropZoneComponent} from './card-drop-zone/card-drop-zone.component';
 import {CalendarToolbarComponent} from './calendar-toolbar/calendar-toolbar.component';
-import {DndModule} from 'ng2-dnd';
+import {DndModule} from '@beyerleinf/ngx-dnd';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AddCardComponent} from './add-card/add-card.component';
 import {ContextMenuHolderComponent} from './context-menu-holder/context-menu-holder.component';

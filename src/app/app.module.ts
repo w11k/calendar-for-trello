@@ -12,7 +12,6 @@ import {SetTokenComponent} from './components/set-token/set-token.component';
 import {MemberGuard} from './services/guards/memberGuard';
 import {VisitorGuard} from './services/guards/visitorGuard';
 import {TrelloPullService} from './services/trello-pull.service';
-import {DndModule} from 'ng2-dnd';
 import 'moment/locale/fr';
 import 'moment/locale/de';
 import {MyEventsComponent} from './my-events/my-events.component';
@@ -42,6 +41,7 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {MyEventsModule} from './my-events/my-events.module';
 import {QueueInterceptor} from './shared/queue.interceptor';
 import {TokenInterceptor} from './shared/token.interceptor';
+import {DndModule} from '@beyerleinf/ngx-dnd';
 
 
 @NgModule({
@@ -60,7 +60,7 @@ import {TokenInterceptor} from './shared/token.interceptor';
     HttpClientModule,
     routing,
     NgReduxRouterModule.forRoot(),
-    DndModule.forRoot(), // https://github.com/akserg/ng2-dnd/pull/90
+    DndModule.forRoot(), // https://github.com/akserg/@beyerleinf/ngx-dnd/pull/90
     SettingsModule,
     CalendarModule,
     AboutModule,

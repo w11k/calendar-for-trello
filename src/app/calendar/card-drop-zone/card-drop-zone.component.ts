@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {DragDropData} from 'ng2-dnd';
+import {DragDropData} from '@beyerleinf/ngx-dnd';
 import {CardActions} from '../../redux/actions/card-actions';
 import {Card} from '../../models/card';
 import {DropZoneService} from '../../services/drop-zone.service';

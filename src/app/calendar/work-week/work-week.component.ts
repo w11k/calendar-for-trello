@@ -5,7 +5,7 @@ import {select} from '@angular-redux/store';
 import {Observable, Subscription} from 'rxjs';
 import {CalendarDay} from '../../models/calendar-day';
 import {DateTimeFormatService} from '../../services/date-time-format.service';
-import {DragDropData} from 'ng2-dnd';
+import {DragDropData} from '@beyerleinf/ngx-dnd';
 import {CardActions} from '../../redux/actions/card-actions';
 import {WeekDaySlot} from '../week/WeekDaySlot';
 import {Settings} from '../../models/settings';

@@ -38,8 +38,9 @@ import {BrowserAnimationsModule, NoopAnimationsModule} from '@angular/platform-b
 import {DropZoneService} from './services/drop-zone.service';
 import {LegalModule} from './legal/legal.module';
 import {NgReduxRouterModule} from '@angular-redux/router';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {MyEventsModule} from './my-events/my-events.module';
+import {QueueInterceptor} from './shared/queue.interceptor';
 
 
 @NgModule({
@@ -92,6 +93,12 @@ import {MyEventsModule} from './my-events/my-events.module';
     DateTimeFormatService,
     MemberActions,
     DropZoneService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: QueueInterceptor,
+      multi: true,
+    }
+
     // {provide: ErrorHandler, useClass: RavenErrorHandler}
 
   ],

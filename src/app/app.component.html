@@ -4,7 +4,7 @@
   </mat-sidenav>
   <div class="app">
 
-    <mat-toolbar [color]="'primary'">
+    <mat-toolbar [color]="'primary'" class="mb-4">
       <button (click)="start.toggle()" mat-icon-button>
         <mat-icon>menu</mat-icon>
       </button>
@@ -40,9 +40,6 @@
       </mat-menu>
 
     </mat-toolbar>
-
-    <br>
-
 
     <router-outlet></router-outlet>
 

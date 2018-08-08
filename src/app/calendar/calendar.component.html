@@ -19,24 +19,24 @@
         </div>
 
 
-        <div class="col-2">
-            <app-member-selector></app-member-selector>
+      <div class="col  d-flex justify-content-end">
+        <app-member-selector style="max-width: 200px;display: block;"></app-member-selector>
         </div>
-        <div class="col text-right">
-            <button mat-icon-button (click)="addCard()" color="primary" i18n="Button label: create a new card"
+      <div class="col-auto">
+        <button class="mr-1" mat-icon-button (click)="addCard()" color="primary" i18n="Button label: create a new card"
                     matTooltip="Create a new Card">
                 <mat-icon>add_circle</mat-icon>
             </button>
-            <button mat-raised-button (click)="toggleMode(CalendarType.Month)" color="primary"
-                    matTooltip="Switch to Month View" *ngIf="calendarType != CalendarType.Month">
+        <button class="mr-1" mat-raised-button (click)="toggleMode(CalendarType.Month)" color="primary"
+                matTooltip="Switch to Month View" *ngIf="calendarType != CalendarType.Month">
                 Month
             </button>
-            <button mat-raised-button (click)="toggleMode(CalendarType.Week)" color="primary"
-                    matTooltip="Switch to Week View" *ngIf="calendarType != CalendarType.Week">
+        <button class="mr-1" mat-raised-button (click)="toggleMode(CalendarType.Week)" color="primary"
+                matTooltip="Switch to Week View" *ngIf="calendarType != CalendarType.Week">
                 Week
             </button>
-            <button mat-raised-button (click)="toggleMode(CalendarType.WorkWeek)" color="primary"
-                    matTooltip="Switch to Work Week View" *ngIf="calendarType != CalendarType.WorkWeek">
+        <button class="mr-1" mat-raised-button (click)="toggleMode(CalendarType.WorkWeek)" color="primary"
+                matTooltip="Switch to Work Week View" *ngIf="calendarType != CalendarType.WorkWeek">
                 Work Week
             </button>
         </div>

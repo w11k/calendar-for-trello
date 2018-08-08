@@ -41,6 +41,7 @@ import {NgReduxRouterModule} from '@angular-redux/router';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {MyEventsModule} from './my-events/my-events.module';
 import {QueueInterceptor} from './shared/queue.interceptor';
+import {TokenInterceptor} from './shared/token.interceptor';
 
 
 @NgModule({
@@ -97,7 +98,12 @@ import {QueueInterceptor} from './shared/queue.interceptor';
       provide: HTTP_INTERCEPTORS,
       useClass: QueueInterceptor,
       multi: true,
-    }
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true,
+    },
 
     // {provide: ErrorHandler, useClass: RavenErrorHandler}
 

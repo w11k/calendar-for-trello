@@ -71,8 +71,8 @@ export class CalendarCardComponent implements OnInit, OnDestroy {
     this.dueComplete = this.card.dueComplete;
 
     // Feature change card list - 05.06.18
-    this.tHttp.get('boards/' + this.board.id + '/lists').subscribe(
-      success => this.lists = success.json(),
+    this.tHttp.get<List[]>('boards/' + this.board.id + '/lists').subscribe(
+      success => this.lists = success,
       error => this.lists = []
     );
 

@@ -1,64 +1,29 @@
 import {Injectable} from '@angular/core';
-import {Http, Request, RequestOptionsArgs, Response, RequestMethod} from '@angular/http';
 import {Observable} from 'rxjs';
-import {TrelloAuthService} from './trello-auth.service';
-const config = require('../../config.json');
+import {HttpClient, HttpParams} from '@angular/common/http';
 
 @Injectable()
 export class TrelloHttpService {
 
 
-  constructor(public http: Http, private trelloAuthService: TrelloAuthService) {
+  constructor(public httpClient: HttpClient) {
   }
 
-  get(url: string, opts?: Request, params?: string): Observable<Response> {
-    let options: RequestOptionsArgs = {};
-    options.method = RequestMethod.Get;
-    if (opts) {
-      Object.assign(options, opts);
-    }
-    return this._request(url, options, params);
+  get<T>(url: string, params?: HttpParams): Observable<T> {
+    return this.httpClient.get<T>(`https://api.trello.com/1/${url}`, {params});
   }
 
-  put(url: string, body: Object, opts?: RequestOptionsArgs): Observable<Response> {
-    let options: RequestOptionsArgs = {};
-    options.method = RequestMethod.Put;
-    if (opts) {
-      Object.assign(options, opts);
-    }
-    options.body = body;
-    return this._request(url, options);
+  put<T>(url: string, body: any): Observable<T> {
+    return this.httpClient.put<T>(`https://api.trello.com/1/${url}`, body);
   }
 
-  post(url: string, body?: Object, opts?: RequestOptionsArgs): Observable<Response> {
-    let options: RequestOptionsArgs = {};
-    options.method = RequestMethod.Post;
-    if (opts) {
-      Object.assign(options, opts);
-    }
-    options.body = body;
-    return this._request(url, options);
+  post<T>(url: string, body?: Object): Observable<T> {
+    return this.httpClient.post<T>(`https://api.trello.com/1/${url}`, body);
   }
 
-  delete(url: string, body?: Object, opts?: RequestOptionsArgs): Observable<Response> {
-    let options: RequestOptionsArgs = {};
-    options.method = RequestMethod.Delete;
-    if (opts) {
-      Object.assign(options, opts);
-    }
-    options.body = body;
-    return this._request(url, options);
-
+  delete<T>(url: string, body?: Object): Observable<T> {
+    return this.httpClient.delete<T>(`https://api.trello.com/1/${url}`, body);
   }
 
-
-  private _request(url: string, options: RequestOptionsArgs, params?: string): Observable<Response> {
-    let token = this.trelloAuthService.getToken();
-    if (!token) {
-      return Observable.throw('No Token Provided!');
-    }
-    options.url = 'https://api.trello.com/1/' + url + '?key=' + config.apiKey + '&token=' + token + (params ? '&' + params : '');
-    return this.http.request(url, options);
-  }
 }
 

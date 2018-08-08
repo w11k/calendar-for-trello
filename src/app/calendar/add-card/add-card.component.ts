@@ -53,14 +53,14 @@ export class AddCardComponent implements OnInit, OnDestroy {
       this.cardForm.get('idMembers').setValue(null);
 
 
-      this.tHttp.get('boards/' + boardId + '/members')
+      this.tHttp.get<Member[]>('boards/' + boardId + '/members')
         .subscribe(
-          success => this.members = success.json(),
+          success => this.members = success,
           error => this.members = []
         );
-      this.tHttp.get('boards/' + boardId + '/lists')
+      this.tHttp.get<List[]>('boards/' + boardId + '/lists')
         .subscribe(
-          success => this.lists = success.json(),
+          success => this.lists = success,
           error => this.lists = []
         );
     }));

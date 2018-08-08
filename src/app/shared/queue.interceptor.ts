@@ -30,6 +30,8 @@ export class QueueInterceptor implements HttpInterceptor {
     });
   }
 
+  // Maybe dont queue put / post?
+  // For instant updates..
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const sub = new Subject<HttpEvent<any>>();
 

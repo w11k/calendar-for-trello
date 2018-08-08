@@ -13,6 +13,11 @@ import {select} from '@angular-redux/store';
 import {selectBoards} from '../redux/store/selects';
 import 'rxjs/add/operator/take';
 import {concatMap, map} from 'rxjs/operators';
+import {User} from '../models/user';
+import {Card} from '../models/card';
+import {List} from '../models/list';
+import {Member} from '../models/member';
+import {HttpParams} from '@angular/common/http';
 
 @Injectable()
 export class TrelloPullService {
@@ -37,9 +42,9 @@ export class TrelloPullService {
 
 
   private _fetchBoards = () => {
-    this.tHttp.get('member/me/boards', null).subscribe(
+    this.tHttp.get<Board[]>('member/me/boards', null).subscribe(
       data => {
-        let boards: Board[] = data.json();
+        let boards: Board[] = data;
 
         // first, remove boards, because otherwise the change in the closed property is not recognized
         this._removeBoards(boards);
@@ -62,8 +67,8 @@ export class TrelloPullService {
   }
 
   private _fetchUser = () => {
-    this.tHttp.get('/members/me').subscribe(
-      data => this.userActons.addUser(data.json()),
+    this.tHttp.get<User>('/members/me').subscribe(
+      data => this.userActons.addUser(data),
       error => console.log(error)
     );
   }
@@ -106,31 +111,30 @@ export class TrelloPullService {
     delayedBoards$.subscribe((board) => {
       i++;
       // Fetch Cards of Board
-      let boardRequest = this.tHttp.get('boards/' + board.id + '/cards');
+      let boardRequest = this.tHttp.get<Card[]>('boards/' + board.id + '/cards');
       boardRequest
         .subscribe(
           response => {
-            this.cardActions.rebuildStorePartially(response.json(), board, new Date());
+            this.cardActions.rebuildStorePartially(response, board, new Date());
           }
         );
 
       // Fetch Lists of Board
-      let listRequest = this.tHttp.get('boards/' + board.id + '/lists');
+      let listRequest = this.tHttp.get<List[]>('boards/' + board.id + '/lists');
       listRequest
         .subscribe(
           response => {
-            this.listActions.rebuildStorePartially(response.json(), board, new Date());
+            this.listActions.rebuildStorePartially(response, board, new Date());
           }
         );
 
 
       // Fetch Members of Board
-      let memberRequest = this.tHttp.get('boards/' + board.id + '/members', null, 'fields=all');
+      let memberRequest = this.tHttp.get<Member[]>('boards/' + board.id + '/members', new HttpParams().append('fields', 'all'));
       memberRequest
         .subscribe(
           response => {
-            // console.log(response.json());
-            this.memberActions.rebuildStorePartially(response.json(), board, new Date());
+            this.memberActions.rebuildStorePartially(response, board, new Date());
           }
         );
 

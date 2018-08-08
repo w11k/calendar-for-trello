@@ -41,3 +41,10 @@
     max-width:150px
   }
 }
+
+.hot {
+  display: inline-block;
+  color: red;
+  font-size: 10px;
+  transform: translate(0, -10px);
+}

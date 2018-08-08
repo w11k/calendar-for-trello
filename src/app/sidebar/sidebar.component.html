@@ -13,6 +13,7 @@
     <button mat-menu-item mat-list-item *ngFor="let item of navigation" routerLink="{{item.link}}">
       <mat-icon>{{item.icon}}</mat-icon>
       {{ item.text }}
+      <span *ngIf="item.hot" class="hot">NEW</span>
     </button>
     <mat-divider></mat-divider>
 

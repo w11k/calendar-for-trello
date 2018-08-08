@@ -22,8 +22,6 @@ import {HttpParams} from '@angular/common/http';
 @Injectable()
 export class TrelloPullService {
 
-  public loadingState$: Subject<boolean> = new ReplaySubject();
-
   @select(selectBoards) private allBoards$: Observable<Board[]>;
 
   constructor(private tHttp: TrelloHttpService,
@@ -35,10 +33,9 @@ export class TrelloPullService {
   }
 
   public pull = () => {
-    this.loadingState$.next(true);
     this._fetchBoards();
     this._fetchUser();
-  }
+  };
 
 
   private _fetchBoards = () => {
@@ -54,10 +51,7 @@ export class TrelloPullService {
 
         if (toLoadBoards && toLoadBoards.length) {
           this._loadCardsOfBoard(toLoadBoards);
-        } else {
-          this.loadingState$.next(false);
         }
-
       },
       err => {
         // no token, do nothing;

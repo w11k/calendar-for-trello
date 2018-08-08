@@ -1,8 +1,9 @@
 import {Injectable} from '@angular/core';
 import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
-import {Subject} from 'rxjs';
+import {interval, Subject} from 'rxjs';
 import DelayQueue from '../rx-queue/delay-queue';
+import {LoadingSpinnerService} from '../loading-spinner/loading-spinner.service';
 
 
 export interface IntermediateObject {
@@ -16,7 +17,7 @@ export class QueueInterceptor implements HttpInterceptor {
 
   delay: DelayQueue<IntermediateObject> = new DelayQueue(300);
 
-  constructor() {
+  constructor(private loadingSpinnerService: LoadingSpinnerService) {
 
     this.delay.subscribe(inter => {
       inter.next.handle(inter.request)
@@ -25,6 +26,7 @@ export class QueueInterceptor implements HttpInterceptor {
         }, err => {
           inter.sub.error(err);
         }, () => {
+          this.loadingSpinnerService.decrease();
           inter.sub.complete();
         });
     });
@@ -34,7 +36,7 @@ export class QueueInterceptor implements HttpInterceptor {
   // For instant updates..
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const sub = new Subject<HttpEvent<any>>();
-
+    this.loadingSpinnerService.increase();
     this.delay.next({
       request,
       next,

@@ -11,9 +11,6 @@ import {selectBoardColorPrefs} from '../../redux/store/selects';
 import {MemberMap} from '../../redux/reducers/member.reducer';
 import {CardActions} from '../../redux/actions/card-actions';
 import * as moment from 'moment';
-import {TrelloHttpService} from '../../services/trello-http.service'; 
-import { getLocaleDateFormat } from '@angular/common';
-
 
 @Component({
   selector: 'app-calendar-card',
@@ -25,11 +22,8 @@ export class CalendarCardComponent implements OnInit, OnDestroy {
 
   public list: List;
   public board: Board;
-  public members: Member[] = [];
   private subscriptions: Subscription[] = [];
   public memberMap: MemberMap;
-
-  public lists: List[] = []; 
 
   @select(selectBoardColorPrefs) public boardColorPrefs$: Observable<Object>;
   @select('boards') public boards$: Observable<Board[]>;
@@ -41,8 +35,7 @@ export class CalendarCardComponent implements OnInit, OnDestroy {
   @Input() public card: Card;
   @Input() public showTime: Boolean = false;
 
-  constructor(private cardActions: CardActions, private tHttp: TrelloHttpService) {
-
+  constructor(private cardActions: CardActions) {
   }
 
   getAvatar(userId: string) {
@@ -69,13 +62,6 @@ export class CalendarCardComponent implements OnInit, OnDestroy {
     );
 
     this.dueComplete = this.card.dueComplete;
-
-    // Feature change card list - 05.06.18
-    this.tHttp.get<List[]>('boards/' + this.board.id + '/lists').subscribe(
-      success => this.lists = success,
-      error => this.lists = []
-    );
-
   }
 
   ngOnDestroy() {
@@ -86,11 +72,4 @@ export class CalendarCardComponent implements OnInit, OnDestroy {
     const nextDue = moment(this.card.due).add(amount, unit);
     this.cardActions.updateCardsDue(this.card.id, nextDue.toDate());
   }
-
-
-  //  Feature change card list - 05.06.18
-  changeToList(clist: string) {
-    this.cardActions.changerCardList(this.card.id, this.board.id, clist);
-  }
-
 }

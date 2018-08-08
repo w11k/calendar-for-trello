@@ -75,7 +75,7 @@ export class MyEventsComponent implements OnInit {
     this.inbox$.subscribe();
     this.memberNames = [];
     this.spinnerCard = false;
-    this.spinnerUser = true;
+    this.spinnerUser = false;
     this.userSpinnerCount = 0;
     this.cardSpinnerCount = 0;
     this.cardCount = 0;

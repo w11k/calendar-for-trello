@@ -12,7 +12,7 @@ import * as _ from 'lodash';
 import {select} from '@angular-redux/store';
 import {selectBoards} from '../redux/store/selects';
 import 'rxjs/add/operator/take';
-import {concatMap, map} from 'rxjs/operators';
+import {concatMap, map, take} from 'rxjs/operators';
 import {User} from '../models/user';
 import {Card} from '../models/card';
 import {List} from '../models/list';
@@ -43,18 +43,17 @@ export class TrelloPullService {
 
   private _fetchBoards = () => {
     this.tHttp.get<Board[]>('member/me/boards', null).subscribe(
-      data => {
-        let boards: Board[] = data;
+      boards => {
 
         // first, remove boards, because otherwise the change in the closed property is not recognized
         this._removeBoards(boards);
         this.boardActions.updateBoards(boards);
 
-        let openBoards = _.filter(boards, {'closed': false});
+        const openBoards = boards.filter(it => !it.closed);
         const toLoadBoards = this._checkBoards(openBoards);
 
         if (toLoadBoards && toLoadBoards.length) {
-          this._loadCardsOfBoard(openBoards);
+          this._loadCardsOfBoard(toLoadBoards);
         } else {
           this.loadingState$.next(false);
         }
@@ -133,7 +132,7 @@ export class TrelloPullService {
    */
   private _removeBoards(allBoardsFromTrello: Board[]) {
 
-    this.allBoards$.take(1).subscribe(boardsFromStore => {
+    this.allBoards$.pipe(take(1)).subscribe(boardsFromStore => {
       // console.log('boardsFromStore');
       // console.log(boardsFromStore);
 
@@ -141,7 +140,7 @@ export class TrelloPullService {
       // open -> closed
       // not sent from trello
 
-      let toCloseBoards = boardsFromStore.filter(board => {
+      const toCloseBoards = boardsFromStore.filter(board => {
 
         // board was already closed ... do nothing
         if (board.closed === true) {
@@ -149,7 +148,7 @@ export class TrelloPullService {
         }
 
         // board was active, find the matching board sent from trello
-        let boardFromTrello = allBoardsFromTrello.find(boardFromStore => boardFromStore.id === board.id);
+        const boardFromTrello = allBoardsFromTrello.find(boardFromStore => boardFromStore.id === board.id);
 
         if (boardFromTrello) {
           // board was closed in trello

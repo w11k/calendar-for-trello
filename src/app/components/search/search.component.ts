@@ -1,7 +1,10 @@
-import {Component, OnInit, ViewChild, ElementRef, Renderer, OnDestroy} from '@angular/core';
-import {Subject, Observable, Subscription} from 'rxjs';
+import {Component, ElementRef, Inject, OnDestroy, OnInit, PLATFORM_ID, ViewChild} from '@angular/core';
+import {combineLatest, Observable, Subject} from 'rxjs';
 import {select} from '@angular-redux/store';
 import {Card} from '../../models/card';
+import {untilComponentDestroyed} from 'ng2-rx-componentdestroyed';
+import {isPlatformBrowser} from '@angular/common';
+import {debounceTime, distinctUntilChanged} from 'rxjs/operators';
 
 @Component({
   selector: 'app-search',
@@ -12,18 +15,23 @@ export class SearchComponent implements OnInit, OnDestroy {
 
   term$: Subject<string> = new Subject<string>();
   public results: Card[] = [];
-  private subscriptions: Subscription[] = [];
 
   @select('cards') public cards$: Observable<Card[]>;
 
   @ViewChild('input') inputEl: ElementRef;
 
-  constructor(private renderer: Renderer) {
-    this.subscriptions.push(
-      Observable.combineLatest(
-        this.term$,
+  constructor(
+    @Inject(PLATFORM_ID) private platformId: string,
+  ) {
+    combineLatest(
+      this.term$.pipe(
+        debounceTime(300),
+        distinctUntilChanged(),
+      ),
         this.cards$
-      ).subscribe(
+    )
+      .pipe(untilComponentDestroyed(this))
+      .subscribe(
         x => {
           const term: string = x[0];
           const cards: Card[] = x[1];
@@ -34,15 +42,15 @@ export class SearchComponent implements OnInit, OnDestroy {
           } else {
             this.results = [];
           }
-        }
-      ));
+        });
   }
 
   ngOnInit() {
-    this.renderer.invokeElementMethod(this.inputEl.nativeElement, 'focus', []);
+    if (isPlatformBrowser(this.platformId)) {
+      this.inputEl.nativeElement.focus();
+    }
   }
 
   ngOnDestroy() {
-    this.subscriptions.forEach(subscription => subscription.unsubscribe());
   }
 }

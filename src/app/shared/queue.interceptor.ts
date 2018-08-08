@@ -14,14 +14,11 @@ export interface IntermediateObject {
 @Injectable()
 export class QueueInterceptor implements HttpInterceptor {
 
-
-  queue: IntermediateObject[];
   delay: DelayQueue<IntermediateObject> = new DelayQueue(300);
 
   constructor() {
 
     this.delay.subscribe(inter => {
-
       inter.next.handle(inter.request)
         .subscribe(reqResponse => {
           inter.sub.next(reqResponse);

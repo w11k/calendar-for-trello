@@ -34,12 +34,11 @@ import {SidebarComponent} from './sidebar/sidebar.component';
 import {RavenErrorHandler} from './shared/RavenErrorHandler';
 import {LoadingSpinnerComponent} from './loading-spinner/loading-spinner.component';
 import {MemberActions} from './redux/actions/member-actions';
-import {NoopAnimationsModule} from '@angular/platform-browser/animations';
+import {BrowserAnimationsModule, NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {DropZoneService} from './services/drop-zone.service';
 import {LegalModule} from './legal/legal.module';
 import {NgReduxRouterModule} from '@angular-redux/router';
 import {HttpClientModule} from '@angular/common/http';
-import {MyEventsService} from './my-events/my-events.service';
 import {MyEventsModule} from './my-events/my-events.module';
 
 
@@ -81,6 +80,7 @@ import {MyEventsModule} from './my-events/my-events.module';
     MatIconModule,
     LegalModule,
     MyEventsModule,
+    BrowserAnimationsModule,
   ],
   providers: [
     CalendarService,

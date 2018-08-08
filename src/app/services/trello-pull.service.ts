@@ -89,29 +89,11 @@ export class TrelloPullService {
   }
 
   private _loadCardsOfBoard(boards: Board[]) {
-    let delay = 50;
 
-    function getDelay() {
-      delay = delay * 1.15;
-      if (delay > 1200) {
-        return 1200;
-      }
-      return delay;
-    }
-
-    let i = 0;
-
-    let delayedBoards$ = from(boards)
-      .pipe(
-        concatMap(event => timer(getDelay())
-          .pipe(map(() => event)))
-      );
-//      .concatMap(event => Observable.timer(getDelay()).map(() => event));
-
-    delayedBoards$.subscribe((board) => {
-      i++;
+    boards.forEach((board) => {
+      // i++;
       // Fetch Cards of Board
-      let boardRequest = this.tHttp.get<Card[]>('boards/' + board.id + '/cards');
+      const boardRequest = this.tHttp.get<Card[]>('boards/' + board.id + '/cards');
       boardRequest
         .subscribe(
           response => {
@@ -120,7 +102,7 @@ export class TrelloPullService {
         );
 
       // Fetch Lists of Board
-      let listRequest = this.tHttp.get<List[]>('boards/' + board.id + '/lists');
+      const listRequest = this.tHttp.get<List[]>('boards/' + board.id + '/lists');
       listRequest
         .subscribe(
           response => {
@@ -130,7 +112,9 @@ export class TrelloPullService {
 
 
       // Fetch Members of Board
-      let memberRequest = this.tHttp.get<Member[]>('boards/' + board.id + '/members', new HttpParams().append('fields', 'all'));
+      let params = new HttpParams().append('fields', 'all');
+      console.log(params);
+      const memberRequest = this.tHttp.get<Member[]>('boards/' + board.id + '/members', params);
       memberRequest
         .subscribe(
           response => {
@@ -138,15 +122,6 @@ export class TrelloPullService {
           }
         );
 
-
-      if (i === boards.length) {
-        Observable
-          .combineLatest(boardRequest, memberRequest)
-          .subscribe(() => {
-            // => this is last request
-            this.loadingState$.next(false);
-          });
-      }
     });
   }
 

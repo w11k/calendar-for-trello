@@ -18,6 +18,15 @@ export class ClearOutbox {
     constructor() { }
 }
 export class UpdateLastUpdate {
-    static readonly type = '[lastUpdate] update LastUpdate';
-    constructor(public payload: any){}
+  static readonly type = '[my-events] update LastUpdate';
+
+  constructor(public payload: Date = new Date()) {
+  }
+}
+
+export class HideHelp {
+  static readonly type = '[my-events] hide help';
+
+  constructor(public payload: boolean = true) {
+  }
 }

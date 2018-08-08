@@ -17,10 +17,10 @@ import { take } from 'rxjs/operators';
 import { interval } from 'rxjs/observable/interval';
 import { of } from 'rxjs/observable/of';
 import { Store, Select } from '@ngxs/store';
-import { AddInbox, ClearInbox, ClearOutbox, AddOutbox, UpdateLastUpdate } from './ngxs/app.action';
+import {AddInbox, ClearInbox, ClearOutbox, AddOutbox, UpdateLastUpdate, HideHelp} from './ngxs/app.action';
 import { InboxState } from './ngxs/inbox.state';
 import { OutboxState } from './ngxs/outbox.state';
-import { LastUpdateState } from './ngxs/lastUpdate.state';
+import {MyEventsState} from './ngxs/my-events.state';
 
 export interface Request {
   type: 'user' | 'card';
@@ -62,7 +62,8 @@ export class MyEventsComponent implements OnInit {
 
   @Select(InboxState.getInbox) inbox$: Observable<any>;
   @Select(OutboxState.getOutbox) outbox$: Observable<any>;
-  @Select(LastUpdateState.getLastUpdate) lastUpdate$: Observable<any>;
+  @Select(MyEventsState.getLastUpdate) lastUpdate$: Observable<Date | undefined>;
+  @Select(MyEventsState.getHideHelp) hideHelp$: Observable<boolean>;
 
   constructor(private myEventsService: MyEventsService, private store: Store) { }
 
@@ -150,7 +151,7 @@ export class MyEventsComponent implements OnInit {
           this.checkInAndOutBox(card));
         if (this.lastUpdate) {
           if (this.cardCount === this.numberOfRequest || this.cardCount === this.requests.length) {
-            this.store.dispatch(new UpdateLastUpdate(this.getDate()));
+            this.store.dispatch(new UpdateLastUpdate());
             this.lastUpdate = false;
           }
         }
@@ -230,23 +231,8 @@ export class MyEventsComponent implements OnInit {
 
   }
 
-  getDate(): string {
-    let currentdate = new Date();
-    let m = currentdate.getMinutes();
-    let s = currentdate.getSeconds();
-    if (m >= 0 && m < 10) {
-      var minutes = "0" + m;
-    } else { var minutes = String(m) }
-    if (s >= 0 && s < 10) {
-      var seconds = "0" + s;
-    } else { var seconds = String(s) }
-    let lastUpdated = "Last Update: " + currentdate.getDate() + "/"
-      + (currentdate.getMonth() + 1) + "/"
-      + currentdate.getFullYear() + " @ "
-      + currentdate.getHours() + ":"
-      + minutes + ":"
-      + seconds;
-    return lastUpdated;
+  hide() {
+    this.store.dispatch(new HideHelp());
   }
 
 }

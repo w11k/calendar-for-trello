@@ -10,7 +10,7 @@ import { NgxsModule } from '@ngxs/store';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 import { NgxsStoragePluginModule } from '@ngxs/storage-plugin';
 import { InboxState } from './ngxs/inbox.state';
-import { LastUpdateState } from './ngxs/lastUpdate.state';
+import {MyEventsState} from './ngxs/my-events.state';
 
 @NgModule({
   declarations: [
@@ -25,7 +25,7 @@ import { LastUpdateState } from './ngxs/lastUpdate.state';
     CalendarModule,
     FlexLayoutModule,
     NgxsModule.forRoot([
-      InboxState,OutboxState, LastUpdateState
+      InboxState, OutboxState, MyEventsState
     ]),
     NgxsReduxDevtoolsPluginModule.forRoot(),
     NgxsStoragePluginModule.forRoot({

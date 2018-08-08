@@ -1,4 +1,33 @@
+<mat-card class="board-card" *ngIf="!(hideHelp$ | async)">
+
+  <mat-card-title>
+    My Events
+
+  </mat-card-title>
+  <mat-card-content>
+    <strong>What is my Events?</strong>
+    <p>
+      When we work with cards, we often do so in the form of conversations. MyEvents helps you to keep an overview when
+      you work with several people in a team.
+    </p>
+    <p>
+      We divide your cards into <strong>Inbox</strong> and <strong>Outbox</strong>. In the <strong>Inbox</strong> you
+      will see all the
+      cards in which you should answer. This is determined by the fact that you were mentioned with @Name. The <strong>Outbox</strong>
+      lists cards where you last mentioned another person and are still waiting for an answer. Maybe you want to remind
+      your conversation partner.
+    </p>
+    <p>
+      My Events is a new feature that should help boosting your productivity!
+    </p>
+  </mat-card-content>
+  <mat-card-actions align="end">
+    <button mat-button color="primary" (click)="hide()">Hide help</button>
+  </mat-card-actions>
+</mat-card>
+
 <mat-card class="board-card">
+
 
   <div fxLayout="column">
 
@@ -29,7 +58,7 @@
 
     <div>
       <button class="showButton" mat-raised-button (click)="startCardRequest()" color="primary" [disabled]="spinnerCard || spinnerUser">
-        Show my events!
+        Load my events!
       </button>
     </div>
 
@@ -37,7 +66,11 @@
 
     <h6 *ngIf="spinnerCard" class="progress">{{this.cardSpinnerCount}} / {{this.cards.size}} cards loaded.</h6>
     <h6 *ngIf="spinnerUser" class="progress">{{this.userSpinnerCount}} / {{this.requests.length}} users loaded.</h6>
-    <h6 *ngIf="!spinnerUser && !spinnerCard" class="progress">{{ (lastUpdate$ | async) }}</h6>
+    <h6 *ngIf="!spinnerUser && !spinnerCard" class="progress">
+      <ng-container *ngIf="lastUpdate$ | async  as lastUpdate">
+        Last pulled at {{ (lastUpdate | date ) }}
+      </ng-container>
+    </h6>
 
   </div>
 

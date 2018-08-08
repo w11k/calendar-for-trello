@@ -24,14 +24,14 @@ export class InboxState {
         const state = getState();
         setState({
             inbox: [...state.inbox, payload]
-        })
+        });
     }
 
     @Action(ClearInbox)
     clearInbox({ patchState }: StateContext<InboxModel>) {
         patchState({
             inbox: []
-        })
+        });
     }
 
 }

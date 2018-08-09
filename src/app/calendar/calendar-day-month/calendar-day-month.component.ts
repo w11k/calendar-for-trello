@@ -1,14 +1,12 @@
-import {Component, OnInit, Input, Renderer, ElementRef, HostListener, OnDestroy} from '@angular/core';
+import {Component, ElementRef, HostListener, Input, OnDestroy, OnInit, Renderer} from '@angular/core';
 import {CalendarDay} from '../../models/calendar-day';
 import {select} from '@angular-redux/store';
 import {Observable, Subscription} from 'rxjs';
 import {Card} from '../../models/card';
 import * as moment from 'moment';
-import * as _ from 'lodash';
 import {CardActions} from '../../redux/actions/card-actions';
 import {ContextMenuService} from '../context-menu-holder/context-menu.service';
-import {selectVisibleCards} from '../../redux/store/selects';
-import Dictionary = _.Dictionary;
+import {selectVisibleCardsInRange} from '../../redux/store/selects';
 import {DropZoneService} from '../../services/drop-zone.service';
 import {DragDropData} from '@beyerleinf/ngx-dnd';
 
@@ -19,7 +17,7 @@ import {DragDropData} from '@beyerleinf/ngx-dnd';
 })
 export class CalendarDayForMonthComponent implements OnInit, OnDestroy {
 
-  @select(selectVisibleCards) public cards$: Observable<Card[]>;
+  @select(selectVisibleCardsInRange) public cards$: Observable<Card[]>;
   @Input() public calendarDay: CalendarDay;
   public cards: Card[];
   private subscriptions: Subscription[] = [];
@@ -55,7 +53,17 @@ export class CalendarDayForMonthComponent implements OnInit, OnDestroy {
       this.cards$.subscribe(
         cards => {
           this.cards = cards
-            .filter(card => moment(card.due).isSame(this.calendarDay.date, 'day'))
+            .filter(card => {
+              // Hello
+              //
+              // I'm a performance bottlneck.
+              //
+              // remove me if you have time.
+              //
+              // I have already been mitigated with selectVisibleCardsInRange
+              // - but with many cards I still cause far too many iterations.
+              return moment(card.due).isSame(this.calendarDay.date, 'day');
+            })
             .sort((a, b) => {
               const cardADue = moment(a.due);
               const cardBADue = moment(b.due);

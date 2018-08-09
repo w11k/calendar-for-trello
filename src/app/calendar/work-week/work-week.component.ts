@@ -9,7 +9,12 @@ import {DragDropData} from '@beyerleinf/ngx-dnd';
 import {CardActions} from '../../redux/actions/card-actions';
 import {WeekDaySlot} from '../week/WeekDaySlot';
 import {Settings} from '../../models/settings';
-import {selectCalendarDays, selectSettingsLanguage, selectVisibleCards} from '../../redux/store/selects';
+import {
+  selectCalendarDays,
+  selectSettingsLanguage,
+  selectVisibleCards,
+  selectVisibleCardsInRange
+} from '../../redux/store/selects';
 import {DropZoneService} from '../../services/drop-zone.service';
 
 @Component({
@@ -25,7 +30,7 @@ export class WorkWeekComponent implements OnInit, OnDestroy {
 
   public cardHolder: Object; //  {key: Cards[]}
 
-  @select(selectVisibleCards) public cards$: Observable<Card[]>;
+  @select(selectVisibleCardsInRange) public cards$: Observable<Card[]>;
   @select(selectCalendarDays) public calendar$: Observable<CalendarDay[]>;
   @select(selectSettingsLanguage) public lang$: Observable<string>;
 

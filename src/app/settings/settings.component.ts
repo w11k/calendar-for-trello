@@ -17,8 +17,8 @@ export class SettingsComponent implements OnInit, OnDestroy {
 
   public languages: Language[] = [];
   public weekStartDays: WeekStartWithTranslation[] = [
-    new WeekStartWithTranslation(WeekStart.Monday, 'Monday'),
-    new WeekStartWithTranslation(WeekStart.Sunday, 'Sunday')
+    new WeekStartWithTranslation(WeekStart.Sunday, 'Sunday'),
+    new WeekStartWithTranslation(WeekStart.Monday, 'Monday')
   ];
   private subscriptions: Subscription[] = [];
 

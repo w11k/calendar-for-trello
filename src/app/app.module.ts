@@ -1,7 +1,6 @@
 import {BrowserModule} from '@angular/platform-browser';
-import {ErrorHandler, NgModule} from '@angular/core';
+import {NgModule} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {HttpModule} from '@angular/http';
 
 import {AppComponent} from './app.component';
 import {routing} from './routes';
@@ -14,23 +13,29 @@ import {VisitorGuard} from './services/guards/visitorGuard';
 import {TrelloPullService} from './services/trello-pull.service';
 import 'moment/locale/fr';
 import 'moment/locale/de';
-import {MyEventsComponent} from './my-events/my-events.component';
 import {SearchComponent} from './components/search/search.component';
 import {DateTimeFormatService} from './services/date-time-format.service';
 import {SettingsModule} from './settings/settings.module';
 import {CalendarModule} from './calendar/calendar.module';
 import {ReduxModule} from './redux/redux.module';
 import {
-  MatButtonModule, MatCardModule, MatDatepickerModule, MatIconModule, MatInputModule, MatListModule, MatMenuModule,
+  MatButtonModule,
+  MatCardModule,
+  MatDatepickerModule,
+  MatIconModule,
+  MatInputModule,
+  MatListModule,
+  MatMenuModule,
   MatNativeDateModule,
-  MatSelectModule, MatSidenavModule, MatSnackBarModule, MatToolbarModule,
-  MatProgressSpinnerModule
+  MatSelectModule,
+  MatSidenavModule,
+  MatSnackBarModule,
+  MatToolbarModule
 } from '@angular/material';
 import {FrontPageModule} from './front-page/front-page.module';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {AboutModule} from './about/about.module';
 import {SidebarComponent} from './sidebar/sidebar.component';
-import {RavenErrorHandler} from './shared/RavenErrorHandler';
 import {LoadingSpinnerComponent} from './loading-spinner/loading-spinner.component';
 import {MemberActions} from './redux/actions/member-actions';
 import {BrowserAnimationsModule, NoopAnimationsModule} from '@angular/platform-browser/animations';
@@ -57,7 +62,6 @@ import {TrackingModule} from './tracking/tracking.module';
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpModule,
     HttpClientModule,
     routing,
     NgReduxRouterModule.forRoot(),

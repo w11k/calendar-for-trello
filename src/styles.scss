@@ -52,3 +52,7 @@ md-sidenav-layout {
 span.mat-select-placeholder.mat-floating-placeholder {
   width: auto !important;
 }
+
+*[dnd-droppable] {
+  cursor: inherit !important;
+}

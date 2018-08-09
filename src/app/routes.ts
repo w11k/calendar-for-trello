@@ -44,6 +44,7 @@ let routes: Routes = [
   {
     path: 'conversations',
     component: ConversationsComponent,
+    canActivate: [MemberGuard],
   },
   {
     path: '**', redirectTo: '/',

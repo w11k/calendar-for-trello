@@ -5,7 +5,11 @@
     "baseUrl": "./",
     "module": "es2015",
     "types": ["node"],
-    "lib": ["es6", "dom"]
+    "lib": [
+      "es6",
+      "dom",
+      "esnext.promise"
+    ]
 
   },
   "exclude": [

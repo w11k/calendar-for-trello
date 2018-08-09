@@ -11,9 +11,9 @@
       you work with several people in a team.
     </p>
     <p>
-      We divide your cards into <strong>Inbox</strong> and <strong>Outbox</strong>. In the <strong>Inbox</strong> you
+      We divide your cards into <strong>Inbox</strong> and <strong>Outbox</strong>. In the Inbox you
       will see all the
-      cards in which you should answer. This is determined by the fact that you were mentioned with @Name. The <strong>Outbox</strong>
+      cards in which you should answer. This is determined by the fact that you were mentioned with @Name. The Outbox
       lists cards where you last mentioned another person and are still waiting for an answer. Maybe you want to remind
       your conversation partner.
     </p>
@@ -36,10 +36,10 @@
       <div class="myEventSize">
         <h2>INBOX</h2>
         <h5>All cards you have been mentioned.
-          <br> (@{{user.username}})
+          <br> (@{{(user$ |async)?.username}})
         </h5>
         <div *ngFor="let c of (inbox$ | async)">
-          <app-calendar-card [card]="c[0]">
+          <app-calendar-card [card]="c">
           </app-calendar-card>
         </div>
 
@@ -49,28 +49,64 @@
         <h2>OUTBOX</h2>
         <h5>All cards in which you mentioned someone. (@somenone)</h5>
         <div *ngFor="let c of (outbox$ | async)">
-          <app-calendar-card [card]="c[0]">
+          <app-calendar-card [card]="c">
           </app-calendar-card>
         </div>
       </div>
 
     </div>
 
-    <div>
-      <button class="showButton" mat-raised-button (click)="startCardRequest()" color="primary" [disabled]="spinnerCard || spinnerUser">
-        Load my events!
-      </button>
+
+    <div [ngSwitch]="currentPhase" class="mt-3">
+      <div *ngSwitchCase="phaseEnum.Done">
+        <button class="showButton"
+                mat-raised-button
+                (click)="fetchingProcedure()"
+                color="primary"
+        >
+          Load my events!
+        </button>
+
+        <h6 *ngIf="lastUpdate$ | async  as lastUpdate" class=" text-center">
+          Last pulled at {{ (lastUpdate | date ) }}
+        </h6>
+
+      </div>
+      <div *ngSwitchCase="phaseEnum.Prepare">
+
+        <mat-progress-spinner
+          color="accent"
+          class="spinner"
+          [mode]="'determinate'"
+          [value]="loadingInfo.loadedMembers / loadingInfo.members * 100 "
+        ></mat-progress-spinner>
+
+
+        <p class="text-center">
+          <small>
+            <strong>Phase 1:</strong>
+            Fetching Member Information ({{loadingInfo.loadedMembers}} / {{loadingInfo.members}})
+          </small>
+        </p>
+      </div>
+      <div *ngSwitchCase="phaseEnum.Fetch">
+
+        <mat-progress-spinner
+          color="accent"
+          class="spinner"
+          [mode]="'determinate'"
+          [value]="loadingInfo.loadedCards / loadingInfo.cards * 100 "
+        ></mat-progress-spinner>
+
+        <p class="text-center">
+          <small>
+            <strong>Phase 2:</strong>
+            Fetching Cards ({{loadingInfo.loadedCards}} / {{loadingInfo.cards}})
+          </small>
+        </p>
+
+      </div>
     </div>
-
-    <mat-spinner class="spinner" mode="indeterminate" *ngIf="spinnerCard || spinnerUser"></mat-spinner>
-
-    <h6 *ngIf="spinnerCard" class="progress">{{this.cardSpinnerCount}} / {{this.cards.size}} cards loaded.</h6>
-    <h6 *ngIf="spinnerUser" class="progress">{{this.userSpinnerCount}} / {{this.requests.length}} users loaded.</h6>
-    <h6 *ngIf="!spinnerUser && !spinnerCard" class="progress">
-      <ng-container *ngIf="lastUpdate$ | async  as lastUpdate">
-        Last pulled at {{ (lastUpdate | date ) }}
-      </ng-container>
-    </h6>
 
   </div>
 

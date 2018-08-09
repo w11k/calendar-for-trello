@@ -1,30 +1,25 @@
-import { Card } from '../models/card';
-import { Component, OnInit } from '@angular/core';
-import { MyEventsService } from './my-events.service';
-import { Observable } from 'rxjs/Observable';
-import { Subscription } from 'rxjs/Subscription';
-import { switchMap, map } from 'rxjs/operators';
+import {Card} from '../models/card';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {MyEventsService, MysteriousCardObject} from './my-events.service';
+import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/observable/combineLatest';
 import 'rxjs/add/observable/from';
 import 'rxjs/add/observable/interval';
 import 'rxjs/add/operator/delay';
-import { select } from '@angular-redux/store';
-import { selectOpenBoards } from '../redux/store/selects';
-import { Board } from '../models/board';
-import { User } from '../models/user';
-import { Member } from '../models/member';
-import { take } from 'rxjs/operators';
-import { interval } from 'rxjs/observable/interval';
-import { of } from 'rxjs/observable/of';
-import { Store, Select } from '@ngxs/store';
-import {AddInbox, ClearInbox, ClearOutbox, AddOutbox, UpdateLastUpdate, HideHelp} from './ngxs/app.action';
-import { InboxState } from './ngxs/inbox.state';
-import { OutboxState } from './ngxs/outbox.state';
+import {select} from '@angular-redux/store';
+import {User} from '../models/user';
+import {Member} from '../models/member';
+import {Select, Store} from '@ngxs/store';
+import {AddInbox, AddOutbox, ClearInbox, ClearOutbox, HideHelp, UpdateLastUpdate} from './ngxs/app.action';
+import {InboxState} from './ngxs/inbox.state';
+import {OutboxState} from './ngxs/outbox.state';
 import {MyEventsState} from './ngxs/my-events.state';
+import {take} from 'rxjs/operators';
 
-export interface Request {
-  type: 'user' | 'card';
-  id: string;
+export enum Phase {
+  Done,
+  Prepare,
+  Fetch,
 }
 
 @Component({
@@ -33,206 +28,161 @@ export interface Request {
   styleUrls: ['./my-events.component.scss']
 })
 
-export class MyEventsComponent implements OnInit {
+export class MyEventsComponent implements OnInit, OnDestroy {
 
-  @select(selectOpenBoards) public boards$: Observable<Board[]>;
   @select('user') public user$: Observable<User>;
-  @select('members') public members$: Observable<Member[]>;
+  @select('members') public members$: Observable<{ [id: string]: Member }>;
   @select('cards') public cards$: Observable<Card[]>;
 
-  user: User;
-  members: any;
-  memberNames: any[];
-  boards: any[];
-  cards = new Map<string, Card>();
-  cardsToBeRequested: any[];
 
-  cardCount: number;
-  userCount: number;
-  requestInterval: number;
-  numberOfRequest: number;
-  spinnerCard: boolean;
-  spinnerUser: boolean;
-  userSpinnerCount: number;
-  cardSpinnerCount: number;
-  intervalSubscription: Subscription;
-  requests: Request[];
-  cardArray: any[];
-  lastUpdate: boolean;
+  currentPhase: Phase = Phase.Done;
+  phaseEnum = Phase;
 
-  @Select(InboxState.getInbox) inbox$: Observable<any>;
-  @Select(OutboxState.getOutbox) outbox$: Observable<any>;
+  @Select(InboxState.getInbox) inbox$: Observable<Card[]>;
+  @Select(OutboxState.getOutbox) outbox$: Observable<Card[]>;
   @Select(MyEventsState.getLastUpdate) lastUpdate$: Observable<Date | undefined>;
   @Select(MyEventsState.getHideHelp) hideHelp$: Observable<boolean>;
 
-  constructor(private myEventsService: MyEventsService, private store: Store) { }
+  loadingInfo = {
+    members: 0,
+    cards: 0,
+    loadedMembers: 0,
+    loadedCards: 0,
+  };
+
+  constructor(private myEventsService: MyEventsService, private store: Store) {
+  }
 
   ngOnInit() {
-
-    this.cardArray = [];
-    this.requests = [];
-    this.members = [];
-    this.inbox$.subscribe();
-    this.memberNames = [];
-    this.spinnerCard = false;
-    this.spinnerUser = false;
-    this.userSpinnerCount = 0;
-    this.cardSpinnerCount = 0;
-    this.cardCount = 0;
-    this.userCount = 0;
-    this.numberOfRequest = 30;
-    this.requestInterval = 10000;
-
-    this.user$.subscribe((u) => {
-      this.user = u;
-    });
-    this.requests.push({ 'type': 'user', 'id': this.user.username });
-    this.members$
-      .pipe(take(1))
-      .subscribe((m) => {
-        this.members = m;
-      });
-    const memberIds = Object.keys(this.members);
-    memberIds.forEach((element, index) => {
-      this.memberNames[index] = this.members[element].username;
-      if (this.members[element].username !== this.user.username) {
-        this.requests.push({ 'type': 'user', 'id': this.members[element].username });
-      }
-    });
-
-    this.requestInterval = 0;
-    this.requestData();
   }
 
-  requestData() {
+  async fetchingProcedure() {
 
-    this.intervalSubscription = interval(this.requestInterval).subscribe(() => {
 
-      this.requestInterval = 10000;
-      this.cardsToBeRequested = [];
+    /******************************************************
+     * 1. Reset:
+     ******************************************************/
+    this.loadingInfo = {
+      members: 0,
+      cards: 0,
+      loadedMembers: 0,
+      loadedCards: 0,
+    };
 
-      for (let i = 0; i < this.numberOfRequest; i++) {
 
-        if (this.requests[i] !== undefined) {
-
-          if (this.requests[i].type === 'user') {
-            this.myEventsService.getCardsByUser(this.requests[i].id).pipe(take(1)).subscribe((e) => {
-              e['cards'].filter(x => this.cards.set(x.id, x));
-              this.userCount++;
-              this.userSpinnerCount++;
-            });
-          }
-
-          if (this.requests[i].type === 'card') {
-            this.cardsToBeRequested.push(this.cardArray[i][1]);
-            this.cardCount++;
-            this.cardSpinnerCount++;
-            delete (this.cardArray[i]);
-          }
-
-          delete (this.requests[i]);
-        }
-        else {
-          break;
-        }
-
-      }
-
-      if (this.userCount === this.numberOfRequest || this.userCount === this.requests.length) {
-        this.userCount = 0;
-        this.requests.splice(0, this.numberOfRequest);
-      }
-
-      if (this.cardCount === this.numberOfRequest || this.cardCount === this.requests.length) {
-        this.cardCount = 0;
-        this.requests.splice(0, this.numberOfRequest);
-        this.cardArray.splice(0, this.numberOfRequest);
-        this.getCards().subscribe((card) =>
-          this.checkInAndOutBox(card));
-        if (this.lastUpdate) {
-          if (this.cardCount === this.numberOfRequest || this.cardCount === this.requests.length) {
-            this.store.dispatch(new UpdateLastUpdate());
-            this.lastUpdate = false;
-          }
-        }
-      }
-
-      if (this.requests.length === 0) {
-        this.spinnerCard = false;
-        this.spinnerUser = false;
-        this.intervalSubscription.unsubscribe();
-      }
-    });
-
-  }
-
-  startCardRequest() {
-    this.lastUpdate = true;
-    this.cardSpinnerCount = 0;
-    this.cardCount = 0;
-    this.requests = [];
+    this.currentPhase = Phase.Prepare;
 
     this.store.dispatch([
       new ClearOutbox(),
-    ])
+    ]);
 
     this.store.dispatch([
       new ClearInbox(),
-    ])
+    ]);
 
-    this.spinnerCard = true;
-    this.cardsToBeRequested = [];
 
-    this.cardArray = Array.from(this.cards);
-    this.cardArray.forEach(element => {
-      if (element !== undefined && element !== null) {
-        this.requests.push({ 'type': 'card', 'id': element[0] });
-      }
+    /******************************************************
+     * 2. Load some required data from store
+     ******************************************************/
+
+    const allCards = await this.cards$
+      .pipe(take(1))
+      .toPromise();
+
+
+    const membersMap = await this.members$
+      .pipe(take(1))
+      .toPromise();
+
+    const user = await this.user$
+      .pipe(take(1))
+      .toPromise();
+
+
+    const membersArr: Member[] = Object
+      .keys(membersMap)
+      .map(it => membersMap[it]);
+
+    const otherMemberNames = membersArr
+      .filter(it => it.username !== user.username)
+      .map(it => it.username);
+
+
+    /******************************************************
+     * 3. Fetch Cards per User:
+     ******************************************************/
+
+    this.loadingInfo.members = membersArr.length;
+
+    const memberRequestArr = membersArr
+      .map(async member => {
+        const cards = await this.myEventsService.getCardsByUser(member.username);
+        this.loadingInfo.loadedMembers++;
+        return cards;
+      });
+
+    const responses: Card[][] = await Promise.all(memberRequestArr);
+
+    const cardMap = new Map<string, Card>();
+    // Put all Cards in a Map in order to remove duplicates
+    responses
+      .reduce((previousValue, currentValue) => [...previousValue, ...currentValue], [])
+      .map(card => cardMap.set(card.id, card));
+
+
+    /******************************************************
+     * 4. Fetch the Comments per Card:
+     ******************************************************/
+
+    this.currentPhase = Phase.Fetch;
+    this.loadingInfo.cards = cardMap.size;
+
+    const allRequests = Array.from(cardMap.values())
+      .map(async card => {
+        // what if one is
+        const data = await this.myEventsService.getCommentCards(card.id).toPromise();
+        this.loadingInfo.loadedCards++;
+        try {
+          this.checkInAndOutBox(data as any, user.id, user.username, otherMemberNames, allCards);
+        } catch (e) {
+          console.error(e);
+        }
+      });
+
+    // be Done in any case - even if requests fail.
+    Promise.all(allRequests).finally(() => {
+      this.currentPhase = Phase.Done;
+      this.store.dispatch(new UpdateLastUpdate());
     });
-
-    this.requestData();
-
   }
 
-  getCards(): Observable<any> {
-    return of(this.cardsToBeRequested)
-      .pipe(
-        switchMap((result: any[]) => {
 
-          const observables = result.map(card =>
-            Observable.combineLatest(of(card), this.myEventsService.getCommentCards(card.id))
-          );
-          return Observable.combineLatest(observables);
+  checkInAndOutBox(commentCards: MysteriousCardObject[], myUserId: string, myUsername: string, otherMemberNames: string[], allCards: Card[]) {
 
-        })
-      );
-  }
+    const firstCommentCard = commentCards[0];
+    const firstComment: string = firstCommentCard.data.text;
+    const cardWithFewInfo: { id: string } = firstCommentCard.data.card;
 
-  checkInAndOutBox(cards: any) {
-    for (const card of cards) {
-      if (card[1].length > 0) {
-
-        if (card[1][0]['data']['text'].includes('@' + this.user.username)) {
-          this.store.dispatch(new AddInbox(card));
-        }
-
-        const index = this.memberNames.indexOf(this.user.username, 0);
-        if (index > -1) {
-          this.memberNames.splice(index, 1);
-        }
-        for (const name of this.memberNames) {
-          if (card[1][0]['data']['text'].includes('@' + name) && card[1][0].idMemberCreator === this.user.id) {
-            this.store.dispatch(new AddOutbox(card));
-          }
-        }
-
-      }
+    if (firstComment.includes('@' + myUsername)) {
+      const fullCard = allCards.find(it => it.id === cardWithFewInfo.id);
+      this.store.dispatch(new AddInbox(fullCard));
     }
 
+
+    for (const name of otherMemberNames) {
+      if (firstComment.includes('@' + name) && firstCommentCard.idMemberCreator === myUserId) {
+        const fullCard = allCards.find(it => it.id === cardWithFewInfo.id);
+        this.store.dispatch(new AddOutbox(fullCard));
+      }
+    }
   }
+
 
   hide() {
     this.store.dispatch(new HideHelp());
+  }
+
+  ngOnDestroy(): void {
   }
 
 }

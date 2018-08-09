@@ -29,14 +29,14 @@ export class ClearOutbox {
 }
 
 export class UpdateLastUpdate {
-  static readonly type = '[my-events] update LastUpdate';
+  static readonly type = '[conversations] update LastUpdate';
 
   constructor(public payload: Date = new Date()) {
   }
 }
 
 export class HideHelp {
-  static readonly type = '[my-events] hide help';
+  static readonly type = '[conversations] hide help';
 
   constructor(public payload: boolean = true) {
   }

@@ -1,6 +1,6 @@
 import {Card} from '../models/card';
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {MyEventsService, MysteriousCardObject} from './my-events.service';
+import {ConversationsService, MysteriousCardObject} from './conversations.service';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/observable/combineLatest';
 import 'rxjs/add/observable/from';
@@ -13,7 +13,7 @@ import {Select, Store} from '@ngxs/store';
 import {AddInbox, AddOutbox, ClearInbox, ClearOutbox, HideHelp, UpdateLastUpdate} from './ngxs/app.action';
 import {InboxState} from './ngxs/inbox.state';
 import {OutboxState} from './ngxs/outbox.state';
-import {MyEventsState} from './ngxs/my-events.state';
+import {ConversationsState} from './ngxs/conversationsState';
 import {take} from 'rxjs/operators';
 
 export enum Phase {
@@ -23,12 +23,12 @@ export enum Phase {
 }
 
 @Component({
-  selector: 'app-my-events',
-  templateUrl: './my-events.component.html',
-  styleUrls: ['./my-events.component.scss']
+  selector: 'app-conversations',
+  templateUrl: './conversations.component.html',
+  styleUrls: ['./conversations.component.scss']
 })
 
-export class MyEventsComponent implements OnInit, OnDestroy {
+export class ConversationsComponent implements OnInit, OnDestroy {
 
   @select('user') public user$: Observable<User>;
   @select('members') public members$: Observable<{ [id: string]: Member }>;
@@ -40,8 +40,8 @@ export class MyEventsComponent implements OnInit, OnDestroy {
 
   @Select(InboxState.getInbox) inbox$: Observable<Card[]>;
   @Select(OutboxState.getOutbox) outbox$: Observable<Card[]>;
-  @Select(MyEventsState.getLastUpdate) lastUpdate$: Observable<Date | undefined>;
-  @Select(MyEventsState.getHideHelp) hideHelp$: Observable<boolean>;
+  @Select(ConversationsState.getLastUpdate) lastUpdate$: Observable<Date | undefined>;
+  @Select(ConversationsState.getHideHelp) hideHelp$: Observable<boolean>;
 
   loadingInfo = {
     members: 0,
@@ -50,7 +50,7 @@ export class MyEventsComponent implements OnInit, OnDestroy {
     loadedCards: 0,
   };
 
-  constructor(private myEventsService: MyEventsService, private store: Store) {
+  constructor(private conversationsService: ConversationsService, private store: Store) {
   }
 
   ngOnInit() {
@@ -116,7 +116,7 @@ export class MyEventsComponent implements OnInit, OnDestroy {
 
     const memberRequestArr = membersArr
       .map(async member => {
-        const cards = await this.myEventsService.getCardsByUser(member.username);
+        const cards = await this.conversationsService.getCardsByUser(member.username);
         this.loadingInfo.loadedMembers++;
         return cards;
       });
@@ -140,7 +140,7 @@ export class MyEventsComponent implements OnInit, OnDestroy {
     const allRequests = Array.from(cardMap.values())
       .map(async card => {
         // what if one is
-        const data = await this.myEventsService.getCommentCards(card.id).toPromise();
+        const data = await this.conversationsService.getCommentCards(card.id).toPromise();
         this.loadingInfo.loadedCards++;
         try {
           this.checkInAndOutBox(data as any, user.id, user.username, otherMemberNames, allCards);

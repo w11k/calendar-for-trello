@@ -1,13 +1,13 @@
 import {HideHelp, UpdateLastUpdate} from './app.action';
 import {Action, Selector, State, StateContext} from '@ngxs/store';
 
-export interface MyEventsModel {
+export interface ConversationsModel {
   lastUpdate: Date | null;
   hideHelp: boolean;
 }
 
-@State<MyEventsModel>({
-  name: 'myEvents',
+@State<ConversationsModel>({
+  name: 'Conversations',
   defaults: {
     lastUpdate: null,
     hideHelp: false,
@@ -15,20 +15,20 @@ export interface MyEventsModel {
   }
 })
 
-export class MyEventsState {
+export class ConversationsState {
 
   @Selector()
-  static getLastUpdate(state: MyEventsModel) {
+  static getLastUpdate(state: ConversationsModel) {
     return state.lastUpdate;
   }
 
   @Selector()
-  static getHideHelp(state: MyEventsModel) {
+  static getHideHelp(state: ConversationsModel) {
     return state.hideHelp;
   }
 
   @Action(UpdateLastUpdate)
-  updateLastUpdate({setState, patchState}: StateContext<MyEventsModel>, {payload}: UpdateLastUpdate) {
+  updateLastUpdate({setState, patchState}: StateContext<ConversationsModel>, {payload}: UpdateLastUpdate) {
     patchState({
       lastUpdate: payload
     });
@@ -36,7 +36,7 @@ export class MyEventsState {
 
 
   @Action(HideHelp)
-  updateHideHelp({setState, patchState}: StateContext<MyEventsModel>, {payload}: HideHelp) {
+  updateHideHelp({setState, patchState}: StateContext<ConversationsModel>, {payload}: HideHelp) {
     patchState({
       hideHelp: payload
     });

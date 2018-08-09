@@ -1,4 +1,4 @@
-import {MyEventsComponent} from './my-events/my-events.component';
+import {ConversationsComponent} from './conversations/conversations.component';
 import {RouterModule, Routes} from '@angular/router';
 import {FrontPageComponent} from './front-page/front-page.component';
 import {SetTokenComponent} from './components/set-token/set-token.component';
@@ -42,8 +42,8 @@ let routes: Routes = [
     component: PrivacyComponent,
   },
   {
-    path: 'myEvents',
-    component: MyEventsComponent,
+    path: 'Conversations',
+    component: ConversationsComponent,
   },
   {
     path: '**', redirectTo: '/',

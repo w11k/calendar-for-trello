@@ -43,7 +43,7 @@ import {DropZoneService} from './services/drop-zone.service';
 import {LegalModule} from './legal/legal.module';
 import {NgReduxRouterModule} from '@angular-redux/router';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
-import {MyEventsModule} from './my-events/my-events.module';
+import {ConversationsModule} from './conversations/conversations.module';
 import {QueueInterceptor} from './shared/queue.interceptor';
 import {TokenInterceptor} from './shared/token.interceptor';
 import {DndModule} from '@beyerleinf/ngx-dnd';
@@ -86,7 +86,7 @@ import {TrackingModule} from './tracking/tracking.module';
     MatSnackBarModule,
     MatIconModule,
     LegalModule,
-    MyEventsModule,
+    ConversationsModule,
     BrowserAnimationsModule,
     TrackingModule.forRoot()
   ],

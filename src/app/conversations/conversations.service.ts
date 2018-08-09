@@ -17,7 +17,7 @@ export interface SearchResult {
 }
 
 @Injectable()
-export class MyEventsService {
+export class ConversationsService {
 
   constructor(
     private trelloHttpService: TrelloHttpService

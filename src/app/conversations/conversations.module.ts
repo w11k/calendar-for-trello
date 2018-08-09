@@ -1,20 +1,20 @@
 import { OutboxState } from './ngxs/outbox.state';
 import { MatButtonModule, MatCardModule, MatProgressSpinnerModule } from '@angular/material';
-import { MyEventsComponent } from './my-events.component';
+import {ConversationsComponent} from './conversations.component';
 import { NgModule } from '@angular/core';
 import { CalendarModule } from '../calendar/calendar.module';
-import { MyEventsService } from './my-events.service';
+import {ConversationsService} from './conversations.service';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { CommonModule } from '@angular/common';
 import { NgxsModule } from '@ngxs/store';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 import { NgxsStoragePluginModule } from '@ngxs/storage-plugin';
 import { InboxState } from './ngxs/inbox.state';
-import {MyEventsState} from './ngxs/my-events.state';
+import {ConversationsState} from './ngxs/conversationsState';
 
 @NgModule({
   declarations: [
-    MyEventsComponent,
+    ConversationsComponent,
 
   ],
   imports: [
@@ -25,7 +25,7 @@ import {MyEventsState} from './ngxs/my-events.state';
     CalendarModule,
     FlexLayoutModule,
     NgxsModule.forRoot([
-      InboxState, OutboxState, MyEventsState
+      InboxState, OutboxState, ConversationsState
     ]),
     NgxsReduxDevtoolsPluginModule.forRoot(),
     NgxsStoragePluginModule.forRoot({
@@ -53,8 +53,8 @@ import {MyEventsState} from './ngxs/my-events.state';
     })
   ],
   providers: [
-    MyEventsService,
+    ConversationsService,
   ],
 })
-export class MyEventsModule {
+export class ConversationsModule {
 }

@@ -86,6 +86,11 @@ export const selectVisibleCardsInRange = Reselect.createSelector(
         // pre filter cards: Only show cards that are in the calendar range
         const firstRelevantDate = calState.days[0];
         const lastRelevantDate = calState.days[calState.days.length - 1];
+
+        if (!firstRelevantDate || !lastRelevantDate) {
+          return [];
+        }
+
         return isWithinRange(it.due, firstRelevantDate.date, endOfDay(lastRelevantDate.date));
       });
   });

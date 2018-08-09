@@ -42,6 +42,7 @@ import {MyEventsModule} from './my-events/my-events.module';
 import {QueueInterceptor} from './shared/queue.interceptor';
 import {TokenInterceptor} from './shared/token.interceptor';
 import {DndModule} from '@beyerleinf/ngx-dnd';
+import {TrackingModule} from './tracking/tracking.module';
 
 
 @NgModule({
@@ -83,6 +84,7 @@ import {DndModule} from '@beyerleinf/ngx-dnd';
     LegalModule,
     MyEventsModule,
     BrowserAnimationsModule,
+    TrackingModule.forRoot()
   ],
   providers: [
     CalendarService,

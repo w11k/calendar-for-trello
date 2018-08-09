@@ -35,14 +35,12 @@ export class CalendarService {
             ];
             break;
           case CalendarType.WorkWeek:
-            console.log('weekdays', weekdays);
             days = [
               ...this._buildWeekDays(date.clone(), weekStart, weekdays)
             ];
             break;
         }
 
-        console.log(days);
         resolve(days);
       });
 

@@ -42,7 +42,7 @@ export class CardActions {
       due: due
     }).subscribe(
       success => this.ngRedux.dispatch({type: CardActions.UPDATE_DUE, id: cardId, due: due}),
-      error => console.log(error)
+      error => console.error(error)
     );
   };
 
@@ -75,7 +75,7 @@ export class CardActions {
       due: 'null'
     }).subscribe(
       success => this.ngRedux.dispatch({type: CardActions.REMOVE_DUE, id: cardId}),
-      error => console.log(error)
+      error => console.error(error)
     );
   }
 
@@ -84,7 +84,7 @@ export class CardActions {
       closed: true
     }).subscribe(
       success => this.ngRedux.dispatch({type: CardActions.ARCHIVE_CARD, id: cardId}),
-      error => console.log(error)
+      error => console.error(error)
     );
 
   }
@@ -98,7 +98,7 @@ export class CardActions {
       dueComplete: !card.dueComplete
     }).subscribe(
       success => this.ngRedux.dispatch({type: CardActions.MARK_CARD_DONE, payload: card}),
-      error => console.log(error)
+      error => console.error(error)
     );
 
 
@@ -112,7 +112,7 @@ export class CardActions {
       idBoard: idBoard,
     }).subscribe(
       success => this.ngRedux.dispatch({type: CardActions.CARD_CHANGE_LIST, id: cardId, idList: idList}),
-      error => console.log(error)
+      error => console.error(error)
     );
   };
 

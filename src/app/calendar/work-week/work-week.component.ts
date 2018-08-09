@@ -58,7 +58,6 @@ export class WorkWeekComponent implements OnInit, OnDestroy {
 
   createHours = (calendarDays: CalendarDay[], cards: Card[], lang) => {
     this.cardHolder = {};
-    console.log('calendarDays', calendarDays);
     calendarDays.map(day => {
       this.cardHolder[moment(day.date).format('MM-DD-YYYY')] = cards.filter(card => moment(card.due).isSame(day.date, 'day'));
       return day;

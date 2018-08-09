@@ -1,6 +1,6 @@
 {
   "name": "calendar-for-trello",
-  "version": "2.0.6",
+  "version": "2.1.0",
   "license": "MIT",
   "angular-cli": {},
   "scripts": {
@@ -40,6 +40,7 @@
     "classlist.js": "^1.1.20150312",
     "cookieconsent": "3.0.6",
     "core-js": "^2.4.1",
+    "date-fns": "^1.29.0",
     "hammerjs": "^2.0.8",
     "intl": "^1.2.5",
     "lodash": "^4.17.2",

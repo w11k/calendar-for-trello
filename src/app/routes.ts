@@ -42,7 +42,7 @@ let routes: Routes = [
     component: PrivacyComponent,
   },
   {
-    path: 'Conversations',
+    path: 'conversations',
     component: ConversationsComponent,
   },
   {

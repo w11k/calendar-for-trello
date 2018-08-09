@@ -1,10 +1,8 @@
 import {Inject, Injectable, PLATFORM_ID} from '@angular/core';
-import {isPlatformBrowser} from '@angular/common';
 import {TrackingEvent} from './tracking-event.model';
 
-interface WindowWithDataLayer extends Window {
-  dataLayer: Array<any>;
-}
+
+declare const ga: Function;
 
 
 /**
@@ -18,10 +16,7 @@ export class TrackingService {
   }
 
   track(event: TrackingEvent) {
-    if (isPlatformBrowser(this.platformId)) {
-      (window as WindowWithDataLayer).dataLayer.push(event);
-
-    }
+    ga('send', 'event', event.category, event.action, event.label, event.value);
   }
 
 }

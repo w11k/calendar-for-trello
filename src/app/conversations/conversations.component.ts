@@ -15,6 +15,8 @@ import {InboxState} from './ngxs/inbox.state';
 import {OutboxState} from './ngxs/outbox.state';
 import {ConversationsState} from './ngxs/conversationsState';
 import {take} from 'rxjs/operators';
+import {TrackingService} from '../tracking/tracking.service';
+import {TrackingEvent} from '../tracking/tracking-event.model';
 
 export enum Phase {
   Done,
@@ -50,7 +52,10 @@ export class ConversationsComponent implements OnInit, OnDestroy {
     loadedCards: 0,
   };
 
-  constructor(private conversationsService: ConversationsService, private store: Store) {
+  constructor(private conversationsService: ConversationsService,
+              private store: Store,
+              private trackingService: TrackingService,
+  ) {
   }
 
   ngOnInit() {
@@ -122,6 +127,8 @@ export class ConversationsComponent implements OnInit, OnDestroy {
       });
 
     const responses: Card[][] = await Promise.all(memberRequestArr);
+    this.trackingService.track(new TrackingEvent('conversations', 'loaded-members', `${this.loadingInfo.members}`));
+
 
     const cardMap = new Map<string, Card>();
     // Put all Cards in a Map in order to remove duplicates
@@ -150,7 +157,10 @@ export class ConversationsComponent implements OnInit, OnDestroy {
       });
 
     // be Done in any case - even if requests fail.
-    Promise.all(allRequests).finally(() => {
+    Promise.all(allRequests)
+      .catch(err => this.trackingService.track(new TrackingEvent('conversations', 'failed', `error`)))
+      .finally(() => {
+        this.trackingService.track(new TrackingEvent('conversations', 'loaded-cards', `${this.loadingInfo.cards}`));
       this.currentPhase = Phase.Done;
       this.store.dispatch(new UpdateLastUpdate());
     });

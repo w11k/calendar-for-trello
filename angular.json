@@ -7,29 +7,34 @@
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
+      "prefix": "app",
+      "schematics": {},
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist",
+            "outputPath": "dist/calendar-for-trello",
             "index": "src/index.html",
             "main": "src/main.ts",
-            "tsConfig": "src/tsconfig.app.json",
             "polyfills": "src/polyfills.ts",
+            "tsConfig": "src/tsconfig.app.json",
             "assets": [
-              "src/assets",
-              "src/favicon.ico"
+              "src/favicon.ico",
+              "src/assets"
             ],
             "styles": [
-              "src/styles.scss",
-              "node_modules/cookieconsent/build/cookieconsent.min.css"
+              "src/styles.scss"
             ],
-            "scripts": [
-              "node_modules/cookieconsent/build/cookieconsent.min.js"
-            ]
+            "scripts": []
           },
           "configurations": {
             "production": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ],
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
@@ -38,21 +43,7 @@
               "aot": true,
               "extractLicenses": true,
               "vendorChunk": false,
-              "buildOptimizer": true,
-              "fileReplacements": [
-                {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.prod.ts"
-                }
-              ]
-            },
-            "hmr": {
-              "fileReplacements": [
-                {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.hmr.ts"
-                }
-              ]
+              "buildOptimizer": true
             }
           }
         },
@@ -64,9 +55,6 @@
           "configurations": {
             "production": {
               "browserTarget": "calendar-for-trello:build:production"
-            },
-            "hmr": {
-              "browserTarget": "calendar-for-trello:build:hmr"
             }
           }
         },
@@ -80,19 +68,16 @@
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
             "main": "src/test.ts",
-            "karmaConfig": "./karma.conf.js",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "src/tsconfig.spec.json",
-            "scripts": [
-              "node_modules/cookieconsent/build/cookieconsent.min.js"
-            ],
+            "karmaConfig": "src/karma.conf.js",
             "styles": [
-              "src/styles.scss",
-              "node_modules/cookieconsent/build/cookieconsent.min.css"
+              "src/styles.scss"
             ],
+            "scripts": [],
             "assets": [
-              "src/assets",
-              "src/favicon.ico"
+              "src/favicon.ico",
+              "src/assets"
             ]
           }
         },
@@ -111,23 +96,25 @@
       }
     },
     "calendar-for-trello-e2e": {
-      "root": "",
-      "sourceRoot": "e2e",
+      "root": "e2e/",
       "projectType": "application",
       "architect": {
         "e2e": {
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
-            "protractorConfig": "./protractor.conf.js",
+            "protractorConfig": "e2e/protractor.conf.js",
             "devServerTarget": "calendar-for-trello:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "calendar-for-trello:serve:production"
+            }
           }
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "e2e/tsconfig.e2e.json"
-            ],
+            "tsConfig": "e2e/tsconfig.e2e.json",
             "exclude": [
               "**/node_modules/**"
             ]

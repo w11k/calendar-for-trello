@@ -8,7 +8,6 @@ import * as moment from 'moment';
 import {ListActions} from '../redux/actions/list-actions';
 import {from, Observable, ReplaySubject, Subject, timer} from 'rxjs';
 import {MemberActions} from '../redux/actions/member-actions';
-import * as _ from 'lodash';
 import {select} from '@angular-redux/store';
 import {selectBoards} from '../redux/store/selects';
 import 'rxjs/add/operator/take';

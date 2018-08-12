@@ -2,7 +2,6 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import * as moment from 'moment';
 import {select} from '@angular-redux/store';
 import {Observable, Subscription} from 'rxjs';
-import * as _ from 'lodash';
 import {selectSettingsLanguage, selectSettingsWeekStart} from '../../redux/store/selects';
 import {WeekStart} from '../../redux/actions/settings-actions';
 import {CalendarService} from '../../services/calendar.service';
@@ -12,6 +11,7 @@ import {selectSettingsWorkdays} from '../../redux/store/selects';
 import {CalendarType} from "../../redux/actions/settings-actions";
 import 'rxjs/add/operator/combineLatest';
 import 'rxjs/add/operator/takeUntil';
+import {times} from '../../shared/times';
 
 @Component({
   selector: 'app-calendar-toolbar',
@@ -51,7 +51,7 @@ export class CalendarToolbarComponent implements OnInit, OnDestroy {
     // convert to a new moment
     let date = moment(firstDayOfWeek);
     let arr = [];
-    _.times(7, () => {
+    times(7, () => {
       let dayOfWeek = moment(date).isoWeekday();
       if (calendarType != CalendarType.WorkWeek || dayOfWeek <= workdays) {
         arr.push(date.format('dddd'));

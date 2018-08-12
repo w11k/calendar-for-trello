@@ -1,14 +1,19 @@
 // -> Takes previous state + action, returnes new // new state
 import {Board} from '../../models/board';
 import {BoardActions} from '../actions/board-actions';
-import * as _ from 'lodash';
+
 
 const initialState = [];
 
 export default (state: Board[] = initialState, action: any) => {
   switch (action.type) {
     case BoardActions.UPDATE_BOARDS:
-      let storeAsObject = _.keyBy(state, 'id');
+      const storeAsObject = state.reduce((previousValue, currentValue) => {
+        previousValue[currentValue.id] = currentValue;
+        return previousValue;
+      }, {});
+
+
       return action.payload.map((board: Board) => {
           if (storeAsObject[board.id] && storeAsObject[board.id].lastPulledAt) {
             // copy lastPulledAt if the board was already added to calendar

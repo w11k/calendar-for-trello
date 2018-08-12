@@ -1,12 +1,12 @@
 import {Injectable} from '@angular/core';
 import * as moment from 'moment';
 import {Moment} from 'moment';
-import * as _ from 'lodash';
 import {CalendarDay} from '../models/calendar-day';
 import {CalendarType, WeekStart} from '../redux/actions/settings-actions';
 import {select} from '@angular-redux/store';
 import {Observable} from 'rxjs';
 import {selectSettingsWeekStart} from '../redux/store/selects';
+import {times} from '../shared/times';
 
 
 @Injectable()
@@ -50,7 +50,7 @@ export class CalendarService {
   private _buildRegularDaysMonth(date: moment.Moment, weekStart: WeekStart): CalendarDay[] {
     let days: CalendarDay[] = [];
     let monthDate = this.getFirstDayOfMonth(date, weekStart); // change to a date in the month of interest
-    _.times(monthDate.daysInMonth(), n => {
+    times(monthDate.daysInMonth(), n => {
       days.push(new CalendarDay(monthDate.toDate(), false, monthDate.isSame(moment(), 'day')));
       monthDate.add(1, 'day');
     });
@@ -72,7 +72,7 @@ export class CalendarService {
     let days: CalendarDay[] = [];
     let firstDay = this.getFirstDayOfMonth(date, weekStart);
     let weekdayOfFirstDay = moment(firstDay).weekday();
-    _.times(weekdayOfFirstDay, () => {
+    times(weekdayOfFirstDay, () => {
       firstDay.subtract(1, 'day');
       days.push(new CalendarDay(firstDay.toDate(), true));
     });
@@ -109,7 +109,7 @@ export class CalendarService {
         runs = 0;
         break;
     }
-    _.times(runs, () => {
+    times(runs, () => {
       lastDay.add(1, 'day');
       days.push(new CalendarDay(lastDay.toDate(), true));
     });
@@ -152,7 +152,7 @@ export class CalendarService {
     const firstDay = this.getFirstDayOfWeek(date, weekStart);
     let day = moment(firstDay);
 
-    _.times(7, () => {
+    times(7, () => {
       let dayOfWeek = moment(day.toDate()).isoWeekday();
       if (dayOfWeek <= weekdays) {
         days.push(new CalendarDay(day.toDate(), false, day.isSame(moment(), 'day')));

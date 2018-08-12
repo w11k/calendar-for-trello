@@ -3,7 +3,6 @@ import {Card} from '../../models/card';
 import {select} from '@angular-redux/store';
 import {Observable, Subscription} from 'rxjs';
 import {Board} from '../../models/board';
-import * as _ from 'lodash';
 import {Member} from '../../models/member';
 import {List} from '../../models/list';
 
@@ -51,7 +50,7 @@ export class CalendarCardComponent implements OnInit, OnDestroy {
           const boards: Board[] = x[1];
           const lists = x[2];
           this.list = lists ? lists[this.card.idList] : '';
-          this.board = _.find(boards, (board: Board) => board.id === this.card.idBoard);
+          this.board = boards.find((board: Board) => board.id === this.card.idBoard);
           this.borderLeft = boardColorPrefs[this.card.idBoard] || (this.board ? this.board.prefs.backgroundColor : null);
         }));
 

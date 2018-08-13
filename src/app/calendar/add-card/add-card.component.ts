@@ -6,10 +6,10 @@ import {Board} from '../../models/board';
 import {TrelloHttpService} from '../../services/trello-http.service';
 import {Member} from '../../models/member';
 import {List} from '../../models/list';
-import * as moment from 'moment';
 import {MatDialogRef} from '@angular/material';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {selectOpenBoards} from '../../redux/store/selects';
+import {format, setHours, setMinutes} from 'date-fns';
 
 @Component({
   selector: 'app-add-card',
@@ -36,7 +36,7 @@ export class AddCardComponent implements OnInit, OnDestroy {
       name: [this.card ? this.card.name : '', Validators.required],
       due: [this.card && this.card.due ? this.card.due : new Date(), []],
       dueDate: [this.card && this.card.due ? this.card.due : new Date(), []],
-      dueTime: [this.card && this.card.due ? this.card.due : moment().format('HH:mm'), []],
+      dueTime: [this.card && this.card.due ? this.card.due : format(new Date(), 'HH:mm'), []],
       desc: [this.card && this.card.desc ? this.card.desc : ''],
       idBoard: [this.card && this.card.idBoard ? this.card.idBoard : null, [Validators.required]],
       idList: [this.card && this.card.idList ? this.card.idList : null, [Validators.required]],
@@ -74,7 +74,15 @@ export class AddCardComponent implements OnInit, OnDestroy {
 
   onSubmit(cardForm: FormGroup) {
     if (cardForm && cardForm.valid) {
-      cardForm.value.due = moment(moment(cardForm.value.dueDate).format('YYYY-MM-DD') + 'T' + cardForm.value.dueTime, moment.ISO_8601);
+      let hours = 12;
+      let minutes = 0;
+      try {
+        hours = +(cardForm.value.dueTime as string).split(':')[0] || hours;
+        minutes = +(cardForm.value.dueTime as string).split(':')[1] || minutes;
+      } catch (e) {
+      }
+
+      cardForm.value.due = setHours(setMinutes(cardForm.value.dueDate, minutes), hours);
 
       this.tHttp.post('cards/', cardForm.value)
         .subscribe(

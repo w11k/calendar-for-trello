@@ -1,11 +1,14 @@
 /* You can add global styles to this file, and also import other style files */
-@import "material/theme";
-@import '~@angular/material/theming';
 @import "~bootstrap/scss/functions";
 @import "~bootstrap/scss/variables";
 @import "~bootstrap/scss/mixins";
 @import "~bootstrap/scss/grid";
 @import "~bootstrap/scss/utilities";
+@import "material/index";
+
+@include mat-core();
+@include angular-material-theme($trello-app-theme);
+
 
 html {
   box-sizing: border-box;

@@ -2,12 +2,8 @@
 @import "colors/trello-business-blue";
 @import "colors/trello-red";
 @import "colors/md_gray";
-@import "links";
-@include mat-core();
 
 $trello-app-primary: mat-palette($mat-trello-business);
 $trello-app-accent: mat-palette($mat-trello-red);
 $trello-app-warn: mat-palette($mat-red);
 $trello-app-theme: mat-light-theme($trello-app-primary, $trello-app-accent, $trello-app-warn);
-
-@include angular-material-theme($trello-app-theme);

@@ -4,7 +4,6 @@ import {Observable, Subscription} from 'rxjs';
 import {Board} from '../models/board';
 import {SettingsActions, WeekStart} from '../redux/actions/settings-actions';
 import {Settings} from '../models/settings';
-import * as moment from 'moment';
 import {selectOpenBoards} from '../redux/store/selects';
 import {Language, WeekStartWithTranslation} from './setting.models';
 
@@ -78,7 +77,6 @@ export class SettingsComponent implements OnInit, OnDestroy {
       this.settings$.subscribe(
         settings => {
           this.settings = settings;
-          moment.locale(settings.language);
         }
       ));
   }

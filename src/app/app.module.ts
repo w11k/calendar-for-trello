@@ -11,8 +11,6 @@ import {SetTokenComponent} from './components/set-token/set-token.component';
 import {MemberGuard} from './services/guards/memberGuard';
 import {VisitorGuard} from './services/guards/visitorGuard';
 import {TrelloPullService} from './services/trello-pull.service';
-import 'moment/locale/fr';
-import 'moment/locale/de';
 import {SearchComponent} from './components/search/search.component';
 import {DateTimeFormatService} from './services/date-time-format.service';
 import {SettingsModule} from './settings/settings.module';

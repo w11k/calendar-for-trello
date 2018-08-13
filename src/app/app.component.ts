@@ -2,7 +2,6 @@ import {Component, OnInit, HostListener, OnDestroy} from '@angular/core';
 import {RootState, enhancers} from './redux/store';
 import {NgReduxRouter} from '@angular-redux/router';
 import reducer from './redux/reducers';
-import * as moment from 'moment';
 import {Router, NavigationEnd} from '@angular/router';
 import {NgRedux, select} from '@angular-redux/store';
 import {TrelloPullService} from './services/trello-pull.service';
@@ -81,15 +80,6 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.subscriptions.push(
-      this.settings$.subscribe(
-        settings => {
-          this.settings = settings;
-          // moment.locale(settings.language);
-        }
-      )
-    );
-
     this.subscriptions.push(
       this.settings$.subscribe(settings => this.settings = settings)
     );

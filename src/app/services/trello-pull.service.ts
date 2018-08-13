@@ -4,19 +4,19 @@ import {BoardActions} from '../redux/actions/board-actions';
 import {UserActions} from '../redux/actions/user-actions';
 import {TrelloHttpService} from './trello-http.service';
 import {Board} from '../models/board';
-import * as moment from 'moment';
 import {ListActions} from '../redux/actions/list-actions';
-import {from, Observable, ReplaySubject, Subject, timer} from 'rxjs';
+import {Observable} from 'rxjs';
 import {MemberActions} from '../redux/actions/member-actions';
 import {select} from '@angular-redux/store';
 import {selectBoards} from '../redux/store/selects';
 import 'rxjs/add/operator/take';
-import {concatMap, map, take} from 'rxjs/operators';
+import {take} from 'rxjs/operators';
 import {User} from '../models/user';
 import {Card} from '../models/card';
 import {List} from '../models/list';
 import {Member} from '../models/member';
 import {HttpParams} from '@angular/common/http';
+import {isBefore} from 'date-fns';
 
 @Injectable()
 export class TrelloPullService {
@@ -68,11 +68,12 @@ export class TrelloPullService {
 
   // determines if each Board in an array is fresh (pulled)
   private _checkBoards = (boards: Board[]): Board[] => {
+    const now = new Date();
     return boards.filter(
       board => {
         if (board.lastPulledAt) {
           // board cards are already pulled
-          return moment(board.lastPulledAt).isBefore(moment(board.dateLastActivity));
+          return isBefore(board.lastPulledAt, board.dateLastActivity);
         } else {
           // board cards are yet not pulled, add it to toLoadBoardArray
           return true;

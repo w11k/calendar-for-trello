@@ -3,12 +3,12 @@ import {CalendarDay} from '../../models/calendar-day';
 import {select} from '@angular-redux/store';
 import {Observable, Subscription} from 'rxjs';
 import {Card} from '../../models/card';
-import * as moment from 'moment';
 import {CardActions} from '../../redux/actions/card-actions';
 import {ContextMenuService} from '../context-menu-holder/context-menu.service';
 import {selectVisibleCardsInRange} from '../../redux/store/selects';
 import {DropZoneService} from '../../services/drop-zone.service';
 import {DragDropData} from '@beyerleinf/ngx-dnd';
+import {compareAsc, getHours, getMinutes, getSeconds, isSameDay, setHours, setMinutes, setSeconds} from 'date-fns';
 
 @Component({
   selector: 'app-calendar-day-month',
@@ -62,20 +62,9 @@ export class CalendarDayForMonthComponent implements OnInit, OnDestroy {
               //
               // I have already been mitigated with selectVisibleCardsInRange
               // - but with many cards I still cause far too many iterations.
-              return moment(card.due).isSame(this.calendarDay.date, 'day');
+              return isSameDay(card.due, this.calendarDay.date);
             })
-            .sort((a, b) => {
-              const cardADue = moment(a.due);
-              const cardBADue = moment(b.due);
-              if (cardADue.isBefore(cardBADue)) {
-                return -1;
-              }
-              if (cardADue.isAfter(cardBADue)) {
-                return 1;
-              }
-
-              return a.name.localeCompare(b.name);
-            });
+            .sort((a, b) => compareAsc(a.due, b.due));
         }
       ));
   }
@@ -91,13 +80,13 @@ export class CalendarDayForMonthComponent implements OnInit, OnDestroy {
     let hours = 12, minutes = 0, seconds = 0;
 
     if (card.due) {
-      hours = moment(card.due).hours();
-      minutes = moment(card.due).minutes();
-      seconds = moment(card.due).seconds();
+      hours = getHours(card.due);
+      minutes = getMinutes(card.due);
+      seconds = getSeconds(card.due);
     }
 
-    let due = moment(this.calendarDay.date).hours(hours).minutes(minutes).seconds(seconds);
-    this.cardActions.updateCardsDue(card.id, due.toDate());
+    const due = setSeconds(setMinutes(setHours(this.calendarDay.date, hours), minutes), seconds);
+    this.cardActions.updateCardsDue(card.id, due);
   }
 
   dragStart($event: DragDropData) {

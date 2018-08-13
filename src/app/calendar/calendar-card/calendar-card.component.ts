@@ -1,15 +1,14 @@
-import {Component, OnInit, Input, HostBinding, OnDestroy, ChangeDetectionStrategy} from '@angular/core';
+import {ChangeDetectionStrategy, Component, HostBinding, Input, OnDestroy, OnInit} from '@angular/core';
 import {Card} from '../../models/card';
 import {select} from '@angular-redux/store';
 import {Observable, Subscription} from 'rxjs';
 import {Board} from '../../models/board';
-import {Member} from '../../models/member';
 import {List} from '../../models/list';
 
 import {selectBoardColorPrefs} from '../../redux/store/selects';
 import {MemberMap} from '../../redux/reducers/member.reducer';
 import {CardActions} from '../../redux/actions/card-actions';
-import * as moment from 'moment';
+import {addMonths, addWeeks} from 'date-fns';
 
 @Component({
   selector: 'app-calendar-card',
@@ -68,7 +67,10 @@ export class CalendarCardComponent implements OnInit, OnDestroy {
   }
 
   plus(amount: number, unit: 'week' | 'month') {
-    const nextDue = moment(this.card.due).add(amount, unit);
-    this.cardActions.updateCardsDue(this.card.id, nextDue.toDate());
+    const nextDue = unit === 'month'
+      ? addMonths(this.card.due, amount)
+      : addWeeks(this.card.due, amount);
+
+    this.cardActions.updateCardsDue(this.card.id, nextDue);
   }
 }

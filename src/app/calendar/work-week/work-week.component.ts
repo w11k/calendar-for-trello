@@ -1,5 +1,4 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import * as moment from 'moment';
 import {Card} from '../../models/card';
 import {select} from '@angular-redux/store';
 import {Observable, Subscription} from 'rxjs';
@@ -12,10 +11,11 @@ import {Settings} from '../../models/settings';
 import {
   selectCalendarDays,
   selectSettingsLanguage,
-  selectVisibleCards,
   selectVisibleCardsInRange
 } from '../../redux/store/selects';
 import {DropZoneService} from '../../services/drop-zone.service';
+import {format, getHours, getMinutes, getSeconds, isSameDay, startOfDay} from 'date-fns';
+import {setTime} from '../../shared/date';
 
 @Component({
   selector: 'app-work-week',
@@ -56,7 +56,6 @@ export class WorkWeekComponent implements OnInit, OnDestroy {
       this.settings$.subscribe(
         settings => {
           this.settings = settings;
-          moment.locale(settings.language);
         }
       ));
   }
@@ -64,16 +63,17 @@ export class WorkWeekComponent implements OnInit, OnDestroy {
   createHours = (calendarDays: CalendarDay[], cards: Card[], lang) => {
     this.cardHolder = {};
     calendarDays.map(day => {
-      this.cardHolder[moment(day.date).format('MM-DD-YYYY')] = cards.filter(card => moment(card.due).isSame(day.date, 'day'));
+      this.cardHolder[format(day.date, 'MM-DD-YYYY')] = cards.filter(card => isSameDay(card.due, day.date));
       return day;
     });
     for (let i = 0; i < 24; i++) {
+      // workweek is currently broken.
       calendarDays.forEach((calendarDay) => {
-          const baseDate = moment(calendarDay.date).hours(i).minutes(0).seconds(0).milliseconds(0);
+        let baseDate = startOfDay(calendarDay.date);
           this.slots.push(
-            new WeekDaySlot(baseDate.format(this.dateTimeFormatService.getTimeFormat(lang)),
-              this.cardHolder[moment(calendarDay.date).format('MM-DD-YYYY')]
-                .filter(card => i === moment(card.due).hour())
+            new WeekDaySlot(format(baseDate, this.dateTimeFormatService.getTimeFormat(lang)),
+              this.cardHolder[format(calendarDay.date, 'MM-DD-YYYY')]
+                .filter(card => i === getHours(card.due))
                 .sort((a, b) => a.name.localeCompare(b.name)),
               calendarDay,
               i
@@ -81,24 +81,23 @@ export class WorkWeekComponent implements OnInit, OnDestroy {
         }
       );
     }
-  };
+  }
 
   onDropSuccess(event: DragDropData, slot: WeekDaySlot) {
-    const card: Card = event.dragData;
-    const minutes = moment(card.due).minutes();
-    const seconds = moment(card.due).seconds();
+    let card: Card = event.dragData;
+    let minutes = getMinutes(card.due);
+    let seconds = getSeconds(card.due);
 
     let hours;
     if (this.settings.weekViewShowHours) {
       hours = slot.hours;
     } else {
-      hours = moment(card.due).hours();
+      hours = getHours(card.due);
     }
 
-    const due = moment(slot.CalendarDay.date).hours(hours).minutes(minutes).seconds(seconds);
-    this.cardActions.updateCardsDue(card.id, due.toDate());
+    const due = setTime(slot.CalendarDay.date, hours, minutes, seconds);
+    this.cardActions.updateCardsDue(card.id, due);
   }
-
 
   ngOnDestroy() {
     this.subscriptions.forEach(subscription => subscription.unsubscribe());

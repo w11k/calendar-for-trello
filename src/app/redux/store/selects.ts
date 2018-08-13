@@ -5,7 +5,7 @@ import {Settings} from '../../models/settings';
 import {User} from '../../models/user';
 import {Board} from '../../models/board';
 import {CalendarState} from '../reducers/calendar.reducer';
-import {endOfDay, isWithinRange} from 'date-fns';
+import {endOfDay, isBefore, isWithinRange} from 'date-fns';
 
 export function selectBoardColorPrefs(state: RootState) {
   return state.settings.boardColorPrefs;
@@ -94,3 +94,12 @@ export const selectVisibleCardsInRange = Reselect.createSelector(
         return isWithinRange(it.due, firstRelevantDate.date, endOfDay(lastRelevantDate.date));
       });
   });
+
+
+export const selectOverdueCards = Reselect.createSelector(
+  selectVisibleCards,
+  (cards: Card[]) => {
+    const now = new Date();
+    return cards.filter(card => card.due && !card.dueComplete && isBefore(card.due, now));
+  }
+);

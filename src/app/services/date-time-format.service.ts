@@ -3,7 +3,8 @@ import {Injectable} from '@angular/core';
 @Injectable()
 export class DateTimeFormatService {
 
-  // returns the correct momentjs format
+  /**
+   * @deprecated: format in template instead*/
   getTimeFormat(language = 'en'): string {
     let format;
     switch (language) {

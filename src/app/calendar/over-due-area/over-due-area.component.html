@@ -1,9 +1,9 @@
-<button (click)="show = !show" *ngIf="cards.length" mat-menu-item>
-  <mat-icon>{{cards.length ? "warning" : ""}}</mat-icon>
-  Overdue Card <span class="label"> {{cards.length}}</span>
+<button (click)="show = !show" *ngIf="(overdueCards$ | async)?.length as length" mat-menu-item>
+  <mat-icon>{{length ? "warning" : ""}}</mat-icon>
+  Overdue Card <span class="label">{{length}}</span>
 </button>
 <div *ngIf="show">
-  <app-calendar-card *ngFor="let card of cards" [card]="card" dnd-draggable [dragData]="card"
+  <app-calendar-card *ngFor="let card of overdueCards$ | async" [card]="card" dnd-draggable [dragData]="card"
                      [dragEnabled]="true"></app-calendar-card>
 </div>
 

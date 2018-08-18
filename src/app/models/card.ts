@@ -1,4 +1,4 @@
-import {MinimalLabel} from './minimal-label';
+import {Label} from './label';
 
 export class Card {
 
@@ -12,7 +12,7 @@ export class Card {
               public email?: string,
               public idBoard?: string,
               public idShort?: number,
-              public labels?: MinimalLabel[],
+              public labels?: Label[],
               public idLabels?: string[],
               public pos?: number,
               public shortLink?: string,

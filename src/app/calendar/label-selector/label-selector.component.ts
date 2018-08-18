@@ -6,8 +6,7 @@ import {SettingsActions} from '../../redux/actions/settings-actions';
 import {select} from '@angular-redux/store';
 import {untilComponentDestroyed} from 'ng2-rx-componentdestroyed';
 import {selectVisibleLabelsInRange} from '../../redux/store/selects';
-import {MinimalLabel} from '../../models/minimal-label';
-import {map} from 'rxjs/operators';
+import {Label} from '../../models/label';
 
 /**
  * This feature was brought to you by https://github.com/JEricaM
@@ -23,16 +22,13 @@ import {map} from 'rxjs/operators';
 })
 export class LabelSelectorComponent implements OnInit {
 
-  @select(selectVisibleLabelsInRange) public labels$: Observable<MinimalLabel[]>;
-  public selectOptions$: Observable<MinimalLabel[]>;
+  @select(selectVisibleLabelsInRange) public labels$: Observable<Label[]>;
+  public selectOptions$: Observable<Label[]>;
   @select('settings') public settings$: Observable<Settings>;
   labelCtrl = new FormControl(null);
 
   constructor(private settingsActions: SettingsActions) {
-    this.selectOptions$ = this.labels$.pipe(map(minimals => [{
-      name: 'Dont filter',
-      id: null
-    } as MinimalLabel, ...minimals]));
+    this.selectOptions$ = this.labels$;
   }
 
   @HostBinding('class.active') get isActive() {
@@ -50,11 +46,11 @@ export class LabelSelectorComponent implements OnInit {
 
     this.labelCtrl.valueChanges
       .pipe(untilComponentDestroyed(this))
-      .subscribe(res => this.update(res));
+      .subscribe((res: string) => this.update(res));
   }
 
-  update(labelId) {
-    this.settingsActions.setFilterForLabel(labelId);
+  update(labelName: string) {
+    this.settingsActions.setFilterForLabel(labelName);
   }
 
   ngOnDestroy() {

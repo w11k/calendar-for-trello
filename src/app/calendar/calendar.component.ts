@@ -15,7 +15,7 @@ import {
 } from '../redux/store/selects';
 import {format} from 'date-fns';
 import {MatDialog} from '@angular/material';
-import {MinimalLabel} from '../models/minimal-label';
+import {Label} from '../models/label';
 
 @Component({
   selector: 'app-calendar',
@@ -31,7 +31,7 @@ export class CalendarComponent implements OnInit, OnDestroy {
   @select(selectCalendarDate) public calendarDate$: Observable<any>;
   @select(selectSettingsType) public calendarType$: Observable<any>;
   @select(selectSettingsLanguage) public language$: Observable<string>;
-  @select(selectVisibleLabelsInRange) public labels$: Observable<MinimalLabel[]>;
+  @select(selectVisibleLabelsInRange) public labels$: Observable<Label[]>;
   public current: string;
 
   @select('settings') public settings$: Observable<Settings>;

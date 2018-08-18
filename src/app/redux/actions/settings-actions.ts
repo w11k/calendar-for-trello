@@ -87,8 +87,8 @@ export class SettingsActions {
     this.ngRedux.dispatch({type: SettingsActions.SET_BUSINESS_HOURS_END, payload: endHour});
   }
 
-  public setFilterForLabel(labelId: string) {
-    this.ngRedux.dispatch({type: SettingsActions.SET_FILTER_FOR_LABEL, payload: labelId});
+  public setFilterForLabel(labelName: string) {
+    this.ngRedux.dispatch({type: SettingsActions.SET_FILTER_FOR_LABEL, payload: labelName});
   }
 
 }

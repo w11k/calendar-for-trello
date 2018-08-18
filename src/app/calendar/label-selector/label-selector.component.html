@@ -1,5 +1,8 @@
 <mat-select [formControl]="labelCtrl" placeholder="Filter for label">
-  <mat-option *ngFor="let label of selectOptions$ | async" [value]="label.id">
+  <mat-option [value]="null">
+    Don't filter
+  </mat-option>
+  <mat-option *ngFor="let label of selectOptions$ | async" [value]="label.name">
     {{label.name | cutString:30}}
   </mat-option>
 </mat-select>

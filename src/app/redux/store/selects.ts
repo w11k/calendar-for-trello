@@ -2,10 +2,10 @@ import {RootState} from '.';
 import * as Reselect from 'reselect';
 import {Card} from '../../models/card';
 import {Settings} from '../../models/settings';
-import {User} from '../../models/user';
 import {Board} from '../../models/board';
 import {CalendarState} from '../reducers/calendar.reducer';
 import {endOfDay, isBefore, isWithinRange} from 'date-fns';
+import {MinimalLabel} from '../../models/minimal-label';
 
 export function selectBoardColorPrefs(state: RootState) {
   return state.settings.boardColorPrefs;
@@ -70,13 +70,13 @@ export const selectOpenBoards = Reselect.createSelector(
   (boards: Board[]) => boards.filter(board => !board.closed)
 );
 
-//
+
+// does not apply the label filter
 export const selectVisibleCardsInRange = Reselect.createSelector(
   (state: RootState) => state.calendar,
   (state: RootState) => state.cards,
   (state: RootState) => state.settings,
-  (state: RootState) => state.user,
-  (calState: CalendarState, cards: Card[], settings: Settings, user: User) => {
+  (calState: CalendarState, cards: Card[], settings: Settings) => {
     return cards
       .filter(
         card => !settings.boardVisibilityPrefs[card.idBoard] && (settings.includeDoneCards ? true : !card.dueComplete) &&
@@ -96,10 +96,59 @@ export const selectVisibleCardsInRange = Reselect.createSelector(
   });
 
 
+export const selectCalendarCards = Reselect.createSelector(
+  selectVisibleCardsInRange,
+  (state: RootState) => state.settings,
+  (cards: Card[], settings: Settings) => {
+
+    const filterForLabel = settings.filterForLabel;
+    if (filterForLabel) {
+      return cards
+        .filter(
+          card => card.labels && card.labels.length > 0)
+        .filter(card => card.idLabels.find(lbl => lbl === filterForLabel) !== undefined);
+    } else {
+      return cards;
+    }
+  });
+
+export const selectVisibleLabelsInRange = Reselect.createSelector(
+  selectVisibleCardsInRange,
+  (cards: Card[]) => {
+    const labelMap = cards
+    // select with label only:
+      .filter(
+        card => card.labels && card.labels.length > 0)
+      // reduce to map to filter duplicates
+      .reduce((previousValue, currentValue) => {
+        const minimalLabels = currentValue.labels;
+        minimalLabels.forEach(minimal => previousValue.set(minimal.id, minimal));
+        return previousValue;
+      }, new Map<string, MinimalLabel>());
+    return Array.from((labelMap.values()));
+  });
+
+
 export const selectOverdueCards = Reselect.createSelector(
   selectVisibleCards,
-  (cards: Card[]) => {
+  (state: RootState) => state.settings,
+  (cards: Card[], settings: Settings) => {
     const now = new Date();
-    return cards.filter(card => card.due && !card.dueComplete && isBefore(card.due, now));
+    const filterForLabel = settings.filterForLabel;
+    return cards
+      .filter(card => filterForLabel ? card.idLabels.find(lbl => lbl === filterForLabel) !== undefined : true)
+      .filter(card => card.due && !card.dueComplete && isBefore(card.due, now));
+  }
+);
+
+
+export const selectNoDueCards = Reselect.createSelector(
+  selectVisibleCards,
+  (state: RootState) => state.settings,
+  (cards: Card[], settings: Settings) => {
+    const filterForLabel = settings.filterForLabel;
+    return cards
+      .filter(card => filterForLabel ? card.idLabels.find(lbl => lbl === filterForLabel) !== undefined : true)
+      .filter(card => card.due === null);
   }
 );

@@ -8,7 +8,7 @@ import {DragDropData} from '@beyerleinf/ngx-dnd';
 import {CardActions} from '../../redux/actions/card-actions';
 import {WeekDaySlot} from './WeekDaySlot';
 import {Settings} from '../../models/settings';
-import {selectCalendarDays, selectSettingsLanguage, selectVisibleCardsInRange} from '../../redux/store/selects';
+import {selectCalendarCards, selectCalendarDays, selectSettingsLanguage} from '../../redux/store/selects';
 import {DropZoneService} from '../../services/drop-zone.service';
 import {format, getHours, getMinutes, getSeconds, isSameDay, startOfDay} from 'date-fns';
 import {setTime} from '../../shared/date';
@@ -26,7 +26,7 @@ export class WeekComponent implements OnInit, OnDestroy {
 
   public cardHolder: Object; //  {key: Cards[]}
 
-  @select(selectVisibleCardsInRange) public cards$: Observable<Card[]>;
+  @select(selectCalendarCards) public cards$: Observable<Card[]>;
   @select(selectCalendarDays) public calendar$: Observable<CalendarDay[]>;
   @select(selectSettingsLanguage) public lang$: Observable<string>;
 

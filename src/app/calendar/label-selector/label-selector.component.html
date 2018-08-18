@@ -1,0 +1,5 @@
+<mat-select [formControl]="labelCtrl" placeholder="Filter for label">
+  <mat-option *ngFor="let label of selectOptions$ | async" [value]="label.id">
+    {{label.name | cutString:30}}
+  </mat-option>
+</mat-select>

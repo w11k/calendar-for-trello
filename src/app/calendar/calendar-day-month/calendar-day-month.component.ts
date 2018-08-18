@@ -5,7 +5,7 @@ import {Observable, Subscription} from 'rxjs';
 import {Card} from '../../models/card';
 import {CardActions} from '../../redux/actions/card-actions';
 import {ContextMenuService} from '../context-menu-holder/context-menu.service';
-import {selectVisibleCardsInRange} from '../../redux/store/selects';
+import {selectCalendarCards} from '../../redux/store/selects';
 import {DropZoneService} from '../../services/drop-zone.service';
 import {DragDropData} from '@beyerleinf/ngx-dnd';
 import {compareAsc, getHours, getMinutes, getSeconds, isSameDay, setHours, setMinutes, setSeconds} from 'date-fns';
@@ -17,7 +17,7 @@ import {compareAsc, getHours, getMinutes, getSeconds, isSameDay, setHours, setMi
 })
 export class CalendarDayForMonthComponent implements OnInit, OnDestroy {
 
-  @select(selectVisibleCardsInRange) public cards$: Observable<Card[]>;
+  @select(selectCalendarCards) public cards$: Observable<Card[]>;
   @Input() public calendarDay: CalendarDay;
   public cards: Card[];
   private subscriptions: Subscription[] = [];

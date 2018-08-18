@@ -1,6 +1,6 @@
 // -> Takes previous state + action, returnes new // new state
 import {Settings} from '../../models/settings';
-import {SettingsActions, CalendarType} from '../actions/settings-actions';
+import {SettingsActions} from '../actions/settings-actions';
 
 const initialState = new Settings();
 
@@ -54,6 +54,10 @@ export default (state: Settings = initialState, action: any) => {
     case SettingsActions.SET_BUSINESS_HOURS_END:
       return Object.assign({}, state, {
         businessHoursEnd: action.payload as number
+      });
+    case SettingsActions.SET_FILTER_FOR_LABEL:
+      return Object.assign({}, state, {
+        filterForLabel: action.payload
       });
     default:
       return state;

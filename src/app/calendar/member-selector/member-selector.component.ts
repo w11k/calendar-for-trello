@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, HostBinding, OnDestroy, OnInit} from '@angular/core';
 import {select} from '@angular-redux/store';
 import {Member} from '../../models/member';
 import {Observable} from 'rxjs';
@@ -20,6 +20,11 @@ export class MemberSelectorComponent implements OnInit, OnDestroy {
   membersArr: Member[] = [];
   memberCtrl: FormControl;
 
+
+  @HostBinding('class.active') get isActive() {
+    return this.memberCtrl.value !== null;
+  }
+
   constructor(private settingsActions: SettingsActions) {
   }
 
@@ -29,13 +34,13 @@ export class MemberSelectorComponent implements OnInit, OnDestroy {
         .takeUntil(componentDestroyed(this))
         .subscribe(
         members => {
-          this.membersArr.push(new Member(null, 'All Members'));
+          this.membersArr.push(new Member(null, 'Don\'t Filter'));
           for (let key of Object.keys(members)) {
             this.membersArr.push(members[key]);
           }
         });
 
-    this.memberCtrl = new FormControl();
+    this.memberCtrl = new FormControl(null);
 
 
     this.settings$.takeUntil(componentDestroyed(this))

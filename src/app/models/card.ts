@@ -1,3 +1,5 @@
+import {MinimalLabel} from './minimal-label';
+
 export class Card {
 
   constructor(public id?: string,
@@ -10,7 +12,7 @@ export class Card {
               public email?: string,
               public idBoard?: string,
               public idShort?: number,
-              public labels?: { id: string, idBoard: string, name: string, color: string }[],
+              public labels?: MinimalLabel[],
               public idLabels?: string[],
               public pos?: number,
               public shortLink?: string,

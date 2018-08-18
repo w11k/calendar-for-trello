@@ -5,15 +5,17 @@ import {CalendarActions, PeriodChange} from '../redux/actions/calendar-actions';
 import {CalendarType, SettingsActions} from '../redux/actions/settings-actions';
 import {TrelloPullService} from '../services/trello-pull.service';
 import {Settings} from '../models/settings';
-import {MatDialog} from '@angular/material';
 import {AddCardComponent} from './add-card/add-card.component';
 import {
   selectCalendarDate,
   selectCalendarDays,
   selectSettingsLanguage,
-  selectSettingsType
+  selectSettingsType,
+  selectVisibleLabelsInRange
 } from '../redux/store/selects';
 import {format} from 'date-fns';
+import {MatDialog} from '@angular/material';
+import {MinimalLabel} from '../models/minimal-label';
 
 @Component({
   selector: 'app-calendar',
@@ -29,6 +31,7 @@ export class CalendarComponent implements OnInit, OnDestroy {
   @select(selectCalendarDate) public calendarDate$: Observable<any>;
   @select(selectSettingsType) public calendarType$: Observable<any>;
   @select(selectSettingsLanguage) public language$: Observable<string>;
+  @select(selectVisibleLabelsInRange) public labels$: Observable<MinimalLabel[]>;
   public current: string;
 
   @select('settings') public settings$: Observable<Settings>;

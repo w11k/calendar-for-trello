@@ -17,10 +17,16 @@ import {FlexLayoutModule} from '@angular/flex-layout';
 import {MemberSelectorComponent} from './member-selector/member-selector.component';
 import {CutStringPipe} from '../shared/cut-string.pipe';
 import {
-  MatButtonModule, MatDatepickerModule, MatIconModule, MatInputModule, MatMenuModule, MatSelectModule,
+  MatButtonModule,
+  MatDatepickerModule,
+  MatIconModule,
+  MatInputModule,
+  MatMenuModule,
+  MatSelectModule,
   MatTooltipModule
-} from "@angular/material";
-import { WorkWeekComponent } from './work-week/work-week.component';
+} from '@angular/material';
+import {WorkWeekComponent} from './work-week/work-week.component';
+import {LabelSelectorComponent} from './label-selector/label-selector.component';
 
 @NgModule({
   imports: [
@@ -51,6 +57,7 @@ import { WorkWeekComponent } from './work-week/work-week.component';
     MemberSelectorComponent,
     CutStringPipe,
     WorkWeekComponent,
+    LabelSelectorComponent,
   ],
   exports: [
     CalendarCardComponent,

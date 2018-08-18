@@ -1,17 +1,12 @@
 import {Injectable} from '@angular/core';
 import {CalendarDay} from '../models/calendar-day';
-import {CalendarType, WeekStart} from '../redux/actions/settings-actions';
-import {select} from '@angular-redux/store';
-import {Observable} from 'rxjs';
-import {selectSettingsWeekStart} from '../redux/store/selects';
+import {CalendarType} from '../redux/actions/settings-actions';
 import {times} from '../shared/times';
 import {addDays, getDay, getDaysInMonth, isSameDay, lastDayOfMonth, startOfMonth, startOfWeek, subDays} from 'date-fns';
 
 
 @Injectable()
 export class CalendarService {
-
-  @select(selectSettingsWeekStart) public weekStart$: Observable<WeekStart>;
 
   public buildDaysAsync(date: Date = new Date(), calendarType: CalendarType, weekdays: number): Promise<CalendarDay[]> {
     return new Promise((resolve, reject) => {

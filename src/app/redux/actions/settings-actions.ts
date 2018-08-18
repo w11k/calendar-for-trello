@@ -8,14 +8,9 @@ export enum CalendarType {
   Week, Month, WorkWeek
 }
 
-export enum WeekStart {
-  Sunday, Monday
-}
-
 @Injectable()
 export class SettingsActions {
 
-  static SET_LANG: string = 'SET_LANG';
   static RESET_SETTINGS_STORE: string = 'RESET_SETTINGS_STORE';
   static SET_BOARD_COLOR: string = 'SET_BOARD_COLOR';
   static SET_BOARD_VISIBILITY: string = 'SET_BOARD_VISIBILITY';
@@ -34,9 +29,6 @@ export class SettingsActions {
   constructor(private ngRedux: NgRedux<RootState>) {
   }
 
-  public setLanguage(locale: string) {
-    this.ngRedux.dispatch({type: SettingsActions.SET_LANG, payload: locale});
-  }
 
   public toggleIncludeDoneCards(preference: boolean) {
     this.ngRedux.dispatch({type: SettingsActions.TOGGLE_INCLUDE_DONE, payload: preference});

@@ -138,7 +138,9 @@ export const selectVisibleLabelsInRange = Reselect.createSelector(
         });
         return previousValue;
       }, new Map<string, GlobalLabel>());
-    return Array.from((labelMap.values()));
+    return Array
+      .from((labelMap.values()))
+      .sort((a, b) => a.name.localeCompare(b.name));
   });
 
 

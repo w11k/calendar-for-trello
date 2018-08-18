@@ -10,7 +10,7 @@ export class Card {
               public email?: string,
               public idBoard?: string,
               public idShort?: number,
-              public labels?: string[],
+              public labels?: { id: string, idBoard: string, name: string, color: string }[],
               public idLabels?: string[],
               public pos?: number,
               public shortLink?: string,

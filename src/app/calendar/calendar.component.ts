@@ -9,7 +9,6 @@ import {AddCardComponent} from './add-card/add-card.component';
 import {
   selectCalendarDate,
   selectCalendarDays,
-  selectSettingsLanguage,
   selectSettingsType,
   selectVisibleLabelsInRange
 } from '../redux/store/selects';
@@ -30,7 +29,6 @@ export class CalendarComponent implements OnInit, OnDestroy {
   @select(selectCalendarDays) public calendar$: Observable<any>;
   @select(selectCalendarDate) public calendarDate$: Observable<any>;
   @select(selectSettingsType) public calendarType$: Observable<any>;
-  @select(selectSettingsLanguage) public language$: Observable<string>;
   @select(selectVisibleLabelsInRange) public labels$: Observable<Label[]>;
   public current: string;
 

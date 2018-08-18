@@ -1,14 +1,14 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {select} from '@angular-redux/store';
-import {Observable, Subscription} from 'rxjs';
-import {selectSettingsLanguage, selectSettingsType, selectSettingsWorkdays} from '../../redux/store/selects';
+import {combineLatest, Observable, Subscription} from 'rxjs';
+import {selectSettingsType, selectSettingsWorkdays} from '../../redux/store/selects';
 import {CalendarType} from '../../redux/actions/settings-actions';
 import {CalendarService} from '../../services/calendar.service';
-import {componentDestroyed} from 'ng2-rx-componentdestroyed';
+import {untilComponentDestroyed} from 'ng2-rx-componentdestroyed';
 import 'rxjs/add/operator/combineLatest';
 import 'rxjs/add/operator/takeUntil';
 import {times} from '../../shared/times';
-import {addDays, format, getDay, startOfWeek} from 'date-fns';
+import {addDays, format, startOfWeek} from 'date-fns';
 
 @Component({
   selector: 'app-calendar-toolbar',
@@ -19,7 +19,6 @@ export class CalendarToolbarComponent implements OnInit, OnDestroy {
 
   public headers: string[] = [];
   private subscriptions: Subscription[] = [];
-  @select(selectSettingsLanguage) public language$: Observable<string>;
   @select(selectSettingsType) public calendarType$: Observable<CalendarType>;
   @select(selectSettingsWorkdays) public workdays$: Observable<number>;
 
@@ -28,11 +27,10 @@ export class CalendarToolbarComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.language$.combineLatest(this.calendarType$, this.workdays$)
-        .takeUntil(componentDestroyed(this))
+    combineLatest(this.calendarType$, this.workdays$)
+      .pipe(untilComponentDestroyed(this))
         .subscribe(value => {
-          const lang = value[0];
-          this.headers = this.build(value[1], value[2]);
+          this.headers = this.build(value[0], value[1]);
         });
   }
 

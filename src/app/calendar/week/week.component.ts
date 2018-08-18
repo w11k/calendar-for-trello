@@ -1,14 +1,14 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Card} from '../../models/card';
 import {select} from '@angular-redux/store';
-import {Observable, Subscription} from 'rxjs';
+import {combineLatest, Observable, Subscription} from 'rxjs';
 import {CalendarDay} from '../../models/calendar-day';
 import {DateTimeFormatService} from '../../services/date-time-format.service';
 import {DragDropData} from '@beyerleinf/ngx-dnd';
 import {CardActions} from '../../redux/actions/card-actions';
 import {WeekDaySlot} from './WeekDaySlot';
 import {Settings} from '../../models/settings';
-import {selectCalendarCards, selectCalendarDays, selectSettingsLanguage} from '../../redux/store/selects';
+import {selectCalendarCards, selectCalendarDays} from '../../redux/store/selects';
 import {DropZoneService} from '../../services/drop-zone.service';
 import {format, getHours, getMinutes, getSeconds, isSameDay, startOfDay} from 'date-fns';
 import {setTime} from '../../shared/date';
@@ -28,7 +28,6 @@ export class WeekComponent implements OnInit, OnDestroy {
 
   @select(selectCalendarCards) public cards$: Observable<Card[]>;
   @select(selectCalendarDays) public calendar$: Observable<CalendarDay[]>;
-  @select(selectSettingsLanguage) public lang$: Observable<string>;
 
   @select('settings') public settings$: Observable<Settings>;
   public settings: Settings = new Settings();
@@ -36,27 +35,7 @@ export class WeekComponent implements OnInit, OnDestroy {
   constructor(private dateTimeFormatService: DateTimeFormatService, private cardActions: CardActions, private dropZoneService: DropZoneService) {
   }
 
-  ngOnInit() {
-    this.subscriptions.push(Observable
-      .combineLatest(this.cards$, this.calendar$, this.lang$)
-      .subscribe(x => {
-        const cards: Card[] = x[0];
-        const calendarDays: CalendarDay[] = x[1];
-        const language: string = x[2];
-        this.slots = [];
-        this.createHours(calendarDays, cards, language);
-        this.cardHolder = {};
-      }));
-
-    this.subscriptions.push(
-      this.settings$.subscribe(
-        settings => {
-          this.settings = settings;
-        }
-      ));
-  }
-
-  createHours = (calendarDays: CalendarDay[], cards: Card[], lang) => {
+  createHours = (calendarDays: CalendarDay[], cards: Card[]) => {
     this.cardHolder = {};
     calendarDays.map(day => {
       this.cardHolder[format(day.date, 'MM-DD-YYYY')] = cards.filter(card => isSameDay(card.due, day.date));
@@ -66,7 +45,7 @@ export class WeekComponent implements OnInit, OnDestroy {
       calendarDays.forEach((calendarDay) => {
         let baseDate = startOfDay(calendarDay.date);
           this.slots.push(
-            new WeekDaySlot(format(baseDate, this.dateTimeFormatService.getTimeFormat(lang)),
+            new WeekDaySlot(format(baseDate, this.dateTimeFormatService.getTimeFormat('en')),
               this.cardHolder[format(calendarDay.date, 'MM-DD-YYYY')]
                 .filter(card => i === getHours(card.due))
               .sort((a, b) => a.name.localeCompare(b.name)),
@@ -76,6 +55,25 @@ export class WeekComponent implements OnInit, OnDestroy {
         }
       );
     }
+  }
+
+  ngOnInit() {
+    this.subscriptions.push(
+      combineLatest(this.cards$, this.calendar$)
+        .subscribe(x => {
+          const cards: Card[] = x[0];
+          const calendarDays: CalendarDay[] = x[1];
+          this.slots = [];
+          this.createHours(calendarDays, cards);
+          this.cardHolder = {};
+        }));
+
+    this.subscriptions.push(
+      this.settings$.subscribe(
+        settings => {
+          this.settings = settings;
+        }
+      ));
   }
 
   onDropSuccess(event: DragDropData, slot: WeekDaySlot) {

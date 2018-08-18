@@ -5,7 +5,7 @@ export class DateTimeFormatService {
 
   /**
    * @deprecated: format in template instead*/
-  getTimeFormat(language = 'en'): string {
+  getTimeFormat(language = getBrowserLang()): string {
     let format;
     switch (language) {
       case 'de':
@@ -22,5 +22,19 @@ export class DateTimeFormatService {
     }
     return format;
   }
+
+}
+
+/**@deprecated use with angular i18n in future*/
+function getBrowserLang(): string {
+  let str;
+
+  try {
+    str = navigator.language || (navigator as any).userLanguage || 'en';
+  } catch (e) {
+    str = 'en';
+  }
+
+  return str;
 
 }

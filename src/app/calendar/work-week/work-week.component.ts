@@ -66,7 +66,7 @@ export class WorkWeekComponent implements OnInit, OnDestroy {
       calendarDays.forEach((calendarDay) => {
         let baseDate = startOfDay(calendarDay.date);
           this.slots.push(
-            new WeekDaySlot(format(baseDate, this.dateTimeFormatService.getTimeFormat('en')),
+            new WeekDaySlot(format(baseDate, this.dateTimeFormatService.getTimeFormat()),
               this.cardHolder[format(calendarDay.date, 'MM-DD-YYYY')]
                 .filter(card => i === getHours(card.due))
                 .sort((a, b) => a.name.localeCompare(b.name)),

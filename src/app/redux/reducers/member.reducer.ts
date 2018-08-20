@@ -11,7 +11,7 @@ const initialState: MemberMap = {};
 export default (state: MemberMap = initialState, action: Action<Member>) => {
   switch (action.type) {
     case MemberActions.SET_MEMBER:
-      let memberObj = {};
+      const memberObj = {};
       memberObj[action.payload.id] = action.payload;
       return Object.assign(state, memberObj);
     case MemberActions.RESET_MEMBER_STORE:

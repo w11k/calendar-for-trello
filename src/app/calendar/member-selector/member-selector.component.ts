@@ -35,7 +35,7 @@ export class MemberSelectorComponent implements OnInit, OnDestroy {
         .subscribe(
         members => {
           this.membersArr.push(new Member(null, 'Don\'t Filter'));
-          for (let key of Object.keys(members)) {
+          for (const key of Object.keys(members)) {
             this.membersArr.push(members[key]);
           }
         });

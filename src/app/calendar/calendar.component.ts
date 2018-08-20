@@ -99,7 +99,7 @@ export class CalendarComponent implements OnInit, OnDestroy {
   }
 
   public addCard() {
-    let dialogRef = this.matDialog.open(AddCardComponent, {
+    const dialogRef = this.matDialog.open(AddCardComponent, {
       width: '600px',
     });
 

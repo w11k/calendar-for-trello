@@ -34,7 +34,7 @@ export class TrelloPullService {
   public pull = () => {
     this._fetchBoards();
     this._fetchUser();
-  };
+  }
 
 
   private _fetchBoards = () => {
@@ -105,7 +105,7 @@ export class TrelloPullService {
 
 
       // Fetch Members of Board
-      let params = new HttpParams().append('fields', 'all');
+      const params = new HttpParams().append('fields', 'all');
       const memberRequest = this.tHttp.get<Member[]>('boards/' + board.id + '/members', params);
       memberRequest
         .subscribe(

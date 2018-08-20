@@ -5,9 +5,9 @@ import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
 
 import {AppModule} from './app/app.module';
 import {environment} from './environments/environment';
+import 'hammerjs';
 
 const project = require('../package.json');
-import 'hammerjs';
 
 if (environment.production) {
   enableProdMode();
@@ -33,7 +33,7 @@ function check() {
   }
   token = token.replace(/"/g, '');
 
-  let dataVersion = localStorage.getItem('version');
+  const dataVersion = localStorage.getItem('version');
 
   if (dataVersion !== PROJECT_VERSION) {
     // older v2 version

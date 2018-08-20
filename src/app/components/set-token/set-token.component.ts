@@ -13,8 +13,8 @@ export class SetTokenComponent implements OnInit {
   }
 
   ngOnInit() {
-    let hash = window.location.hash;
-    let token = hash.split('=')[1];
+    const hash = window.location.hash;
+    const token = hash.split('=')[1];
     localStorage.setItem('token', token);
     this.trelloPullService.pull();
     this.router.navigate(['/']);

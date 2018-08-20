@@ -4,9 +4,9 @@ export class Settings {
   public boardColorPrefs: Object = {};
   public boardVisibilityPrefs: Object = {};
   public type: CalendarType = CalendarType.Month;
-  public includeDoneCards: boolean = true;
+  public includeDoneCards = true;
   public filterForUser: string = null;
-  public showMembers: boolean = false;
+  public showMembers = false;
   public weekViewShowHours: boolean | undefined = true;
   public weekDays: number | undefined = 5;
   public businessHoursStart: number | undefined = 9;

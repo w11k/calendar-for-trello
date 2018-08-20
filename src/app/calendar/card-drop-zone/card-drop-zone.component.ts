@@ -21,18 +21,18 @@ export class CardDropZoneComponent implements OnInit {
   }
 
   removeDue(event: DragDropData) {
-    let card: Card = event.dragData;
+    const card: Card = event.dragData;
     this.cardActions.removeDue(card.id);
   }
 
   archiveCard(event: DragDropData) {
-    let card: Card = event.dragData;
+    const card: Card = event.dragData;
     this.cardActions.markCardDone(card);
     this.cardActions.archiveCard(card.id);
   }
 
   markDone(event: DragDropData) {
-    let card: Card = event.dragData;
+    const card: Card = event.dragData;
     this.cardActions.markCardDone(card);
   }
 

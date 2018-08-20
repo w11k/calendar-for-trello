@@ -10,7 +10,7 @@ import {AboutPageComponent} from './about/about-page/about-page.component';
 import {ImprintComponent} from './legal/imprint/imprint.component';
 import {PrivacyComponent} from './legal/privacy/privacy.component';
 
-let routes: Routes = [
+const routes: Routes = [
   {
     path: '',
     canActivate: [MemberGuard],

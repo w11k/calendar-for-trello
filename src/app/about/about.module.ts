@@ -3,7 +3,7 @@ import {CommonModule} from '@angular/common';
 import {AboutPageComponent} from './about-page/about-page.component';
 import {W11kInfoComponent} from './w11k-info/w11k-info.component';
 import {RouterModule} from '@angular/router';
-import {MatButtonModule, MatCardModule, MatIconModule} from "@angular/material";
+import {MatButtonModule, MatCardModule, MatIconModule} from '@angular/material';
 
 @NgModule({
   imports: [

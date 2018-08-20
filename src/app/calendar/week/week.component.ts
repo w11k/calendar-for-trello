@@ -43,7 +43,7 @@ export class WeekComponent implements OnInit, OnDestroy {
     });
     for (let i = 0; i < 24; i++) {
       calendarDays.forEach((calendarDay) => {
-        let baseDate = setHours(startOfDay(calendarDay.date), i);
+        const baseDate = setHours(startOfDay(calendarDay.date), i);
           this.slots.push(
             new WeekDaySlot(format(baseDate, this.dateTimeFormatService.getTimeFormat()),
               this.cardHolder[format(calendarDay.date, 'MM-DD-YYYY')]
@@ -77,9 +77,9 @@ export class WeekComponent implements OnInit, OnDestroy {
   }
 
   onDropSuccess(event: DragDropData, slot: WeekDaySlot) {
-    let card: Card = event.dragData;
-    let minutes = getMinutes(card.due);
-    let seconds = getSeconds(card.due);
+    const card: Card = event.dragData;
+    const minutes = getMinutes(card.due);
+    const seconds = getSeconds(card.due);
 
     let hours;
     if (this.settings.weekViewShowHours) {

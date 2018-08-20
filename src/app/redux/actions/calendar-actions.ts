@@ -14,10 +14,10 @@ export enum PeriodChange {
 
 @Injectable()
 export class CalendarActions {
-  static FILL_DAYS: string = 'FILL_DAYS';
-  static BUILD_DAYS: string = 'BUILD_DAYS';
-  static NAVIGATE: string = 'NAVIGATE';
-  static RESET_CALENDAR_STORE: string = 'RESET_CALENDAR_STORE';
+  static FILL_DAYS = 'FILL_DAYS';
+  static BUILD_DAYS = 'BUILD_DAYS';
+  static NAVIGATE = 'NAVIGATE';
+  static RESET_CALENDAR_STORE = 'RESET_CALENDAR_STORE';
 
   constructor(private ngRedux: NgRedux<RootState>,
               private calendarService: CalendarService) {
@@ -25,7 +25,7 @@ export class CalendarActions {
 
   public fillDays(days: CalendarDay) {
     this.ngRedux.dispatch({type: CalendarActions.FILL_DAYS, payload: days});
-  };
+  }
 
   public buildDays(date: Date, calendarType: CalendarType = CalendarType.Month, weekdays: number = 5) {
     this.calendarService.buildDaysAsync(date, calendarType, weekdays)
@@ -33,7 +33,7 @@ export class CalendarActions {
         this.ngRedux.dispatch({type: CalendarActions.BUILD_DAYS, payload: days, date: date});
       })
     ;
-  };
+  }
 
 
   public navigate(date: Date, change: PeriodChange, calendarType: CalendarType) {
@@ -61,7 +61,7 @@ export class CalendarActions {
         break;
     }
     this.buildDays(date, calendarType);
-  };
+  }
 
   // navigates to a date
   public navigateToDate(date: Date, calendarType: CalendarType) {

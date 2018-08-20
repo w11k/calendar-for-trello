@@ -63,9 +63,9 @@ export default (state: Card[] = initialState, action: any) => {
       // 2) remove cards, which have been moved to/from another board
       // add fresh loaded cards
       // return store
-      let newStore = state.filter(card => {
-        let isNotInUpdatedBoard = card.idBoard !== action.payload.boardId;
-        let cardWasMoved = action.payload.cards.find(c => c.id === card.id);
+      const newStore = state.filter(card => {
+        const isNotInUpdatedBoard = card.idBoard !== action.payload.boardId;
+        const cardWasMoved = action.payload.cards.find(c => c.id === card.id);
         return isNotInUpdatedBoard  && !cardWasMoved;
       });
       newStore.push(...action.payload.cards);

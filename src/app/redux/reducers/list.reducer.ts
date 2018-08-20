@@ -7,7 +7,7 @@ const initialState = {};
 export default (state: Object = initialState, action: any) => {
   switch (action.type) {
     case ListActions.SET_LIST:
-      let listObj = {};
+      const listObj = {};
       listObj[action.payload.id] = action.payload;
       return Object.assign(state, listObj);
     case ListActions.RESET_LIST_STORE:

@@ -48,7 +48,7 @@ export class CalendarService {
   }
 
   private _buildRegularDaysMonth(date: Date): CalendarDay[] {
-    let days: CalendarDay[] = [];
+    const days: CalendarDay[] = [];
     let monthDate = startOfMonth(date); // change to a date in the month of interest
     times(getDaysInMonth(date), n => {
       days.push(new CalendarDay(new Date(monthDate), false, isSameDay(monthDate, new Date())));
@@ -75,7 +75,7 @@ export class CalendarService {
   private _buildAfterwardsDaysMonth(date: Date): CalendarDay[] {
     const days: CalendarDay[] = [];
     let lastDay = lastDayOfMonth(date);
-    let weekdayOfLastDay = getDay(lastDay);
+    const weekdayOfLastDay = getDay(lastDay);
     let runs;
     switch (weekdayOfLastDay) {
       case 0:
@@ -109,7 +109,7 @@ export class CalendarService {
   }
 
   private _buildWeekDays(date: Date, weekdays: number): CalendarDay[] {
-    let days: CalendarDay[] = [];
+    const days: CalendarDay[] = [];
     const firstDay = startOfISOWeek(date);
     let day = new Date(firstDay);
 

@@ -33,8 +33,8 @@ export class CalendarDayForMonthComponent implements OnInit, OnDestroy {
   onOpenContext(event: MouseEvent) {
     if (!this.contextMenuService.registration) { // disabled for now, remove to activte !
       event.preventDefault();
-      let left = event.pageX;
-      let top = event.pageY;
+      const left = event.pageX;
+      const top = event.pageY;
       this.contextMenuService.registration.move(left, top);
     }
   }
@@ -75,7 +75,7 @@ export class CalendarDayForMonthComponent implements OnInit, OnDestroy {
   }
 
   onDropSuccess(event: DragDropData) {
-    let card: Card = event.dragData;
+    const card: Card = event.dragData;
 
     let hours = 12, minutes = 0, seconds = 0;
 

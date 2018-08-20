@@ -2,10 +2,10 @@ import DelayQueue from './delay-queue';
 import {Subscription} from 'rxjs';
 
 export interface ExecutionUnit<T = any> {
-  fn: () => T,
-  name: string,
-  resolve: (value?: T | PromiseLike<T>) => void,
-  reject: (reason?: any) => void,
+  fn: () => T;
+  name: string;
+  resolve: (value?: T | PromiseLike<T>) => void;
+  reject: (reason?: any) => void;
 }
 
 /**

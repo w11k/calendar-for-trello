@@ -1,8 +1,8 @@
-import {Component, OnInit, HostListener, OnDestroy} from '@angular/core';
-import {RootState, enhancers} from './redux/store';
+import {Component, HostListener, OnDestroy, OnInit} from '@angular/core';
+import {enhancers, RootState} from './redux/store';
 import {NgReduxRouter} from '@angular-redux/router';
 import reducer from './redux/reducers';
-import {Router, NavigationEnd} from '@angular/router';
+import {NavigationEnd, Router} from '@angular/router';
 import {NgRedux, select} from '@angular-redux/store';
 import {TrelloPullService} from './services/trello-pull.service';
 import {Settings} from './models/settings';
@@ -15,6 +15,7 @@ import {ListActions} from './redux/actions/list-actions';
 import {CardActions} from './redux/actions/card-actions';
 import {UserActions} from './redux/actions/user-actions';
 import {BoardActions} from './redux/actions/board-actions';
+
 const project = require('../../package.json');
 declare let ga: Function;
 
@@ -137,53 +138,53 @@ export class AppComponent implements OnInit, OnDestroy {
 
   trigger() {
 
-    let myform = document.createElement('form');
+    const myform = document.createElement('form');
     myform.action = 'https://www.paypal.com/cgi-bin/webscr';
     myform.method = 'post';
     myform.target = '_blank';
     myform.className = 'hidden';
 
-    let cmat = document.createElement('input');
+    const cmat = document.createElement('input');
     cmat.name = 'cmat';
     cmat.type = 'hidden';
     cmat.value = '_donations';
 
-    let encrypted = document.createElement('input');
+    const encrypted = document.createElement('input');
     encrypted.type = 'hidden';
     encrypted.name = 'business';
     encrypted.value = 'payments@w11k.de';
 
-    let lc = document.createElement('input');
+    const lc = document.createElement('input');
     lc.type = 'hidden';
     lc.name = 'lc';
     lc.value = 'GB';
 
-    let itemname = document.createElement('input');
+    const itemname = document.createElement('input');
     itemname.type = 'hidden';
     itemname.name = 'item_name';
     itemname.value = 'Trello Calendar - W11K GmbH';
 
-    let itemnumber = document.createElement('input');
+    const itemnumber = document.createElement('input');
     itemnumber.type = 'hidden';
     itemnumber.name = 'item_number';
     itemnumber.value = '2013';
 
-    let note = document.createElement('input');
+    const note = document.createElement('input');
     note.type = 'hidden';
     note.name = 'no_note';
     note.value = '0';
 
-    let currency = document.createElement('input');
+    const currency = document.createElement('input');
     currency.type = 'hidden';
     currency.name = 'currency_code';
     currency.value = 'USD';
 
-    let bn = document.createElement('input');
+    const bn = document.createElement('input');
     bn.type = 'hidden';
     bn.name = 'bn';
     bn.value = 'PP-DonationsBF:btn_donate_LG.gif:NonHostedGuest';
 
-    let image = document.createElement('input');
+    const image = document.createElement('input');
     image.type = 'image';
     image.src = 'https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif';
     image.border = '0';
@@ -191,8 +192,8 @@ export class AppComponent implements OnInit, OnDestroy {
     image.name = 'submit';
     image.alt = 'PayPal - The safer, easier way to pay online!';
 
-    //Most probably this can be skipped, but I left it in here since it was present in the generated code
-    let pixel: any = document.createElement('image');
+    // Most probably this can be skipped, but I left it in here since it was present in the generated code
+    const pixel: any = document.createElement('image');
     pixel.border = '0';
     pixel.alt = '';
     pixel.src = 'https://www.paypalobjects.com/en_US/i/scr/pixel.gif';

@@ -10,7 +10,7 @@ import {WeekDaySlot} from './WeekDaySlot';
 import {Settings} from '../../models/settings';
 import {selectCalendarCards, selectCalendarDays} from '../../redux/store/selects';
 import {DropZoneService} from '../../services/drop-zone.service';
-import {format, getHours, getMinutes, getSeconds, isSameDay, startOfDay} from 'date-fns';
+import {format, getHours, getMinutes, getSeconds, isSameDay, setHours, startOfDay} from 'date-fns';
 import {setTime} from '../../shared/date';
 
 @Component({
@@ -43,7 +43,7 @@ export class WeekComponent implements OnInit, OnDestroy {
     });
     for (let i = 0; i < 24; i++) {
       calendarDays.forEach((calendarDay) => {
-        let baseDate = startOfDay(calendarDay.date);
+        let baseDate = setHours(startOfDay(calendarDay.date), i);
           this.slots.push(
             new WeekDaySlot(format(baseDate, this.dateTimeFormatService.getTimeFormat()),
               this.cardHolder[format(calendarDay.date, 'MM-DD-YYYY')]

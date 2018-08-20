@@ -2,7 +2,16 @@ import {Injectable} from '@angular/core';
 import {CalendarDay} from '../models/calendar-day';
 import {CalendarType} from '../redux/actions/settings-actions';
 import {times} from '../shared/times';
-import {addDays, getDay, getDaysInMonth, isSameDay, lastDayOfMonth, startOfMonth, startOfWeek, subDays} from 'date-fns';
+import {
+  addDays,
+  getDay,
+  getDaysInMonth,
+  isSameDay,
+  lastDayOfMonth,
+  startOfISOWeek,
+  startOfMonth,
+  subDays
+} from 'date-fns';
 
 
 @Injectable()
@@ -101,14 +110,12 @@ export class CalendarService {
 
   private _buildWeekDays(date: Date, weekdays: number): CalendarDay[] {
     let days: CalendarDay[] = [];
-    const firstDay = startOfWeek(date);
+    const firstDay = startOfISOWeek(date);
     let day = new Date(firstDay);
 
-    times(7, () => {
-      let dayOfWeek = getDay(day);
-      if (dayOfWeek <= weekdays) {
-        days.push(new CalendarDay(day, false, isSameDay(date, new Date())));
-      }
+    times(weekdays, () => {
+      const dayOfWeek = getDay(day);
+      days.push(new CalendarDay(day, false, isSameDay(date, new Date())));
       day = addDays(day, 1);
     });
     return days;

@@ -10,6 +10,7 @@ import {
   lastDayOfMonth,
   startOfISOWeek,
   startOfMonth,
+  startOfWeek,
   subDays
 } from 'date-fns';
 
@@ -32,12 +33,12 @@ export class CalendarService {
             break;
           case CalendarType.Week:
             days = [
-              ...this._buildWeekDays(date, 7)
+              ...this._buildWeekDays(date, 7, false)
             ];
             break;
           case CalendarType.WorkWeek:
             days = [
-              ...this._buildWeekDays(date, weekdays)
+              ...this._buildWeekDays(date, weekdays, true)
             ];
             break;
         }
@@ -108,13 +109,12 @@ export class CalendarService {
     return days;
   }
 
-  private _buildWeekDays(date: Date, weekdays: number): CalendarDay[] {
+  private _buildWeekDays(date: Date, weekdays: number, startWithMonday: boolean): CalendarDay[] {
     const days: CalendarDay[] = [];
-    const firstDay = startOfISOWeek(date);
+    const firstDay = startWithMonday ? startOfISOWeek(date) : startOfWeek(date);
     let day = new Date(firstDay);
 
     times(weekdays, () => {
-      const dayOfWeek = getDay(day);
       days.push(new CalendarDay(day, false, isSameDay(date, new Date())));
       day = addDays(day, 1);
     });

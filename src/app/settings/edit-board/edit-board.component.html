@@ -1,14 +1,15 @@
-<div fxLayout="row">
-  <div fxFlex>
+<div class="row">
+  <div class="col">
     {{board.name}}
   </div>
 
-  <mat-select [(ngModel)]="color" (ngModelChange)="updateColor($event)">
+  <mat-select class="col" [(ngModel)]="color" (ngModelChange)="updateColor($event)">
     <!-- todo font color dosnt work right now: [style.background-color]="getColorByKey(color)?.name"  [style.color]="getColorByKey(color)?.font"-->
     <mat-option *ngFor="let color of colors" [value]="color.key" [style.background-color]="color.name"
                [style.color]="color.font">{{color.name}}
     </mat-option>
   </mat-select>
 
-  <mat-slide-toggle [(ngModel)]="visibility" (ngModelChange)="updateVisibility($event)">Invisible</mat-slide-toggle>
+  <mat-slide-toggle class="col-auto" [(ngModel)]="visibility" (ngModelChange)="updateVisibility($event)">Invisible
+  </mat-slide-toggle>
 </div>

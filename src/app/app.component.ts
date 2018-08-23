@@ -144,71 +144,18 @@ export class AppComponent implements OnInit, OnDestroy {
     myform.target = '_blank';
     myform.className = 'hidden';
 
-    const cmat = document.createElement('input');
-    cmat.name = 'cmat';
-    cmat.type = 'hidden';
-    cmat.value = '_donations';
+    const cmd = document.createElement('input');
+    cmd.name = 'cmd';
+    cmd.type = 'hidden';
+    cmd.value = '_s-xclick';
 
-    const encrypted = document.createElement('input');
-    encrypted.type = 'hidden';
-    encrypted.name = 'business';
-    encrypted.value = 'payments@w11k.de';
+    const hosted = document.createElement('input');
+    hosted.name = 'hosted_button_id';
+    hosted.type = 'hidden';
+    hosted.value = 'E2NMK8X28A7PC';
 
-    const lc = document.createElement('input');
-    lc.type = 'hidden';
-    lc.name = 'lc';
-    lc.value = 'GB';
-
-    const itemname = document.createElement('input');
-    itemname.type = 'hidden';
-    itemname.name = 'item_name';
-    itemname.value = 'Trello Calendar - W11K GmbH';
-
-    const itemnumber = document.createElement('input');
-    itemnumber.type = 'hidden';
-    itemnumber.name = 'item_number';
-    itemnumber.value = '2013';
-
-    const note = document.createElement('input');
-    note.type = 'hidden';
-    note.name = 'no_note';
-    note.value = '0';
-
-    const currency = document.createElement('input');
-    currency.type = 'hidden';
-    currency.name = 'currency_code';
-    currency.value = 'USD';
-
-    const bn = document.createElement('input');
-    bn.type = 'hidden';
-    bn.name = 'bn';
-    bn.value = 'PP-DonationsBF:btn_donate_LG.gif:NonHostedGuest';
-
-    const image = document.createElement('input');
-    image.type = 'image';
-    image.src = 'https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif';
-    image.border = '0';
-    image.id = 'Dimage';
-    image.name = 'submit';
-    image.alt = 'PayPal - The safer, easier way to pay online!';
-
-    // Most probably this can be skipped, but I left it in here since it was present in the generated code
-    const pixel: any = document.createElement('image');
-    pixel.border = '0';
-    pixel.alt = '';
-    pixel.src = 'https://www.paypalobjects.com/en_US/i/scr/pixel.gif';
-    pixel.width = '1';
-    pixel.height = '1';
-
-    myform.appendChild(cmat);
-    myform.appendChild(encrypted);
-    myform.appendChild(lc);
-    myform.appendChild(itemname);
-    myform.appendChild(note);
-    myform.appendChild(currency);
-    myform.appendChild(bn);
-    myform.appendChild(image);
-    myform.appendChild(pixel);
+    myform.appendChild(cmd);
+    myform.appendChild(hosted);
     document.body.appendChild(myform); // Not sure if this step is necessary
 
     myform.submit();

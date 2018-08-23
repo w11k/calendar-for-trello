@@ -1,9 +1,8 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {select} from '@angular-redux/store';
-import {combineLatest, Observable, Subscription} from 'rxjs';
-import {selectSettingsType, selectSettingsWorkdays} from '../../redux/store/selects';
-import {CalendarType} from '../../redux/actions/settings-actions';
-import {CalendarService} from '../../services/calendar.service';
+import {combineLatest, Observable} from 'rxjs';
+import {selectSettingsType, selectSettingsWeekStart, selectSettingsWorkdays} from '../../redux/store/selects';
+import {CalendarType, WeekStart} from '../../redux/actions/settings-actions';
 import {untilComponentDestroyed} from 'ng2-rx-componentdestroyed';
 import 'rxjs/add/operator/combineLatest';
 import 'rxjs/add/operator/takeUntil';
@@ -18,45 +17,38 @@ import {addDays, format, startOfWeek} from 'date-fns';
 export class CalendarToolbarComponent implements OnInit, OnDestroy {
 
   public headers: string[] = [];
-  private subscriptions: Subscription[] = [];
   @select(selectSettingsType) public calendarType$: Observable<CalendarType>;
   @select(selectSettingsWorkdays) public workdays$: Observable<number>;
+  @select(selectSettingsWeekStart) public weekStart$: Observable<WeekStart>;
 
-  constructor(private calendarService: CalendarService) {
-    // this.headers = this.build();
+  constructor() {
   }
 
   ngOnInit() {
-    combineLatest(this.calendarType$, this.workdays$)
+    combineLatest(this.calendarType$, this.workdays$, this.weekStart$)
       .pipe(untilComponentDestroyed(this))
         .subscribe(value => {
-          this.headers = this.build(value[0], value[1]);
+          this.headers = this.build(value[0], value[1], value[2]);
         });
   }
 
   ngOnDestroy() {
-    // this.subscriptions.forEach(subscription => subscription.unsubscribe());
   }
 
-  build(calendarType, workdays): string[] {
+  build(calendarType, workdays, weekStart: WeekStart): string[] {
 
+      const weekStartsOn = weekStart === WeekStart.Monday ? 1 : 0;
+      let date = startOfWeek(new Date(), {weekStartsOn: weekStartsOn});
 
-    // start with monday for CalendarType.WorkWeek.
-    let date = calendarType === CalendarType.WorkWeek
-      ? startOfWeek(new Date(), {weekStartsOn: 1})
-      : startOfWeek(new Date());
+      const weekLength = calendarType === CalendarType.WorkWeek
+        ? workdays
+        : 7;
 
-
-    const weekLength = calendarType === CalendarType.WorkWeek
-      ? 5
-      : 7;
-
-    const arr = [];
-    times(weekLength, () => {
-      arr.push(format(date, 'dddd'));
-      date = addDays(date, 1);
-    });
-    return arr;
+      const arr = [];
+      times(weekLength, () => {
+        arr.push(format(date, 'dddd'));
+        date = addDays(date, 1);
+      });
+      return arr;
   }
-
 }

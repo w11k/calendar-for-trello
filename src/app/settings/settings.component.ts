@@ -6,12 +6,23 @@ import {SettingsActions} from '../redux/actions/settings-actions';
 import {Settings} from '../models/settings';
 import {selectOpenBoards} from '../redux/store/selects';
 
+
+export class WeekStartWithTranslation {
+  constructor(public key: WeekStart, public name: string) {
+  }
+}
+
 @Component({
   selector: 'app-board-settings',
   templateUrl: './settings.component.html',
   styleUrls: ['./settings.component.scss']
 })
 export class SettingsComponent implements OnInit, OnDestroy {
+
+  public weekStartDays: WeekStartWithTranslation[] = [
+    new WeekStartWithTranslation(WeekStart.Sunday, 'Sunday'),
+    new WeekStartWithTranslation(WeekStart.Monday, 'Monday')
+  ];
 
   private subscriptions: Subscription[] = [];
 

@@ -32,6 +32,9 @@ export function selectBoards(state: RootState) {
   return state.boards;
 }
 
+export function selectSettingsWeekStart(state: RootState) {
+  return state.settings.weekStart;
+}
 export function selectSettingsWorkdays(state: RootState) {
   return state.settings.weekDays;
 }

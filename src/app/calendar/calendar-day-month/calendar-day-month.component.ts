@@ -40,15 +40,6 @@ export class CalendarDayForMonthComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-
-    if (this.calendarDay.isDayOff) {
-      this.renderer.setElementClass(this.element.nativeElement, 'offsetDay', true);
-    }
-
-    if (this.calendarDay.isToday) {
-      this.renderer.setElementClass(this.element.nativeElement, 'today', true);
-    }
-
     this.subscriptions.push(
       this.cards$.subscribe(
         cards => {

@@ -26,6 +26,7 @@ import {
   MatTooltipModule
 } from '@angular/material';
 import {LabelSelectorComponent} from './label-selector/label-selector.component';
+import { MonthComponent } from './month/month.component';
 
 @NgModule({
   imports: [
@@ -56,6 +57,7 @@ import {LabelSelectorComponent} from './label-selector/label-selector.component'
     MemberSelectorComponent,
     CutStringPipe,
     LabelSelectorComponent,
+    MonthComponent,
   ],
   exports: [
     CalendarCardComponent,

@@ -6,10 +6,9 @@ export class Settings {
   public type: CalendarType = CalendarType.Month;
   public includeDoneCards = true;
   public filterForUser: string = null;
-  public showMembers = false;
+  public showWeekend = false;
   public weekStart: WeekStart = WeekStart.Monday;
   public weekViewShowHours: boolean | undefined = true;
-  public weekDays: number | undefined = 5;
   public businessHoursStart: number | undefined = 9;
   public businessHoursEnd: number | undefined = 18;
   public filterForLabel: string = null;

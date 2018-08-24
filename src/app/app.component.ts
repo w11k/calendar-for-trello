@@ -88,8 +88,8 @@ export class AppComponent implements OnInit, OnDestroy {
     if (this.settings.weekViewShowHours === undefined) {
       this.settings.weekViewShowHours = true;
     }
-    if (this.settings.weekDays === undefined) {
-      this.settings.weekDays = 5;
+    if (this.settings.showWeekend === undefined) {
+      this.settings.showWeekend = true;
     }
     if (this.settings.businessHoursStart === undefined) {
       this.settings.businessHoursStart = 9;

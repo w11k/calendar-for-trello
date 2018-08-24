@@ -27,7 +27,6 @@ export function selectSettingsType(state: RootState) {
   return state.settings.type;
 }
 
-
 export function selectBoards(state: RootState) {
   return state.boards;
 }
@@ -35,8 +34,9 @@ export function selectBoards(state: RootState) {
 export function selectSettingsWeekStart(state: RootState) {
   return state.settings.weekStart;
 }
-export function selectSettingsWorkdays(state: RootState) {
-  return state.settings.weekDays;
+
+export function selectSettingsShowWeekend(state: RootState) {
+  return state.settings.showWeekend;
 }
 
 /**

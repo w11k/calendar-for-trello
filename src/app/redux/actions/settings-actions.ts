@@ -25,7 +25,7 @@ export class SettingsActions {
   static SET_FILTER_FOR_USER = 'SET_FILTER_FOR_USER';
   static TOGGLE_WEEKVIEW_SHOW_HOURS = 'TOGGLE_WEEKVIEW_SHOW_HOURS';
   static SET_WEEKSTART = 'SET_WEEKSTART';
-  static SET_WEEKDAYS = 'SET_WEEKDAYS';
+  static SET_SHOW_WEEKEND = 'SET_SHOW_WEEKEND';
   static SET_BUSINESS_HOURS_START = 'SET_BUSINESS_HOURS_START';
   static SET_BUSINESS_HOURS_END = 'SET_BUSINESS_HOURS_END';
   static SET_FILTER_FOR_LABEL = 'SET_FILTER_FOR_LABEL';
@@ -40,10 +40,6 @@ export class SettingsActions {
 
   public toggleIncludeDoneCards(preference: boolean) {
     this.ngRedux.dispatch({type: SettingsActions.TOGGLE_INCLUDE_DONE, payload: preference});
-  }
-
-  public toggleShowMembers(preference: boolean) {
-    this.ngRedux.dispatch({type: SettingsActions.TOGGLE_SHOW_MEMBERS, payload: preference});
   }
 
   public changeCalendarType(calendarType: CalendarType) {
@@ -75,8 +71,8 @@ export class SettingsActions {
     this.ngRedux.dispatch({type: SettingsActions.TOGGLE_WEEKVIEW_SHOW_HOURS, payload: preference});
   }
 
-  public setWeekdays(days: number) {
-    this.ngRedux.dispatch({type: SettingsActions.SET_WEEKDAYS, payload: days});
+  public setShowWeekend(showWeekend: boolean) {
+    this.ngRedux.dispatch({type: SettingsActions.SET_SHOW_WEEKEND, payload: showWeekend});
   }
 
   public setBusinessHoursStart(startHour: number) {

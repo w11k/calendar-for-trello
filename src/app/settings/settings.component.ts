@@ -34,9 +34,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
 
   constructor(private settingsActions: SettingsActions) {
   }
-/*  public updateLang(locale: string) {
-    this.settingsActions.setLanguage(locale);
-  }*/
+
 
   public updateWekStart(weekStart: WeekStart) {
     this.settingsActions.setWeekStart(weekStart);
@@ -46,16 +44,12 @@ export class SettingsComponent implements OnInit, OnDestroy {
     this.settingsActions.toggleIncludeDoneCards(includePref);
   }
 
-  public updateShowMembers(includePref: boolean) {
-    this.settingsActions.toggleShowMembers(includePref);
-  }
-
   public updateWeekviewShowHours(includePref: boolean) {
     this.settingsActions.toggleWeekviewShowHours(includePref);
   }
 
-  public updateWeekdays(days: number) {
-    this.settingsActions.setWeekdays(days);
+  public updateShowWeekend(showWeekend: boolean) {
+    this.settingsActions.setShowWeekend(showWeekend);
   }
 
   public updateBusinessHoursStart(startHour: number) {

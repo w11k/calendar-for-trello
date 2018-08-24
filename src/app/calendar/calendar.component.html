@@ -45,20 +45,18 @@
 
 </div>
 
-<div class="wrap">
-    <app-calendar-toolbar></app-calendar-toolbar>
-    <ng-container [ngSwitch]="calendarType">
-        <ng-container *ngSwitchCase="CalendarType.Month">
-            <app-calendar-day-month *ngFor="let day of calendar$ | async" [calendarDay]="day"></app-calendar-day-month>
-        </ng-container>
-        <ng-container *ngSwitchCase="CalendarType.Week">
-            <app-week></app-week>
-        </ng-container>
-        <ng-container *ngSwitchCase="CalendarType.WorkWeek">
-            <app-week></app-week>
-        </ng-container>
+<app-calendar-toolbar></app-calendar-toolbar>
+<ng-container [ngSwitch]="calendarType">
+    <ng-container *ngSwitchCase="CalendarType.Month">
+        <app-month></app-month>
     </ng-container>
-</div>
+    <ng-container *ngSwitchCase="CalendarType.Week">
+        <app-week></app-week>
+    </ng-container>
+    <ng-container *ngSwitchCase="CalendarType.WorkWeek">
+        <app-week></app-week>
+    </ng-container>
+</ng-container>
 
 
 <app-context-menu-holder></app-context-menu-holder>

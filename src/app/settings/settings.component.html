@@ -21,13 +21,28 @@
   <mat-card-content>
 
     <div style="padding:10px">
-      <mat-radio-group class="week-start-radio-group" [(ngModel)]="settings.weekStart">
+      <mat-radio-group class="week-start-radio-group" [(ngModel)]="settings.weekStart"
+                       (ngModelChange)="updateWekStart($event)">
         <mat-radio-button class="week-start-radio-button" *ngFor="let weekstartDay of weekStartDays" [value]="weekstartDay.key">
           {{weekstartDay.name}}
         </mat-radio-button>
       </mat-radio-group>
 
     </div>
+  </mat-card-content>
+</mat-card><mat-card class="board-card">
+  <mat-card-header>
+    <mat-card-title>Weekend</mat-card-title>
+    <mat-card-subtitle></mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+
+      <div style="padding:10px">
+        <mat-checkbox [(ngModel)]="settings.showWeekend" (ngModelChange)="updateShowWeekend($event)">Show
+          Weekend
+        </mat-checkbox>
+      </div>
+
   </mat-card-content>
 </mat-card>
 
@@ -44,15 +59,6 @@
       <mat-checkbox [(ngModel)]="settings.weekViewShowHours" (ngModelChange)="updateWeekviewShowHours($event)">Show
         hours
       </mat-checkbox>
-    </div>
-
-    <div style="padding:10px">
-      <mat-select placeholder="Work days" [(ngModel)]="settings.weekDays"
-                 (ngModelChange)="updateWeekdays($event)">
-        <mat-option [value]="5">5</mat-option>
-        <mat-option [value]="6">6</mat-option>
-        <mat-option [value]="7">7</mat-option>
-      </mat-select>
     </div>
 
     <div style="padding:10px">

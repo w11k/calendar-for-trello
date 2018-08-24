@@ -43,9 +43,9 @@ export default (state: Settings = initialState, action: any) => {
       return Object.assign({}, state, {
         weekViewShowHours: action.payload as boolean
       });
-    case SettingsActions.SET_WEEKDAYS:
+    case SettingsActions.SET_SHOW_WEEKEND:
       return Object.assign({}, state, {
-        weekDays: action.payload as number
+        showWeekend: action.payload as number
       });
     case SettingsActions.SET_BUSINESS_HOURS_START:
       return Object.assign({}, state, {

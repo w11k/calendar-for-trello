@@ -26,7 +26,7 @@ export class CalendarComponent implements OnInit, OnDestroy {
   calendarType: CalendarType;
   CalendarType = CalendarType;
   calendarDate: Date; // todo remove
-  @select(selectCalendarDays) public calendar$: Observable<any>;
+
   @select(selectCalendarDate) public calendarDate$: Observable<any>;
   @select(selectSettingsType) public calendarType$: Observable<any>;
   @select(selectVisibleLabelsInRange) public labels$: Observable<Label[]>;

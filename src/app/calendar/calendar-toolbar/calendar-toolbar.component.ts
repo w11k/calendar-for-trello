@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {select} from '@angular-redux/store';
 import {combineLatest, Observable} from 'rxjs';
-import {selectSettingsType, selectSettingsWeekStart, selectSettingsWorkdays} from '../../redux/store/selects';
+import {selectSettingsShowWeekend, selectSettingsType, selectSettingsWeekStart} from '../../redux/store/selects';
 import {CalendarType, WeekStart} from '../../redux/actions/settings-actions';
 import {untilComponentDestroyed} from 'ng2-rx-componentdestroyed';
 import 'rxjs/add/operator/combineLatest';
@@ -18,14 +18,14 @@ export class CalendarToolbarComponent implements OnInit, OnDestroy {
 
   public headers: string[] = [];
   @select(selectSettingsType) public calendarType$: Observable<CalendarType>;
-  @select(selectSettingsWorkdays) public workdays$: Observable<number>;
   @select(selectSettingsWeekStart) public weekStart$: Observable<WeekStart>;
+  @select(selectSettingsShowWeekend) public showWeekend$: Observable<boolean>;
 
   constructor() {
   }
 
   ngOnInit() {
-    combineLatest(this.calendarType$, this.workdays$, this.weekStart$)
+    combineLatest(this.calendarType$, this.weekStart$, this.showWeekend$)
       .pipe(untilComponentDestroyed(this))
         .subscribe(value => {
           this.headers = this.build(value[0], value[1], value[2]);
@@ -35,14 +35,15 @@ export class CalendarToolbarComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
   }
 
-  build(calendarType, workdays, weekStart: WeekStart): string[] {
+  build(calendarType, weekStart: WeekStart, showWeekend: boolean): string[] {
 
       const weekStartsOn = weekStart === WeekStart.Monday ? 1 : 0;
       let date = startOfWeek(new Date(), {weekStartsOn: weekStartsOn});
 
-      const weekLength = calendarType === CalendarType.WorkWeek
-        ? workdays
-        : 7;
+      // const weekLength = calendarType === CalendarType.WorkWeek
+      const weekLength = showWeekend
+        ? 7
+        : 5;
 
       const arr = [];
       times(weekLength, () => {

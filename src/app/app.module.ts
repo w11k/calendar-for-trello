@@ -4,7 +4,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 import {AppComponent} from './app.component';
 import {routing} from './routes';
-import {CalendarService} from './services/calendar.service';
+import {CalendarDaysService} from './services/calendar-days.service';
 import {TrelloAuthService} from './services/trello-auth.service';
 import {TrelloHttpService} from './services/trello-http.service';
 import {SetTokenComponent} from './components/set-token/set-token.component';
@@ -89,7 +89,7 @@ import {TrackingModule} from './tracking/tracking.module';
     TrackingModule.forRoot()
   ],
   providers: [
-    CalendarService,
+    CalendarDaysService,
     TrelloAuthService,
     TrelloHttpService,
     MemberGuard,

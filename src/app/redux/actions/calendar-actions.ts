@@ -4,7 +4,7 @@ import {Injectable} from '@angular/core';
 import {NgRedux} from '@angular-redux/store';
 import {RootState} from '../store';
 import {CalendarDay} from '../../models/calendar-day';
-import {CalendarService} from '../../services/calendar.service';
+import {CalendarDaysService} from '../../services/calendar-days.service';
 import {CalendarType} from './settings-actions';
 import {addMonths, addWeeks, subMonths, subWeeks} from 'date-fns';
 
@@ -18,7 +18,7 @@ export class CalendarActions {
   static RESET_CALENDAR_STORE = 'RESET_CALENDAR_STORE';
 
   constructor(private ngRedux: NgRedux<RootState>,
-              private calendarService: CalendarService) {
+              private calendarService: CalendarDaysService) {
   }
 
   public buildDays(date: Date, calendarType: CalendarType = CalendarType.Month) {

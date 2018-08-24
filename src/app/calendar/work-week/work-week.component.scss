@@ -64,6 +64,7 @@ $day-primary: mat-color($mat-trello-business, 500);
 .weekHeader {
   text-align: right;
   margin-bottom: -15px;
+  z-index: 1;
   .slot {
     height: 20px;
 

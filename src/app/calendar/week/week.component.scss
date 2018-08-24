@@ -27,6 +27,16 @@ $day-primary: mat-color($mat-trello-business, 500);
   align-items: stretch;
 }
 
+.nighttime{
+  background-color: lightgray;
+}
+
+@for $i from 1 through 7 {
+  .basis#{$i} {
+    width: 100% / $i;
+  }
+}
+
 .slot {
   min-height: 15px;
   padding-top: 2px;
@@ -37,10 +47,14 @@ $day-primary: mat-color($mat-trello-business, 500);
   min-height: 0px;
 }
 
+.nighttime{
+  background-color: lightgray;
+}
+
 .inner {
   //padding: 25px 3px 0;
   flex: 1 0 auto;
-  border: 2px solid transparent;
+  border: 1px solid transparent;
   &.dnd-drag-over {
     border-color: #4d4d4d;
     border-style: dashed;
@@ -55,8 +69,11 @@ $day-primary: mat-color($mat-trello-business, 500);
 
 .weekHeader {
   text-align: right;
-  margin-bottom: -15px;
+  margin-bottom: -20px;
+  z-index: 1;
+
   .slot {
+    z-index: 1;
     height: 20px;
 
     &.today {

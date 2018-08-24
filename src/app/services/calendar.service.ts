@@ -64,7 +64,6 @@ export class CalendarService {
     let firstDay = startOfMonth(date);
     const subtractDaysForStartDay = startWithMonday ? 1 : 0;
     const weekdayOfFirstDay = getDay(firstDay) - subtractDaysForStartDay;
-    console.log(weekdayOfFirstDay);
     times(weekdayOfFirstDay, () => {
       firstDay = subDays(firstDay, 1);
       days.push(new CalendarDay(firstDay, true));

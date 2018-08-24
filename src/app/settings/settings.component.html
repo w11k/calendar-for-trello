@@ -1,3 +1,38 @@
+<!--<mat-card class="board-card">
+  <mat-card-header>
+    <mat-card-title>Language</mat-card-title>
+    <mat-card-subtitle>Set your language</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+
+    <div style="padding:10px">
+      <mat-select placeholder="" [(ngModel)]="settings.language" (ngModelChange)="updateLang($event)">
+        <mat-option *ngFor="let lang of languages" [value]="lang.key">{{lang.name}}</mat-option>
+      </mat-select>
+
+    </div>
+  </mat-card-content>
+</mat-card>-->
+<mat-card class="board-card">
+  <mat-card-header>
+    <mat-card-title>Weekstart</mat-card-title>
+    <mat-card-subtitle></mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+
+    <div style="padding:10px">
+      <mat-radio-group class="week-start-radio-group" [(ngModel)]="settings.weekStart">
+        <mat-radio-button class="week-start-radio-button" *ngFor="let weekstartDay of weekStartDays" [value]="weekstartDay.key">
+          {{weekstartDay.name}}
+        </mat-radio-button>
+      </mat-radio-group>
+
+    </div>
+  </mat-card-content>
+</mat-card>
+
+
+
 <mat-card class="board-card">
   <mat-card-header>
     <mat-card-title>Week Views</mat-card-title>

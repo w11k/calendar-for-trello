@@ -14,21 +14,15 @@ export enum PeriodChange {
 
 @Injectable()
 export class CalendarActions {
-  static FILL_DAYS = 'FILL_DAYS';
   static BUILD_DAYS = 'BUILD_DAYS';
-  static NAVIGATE = 'NAVIGATE';
   static RESET_CALENDAR_STORE = 'RESET_CALENDAR_STORE';
 
   constructor(private ngRedux: NgRedux<RootState>,
               private calendarService: CalendarService) {
   }
 
-  public fillDays(days: CalendarDay) {
-    this.ngRedux.dispatch({type: CalendarActions.FILL_DAYS, payload: days});
-  }
-
-  public buildDays(date: Date, calendarType: CalendarType = CalendarType.Month, weekdays: number = 5) {
-    this.calendarService.buildDaysAsync(date, calendarType, weekdays)
+  public buildDays(date: Date, calendarType: CalendarType = CalendarType.Month) {
+    this.calendarService.buildDaysAsync(date, calendarType)
       .then(days => {
         this.ngRedux.dispatch({type: CalendarActions.BUILD_DAYS, payload: days, date: date});
       })

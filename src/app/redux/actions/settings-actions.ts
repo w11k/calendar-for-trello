@@ -8,6 +8,10 @@ export enum CalendarType {
   Week, Month, WorkWeek
 }
 
+export enum WeekStart {
+  Sunday, Monday
+}
+
 @Injectable()
 export class SettingsActions {
 
@@ -30,6 +34,9 @@ export class SettingsActions {
   constructor(private ngRedux: NgRedux<RootState>) {
   }
 
+  setWeekStart(weekStart: WeekStart) {
+    this.ngRedux.dispatch({type: SettingsActions.SET_WEEKSTART, payload: weekStart});
+  }
 
   public toggleIncludeDoneCards(preference: boolean) {
     this.ngRedux.dispatch({type: SettingsActions.TOGGLE_INCLUDE_DONE, payload: preference});

@@ -6,6 +6,8 @@ const initialState = new Settings();
 
 export default (state: Settings = initialState, action: any) => {
   switch (action.type) {
+    case SettingsActions.SET_WEEKSTART:
+      return Object.assign({}, state, {weekStart: action.payload});
     case SettingsActions.RESET_SETTINGS_STORE:
       return initialState;
     case SettingsActions.SET_BOARD_COLOR:

@@ -25,7 +25,6 @@ import {
   MatSelectModule,
   MatTooltipModule
 } from '@angular/material';
-import {WorkWeekComponent} from './work-week/work-week.component';
 import {LabelSelectorComponent} from './label-selector/label-selector.component';
 
 @NgModule({
@@ -56,7 +55,6 @@ import {LabelSelectorComponent} from './label-selector/label-selector.component'
     WeekComponent,
     MemberSelectorComponent,
     CutStringPipe,
-    WorkWeekComponent,
     LabelSelectorComponent,
   ],
   exports: [

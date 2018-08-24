@@ -56,7 +56,7 @@ export class CalendarComponent implements OnInit, OnDestroy {
     this.subscriptions.push(
       (this.settings$).subscribe(x => {
         this.settings = x;
-        this.calendarActions.buildDays(this._returnCalDate(), this.calendarType, this.settings.weekDays);
+        this.calendarActions.buildDays(this._returnCalDate(), this.calendarType);
       }));
 
   }

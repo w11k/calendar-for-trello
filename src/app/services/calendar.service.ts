@@ -2,8 +2,8 @@ import {Injectable} from '@angular/core';
 import {CalendarDay} from '../models/calendar-day';
 import {CalendarType, WeekStart} from '../redux/actions/settings-actions';
 import {select} from '@angular-redux/store';
-import {Observable} from 'rxjs';
-import {selectSettingsWeekStart} from '../redux/store/selects';
+import {combineLatest, Observable} from 'rxjs';
+import {selectSettingsWeekStart, selectSettingsWorkdays} from '../redux/store/selects';
 import {times} from '../shared/times';
 import {addDays, getDay, getDaysInMonth, isSameDay, lastDayOfMonth, startOfMonth, startOfWeek, subDays} from 'date-fns';
 
@@ -11,37 +11,44 @@ import {addDays, getDay, getDaysInMonth, isSameDay, lastDayOfMonth, startOfMonth
 @Injectable()
 export class CalendarService {
 
-  public buildDaysAsync(date: Date = new Date(), calendarType: CalendarType, weekdays: number): Promise<CalendarDay[]> {
+  @select(selectSettingsWeekStart) public weekStart$: Observable<WeekStart>;
+  @select(selectSettingsWorkdays) public workDays$: Observable<number>;
+
+  public buildDaysAsync(date: Date = new Date(), calendarType: CalendarType): Promise<CalendarDay[]> {
     return new Promise((resolve) => {
 
       let days: CalendarDay[] = [];
 
-      this.weekStart$.subscribe(weekStart => {
+      combineLatest(this.weekStart$, this.workDays$)
+        .take(1)
+        .subscribe(x => {
 
-        const startWithMonday = weekStart === WeekStart.Monday;
+          const weekStart = x[0];
+          const workDays = x[1];
+          const startWithMonday = weekStart === WeekStart.Monday;
 
-        switch (calendarType) {
-          case CalendarType.Month:
-            days = [
-              ...this._buildBeforehandDaysMonth(date, startWithMonday),
-              ...this._buildRegularDaysMonth(date),
-              ...this._buildAfterwardsDaysMonth(date, startWithMonday)
-            ];
-            break;
-          case CalendarType.Week:
-            days = [
-              ...this._buildWeekDays(date, 7, startWithMonday)
-            ];
-            break;
-          case CalendarType.WorkWeek:
-            days = [
-              ...this._buildWeekDays(date, weekdays, startWithMonday)
-            ];
-            break;
-        }
+          switch (calendarType) {
+            case CalendarType.Month:
+              days = [
+                ...this._buildBeforehandDaysMonth(date, startWithMonday),
+                ...this._buildRegularDaysMonth(date),
+                ...this._buildAfterwardsDaysMonth(date, startWithMonday)
+              ];
+              break;
+            case CalendarType.Week:
+              days = [
+                ...this._buildWeekDays(date, 7, startWithMonday)
+              ];
+              break;
+            case CalendarType.WorkWeek:
+              days = [
+                ...this._buildWeekDays(date, workDays, startWithMonday)
+              ];
+              break;
+          }
 
-        resolve(days);
-      });
+          resolve(days);
+        });
 
     });
   }
@@ -86,13 +93,13 @@ export class CalendarService {
     return days;
   }
 
-  private _buildWeekDays(date: Date, weekdays: number, startWithMonday: boolean): CalendarDay[] {
+  private _buildWeekDays(date: Date, workDays: number, startWithMonday: boolean): CalendarDay[] {
     const days: CalendarDay[] = [];
     const weekStartsOn = startWithMonday ? 1 : 0;
     const firstDay = startOfWeek(date, {weekStartsOn: weekStartsOn});
     let day = new Date(firstDay);
 
-    times(weekdays, () => {
+    times(workDays, () => {
       days.push(new CalendarDay(day, false, isSameDay(date, new Date())));
       day = addDays(day, 1);
     });

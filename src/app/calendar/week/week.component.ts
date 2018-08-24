@@ -27,42 +27,22 @@ export class WeekComponent implements OnInit, OnDestroy {
   public cardHolder: Object; //  {key: Cards[]}
 
   @select(selectCalendarCards) public cards$: Observable<Card[]>;
-  @select(selectCalendarDays) public calendar$: Observable<CalendarDay[]>;
+  @select(selectCalendarDays) public calendarDays$: Observable<CalendarDay[]>;
 
   @select('settings') public settings$: Observable<Settings>;
   public settings: Settings = new Settings();
+  public amountDays: number;
 
   constructor(private dateTimeFormatService: DateTimeFormatService, private cardActions: CardActions, private dropZoneService: DropZoneService) {
   }
 
-  createHours = (calendarDays: CalendarDay[], cards: Card[]) => {
-    this.cardHolder = {};
-    calendarDays.map(day => {
-      this.cardHolder[format(day.date, 'MM-DD-YYYY')] = cards.filter(card => isSameDay(card.due, day.date));
-      return day;
-    });
-    for (let i = 0; i < 24; i++) {
-      calendarDays.forEach((calendarDay) => {
-        const baseDate = setHours(startOfDay(calendarDay.date), i);
-          this.slots.push(
-            new WeekDaySlot(format(baseDate, this.dateTimeFormatService.getTimeFormat()),
-              this.cardHolder[format(calendarDay.date, 'MM-DD-YYYY')]
-                .filter(card => i === getHours(card.due))
-              .sort((a, b) => a.name.localeCompare(b.name)),
-              calendarDay,
-              i
-            ));
-        }
-      );
-    }
-  }
-
   ngOnInit() {
     this.subscriptions.push(
-      combineLatest(this.cards$, this.calendar$)
+      combineLatest(this.cards$, this.calendarDays$, this.settings$)
         .subscribe(x => {
           const cards: Card[] = x[0];
           const calendarDays: CalendarDay[] = x[1];
+          this.amountDays = calendarDays.length;
           this.slots = [];
           this.createHours(calendarDays, cards);
           this.cardHolder = {};
@@ -74,6 +54,29 @@ export class WeekComponent implements OnInit, OnDestroy {
           this.settings = settings;
         }
       ));
+  }
+
+
+  private createHours(calendarDays: CalendarDay[], cards: Card[]) {
+    this.cardHolder = {};
+    calendarDays.map(day => {
+      this.cardHolder[format(day.date, 'MM-DD-YYYY')] = cards.filter(card => isSameDay(card.due, day.date));
+      return day;
+    });
+    for (let i = 0; i < 24; i++) {
+      calendarDays.forEach((calendarDay) => {
+          const baseDate = setHours(startOfDay(calendarDay.date), i);
+          this.slots.push(
+            new WeekDaySlot(format(baseDate, this.dateTimeFormatService.getTimeFormat()),
+              this.cardHolder[format(calendarDay.date, 'MM-DD-YYYY')]
+                .filter(card => i === getHours(card.due))
+                .sort((a, b) => a.name.localeCompare(b.name)),
+              calendarDay,
+              i
+            ));
+        }
+      );
+    }
   }
 
   onDropSuccess(event: DragDropData, slot: WeekDaySlot) {

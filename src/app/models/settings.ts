@@ -1,4 +1,4 @@
-import {CalendarType} from '../redux/actions/settings-actions';
+import {CalendarType, WeekStart} from '../redux/actions/settings-actions';
 
 export class Settings {
   public boardColorPrefs: Object = {};
@@ -7,6 +7,7 @@ export class Settings {
   public includeDoneCards = true;
   public filterForUser: string = null;
   public showMembers = false;
+  public weekStart: WeekStart = WeekStart.Monday;
   public weekViewShowHours: boolean | undefined = true;
   public weekDays: number | undefined = 5;
   public businessHoursStart: number | undefined = 9;

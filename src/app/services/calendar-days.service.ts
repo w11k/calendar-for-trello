@@ -53,12 +53,12 @@ export class CalendarDaysService {
     });
   }
 
-  private _buildRegularDaysMonth(date: Date, showWeekend: any): CalendarDay[] {
+  private _buildRegularDaysMonth(date: Date, showWeekend: boolean): CalendarDay[] {
     const days: CalendarDay[] = [];
     let monthDate = startOfMonth(date); // change to a date in the month of interest
     times(getDaysInMonth(date), () => {
       const day = new Date(monthDate);
-      if (!isWeekend(day)) {
+      if (showWeekend === true || !isWeekend(day)) {
         days.push(new CalendarDay(day, false, isSameDay(monthDate, new Date())));
       }
       monthDate = addDays(monthDate, 1);
@@ -68,7 +68,7 @@ export class CalendarDaysService {
 
   // this will fill up the first calendar row with days from the last month
   // to do so, determine the first day of the month and its weekday number.
-  private _buildBeforehandDaysMonth(date: Date, startWithMonday: boolean, showWeekend: any): CalendarDay[] {
+  private _buildBeforehandDaysMonth(date: Date, startWithMonday: boolean, showWeekend: boolean): CalendarDay[] {
     // date = date.add("month",1 ).toDate();   // Manipulate Date to test this function manually
     const days: CalendarDay[] = [];
     let firstDay = startOfMonth(date);
@@ -76,7 +76,7 @@ export class CalendarDaysService {
     const weekdayOfFirstDay = getDay(firstDay) - subtractDaysForStartDay;
     times(weekdayOfFirstDay, () => {
       firstDay = subDays(firstDay, 1);
-      if (!isWeekend(firstDay)) {
+      if (showWeekend === true || !isWeekend(firstDay)) {
         days.push(new CalendarDay(firstDay, true));
       }
     });
@@ -84,7 +84,7 @@ export class CalendarDaysService {
   }
 
   // to do so, determine the first day of the month and its weekday number.
-  private _buildAfterwardsDaysMonth(date: Date, startWithMonday: boolean, showWeekend: any): CalendarDay[] {
+  private _buildAfterwardsDaysMonth(date: Date, startWithMonday: boolean, showWeekend: boolean): CalendarDay[] {
     const days: CalendarDay[] = [];
     let lastDay = lastDayOfMonth(date);
     const subtractDaysForStartDay = startWithMonday ? 1 : 0;
@@ -93,7 +93,7 @@ export class CalendarDaysService {
     times(runs, () => {
       // its weird, that this add day is before the push. error potential.
       lastDay = addDays(lastDay, 1);
-      if (!isWeekend(lastDay)) {
+      if (showWeekend === true || !isWeekend(lastDay)) {
         days.push(new CalendarDay(lastDay, true));
       }
     });

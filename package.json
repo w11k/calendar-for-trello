@@ -43,6 +43,7 @@
     "date-fns": "^1.29.0",
     "hammerjs": "^2.0.8",
     "intl": "^1.2.5",
+    "lodash": "^4.17.10",
     "moment": "^2.15.1",
     "ng2-rx-componentdestroyed": "^3.0.0",
     "raven-js": "^3.8.1",

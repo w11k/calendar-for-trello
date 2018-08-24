@@ -1,0 +1,27 @@
+@import '~@angular/material/theming';
+@import '../../../material/theme';
+
+.eqWrap {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.day {
+  width: 14.28%;
+  //border-left: 1px solid $day-border-color;
+  padding-right: 2px;
+  padding-left: 2px;
+
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-content: stretch;
+  align-items: stretch;
+}
+
+@for $i from 1 through 7 {
+  .basis#{$i} {
+    width: 100% / $i;
+  }
+}

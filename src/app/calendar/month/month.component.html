@@ -1,0 +1,9 @@
+<div class="eqWrap">
+    <app-calendar-day-month *ngFor="let day of calendarDays$ | async"
+                            class="day basis{{amountDays}}"
+                            [calendarDay]="day"
+                            [cards]="getCardsOf(day)"
+                            [class.offsetDay]="day.isDayOff"
+                            [class.today]="day.isToday"
+    ></app-calendar-day-month>
+</div>

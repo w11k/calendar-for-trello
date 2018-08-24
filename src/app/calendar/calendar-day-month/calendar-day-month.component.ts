@@ -19,8 +19,7 @@ export class CalendarDayForMonthComponent implements OnInit, OnDestroy {
 
   @select(selectCalendarCards) public cards$: Observable<Card[]>;
   @Input() public calendarDay: CalendarDay;
-  public cards: Card[];
-  private subscriptions: Subscription[] = [];
+  @Input() public cards;
 
   constructor(public cardActions: CardActions,
               private renderer: Renderer,
@@ -40,29 +39,10 @@ export class CalendarDayForMonthComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.subscriptions.push(
-      this.cards$.subscribe(
-        cards => {
-          this.cards = cards
-            .filter(card => {
-              // Hello
-              //
-              // I'm a performance bottlneck.
-              //
-              // remove me if you have time.
-              //
-              // I have already been mitigated with selectVisibleCardsInRange
-              // - but with many cards I still cause far too many iterations.
-              return isSameDay(card.due, this.calendarDay.date);
-            })
-            .sort((a, b) => compareAsc(a.due, b.due));
-        }
-      ));
   }
 
 
   ngOnDestroy() {
-    this.subscriptions.forEach(subscription => subscription.unsubscribe());
   }
 
   onDropSuccess(event: DragDropData) {

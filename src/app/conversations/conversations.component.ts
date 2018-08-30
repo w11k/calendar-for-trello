@@ -10,7 +10,10 @@ import {select} from '@angular-redux/store';
 import {User} from '../models/user';
 import {Member} from '../models/member';
 import {Select, Store} from '@ngxs/store';
-import {AddInbox, AddOutbox, ClearInbox, ClearOutbox, HideHelp, UpdateLastUpdate} from './ngxs/app.action';
+import {
+  AddInbox, AddOutbox, ClearInbox, ClearOutbox, HideHelp, HideLoadButton,
+  UpdateLastUpdate
+} from './ngxs/app.action';
 import {InboxState} from './ngxs/inbox.state';
 import {OutboxState} from './ngxs/outbox.state';
 import {ConversationsState} from './ngxs/conversationsState';
@@ -44,6 +47,7 @@ export class ConversationsComponent implements OnInit, OnDestroy {
   @Select(OutboxState.getOutbox) outbox$: Observable<Card[]>;
   @Select(ConversationsState.getLastUpdate) lastUpdate$: Observable<Date | undefined>;
   @Select(ConversationsState.getHideHelp) hideHelp$: Observable<boolean>;
+  @Select(ConversationsState.getHideLoadButton) hideLoadButton$: Observable<boolean>;
 
   loadingInfo = {
     members: 0,
@@ -190,6 +194,11 @@ export class ConversationsComponent implements OnInit, OnDestroy {
 
   hide() {
     this.store.dispatch(new HideHelp());
+  }
+
+
+  hideLoadButton() {
+    this.store.dispatch(new HideLoadButton());
   }
 
   ngOnDestroy(): void {

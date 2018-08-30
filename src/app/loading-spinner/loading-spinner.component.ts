@@ -2,6 +2,8 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {TrelloPullService} from '../services/trello-pull.service';
 import {Observable, Subscription, timer} from 'rxjs';
 import {LoadingSpinnerService} from './loading-spinner.service';
+import {HideLoadButton} from './../conversations/ngxs/app.action';
+import {Select, Store} from '@ngxs/store';
 
 @Component({
   selector: 'app-loading-spinner',
@@ -13,7 +15,7 @@ export class LoadingSpinnerComponent implements OnInit, OnDestroy {
   loadingState$: Observable<boolean>;
   private subscriptions: Subscription[] = [];
 
-  constructor(private trelloPullService: TrelloPullService, private loadingSpinnerService: LoadingSpinnerService) {
+  constructor(private trelloPullService: TrelloPullService, private loadingSpinnerService: LoadingSpinnerService, private store: Store) {
     this.loadingState$ = loadingSpinnerService.loading;
   }
 
@@ -24,6 +26,7 @@ export class LoadingSpinnerComponent implements OnInit, OnDestroy {
           this.doRefresh();
         })
     );
+    this.loadingState$.subscribe(loading => this.store.dispatch(new HideLoadButton(loading)));
   }
 
   ngOnDestroy() {

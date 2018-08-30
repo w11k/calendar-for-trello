@@ -63,6 +63,7 @@
                 mat-raised-button
                 (click)="fetchingProcedure()"
                 color="primary"
+                [disabled]="(hideLoadButton$ | async)"
         >
           Load My Conversations!
         </button>

@@ -41,3 +41,10 @@ export class HideHelp {
   constructor(public payload: boolean = true) {
   }
 }
+
+export class HideLoadButton {
+  static readonly type = '[conversations] hide load button';
+
+  constructor(public payload: boolean = false) {
+  }
+}

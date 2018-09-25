@@ -7,6 +7,7 @@ import {Settings} from '../../models/settings';
 import {MemberMap} from '../../redux/reducers/member.reducer';
 import {FormControl} from '@angular/forms';
 import {componentDestroyed} from 'ng2-rx-componentdestroyed';
+import {selectVisibleMembers} from '../../redux/store/selects';
 
 @Component({
   selector: 'app-member-selector',
@@ -15,7 +16,7 @@ import {componentDestroyed} from 'ng2-rx-componentdestroyed';
 })
 export class MemberSelectorComponent implements OnInit, OnDestroy {
 
-  @select('members') public members$: Observable<MemberMap>;
+  @select(selectVisibleMembers) public members$: Observable<MemberMap>;
   @select('settings') public settings$: Observable<Settings>;
   membersArr: Member[] = [];
   memberCtrl: FormControl;

@@ -6,6 +6,8 @@ import {Board} from '../../models/board';
 import {CalendarState} from '../reducers/calendar.reducer';
 import {endOfDay, isBefore, isWithinRange} from 'date-fns';
 import {GlobalLabel} from '../../models/label';
+import {MemberMap} from '../reducers/member.reducer';
+import {Member} from '../../models/member';
 
 export function selectBoardColorPrefs(state: RootState) {
   return state.settings.boardColorPrefs;
@@ -55,6 +57,25 @@ export const selectVisibleCards = Reselect.createSelector(
     card => !settings.boardVisibilityPrefs[card.idBoard] && (settings.includeDoneCards ? true : !card.dueComplete) &&
       (settings.filterForUser ? card.idMembers.indexOf(settings.filterForUser) > -1 : true)
     );
+  });
+export const selectVisibleMembers = Reselect.createSelector(
+  (state: RootState) => state.members,
+  (state: RootState) => state.settings,
+  (members: MemberMap, settings: Settings) => {
+
+    const visibleMembers = Object.keys(members).map(key => members[key]).filter(member => {
+      const boards = member.boards;
+
+      if (!boards) {
+        return false;
+      }
+
+      const hasVisibleBoard = boards
+        .filter(board => !board.closed)
+        .filter(board => !settings.boardVisibilityPrefs[board.id]).length > 0;
+      return hasVisibleBoard;
+    });
+    return visibleMembers;
   });
 
 export const selectClosedBoards = Reselect.createSelector(

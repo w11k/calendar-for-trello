@@ -4,6 +4,7 @@ import {Board} from '../../models/board';
 import {CalendarState} from '../reducers/calendar.reducer';
 import {Settings} from '../../models/settings';
 import {Member} from '../../models/member';
+import {MemberMap} from '../reducers/member.reducer';
 
 // switch with https://www.npmjs.com/package/redux-replicate-localforage? Since localstorage is sync.
 const persistState = require('redux-localstorage');
@@ -38,5 +39,5 @@ export interface RootState {
   calendar: CalendarState;
   settings: Settings;
   lists: Object;
-  members: Object;
+  members: MemberMap;
 }

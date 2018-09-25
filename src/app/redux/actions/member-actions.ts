@@ -20,7 +20,7 @@ export class MemberActions {
 
   public rebuildStorePartially(members: Member[], board: Board, time: Date) {
     members.map(
-      member => this.ngRedux.dispatch({type: MemberActions.SET_MEMBER, payload: member})
+      member => this.ngRedux.dispatch({type: MemberActions.SET_MEMBER, member: member, board: board})
     );
   }
 }

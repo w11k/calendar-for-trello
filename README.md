@@ -20,6 +20,14 @@ The local dev server runs on `http://localhost:4200`
     
 **Please** replace the API key if you want to host the calendar on your own. You can find it in `src/config.json`. Get your own Trello API Key at: https://trello.com/app-key 
     
+## adding a new language
+1. add an entry to the `package.json` similar to what the production builds for other languages looks like
+2. add the language to the `npm run extract-i18n` command
+3. run the `npm run extract-i18n` command
+4. a new file in `src/locale` is created.
+5. translate this file using any translation tool or editor like [https://github.com/martinroob/tiny-translator]()
+6. create a Pull Request and we'll integrate the language
+    
 ## Privacy Information
 All accrued data is only stored on your own computer. The communication with Trello API is encrypted via https.
 

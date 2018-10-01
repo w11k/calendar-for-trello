@@ -1,4 +1,4 @@
-<button (click)="show = !show" *ngIf="(overdueCards$ | async)?.length as length" mat-menu-item>
+<button i18n="Sidebar overdue card" (click)="show = !show" *ngIf="(overdueCards$ | async)?.length as length" mat-menu-item>
   <mat-icon>{{length ? "warning" : ""}}</mat-icon>
   Overdue Card <span class="label">{{length}}</span>
 </button>

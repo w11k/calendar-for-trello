@@ -1,5 +1,5 @@
 <mat-form-field>
-  <input type="text" matInput placeholder="Card Title" (input)="term$.next($event.target.value)" #input>
+  <input type="text" matInput i18n-placeholder="Sidebar search placeholder for card title" placeholder="Card Title" (input)="term$.next($event.target.value)" #input>
 </mat-form-field>
 <div *ngIf="results">
   <app-calendar-card

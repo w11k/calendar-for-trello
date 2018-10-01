@@ -22,24 +22,24 @@
 
       <app-loading-spinner></app-loading-spinner>
 
-      <button mat-icon-button [mat-menu-trigger-for]="menu" matTooltip="More">
+      <button mat-icon-button [mat-menu-trigger-for]="menu" matTooltip="">
         <mat-icon>more_vert</mat-icon>
       </button>
 
       <mat-menu #menu="matMenu">
-        <button mat-menu-item (click)="toIssue()">
+        <button i18n="Button to submit a feature request" mat-menu-item (click)="toIssue()">
           <mat-icon>lightbulb_outline</mat-icon>
           Submit Feature Request
         </button>
-        <button mat-menu-item (click)="toIssue()">
+        <button i18n="Button to submit a bug report" mat-menu-item (click)="toIssue()">
           <mat-icon>report_problem</mat-icon>
           Report a Problem
         </button>
-        <button mat-menu-item (click)="clearData()">
+        <button i18n="Button to clear site data" mat-menu-item (click)="clearData()">
           <mat-icon>delete</mat-icon>
           Clear Data
         </button>
-        <button mat-menu-item (click)="logout()">
+        <button i18n="Button to logout" mat-menu-item (click)="logout()">
           <mat-icon>clear</mat-icon>
           Logout
         </button>

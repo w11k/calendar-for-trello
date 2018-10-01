@@ -1,0 +1,546 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+  <file source-language="en" datatype="plaintext" original="ng2.template" target-language="fr">
+    <body>
+      <trans-unit id="74a66d2baa143a23c3f7bdf07df5ba0160ffde7a" datatype="html">
+        <source>
+          <x id="START_TAG_MAT-ICON" ctype="x-mat-icon" equiv-text="&lt;mat-icon>"/>
+          <x id="INTERPOLATION" equiv-text="{{length ? &quot;warning&quot; : &quot;&quot;}}"/>
+          <x id="CLOSE_TAG_MAT-ICON" ctype="x-mat-icon" equiv-text="&lt;/mat-icon>"/>
+          Overdue Card
+          <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span>"/>
+          <x id="INTERPOLATION_1" equiv-text="{{length}}"/>
+          <x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span>"/>
+        </source>
+        <target state="new">
+          <x id="START_TAG_MAT-ICON" ctype="x-mat-icon" equiv-text="&lt;mat-icon>"/>
+          <x id="INTERPOLATION" equiv-text="{{length ? &quot;warning&quot; : &quot;&quot;}}"/>
+          <x id="CLOSE_TAG_MAT-ICON" ctype="x-mat-icon" equiv-text="&lt;/mat-icon>"/>
+          Overdue Card
+          <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span>"/>
+          <x id="INTERPOLATION_1" equiv-text="{{length}}"/>
+          <x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span>"/>
+        </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/calendar/over-due-area/over-due-area.component.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+        <note priority="1" from="description">Sidebar overdue card</note>
+      </trans-unit>
+      <trans-unit id="55bac60453c69e13a758b807575b9d5aaa9a927a" datatype="html">
+        <source>
+          <x id="START_TAG_MAT-ICON" ctype="x-mat-icon" equiv-text="&lt;mat-icon>"/>
+          <x id="INTERPOLATION" equiv-text="{{cards.length ? &quot;timer off&quot; : &quot;&quot;}}"/>
+          <x id="CLOSE_TAG_MAT-ICON" ctype="x-mat-icon" equiv-text="&lt;/mat-icon>"/>
+          without Due Date
+          <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span>"/>
+          <x id="INTERPOLATION_1" equiv-text="{{cards.length}}"/>
+          <x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span>"/>
+        </source>
+        <target state="new">
+          <x id="START_TAG_MAT-ICON" ctype="x-mat-icon" equiv-text="&lt;mat-icon>"/>
+          <x id="INTERPOLATION" equiv-text="{{cards.length ? &quot;timer off&quot; : &quot;&quot;}}"/>
+          <x id="CLOSE_TAG_MAT-ICON" ctype="x-mat-icon" equiv-text="&lt;/mat-icon>"/>
+          without Due Date
+          <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span>"/>
+          <x id="INTERPOLATION_1" equiv-text="{{cards.length}}"/>
+          <x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span>"/>
+        </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/calendar/no-due-area/no-due-area.component.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+        <note priority="1" from="description">Sidebar without due date</note>
+      </trans-unit>
+      <trans-unit id="4ae9cce576195a70ab58f5cf3be627c18d60e3c1" datatype="html">
+        <source>TODAY</source>
+        <target state="new">TODAY</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/calendar/calendar.component.ts</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+        <note priority="1" from="description">header today</note>
+      </trans-unit>
+      <trans-unit id="59aea00422e75ff291ae09a4f1fc8c2f0ef14c90" datatype="html">
+        <source>
+          CW
+          <x id="INTERPOLATION" equiv-text="{{calendarDate | date:'w, MMMM y'}}"/>
+        </source>
+        <target state="new">
+          CW
+          <x id="INTERPOLATION" equiv-text="{{calendarDate | date:'w, MMMM y'}}"/>
+        </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/calendar/calendar.component.ts</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+        <note priority="1" from="description">header calendar week</note>
+      </trans-unit>
+      <trans-unit id="e19f52541fca8d6e08779979bce27294930dd726" datatype="html">
+        <source>Create a new Card</source>
+        <target state="new">Create a new Card</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/calendar/calendar.component.ts</context>
+          <context context-type="linenumber">30</context>
+        </context-group>
+        <note priority="1" from="description">headline tooltip create new card</note>
+      </trans-unit>
+      <trans-unit id="e3a655f6a2bb708a63acc3c3ab638adc8dad9b6a" datatype="html">
+        <source>
+          Month
+        </source>
+        <target state="new">
+          Month
+        </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/calendar/calendar.component.ts</context>
+          <context context-type="linenumber">34</context>
+        </context-group>
+        <note priority="1" from="description">header month</note>
+      </trans-unit>
+      <trans-unit id="e3e1d0fdf584c8b2daf8224922b675e515a16243" datatype="html">
+        <source>Switch to Month View</source>
+        <target state="new">Switch to Month View</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/calendar/calendar.component.ts</context>
+          <context context-type="linenumber">34</context>
+        </context-group>
+        <note priority="1" from="description">headline tooltip switch to month view</note>
+      </trans-unit>
+      <trans-unit id="f195b9ce10426bcc3853f2f40eb8ec1910f958a8" datatype="html">
+        <source>
+          Week
+        </source>
+        <target state="new">
+          Week
+        </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/calendar/calendar.component.ts</context>
+          <context context-type="linenumber">38</context>
+        </context-group>
+        <note priority="1" from="description">header week</note>
+      </trans-unit>
+      <trans-unit id="cf5f91b7cba50032f78eec0e6e9a2697883f1ea7" datatype="html">
+        <source>Switch to Week View</source>
+        <target state="new">Switch to Week View</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/calendar/calendar.component.ts</context>
+          <context context-type="linenumber">38</context>
+        </context-group>
+        <note priority="1" from="description">headline tooltip switch to week view</note>
+      </trans-unit>
+      <trans-unit id="599e3eef480e752b1ed8ed1c3af3b1244292b72b" datatype="html">
+        <source>
+          Work Week
+        </source>
+        <target state="new">
+          Work Week
+        </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/calendar/calendar.component.ts</context>
+          <context context-type="linenumber">42</context>
+        </context-group>
+        <note priority="1" from="description">header work week</note>
+      </trans-unit>
+      <trans-unit id="444bf37977e78ba4a803b5d5c6c04e2022358870" datatype="html">
+        <source>Switch to Work Week View</source>
+        <target state="new">Switch to Work Week View</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/calendar/calendar.component.ts</context>
+          <context context-type="linenumber">42</context>
+        </context-group>
+        <note priority="1" from="description">headline tooltip switch to work week view</note>
+      </trans-unit>
+      <trans-unit id="00a603d3630c28787382f87ea3e263b5316fa1e3" datatype="html">
+        <source>
+          <x id="START_TAG_MAT-ICON" ctype="x-mat-icon" equiv-text="&lt;mat-icon>"/>lightbulb_outline
+          <x id="CLOSE_TAG_MAT-ICON" ctype="x-mat-icon" equiv-text="&lt;/mat-icon>"/>
+          Submit Feature Request
+        </source>
+        <target state="new">
+          <x id="START_TAG_MAT-ICON" ctype="x-mat-icon" equiv-text="&lt;mat-icon>"/>lightbulb_outline
+          <x id="CLOSE_TAG_MAT-ICON" ctype="x-mat-icon" equiv-text="&lt;/mat-icon>"/>
+          Submit Feature Request
+        </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/app.component.ts</context>
+          <context context-type="linenumber">30</context>
+        </context-group>
+        <note priority="1" from="description">Button to submit a feature request</note>
+      </trans-unit>
+      <trans-unit id="721599faf0685644ed83b9293435a9115521d35e" datatype="html">
+        <source>
+          <x id="START_TAG_MAT-ICON" ctype="x-mat-icon" equiv-text="&lt;mat-icon>"/>report_problem
+          <x id="CLOSE_TAG_MAT-ICON" ctype="x-mat-icon" equiv-text="&lt;/mat-icon>"/>
+          Report a Problem
+        </source>
+        <target state="new">
+          <x id="START_TAG_MAT-ICON" ctype="x-mat-icon" equiv-text="&lt;mat-icon>"/>report_problem
+          <x id="CLOSE_TAG_MAT-ICON" ctype="x-mat-icon" equiv-text="&lt;/mat-icon>"/>
+          Report a Problem
+        </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/app.component.ts</context>
+          <context context-type="linenumber">34</context>
+        </context-group>
+        <note priority="1" from="description">Button to submit a bug report</note>
+      </trans-unit>
+      <trans-unit id="4df5f7e01d15653728e36aa74c41e7ac76b73d15" datatype="html">
+        <source>
+          <x id="START_TAG_MAT-ICON" ctype="x-mat-icon" equiv-text="&lt;mat-icon>"/>delete
+          <x id="CLOSE_TAG_MAT-ICON" ctype="x-mat-icon" equiv-text="&lt;/mat-icon>"/>
+          Clear Data
+        </source>
+        <target state="new">
+          <x id="START_TAG_MAT-ICON" ctype="x-mat-icon" equiv-text="&lt;mat-icon>"/>delete
+          <x id="CLOSE_TAG_MAT-ICON" ctype="x-mat-icon" equiv-text="&lt;/mat-icon>"/>
+          Clear Data
+        </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/app.component.ts</context>
+          <context context-type="linenumber">38</context>
+        </context-group>
+        <note priority="1" from="description">Button to clear site data</note>
+      </trans-unit>
+      <trans-unit id="9158371f33a38e5319e9384f9ed4edcd3ab2524d" datatype="html">
+        <source>
+          <x id="START_TAG_MAT-ICON" ctype="x-mat-icon" equiv-text="&lt;mat-icon>"/>clear
+          <x id="CLOSE_TAG_MAT-ICON" ctype="x-mat-icon" equiv-text="&lt;/mat-icon>"/>
+          Logout
+        </source>
+        <target state="new">
+          <x id="START_TAG_MAT-ICON" ctype="x-mat-icon" equiv-text="&lt;mat-icon>"/>clear
+          <x id="CLOSE_TAG_MAT-ICON" ctype="x-mat-icon" equiv-text="&lt;/mat-icon>"/>
+          Logout
+        </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/app.component.ts</context>
+          <context context-type="linenumber">42</context>
+        </context-group>
+        <note priority="1" from="description">Button to logout</note>
+      </trans-unit>
+      <trans-unit id="1793e9226bb9aa6173d4de7ff67b07533755c7d8" datatype="html">
+        <source>Card Title</source>
+        <target state="new">Card Title</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/search/search.component.ts</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+        <note priority="1" from="description">Sidebar search placeholder for card title</note>
+      </trans-unit>
+      <trans-unit id="41aac9cecddc9f345c263d3742192e68e227e413" datatype="html">
+        <source>Menu</source>
+        <target state="new">Menu</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/sidebar/sidebar.component.ts</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+        <note priority="1" from="description">Sidebar menu header</note>
+      </trans-unit>
+      <trans-unit id="1fd7b03da7735354f5a67d4b9bebd8ec9f74639d" datatype="html">
+        <source>
+          <x id="START_TAG_MAT-ICON" ctype="x-mat-icon" equiv-text="&lt;mat-icon>"/>today
+          <x id="CLOSE_TAG_MAT-ICON" ctype="x-mat-icon" equiv-text="&lt;/mat-icon>"/>
+          Calendar
+        </source>
+        <target state="new">
+          <x id="START_TAG_MAT-ICON" ctype="x-mat-icon" equiv-text="&lt;mat-icon>"/>today
+          <x id="CLOSE_TAG_MAT-ICON" ctype="x-mat-icon" equiv-text="&lt;/mat-icon>"/>
+          Calendar
+        </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/sidebar/sidebar.component.ts</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+        <note priority="1" from="description">Sidebar calendar button</note>
+      </trans-unit>
+      <trans-unit id="ef756fe2acd7fe8d1f72a41ffbef427d54a9ebac" datatype="html">
+        <source>
+          <x id="START_TAG_MAT-ICON" ctype="x-mat-icon" equiv-text="&lt;mat-icon>"/>assignment_ind
+          <x id="CLOSE_TAG_MAT-ICON" ctype="x-mat-icon" equiv-text="&lt;/mat-icon>"/>
+          My Conversations
+          <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span>"/>NEW
+          <x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span>"/>
+        </source>
+        <target state="new">
+          <x id="START_TAG_MAT-ICON" ctype="x-mat-icon" equiv-text="&lt;mat-icon>"/>assignment_ind
+          <x id="CLOSE_TAG_MAT-ICON" ctype="x-mat-icon" equiv-text="&lt;/mat-icon>"/>
+          My Conversations
+          <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span>"/>NEW
+          <x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span>"/>
+        </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/sidebar/sidebar.component.ts</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+        <note priority="1" from="description">Sidebar my conversations button</note>
+      </trans-unit>
+      <trans-unit id="587af3c2373f852a4891d1eaf21e48c1855c628d" datatype="html">
+        <source>
+          <x id="START_TAG_MAT-ICON" ctype="x-mat-icon" equiv-text="&lt;mat-icon>"/>settings
+          <x id="CLOSE_TAG_MAT-ICON" ctype="x-mat-icon" equiv-text="&lt;/mat-icon>"/>
+          Settings
+        </source>
+        <target state="new">
+          <x id="START_TAG_MAT-ICON" ctype="x-mat-icon" equiv-text="&lt;mat-icon>"/>settings
+          <x id="CLOSE_TAG_MAT-ICON" ctype="x-mat-icon" equiv-text="&lt;/mat-icon>"/>
+          Settings
+        </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/sidebar/sidebar.component.ts</context>
+          <context context-type="linenumber">22</context>
+        </context-group>
+        <note priority="1" from="description">Sidebar settings button</note>
+      </trans-unit>
+      <trans-unit id="e8ac27a7684cdd055c4c2f740a5205e1a51cd10f" datatype="html">
+        <source>
+          <x id="START_TAG_MAT-ICON" ctype="x-mat-icon" equiv-text="&lt;mat-icon>"/>info
+          <x id="CLOSE_TAG_MAT-ICON" ctype="x-mat-icon" equiv-text="&lt;/mat-icon>"/>
+          About
+        </source>
+        <target state="new">
+          <x id="START_TAG_MAT-ICON" ctype="x-mat-icon" equiv-text="&lt;mat-icon>"/>info
+          <x id="CLOSE_TAG_MAT-ICON" ctype="x-mat-icon" equiv-text="&lt;/mat-icon>"/>
+          About
+        </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/sidebar/sidebar.component.ts</context>
+          <context context-type="linenumber">26</context>
+        </context-group>
+        <note priority="1" from="description">Sidebar about button</note>
+      </trans-unit>
+      <trans-unit id="f324a6867b1d23a56912d6bec936ce1de123f351" datatype="html">
+        <source>Cards</source>
+        <target state="new">Cards</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/sidebar/sidebar.component.ts</context>
+          <context context-type="linenumber">33</context>
+        </context-group>
+        <note priority="1" from="description">Sidebar cards header</note>
+      </trans-unit>
+      <trans-unit id="1d56940b1fcb899e9b751529415e1a2f58842c91" datatype="html">
+        <source>
+          <x id="START_TAG_MAT-ICON" ctype="x-mat-icon" equiv-text="&lt;mat-icon>"/>search
+          <x id="CLOSE_TAG_MAT-ICON" ctype="x-mat-icon" equiv-text="&lt;/mat-icon>"/>
+          Search
+        </source>
+        <target state="new">
+          <x id="START_TAG_MAT-ICON" ctype="x-mat-icon" equiv-text="&lt;mat-icon>"/>search
+          <x id="CLOSE_TAG_MAT-ICON" ctype="x-mat-icon" equiv-text="&lt;/mat-icon>"/>
+          Search
+        </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/sidebar/sidebar.component.ts</context>
+          <context context-type="linenumber">34</context>
+        </context-group>
+        <note priority="1" from="description">Sidebar search button</note>
+      </trans-unit>
+      <trans-unit id="0629a8966fce300d8a87e18952af2b5feaae4867" datatype="html">
+        <source>
+          <x id="START_TAG_MAT-ICON" ctype="x-mat-icon" equiv-text="&lt;mat-icon>"/>close
+          <x id="CLOSE_TAG_MAT-ICON" ctype="x-mat-icon" equiv-text="&lt;/mat-icon>"/>
+          Close Menu
+        </source>
+        <target state="new">
+          <x id="START_TAG_MAT-ICON" ctype="x-mat-icon" equiv-text="&lt;mat-icon>"/>close
+          <x id="CLOSE_TAG_MAT-ICON" ctype="x-mat-icon" equiv-text="&lt;/mat-icon>"/>
+          Close Menu
+        </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/sidebar/sidebar.component.ts</context>
+          <context context-type="linenumber">46</context>
+        </context-group>
+        <note priority="1" from="description">Sidebar close menu button</note>
+      </trans-unit>
+      <trans-unit id="1fe3c8dca622ae21dc39ec76d38d246406418b70" datatype="html">
+        <source>Weekstart</source>
+        <target state="new">Weekstart</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/settings/settings.component.ts</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+        <note priority="1" from="description">settings weekstart headline</note>
+      </trans-unit>
+      <trans-unit id="0395732f8d8d2f103e4fb8e73e433c1adefc3f40" datatype="html">
+        <source>
+          Sunday
+        </source>
+        <target state="new">
+          Sunday
+        </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/settings/settings.component.ts</context>
+          <context context-type="linenumber">26</context>
+        </context-group>
+        <note priority="1" from="description">Settings weekstart Sunday</note>
+      </trans-unit>
+      <trans-unit id="1903ae8457efaf2055369c22a0dbeb6b1c80323c" datatype="html">
+        <source>
+          Monday
+        </source>
+        <target state="new">
+          Monday
+        </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/settings/settings.component.ts</context>
+          <context context-type="linenumber">29</context>
+        </context-group>
+        <note priority="1" from="description">Settings weekstart Monday</note>
+      </trans-unit>
+      <trans-unit id="8a11afe95000d80702ed94ab38525f645c92d35c" datatype="html">
+        <source>Weekend</source>
+        <target state="new">Weekend</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/settings/settings.component.ts</context>
+          <context context-type="linenumber">38</context>
+        </context-group>
+        <note priority="1" from="description">Settings Weekend headline</note>
+      </trans-unit>
+      <trans-unit id="7ecf3fd2bd5f42912edb08824b6a5dd769f799b7" datatype="html">
+        <source>Show
+          Weekend
+        </source>
+        <target state="new">Show
+          Weekend
+        </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/settings/settings.component.ts</context>
+          <context context-type="linenumber">44</context>
+        </context-group>
+        <note priority="1" from="description">Settings checkbox show weekend</note>
+      </trans-unit>
+      <trans-unit id="2077418f91e8d81a80a99289dcc788851b80cfe5" datatype="html">
+        <source>Week Views</source>
+        <target state="new">Week Views</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/settings/settings.component.ts</context>
+          <context context-type="linenumber">56</context>
+        </context-group>
+        <note priority="1" from="description">Settings week view headline</note>
+      </trans-unit>
+      <trans-unit id="ebc1c1fd68f1c7432edc6fb157a2b6dc33fc2a69" datatype="html">
+        <source>Configure your week and work week view</source>
+        <target state="new">Configure your week and work week view</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/settings/settings.component.ts</context>
+          <context context-type="linenumber">57</context>
+        </context-group>
+        <note priority="1" from="description">Settings week view description</note>
+      </trans-unit>
+      <trans-unit id="40f18a2ba0830c19c3f2d17cfc5ded8cab79c0a8" datatype="html">
+        <source>Show
+          hours
+        </source>
+        <target state="new">Show
+          hours
+        </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/settings/settings.component.ts</context>
+          <context context-type="linenumber">62</context>
+        </context-group>
+        <note priority="1" from="description">Settings checkbox show hours</note>
+      </trans-unit>
+      <trans-unit id="d3ef7880e4b87c27c8d4c171bf46ba3b62717845" datatype="html">
+        <source>Core labor time from</source>
+        <target state="new">Core labor time from</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/settings/settings.component.ts</context>
+          <context context-type="linenumber">68</context>
+        </context-group>
+        <note priority="1" from="description">Settings placeholder core labor time from</note>
+      </trans-unit>
+      <trans-unit id="e04356b41e0d85f3e2f7ebc72a3f75c6e1147663" datatype="html">
+        <source>to</source>
+        <target state="new">to</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/settings/settings.component.ts</context>
+          <context context-type="linenumber">87</context>
+        </context-group>
+        <note priority="1" from="description">Settings placeholder core labor time to</note>
+      </trans-unit>
+      <trans-unit id="3e8f467811d884e742ce8eda5a66661c07b510e8" datatype="html">
+        <source>Done Cards</source>
+        <target state="new">Done Cards</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/settings/settings.component.ts</context>
+          <context context-type="linenumber">108</context>
+        </context-group>
+        <note priority="1" from="description">Settings headline done cards</note>
+      </trans-unit>
+      <trans-unit id="fbf4c82cf43dc2960b4e361122ba78dd29927703" datatype="html">
+        <source>Show cards which are marked as done</source>
+        <target state="new">Show cards which are marked as done</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/settings/settings.component.ts</context>
+          <context context-type="linenumber">109</context>
+        </context-group>
+        <note priority="1" from="description">Settings description done cards</note>
+      </trans-unit>
+      <trans-unit id="2aba1e87039819aca3b70faa9aa848c12bf139ca" datatype="html">
+        <source>Show</source>
+        <target state="new">Show</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/settings/settings.component.ts</context>
+          <context context-type="linenumber">116</context>
+        </context-group>
+        <note priority="1" from="description">Settings done cards checkbox show</note>
+      </trans-unit>
+      <trans-unit id="1eede69e18c5ac9c0b0295b72cabb7e64e029e74" datatype="html">
+        <source>Hide</source>
+        <target state="new">Hide</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/settings/settings.component.ts</context>
+          <context context-type="linenumber">117</context>
+        </context-group>
+        <note priority="1" from="description">Settings done cards checkbox hide</note>
+      </trans-unit>
+      <trans-unit id="f92c35046d5e77c94a5f95d12a3a97fba22b04ea" datatype="html">
+        <source>Board Settings</source>
+        <target state="new">Board Settings</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/settings/settings.component.ts</context>
+          <context context-type="linenumber">127</context>
+        </context-group>
+        <note priority="1" from="description">Settings Board settings headline</note>
+      </trans-unit>
+      <trans-unit id="5b54d26b37fae3f3bfe6f154417ba0a0f89596ea" datatype="html">
+        <source>Hide/Display Boards and overwrite Trello Board Colors</source>
+        <target state="new">Hide/Display Boards and overwrite Trello Board Colors</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/settings/settings.component.ts</context>
+          <context context-type="linenumber">128</context>
+        </context-group>
+        <note priority="1" from="description">Settings board settings description</note>
+      </trans-unit>
+      <trans-unit id="03d4e07431bbaa375ce8a244c3439b2690a14d89" datatype="html">
+        <source>Invisible
+        </source>
+        <target state="new">Invisible
+        </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/settings/edit-board/edit-board.component.ts</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+        <note priority="1" from="description">Settings edit cards checkbox invisible</note>
+      </trans-unit>
+      <trans-unit id="7c809a65ed8a4f4f17ef0c193a649493e00e3d84" datatype="html">
+        <source>Filter for User</source>
+        <target state="new">Filter for User</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/calendar/member-selector/member-selector.component.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+        <note priority="1" from="description">header placeholder to filter for user</note>
+      </trans-unit>
+      <trans-unit id="0b53fbc449cd04c1b3a1ff7dd3efead573c98182" datatype="html">
+        <source>Filter for label</source>
+        <target state="new">Filter for label</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/calendar/label-selector/label-selector.component.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+        <note priority="1" from="description">header placeholder to filter for label</note>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

@@ -1,4 +1,4 @@
-<button (click)="show = !show" *ngIf="cards.length" mat-menu-item>
+<button i18n="Sidebar without due date" (click)="show = !show" *ngIf="cards.length" mat-menu-item>
   <mat-icon>{{cards.length ? "timer off" : ""}}</mat-icon>
   without Due Date <span class="label"> {{cards.length}}</span>
 </button>

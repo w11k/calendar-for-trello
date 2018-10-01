@@ -15,16 +15,19 @@
 </mat-card>-->
 <mat-card class="board-card">
   <mat-card-header>
-    <mat-card-title>Weekstart</mat-card-title>
+    <mat-card-title i18n="settings weekstart headline">Weekstart</mat-card-title>
     <mat-card-subtitle></mat-card-subtitle>
   </mat-card-header>
   <mat-card-content>
 
     <div style="padding:10px">
       <mat-radio-group class="week-start-radio-group" [(ngModel)]="settings.weekStart"
-                       (ngModelChange)="updateWekStart($event)">
-        <mat-radio-button class="week-start-radio-button" *ngFor="let weekstartDay of weekStartDays" [value]="weekstartDay.key">
-          {{weekstartDay.name}}
+                       (ngModelChange)="updateWeekStart($event)">
+        <mat-radio-button i18n="Settings weekstart Sunday" class="week-start-radio-button" [value]="WeekStart.Sunday">
+          Sunday
+        </mat-radio-button>
+        <mat-radio-button i18n="Settings weekstart Monday" class="week-start-radio-button" [value]="WeekStart.Monday">
+          Monday
         </mat-radio-button>
       </mat-radio-group>
 
@@ -32,13 +35,13 @@
   </mat-card-content>
 </mat-card><mat-card class="board-card">
   <mat-card-header>
-    <mat-card-title>Weekend</mat-card-title>
+    <mat-card-title i18n="Settings Weekend headline">Weekend</mat-card-title>
     <mat-card-subtitle></mat-card-subtitle>
   </mat-card-header>
   <mat-card-content>
 
       <div style="padding:10px">
-        <mat-checkbox [(ngModel)]="settings.showWeekend" (ngModelChange)="updateShowWeekend($event)">Show
+        <mat-checkbox i18n="Settings checkbox show weekend" [(ngModel)]="settings.showWeekend" (ngModelChange)="updateShowWeekend($event)">Show
           Weekend
         </mat-checkbox>
       </div>
@@ -50,19 +53,19 @@
 
 <mat-card class="board-card">
   <mat-card-header>
-    <mat-card-title>Week Views</mat-card-title>
-    <mat-card-subtitle>Configure your week and work week view</mat-card-subtitle>
+    <mat-card-title i18n="Settings week view headline">Week Views</mat-card-title>
+    <mat-card-subtitle i18n="Settings week view description">Configure your week and work week view</mat-card-subtitle>
   </mat-card-header>
   <mat-card-content>
 
     <div style="padding:10px">
-      <mat-checkbox [(ngModel)]="settings.weekViewShowHours" (ngModelChange)="updateWeekviewShowHours($event)">Show
+      <mat-checkbox i18n="Settings checkbox show hours" [(ngModel)]="settings.weekViewShowHours" (ngModelChange)="updateWeekviewShowHours($event)">Show
         hours
       </mat-checkbox>
     </div>
 
     <div style="padding:10px">
-      <mat-select placeholder="Core labor time from" [(ngModel)]="settings.businessHoursStart"
+      <mat-select i18n-placeholder="Settings placeholder core labor time from" placeholder="Core labor time from" [(ngModel)]="settings.businessHoursStart"
                  (ngModelChange)="updateBusinessHoursStart($event)">
         <mat-option [value]="0">24 pm</mat-option>
         <mat-option [value]="1">1 am</mat-option>
@@ -81,7 +84,7 @@
     </div>
 
     <div style="padding:10px">
-      <mat-select placeholder="to" [(ngModel)]="settings.businessHoursEnd"
+      <mat-select i18n-placeholder="Settings placeholder core labor time to" placeholder="to" [(ngModel)]="settings.businessHoursEnd"
                  (ngModelChange)="updateBusinessHoursEnd($event)">
         <mat-option [value]="13">1 pm</mat-option>
         <mat-option [value]="14">2 pm</mat-option>
@@ -102,16 +105,16 @@
 
 <mat-card class="board-card">
   <mat-card-header>
-    <mat-card-title>Done Cards</mat-card-title>
-    <mat-card-subtitle>Show cards which are marked as done</mat-card-subtitle>
+    <mat-card-title i18n="Settings headline done cards">Done Cards</mat-card-title>
+    <mat-card-subtitle i18n="Settings description done cards">Show cards which are marked as done</mat-card-subtitle>
   </mat-card-header>
   <mat-card-content>
 
     <div style="padding:10px">
       <mat-select placeholder="" [(ngModel)]="settings.includeDoneCards"
                  (ngModelChange)="updateIncludeDoneCards($event)">
-        <mat-option [value]="true">Show</mat-option>
-        <mat-option [value]="false">Hide</mat-option>
+        <mat-option i18n="Settings done cards checkbox show" [value]="true">Show</mat-option>
+        <mat-option i18n="Settings done cards checkbox hide" [value]="false">Hide</mat-option>
       </mat-select>
 
     </div>
@@ -121,8 +124,8 @@
 
 <mat-card class="board-card">
   <mat-card-header>
-    <mat-card-title>Board Settings</mat-card-title>
-    <mat-card-subtitle>Hide/Display Boards and overwrite Trello Board Colors</mat-card-subtitle>
+    <mat-card-title i18n="Settings Board settings headline">Board Settings</mat-card-title>
+    <mat-card-subtitle i18n="Settings board settings description">Hide/Display Boards and overwrite Trello Board Colors</mat-card-subtitle>
   </mat-card-header>
   <mat-card-content>
     <mat-list dense>

@@ -47,7 +47,8 @@ export class CalendarToolbarComponent implements OnInit, OnDestroy {
 
       const arr = [];
       times(weekLength, () => {
-        arr.push(format(date, 'dddd'));
+        // arr.push(format(date, 'dddd'));
+        arr.push(date);
         date = addDays(date, 1);
       });
       return arr;

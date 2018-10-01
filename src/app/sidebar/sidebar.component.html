@@ -9,17 +9,29 @@
 
   <mat-list>
 
-    <h3 mat-subheader>Menu</h3>
-    <button mat-menu-item mat-list-item *ngFor="let item of navigation" routerLink="{{item.link}}">
-      <mat-icon>{{item.icon}}</mat-icon>
-      {{ item.text }}
-      <span *ngIf="item.hot" class="hot">NEW</span>
+    <h3 i18n="Sidebar menu header" mat-subheader>Menu</h3>
+    <button i18n="Sidebar calendar button" mat-menu-item mat-list-item routerLink="/">
+      <mat-icon>today</mat-icon>
+      Calendar
+    </button>
+    <button i18n="Sidebar my conversations button" mat-menu-item mat-list-item routerLink="/conversations">
+      <mat-icon>assignment_ind</mat-icon>
+      My Conversations
+      <span class="hot">NEW</span>
+    </button>
+    <button i18n="Sidebar settings button" mat-menu-item mat-list-item routerLink="/settings">
+      <mat-icon>settings</mat-icon>
+      Settings
+    </button>
+    <button i18n="Sidebar about button" mat-menu-item mat-list-item routerLink="/about">
+      <mat-icon>info</mat-icon>
+      About
     </button>
     <mat-divider></mat-divider>
 
 
-    <h3 mat-subheader>Cards</h3>
-    <button mat-menu-item mat-list-item (click)="activeSearch = !activeSearch">
+    <h3 i18n="Sidebar cards header" mat-subheader>Cards</h3>
+    <button i18n="Sidebar search button" mat-menu-item mat-list-item (click)="activeSearch = !activeSearch">
       <mat-icon>search</mat-icon>
       Search
     </button>
@@ -31,7 +43,7 @@
     <mat-divider class="spacer1"></mat-divider>
 
 
-    <button mat-menu-item mat-list-item (click)="start.close()">
+    <button i18n="Sidebar close menu button" mat-menu-item mat-list-item (click)="start.close()">
       <mat-icon>close</mat-icon>
       Close Menu
     </button>

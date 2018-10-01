@@ -18,16 +18,8 @@ export class SidebarComponent implements OnInit, OnDestroy {
   @select('user') public user$: Observable<User>;
   public user: User;
   public activeSearch: boolean;
-  navigation: MenuItem[];
 
-  constructor() {
-    this.navigation = [
-      new MenuItem('Calendar', '/', 'today'),
-      new MenuItem('My Conversations', '/conversations', 'assignment_ind', true),
-      new MenuItem('Settings', '/settings', 'settings'),
-      new MenuItem('About', '/about', 'info'),
-    ];
-  }
+  constructor() {}
 
   ngOnInit() {
     this.user$

@@ -1,12 +1,13 @@
-import { Injectable } from '@angular/core';
-import {Subject} from 'rxjs/Subject';
+import {Injectable} from '@angular/core';
+import {Subject} from 'rxjs';
 
 @Injectable()
 export class DropZoneService {
 
   public channel: Subject<boolean> = new Subject();
 
-  constructor() { }
+  constructor() {
+  }
 
   public getUpdates() {
     return this.channel.asObservable();

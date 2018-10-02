@@ -1,10 +1,9 @@
 import {ChangeDetectionStrategy, Component, HostBinding, Input, OnDestroy, OnInit} from '@angular/core';
 import {Card} from '../../models/card';
 import {select} from '@angular-redux/store';
-import {Observable, Subscription} from 'rxjs';
+import {combineLatest, Observable, Subscription} from 'rxjs';
 import {Board} from '../../models/board';
 import {List} from '../../models/list';
-
 import {selectBoardColorPrefs} from '../../redux/store/selects';
 import {MemberMap} from '../../redux/reducers/member.reducer';
 import {CardActions} from '../../redux/actions/card-actions';
@@ -42,8 +41,7 @@ export class CalendarCardComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.subscriptions.push(
-      Observable
-        .combineLatest(this.boardColorPrefs$, this.boards$, this.lists$)
+      combineLatest(this.boardColorPrefs$, this.boards$, this.lists$)
         .subscribe(x => {
           const boardColorPrefs = x[0];
           const boards: Board[] = x[1];

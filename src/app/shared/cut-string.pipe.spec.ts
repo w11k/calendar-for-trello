@@ -1,4 +1,3 @@
-/* tslint:disable:no-unused-variable */
 import {CutStringPipe} from './cut-string.pipe';
 
 describe('CutStringPipe', () => {

@@ -1,6 +1,5 @@
 import {Injectable} from '@angular/core';
-
-import {Observable} from 'rxjs/Observable';
+import {Observable} from 'rxjs';
 import {TrelloHttpService} from '../services/trello-http.service';
 import {HttpParams} from '@angular/common/http';
 import {Card} from '../models/card';

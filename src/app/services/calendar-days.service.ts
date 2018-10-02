@@ -5,8 +5,18 @@ import {select} from '@angular-redux/store';
 import {combineLatest, Observable} from 'rxjs';
 import {selectSettingsShowWeekend, selectSettingsWeekStart} from '../redux/store/selects';
 import {times} from '../shared/times';
-import {addDays, getDay, getDaysInMonth, isSameDay, isWeekend, lastDayOfMonth, startOfMonth, startOfWeek, subDays} from 'date-fns';
-
+import {
+  addDays,
+  getDay,
+  getDaysInMonth,
+  isSameDay,
+  isWeekend,
+  lastDayOfMonth,
+  startOfMonth,
+  startOfWeek,
+  subDays
+} from 'date-fns';
+import {take} from 'rxjs/operators';
 
 @Injectable()
 export class CalendarDaysService {
@@ -19,8 +29,9 @@ export class CalendarDaysService {
 
       let days: CalendarDay[] = [];
 
-      combineLatest(this.weekStart$, this.showWeekend$)
-        .take(1)
+      combineLatest(this.weekStart$, this.showWeekend$).pipe(
+        take(1)
+      )
         .subscribe(x => {
 
           const weekStart = x[0];

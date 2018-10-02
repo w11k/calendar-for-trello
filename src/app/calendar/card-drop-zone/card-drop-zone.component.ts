@@ -3,7 +3,7 @@ import {DragDropData} from '@beyerleinf/ngx-dnd';
 import {CardActions} from '../../redux/actions/card-actions';
 import {Card} from '../../models/card';
 import {DropZoneService} from '../../services/drop-zone.service';
-import {Observable} from 'rxjs/Observable';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-card-drop-zone',

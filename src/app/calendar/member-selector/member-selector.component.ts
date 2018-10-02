@@ -47,8 +47,7 @@ export class MemberSelectorComponent implements OnInit, OnDestroy {
       .subscribe(settings => this.memberCtrl
         .patchValue(settings.filterForUser, {onlySelf: true, emitEvent: false}));
 
-    this.memberCtrl.valueChanges
-      .takeUntil(componentDestroyed((this)))
+    this.memberCtrl.valueChanges.pipe(takeUntil(componentDestroyed((this))))
       .subscribe(res => this.update(res));
   }
 

@@ -10,7 +10,7 @@ import { NgxsModule } from '@ngxs/store';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 import { NgxsStoragePluginModule } from '@ngxs/storage-plugin';
 import { InboxState } from './ngxs/inbox.state';
-import {ConversationsState} from './ngxs/conversationsState';
+import {ConversationsState} from './ngxs/conversations.state';
 
 @NgModule({
   declarations: [

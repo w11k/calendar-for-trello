@@ -158,6 +158,8 @@
           Submit Feature Request
         </source>
         <target state="translated">
+          <x id="START_TAG_MAT-ICON" ctype="x-mat-icon" equiv-text="&lt;mat-icon>"/>lightbulb_outline
+          <x id="CLOSE_TAG_MAT-ICON" ctype="x-mat-icon" equiv-text="&lt;/mat-icon>"/>
           Feature Request einreichen
         </target>
         <context-group purpose="location">
@@ -173,6 +175,8 @@
           Report a Problem
         </source>
         <target state="translated">
+          <x id="START_TAG_MAT-ICON" ctype="x-mat-icon" equiv-text="&lt;mat-icon>"/>report_problem
+          <x id="CLOSE_TAG_MAT-ICON" ctype="x-mat-icon" equiv-text="&lt;/mat-icon>"/>
           Ein Problem melden
         </target>
         <context-group purpose="location">
@@ -188,6 +192,8 @@
           Clear Data
         </source>
         <target state="translated">
+          <x id="START_TAG_MAT-ICON" ctype="x-mat-icon" equiv-text="&lt;mat-icon>"/>delete
+          <x id="CLOSE_TAG_MAT-ICON" ctype="x-mat-icon" equiv-text="&lt;/mat-icon>"/>
           Daten löschen
         </target>
         <context-group purpose="location">
@@ -203,6 +209,8 @@
           Logout
         </source>
         <target state="translated">
+          <x id="START_TAG_MAT-ICON" ctype="x-mat-icon" equiv-text="&lt;mat-icon>"/>clear
+          <x id="CLOSE_TAG_MAT-ICON" ctype="x-mat-icon" equiv-text="&lt;/mat-icon>"/>
           Ausloggen
         </target>
         <context-group purpose="location">

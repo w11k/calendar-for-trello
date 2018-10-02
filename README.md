@@ -25,7 +25,7 @@ The local dev server runs on `http://localhost:4200`
 2. add the language to the `npm run extract-i18n` command
 3. run the `npm run extract-i18n` command
 4. a new file in `src/locale` is created.
-5. translate this file using any translation tool or editor like [https://github.com/martinroob/tiny-translator]()
+5. translate this file using any translation tool or editor like [https://github.com/martinroob/tiny-translator](https://github.com/martinroob/tiny-translator)
 6. create a Pull Request and we'll integrate the language
     
 ## Privacy Information

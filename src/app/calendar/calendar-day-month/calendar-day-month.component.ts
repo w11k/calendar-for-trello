@@ -1,4 +1,4 @@
-import {Component, ElementRef, HostListener, Input, OnDestroy, OnInit, Renderer} from '@angular/core';
+import {Component, ElementRef, HostListener, Input, OnDestroy, OnInit} from '@angular/core';
 import {CalendarDay} from '../../models/calendar-day';
 import {select} from '@angular-redux/store';
 import {Observable} from 'rxjs';
@@ -22,7 +22,6 @@ export class CalendarDayForMonthComponent implements OnInit, OnDestroy {
   @Input() public cards;
 
   constructor(public cardActions: CardActions,
-              private renderer: Renderer,
               private element: ElementRef,
               private contextMenuService: ContextMenuService, private dropZoneService: DropZoneService) {
   }

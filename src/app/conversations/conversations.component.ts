@@ -1,22 +1,23 @@
 import {Card} from '../models/card';
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ConversationsService, MysteriousCardObject} from './conversations.service';
-import {Observable} from 'rxjs/Observable';
-import 'rxjs/add/observable/combineLatest';
-import 'rxjs/add/observable/from';
-import 'rxjs/add/observable/interval';
-import 'rxjs/add/operator/delay';
+import {Observable} from 'rxjs';
 import {select} from '@angular-redux/store';
 import {User} from '../models/user';
 import {Member} from '../models/member';
 import {Select, Store} from '@ngxs/store';
 import {
-  AddInbox, AddOutbox, ClearInbox, ClearOutbox, HideHelp, HideLoadButton,
+  AddInbox,
+  AddOutbox,
+  ClearInbox,
+  ClearOutbox,
+  HideHelp,
+  HideLoadButton,
   UpdateLastUpdate
 } from './ngxs/app.action';
 import {InboxState} from './ngxs/inbox.state';
 import {OutboxState} from './ngxs/outbox.state';
-import {ConversationsState} from './ngxs/conversationsState';
+import {ConversationsState} from './ngxs/conversations.state';
 import {take} from 'rxjs/operators';
 import {TrackingService} from '../tracking/tracking.service';
 import {TrackingEvent} from '../tracking/tracking-event.model';

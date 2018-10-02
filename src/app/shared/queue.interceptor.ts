@@ -1,7 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from '@angular/common/http';
-import {Observable} from 'rxjs/Observable';
-import {interval, Subject} from 'rxjs';
+import {Observable, Subject} from 'rxjs';
 import DelayQueue from '../rx-queue/delay-queue';
 import {LoadingSpinnerService} from '../loading-spinner/loading-spinner.service';
 

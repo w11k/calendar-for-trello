@@ -6,7 +6,7 @@ import {CalendarDay} from '../../models/calendar-day';
 import {DateTimeFormatService} from '../../services/date-time-format.service';
 import {DragDropData} from '@beyerleinf/ngx-dnd';
 import {CardActions} from '../../redux/actions/card-actions';
-import {WeekDaySlot} from './WeekDaySlot';
+import {WeekDaySlot} from './week-day-slot.model';
 import {Settings} from '../../models/settings';
 import {selectCalendarCards, selectCalendarDays} from '../../redux/store/selects';
 import {DropZoneService} from '../../services/drop-zone.service';

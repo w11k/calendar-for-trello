@@ -9,7 +9,6 @@ import {Observable} from 'rxjs';
 import {MemberActions} from '../redux/actions/member-actions';
 import {select} from '@angular-redux/store';
 import {selectBoards} from '../redux/store/selects';
-import 'rxjs/add/operator/take';
 import {take} from 'rxjs/operators';
 import {User} from '../models/user';
 import {Card} from '../models/card';
@@ -31,13 +30,12 @@ export class TrelloPullService {
               private memberActions: MemberActions) {
   }
 
-  public pull = () => {
+  public pull() {
     this._fetchBoards();
     this._fetchUser();
   }
 
-
-  private _fetchBoards = () => {
+  private _fetchBoards() {
     this.tHttp.get<Board[]>('member/me/boards', null).subscribe(
       boards => {
 
@@ -58,16 +56,8 @@ export class TrelloPullService {
 
   }
 
-  private _fetchUser = () => {
-    this.tHttp.get<User>('/members/me').subscribe(
-      data => this.userActons.addUser(data),
-      error => console.error(error)
-    );
-  }
-
-
   // determines if each Board in an array is fresh (pulled)
-  private _checkBoards = (boards: Board[]): Board[] => {
+  private _checkBoards(boards: Board[]): Board[] {
     const now = new Date();
     return boards.filter(
       board => {
@@ -79,6 +69,13 @@ export class TrelloPullService {
           return true;
         }
       });
+  }
+
+  private _fetchUser() {
+    this.tHttp.get<User>('/members/me').subscribe(
+      data => this.userActons.addUser(data),
+      error => console.error(error)
+    );
   }
 
   private _loadCardsOfBoard(boards: Board[]) {

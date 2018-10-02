@@ -1,14 +1,14 @@
 import {Component, ElementRef, HostListener, Input, OnDestroy, OnInit, Renderer} from '@angular/core';
 import {CalendarDay} from '../../models/calendar-day';
 import {select} from '@angular-redux/store';
-import {Observable, Subscription} from 'rxjs';
+import {Observable} from 'rxjs';
 import {Card} from '../../models/card';
 import {CardActions} from '../../redux/actions/card-actions';
 import {ContextMenuService} from '../context-menu-holder/context-menu.service';
 import {selectCalendarCards} from '../../redux/store/selects';
 import {DropZoneService} from '../../services/drop-zone.service';
 import {DragDropData} from '@beyerleinf/ngx-dnd';
-import {compareAsc, getHours, getMinutes, getSeconds, isSameDay, setHours, setMinutes, setSeconds} from 'date-fns';
+import {getHours, getMinutes, getSeconds, setHours, setMinutes, setSeconds} from 'date-fns';
 
 @Component({
   selector: 'app-calendar-day-month',

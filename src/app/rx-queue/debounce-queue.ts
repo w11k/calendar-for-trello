@@ -1,5 +1,5 @@
-import {interval, Subject, Subscription,} from 'rxjs';
-import {debounce,} from 'rxjs/operators';
+import {interval, Subject, Subscription} from 'rxjs';
+import {debounce} from 'rxjs/operators';
 
 import RxQueue from './rx-queue';
 

@@ -8,6 +8,7 @@ import {MemberMap} from '../../redux/reducers/member.reducer';
 import {FormControl} from '@angular/forms';
 import {componentDestroyed} from 'ng2-rx-componentdestroyed';
 import {selectVisibleMembers} from '../../redux/store/selects';
+import {takeUntil} from 'rxjs/operators';
 
 @Component({
   selector: 'app-member-selector',
@@ -21,36 +22,34 @@ export class MemberSelectorComponent implements OnInit, OnDestroy {
   membersArr: Member[] = [];
   memberCtrl: FormControl;
 
+  constructor(private settingsActions: SettingsActions) {
+  }
 
   @HostBinding('class.active') get isActive() {
     return this.memberCtrl.value !== null;
   }
 
-  constructor(private settingsActions: SettingsActions) {
-  }
-
   ngOnInit() {
 
-    this.members$
-        .takeUntil(componentDestroyed(this))
-        .subscribe(
-        members => {
-          this.membersArr.push(new Member(null, 'Don\'t Filter'));
-          for (const key of Object.keys(members)) {
-            this.membersArr.push(members[key]);
-          }
-        });
+    this.members$.pipe(
+      takeUntil(componentDestroyed(this))
+    ).subscribe(
+      members => {
+        this.membersArr.push(new Member(null, 'Don\'t Filter'));
+        for (const key of Object.keys(members)) {
+          this.membersArr.push(members[key]);
+        }
+      });
 
     this.memberCtrl = new FormControl(null);
 
-
-    this.settings$.takeUntil(componentDestroyed(this))
-        .subscribe(settings => this.memberCtrl
+    this.settings$.pipe(takeUntil(componentDestroyed(this)))
+      .subscribe(settings => this.memberCtrl
         .patchValue(settings.filterForUser, {onlySelf: true, emitEvent: false}));
 
     this.memberCtrl.valueChanges
-        .takeUntil(componentDestroyed((this)))
-        .subscribe(res => this.update(res));
+      .takeUntil(componentDestroyed((this)))
+      .subscribe(res => this.update(res));
   }
 
 

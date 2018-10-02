@@ -46,7 +46,7 @@ export class MonthComponent implements OnInit, OnDestroy {
 
   public getCardsOf(day: CalendarDay) {
     if (this.daysWithCards) {
-      const time = startOfDay(day.date).getTime()
+      const time = startOfDay(day.date).getTime();
       const withCard = this.daysWithCards[time];
       return withCard;
     }

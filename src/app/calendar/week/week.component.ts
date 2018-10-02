@@ -20,20 +20,19 @@ import {setTime} from '../../shared/date';
 })
 export class WeekComponent implements OnInit, OnDestroy {
 
-  private subscriptions: Subscription[] = [];
   public slots: WeekDaySlot[] = [];
   public cards: Card[];
-
   public cardHolder: Object; //  {key: Cards[]}
-
   @select(selectCalendarCards) public cards$: Observable<Card[]>;
   @select(selectCalendarDays) public calendarDays$: Observable<CalendarDay[]>;
-
   @select('settings') public settings$: Observable<Settings>;
   public settings: Settings = new Settings();
   public amountDays: number;
+  private subscriptions: Subscription[] = [];
 
-  constructor(private dateTimeFormatService: DateTimeFormatService, private cardActions: CardActions, private dropZoneService: DropZoneService) {
+  constructor(private dateTimeFormatService: DateTimeFormatService,
+              private cardActions: CardActions,
+              private dropZoneService: DropZoneService) {
   }
 
   ngOnInit() {
@@ -56,6 +55,33 @@ export class WeekComponent implements OnInit, OnDestroy {
       ));
   }
 
+  onDropSuccess(event: DragDropData, slot: WeekDaySlot) {
+    const card: Card = event.dragData;
+    const minutes = getMinutes(card.due);
+    const seconds = getSeconds(card.due);
+
+    let hours;
+    if (this.settings.weekViewShowHours) {
+      hours = slot.hours;
+    } else {
+      hours = getHours(card.due);
+    }
+
+    const due = setTime(slot.calendarDay.date, hours, minutes, seconds);
+    this.cardActions.updateCardsDue(card.id, due);
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.forEach(subscription => subscription.unsubscribe());
+  }
+
+  dragStart($event: DragDropData) {
+    this.dropZoneService.dragStart();
+  }
+
+  dragEnd($event: DragDropData) {
+    this.dropZoneService.dragStop();
+  }
 
   private createHours(calendarDays: CalendarDay[], cards: Card[]) {
     this.cardHolder = {};
@@ -77,34 +103,5 @@ export class WeekComponent implements OnInit, OnDestroy {
         }
       );
     }
-  }
-
-  onDropSuccess(event: DragDropData, slot: WeekDaySlot) {
-    const card: Card = event.dragData;
-    const minutes = getMinutes(card.due);
-    const seconds = getSeconds(card.due);
-
-    let hours;
-    if (this.settings.weekViewShowHours) {
-      hours = slot.hours;
-    } else {
-      hours = getHours(card.due);
-    }
-
-    const due = setTime(slot.CalendarDay.date, hours, minutes, seconds);
-    this.cardActions.updateCardsDue(card.id, due);
-  }
-
-
-  ngOnDestroy() {
-    this.subscriptions.forEach(subscription => subscription.unsubscribe());
-  }
-
-  dragStart($event: DragDropData) {
-    this.dropZoneService.dragStart();
-  }
-
-  dragEnd($event: DragDropData) {
-    this.dropZoneService.dragStop();
   }
 }

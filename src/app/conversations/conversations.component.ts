@@ -165,13 +165,17 @@ export class ConversationsComponent implements OnInit, OnDestroy {
       .catch(err => this.trackingService.track(new TrackingEvent('conversations', 'failed', `error`)))
       .finally(() => {
         this.trackingService.track(new TrackingEvent('conversations', 'loaded-cards', `${this.loadingInfo.cards}`));
-      this.currentPhase = Phase.Done;
-      this.store.dispatch(new UpdateLastUpdate());
-    });
+        this.currentPhase = Phase.Done;
+        this.store.dispatch(new UpdateLastUpdate());
+      });
   }
 
 
-  checkInAndOutBox(commentCards: MysteriousCardObject[], myUserId: string, myUsername: string, otherMemberNames: string[], allCards: Card[]) {
+  checkInAndOutBox(commentCards: MysteriousCardObject[],
+                   myUserId: string,
+                   myUsername: string,
+                   otherMemberNames: string[],
+                   allCards: Card[]) {
 
     const firstCommentCard = commentCards[0];
     const firstComment: string = firstCommentCard.data.text;

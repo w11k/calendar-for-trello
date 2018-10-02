@@ -1,4 +1,4 @@
-import {Component, HostBinding, OnInit} from '@angular/core';
+import {Component, HostBinding, OnDestroy, OnInit} from '@angular/core';
 import {FormControl} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {Settings} from '../../models/settings';
@@ -20,7 +20,7 @@ import {Label} from '../../models/label';
   templateUrl: './label-selector.component.html',
   styleUrls: ['./label-selector.component.scss']
 })
-export class LabelSelectorComponent implements OnInit {
+export class LabelSelectorComponent implements OnInit, OnDestroy {
 
   @select(selectVisibleLabelsInRange) public labels$: Observable<Label[]>;
   public selectOptions$: Observable<Label[]>;

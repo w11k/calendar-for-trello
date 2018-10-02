@@ -1,5 +1,5 @@
-import {concat, empty, of, Subject, Subscription,} from 'rxjs';
-import {concatMap, delay,} from 'rxjs/operators';
+import {concat, empty, of, Subject, Subscription} from 'rxjs';
+import {concatMap, delay} from 'rxjs/operators';
 
 import RxQueue from './rx-queue';
 

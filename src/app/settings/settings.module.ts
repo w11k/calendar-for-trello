@@ -3,7 +3,15 @@ import {CommonModule} from '@angular/common';
 import {SettingsComponent} from './settings.component';
 import {EditBoardComponent} from './edit-board/edit-board.component';
 import {FormsModule} from '@angular/forms';
-import {MatListModule, MatSelectModule, MatCardModule, MatSlideToggleModule, MatRadioModule, MatIconModule, MatCheckboxModule} from '@angular/material';
+import {
+  MatCardModule,
+  MatCheckboxModule,
+  MatIconModule,
+  MatListModule,
+  MatRadioModule,
+  MatSelectModule,
+  MatSlideToggleModule
+} from '@angular/material';
 import {FlexLayoutModule} from '@angular/flex-layout';
 
 @NgModule({

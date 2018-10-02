@@ -24,7 +24,6 @@ export class CalendarComponent implements OnInit, OnDestroy {
   @select(selectCalendarDate) public calendarDate$: Observable<any>;
   @select(selectSettingsType) public calendarType$: Observable<any>;
   @select(selectVisibleLabelsInRange) public labels$: Observable<Label[]>;
-  // public current: string;
 
   @select('settings') public settings$: Observable<Settings>;
   public settings: Settings = new Settings();
@@ -39,7 +38,6 @@ export class CalendarComponent implements OnInit, OnDestroy {
     this.subscriptions.push(this.calendarDate$.subscribe(
       date => {
         this.calendarDate = date;
-        // this.current = this.determineCurrent(date, this.calendarType);
       }
     ));
 
@@ -73,17 +71,6 @@ export class CalendarComponent implements OnInit, OnDestroy {
   public next() {
     this.calendarActions.navigate(this._returnCalDate(), PeriodChange.add, this.calendarType);
   }
-
-  //
-  // public determineCurrent(date: Date, type: CalendarType) {
-  //   switch (type) {
-  //     case CalendarType.Month:
-  //       return format(date, 'MMMM, YYYY');
-  //     case CalendarType.Week:
-  //     case CalendarType.WorkWeek:
-  //       return 'KW' + format(date, 'W, MMMM YYYY');
-  //   }
-  // }
 
   public toToday(): void {
     this.calendarActions.navigateToDate(new Date(), this.calendarType);

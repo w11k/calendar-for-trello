@@ -7,7 +7,7 @@ import {untilComponentDestroyed} from 'ng2-rx-componentdestroyed';
 import 'rxjs/add/operator/combineLatest';
 import 'rxjs/add/operator/takeUntil';
 import {times} from '../../shared/times';
-import {addDays, format, startOfWeek} from 'date-fns';
+import {addDays, startOfWeek} from 'date-fns';
 
 @Component({
   selector: 'app-calendar-toolbar',
@@ -47,7 +47,6 @@ export class CalendarToolbarComponent implements OnInit, OnDestroy {
 
       const arr = [];
       times(weekLength, () => {
-        // arr.push(format(date, 'dddd'));
         arr.push(date);
         date = addDays(date, 1);
       });

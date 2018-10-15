@@ -126,9 +126,7 @@ export class AppComponent implements OnInit, OnDestroy {
     this.ngRedux.dispatch({type: CardActions.RESET_CARD_STORE});
     this.ngRedux.dispatch({type: ListActions.RESET_LIST_STORE});
     this.ngRedux.dispatch({type: SettingsActions.RESET_SETTINGS_STORE});
-    setTimeout(() => {
-      this.trelloPullService.pull();
-    }, 500);
+    this.logout();
   }
 
   toIssue() {

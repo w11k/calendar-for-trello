@@ -1,0 +1,36 @@
+name: CI test
+
+on: 
+  push:
+    branches: 
+      - master
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [8.x, 10.x, 12.x]
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - name: build
+      run: |
+        # rm -rf node_modules
+        npm install
+        npm run build
+    - name: Install SSH key
+      uses: shimataro/ssh-key-action@v1
+      with:
+        private-key: ${{ secrets.SSH_KEY }}
+        name: id_rsa # optional
+    - name: Install packages
+      run: apt install openssh-client rsync
+    - name: deploy (rsync over ssh)
+      run: rsync . deploy@w11k.de:/srv/www/vhosts/trello-calendar.w11k.de

@@ -25,7 +25,7 @@ jobs:
       uses: shimataro/ssh-key-action@v1
       with:
         private-key: ${{ secrets.SSH_KEY }}
-        name: id_rsa #  optional
+        name: id_rsa # optional
     - name: Install packages
       run: apt install openssh-client rsync
     - name: deploy (rsync over ssh)

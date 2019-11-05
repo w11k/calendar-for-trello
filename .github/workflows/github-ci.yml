@@ -27,6 +27,6 @@ jobs:
         private-key: ${{ secrets.SSH_KEY }}
         name: id_rsa # optional
     - name: Install packages
-      run: apt install openssh-client rsync
+      run: sudo apt install openssh-client rsync
     - name: deploy (rsync over ssh)
       run: rsync . deploy@w11k.de:/srv/www/vhosts/trello-calendar.w11k.de

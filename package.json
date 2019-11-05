@@ -51,6 +51,7 @@
     "intl": "^1.2.5",
     "lodash": "^4.17.10",
     "moment": "^2.15.1",
+    "node-sass": "^4.12.0",
     "ng2-rx-componentdestroyed": "^3.0.0",
     "raven-js": "^3.8.1",
     "redux": "^4.0.0",

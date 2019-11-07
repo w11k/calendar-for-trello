@@ -21,10 +21,16 @@ jobs:
         # rm -rf node_modules
         npm install
         npm run build
+  
+  deploy: 
+    runs-on: ubuntu-latest
+    
+    steps: 
     - name: Install SSH key
       uses: shimataro/ssh-key-action@v1
       with:
         private-key: ${{ secrets.SSH_KEY }}
+        public-key: ${{ secrets.SSH_KEY_PUBLIC }}
         name: id_rsa # optional
     - name: Install packages
       run: sudo apt install openssh-client rsync

@@ -33,6 +33,4 @@ jobs:
     - name: Install packages
       run: sudo apt install openssh-client rsync
     - name: deploy (rsync over ssh)
-      run: |
-        ssh-keygen -R w11k.de
-        rsync . deploy@w11k.de:/srv/www/vhosts/trello-calendar.w11k.de
+      run: rsync . deploy@w11k.de:/srv/www/vhosts/trello-calendar.w11k.de

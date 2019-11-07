@@ -24,13 +24,16 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     steps: 
-    - name: Install SSH key
-      uses: shimataro/ssh-key-action@v1
+    - uses: actions/checkout@v1
+    - name: Use Node.js 12.x
+      uses: actions/setup-node@v1
       with:
-        private-key: ${{ secrets.SSH_KEY }}
-        public-key: ${{ secrets.SSH_KEY_PUBLIC }}
-        name: id_rsa # optional
-    - name: Install packages
-      run: sudo apt install openssh-client rsync
+        node-version: 12.x
     - name: deploy (rsync over ssh)
-      run: rsync . deploy@w11k.de:/srv/www/vhosts/trello-calendar.w11k.de
+      run: | 
+        mkdir -p ~/.ssh
+        chmod 700 ~/.ssh
+        echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
+        echo ${{ secrets.SSH_KEY }} > ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/id_rsa
+        scp -r . deploy@w11k.de:/srv/www/vhosts/trello-calendar.w11k.de

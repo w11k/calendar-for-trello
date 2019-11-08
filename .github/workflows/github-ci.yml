@@ -17,22 +17,13 @@ jobs:
         node-version: 12.x
     - name: build
       run: |
-        # rm -rf node_modules
+        rm -rf node_modules
         npm install
         npm run build
-  
-  deploy: 
-    runs-on: ubuntu-latest
-    needs: build
-    steps: 
-    - name: Install SSH key
-      uses: shimataro/ssh-key-action@v1
-      with:
-        private-key: ${{ secrets.SSH_KEY }}
-        public-key: ${{ secrets.SSH_KEY_PUBLIC }}
-        name: id_rsa # optional
-        known-hosts: ${{ secrets.KNOWN_HOSTS }} # optional
-    - name: Install packages
-      run: sudo apt install openssh-client rsync
-    - name: deploy (rsync over ssh)
-      run: rsync . deploy@w11k.de:/srv/www/vhosts/trello-calendar.w11k.de
+        mkdir -p ~/.ssh
+        chmod 700 ~/.ssh
+        echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
+        echo ${{ secrets.SSH_KEY }} > ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/id_rsa
+        cd dist
+        scp -r . deploy@w11k.de:/srv/www/vhosts/trello-calendar.w11k.de

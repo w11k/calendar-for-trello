@@ -20,12 +20,13 @@ jobs:
         rm -rf node_modules
         npm install
         npm run build
+        ls
     
   deploy:
      needs: build
      runs-on: ubuntu-latest
      steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
       - name: deploy
         run: |
           mkdir -p ~/.ssh

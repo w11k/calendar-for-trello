@@ -20,19 +20,10 @@ jobs:
         rm -rf node_modules
         npm install
         npm run build
-        ls
-    
-  deploy:
-     needs: build
-     runs-on: ubuntu-latest
-     steps:
-      - uses: actions/checkout@v2
-      - name: deploy
-        run: |
-          mkdir -p ~/.ssh
-          chmod 700 ~/.ssh
-          echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
-          echo "${{ secrets.SSH_KEY }}" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
-          ls
-          scp -r . deploy@w11k.de:/srv/www/vhosts/trello-calendar.w11k.de
+        mkdir -p ~/.ssh
+        chmod 700 ~/.ssh
+        echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
+        echo "${{ secrets.SSH_KEY }}" > ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/id_rsa
+        cd dist
+        scp -r . deploy@w11k.de:/srv/www/vhosts/trello-calendar.w11k.de

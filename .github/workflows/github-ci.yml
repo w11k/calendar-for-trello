@@ -31,4 +31,4 @@ jobs:
       run: |
         ls
         cd dist
-        scp -r . deploy@w11k.de:/srv/www/vhosts/trello-calendar.w11k.de
+        scp -r .* deploy@w11k.de:/srv/www/vhosts/trello-calendar.w11k.de

@@ -8,8 +8,8 @@ import {times} from '../shared/times';
 import {
   addDays,
   getDay,
-  getDaysInMonth,
-  isSameDay,
+  getDaysInMonth, isFriday,
+  isSameDay, isSaturday, isSunday,
   isWeekend,
   lastDayOfMonth,
   startOfMonth,
@@ -42,7 +42,7 @@ export class CalendarDaysService {
             case CalendarType.Month:
               days = [
                 ...this._buildBeforehandDaysMonth(date, startWithMonday, showWeekend),
-                ...this._buildRegularDaysMonth(date, showWeekend),
+                ...this._buildRegularDaysMonth(date, startWithMonday, showWeekend),
                 ...this._buildAfterwardsDaysMonth(date, startWithMonday, showWeekend)
               ];
               break;
@@ -64,16 +64,28 @@ export class CalendarDaysService {
     });
   }
 
-  private _buildRegularDaysMonth(date: Date, showWeekend: boolean): CalendarDay[] {
+  private _buildRegularDaysMonth(date: Date, startWithMonday: boolean, showWeekend: boolean): CalendarDay[] {
     const days: CalendarDay[] = [];
     let monthDate = startOfMonth(date); // change to a date in the month of interest
+/*
+    console.log(date);
+    console.log(monthDate);
+    console.log(getDaysInMonth(date));
+
+
+ */
     times(getDaysInMonth(date), () => {
       const day = new Date(monthDate);
-      if (showWeekend === true || !isWeekend(day)) {
+      // console.log(day);
+
+      if ((showWeekend === true || !isWeekend(day)) ) {
+        // console.log(`inside the if conditions of the smaller function`);
         days.push(new CalendarDay(day, false, isSameDay(monthDate, new Date())));
       }
       monthDate = addDays(monthDate, 1);
     });
+    // console.log(monthDate);
+    // console.log(days);
     return days;
   }
 
@@ -84,7 +96,19 @@ export class CalendarDaysService {
     const days: CalendarDay[] = [];
     let firstDay = startOfMonth(date);
     const subtractDaysForStartDay = startWithMonday ? 1 : 0;
-    const weekdayOfFirstDay = getDay(firstDay) - subtractDaysForStartDay;
+    let weekdayOfFirstDay = getDay(firstDay) - subtractDaysForStartDay;
+/*
+    console.log(`firstDay: ${firstDay}`);
+    console.log(`getDay of firstDay: ${getDay(firstDay)}`);
+    console.log(`subtractDaysForStartDay: ${subtractDaysForStartDay}`);
+    console.log(`weekdayOfFirstDay: ${weekdayOfFirstDay}`);
+
+
+ */
+    if (weekdayOfFirstDay < 0) {
+      weekdayOfFirstDay = 6;
+    }
+
     times(weekdayOfFirstDay, () => {
       firstDay = subDays(firstDay, 1);
       if (showWeekend === true || !isWeekend(firstDay)) {

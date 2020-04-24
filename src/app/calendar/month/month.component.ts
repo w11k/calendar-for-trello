@@ -33,7 +33,6 @@ export class MonthComponent implements OnInit, OnDestroy {
         ))
       .subscribe(cardsOfMonth => {
         this.daysWithCards = groupBy(cardsOfMonth, (card) => startOfDay(card.due).getTime());
-        // console.log(this.daysWithCards);
       });
 
     combineLatest(this.showWeekend$)

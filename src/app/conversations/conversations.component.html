@@ -47,7 +47,7 @@
 
       <div class="ConversationSize">
         <h2>OUTBOX</h2>
-        <h5>All cards in which you mentioned someone. (@somenone)</h5>
+        <h5>All cards in which you mentioned someone. (@someone)</h5>
         <div *ngFor="let c of (outbox$ | async)">
           <app-calendar-card [card]="c">
           </app-calendar-card>

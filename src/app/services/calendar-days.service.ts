@@ -8,8 +8,8 @@ import {times} from '../shared/times';
 import {
   addDays,
   getDay,
-  getDaysInMonth,
-  isSameDay,
+  getDaysInMonth, isFriday,
+  isSameDay, isSaturday, isSunday,
   isWeekend,
   lastDayOfMonth,
   startOfMonth,
@@ -42,7 +42,7 @@ export class CalendarDaysService {
             case CalendarType.Month:
               days = [
                 ...this._buildBeforehandDaysMonth(date, startWithMonday, showWeekend),
-                ...this._buildRegularDaysMonth(date, showWeekend),
+                ...this._buildRegularDaysMonth(date, startWithMonday, showWeekend),
                 ...this._buildAfterwardsDaysMonth(date, startWithMonday, showWeekend)
               ];
               break;
@@ -64,12 +64,18 @@ export class CalendarDaysService {
     });
   }
 
-  private _buildRegularDaysMonth(date: Date, showWeekend: boolean): CalendarDay[] {
+  private _buildRegularDaysMonth(date: Date, startWithMonday: boolean, showWeekend: boolean): CalendarDay[] {
     const days: CalendarDay[] = [];
     let monthDate = startOfMonth(date); // change to a date in the month of interest
+
     times(getDaysInMonth(date), () => {
       const day = new Date(monthDate);
-      if (showWeekend === true || !isWeekend(day)) {
+
+      if (startWithMonday === false) {
+        if (showWeekend === true || (!isFriday(day) && !isSaturday(day))) {
+          days.push(new CalendarDay(day, false, isSameDay(monthDate, new Date())));
+        }
+      } else if ((showWeekend === true || !isWeekend(day)) ) {
         days.push(new CalendarDay(day, false, isSameDay(monthDate, new Date())));
       }
       monthDate = addDays(monthDate, 1);
@@ -84,10 +90,20 @@ export class CalendarDaysService {
     const days: CalendarDay[] = [];
     let firstDay = startOfMonth(date);
     const subtractDaysForStartDay = startWithMonday ? 1 : 0;
-    const weekdayOfFirstDay = getDay(firstDay) - subtractDaysForStartDay;
+    let weekdayOfFirstDay = getDay(firstDay) - subtractDaysForStartDay;
+
+    if (weekdayOfFirstDay < 0) {
+      weekdayOfFirstDay = 6;
+    }
+
     times(weekdayOfFirstDay, () => {
       firstDay = subDays(firstDay, 1);
-      if (showWeekend === true || !isWeekend(firstDay)) {
+
+      if (startWithMonday === false) {
+        if (showWeekend === true || (!isFriday(firstDay) && !isSaturday(firstDay))) {
+          days.push(new CalendarDay(firstDay, true));
+        }
+      } else if (showWeekend === true || !isWeekend(firstDay)) {
         days.push(new CalendarDay(firstDay, true));
       }
     });
@@ -100,11 +116,21 @@ export class CalendarDaysService {
     let lastDay = lastDayOfMonth(date);
     const subtractDaysForStartDay = startWithMonday ? 1 : 0;
     const weekdayOfLastDay = getDay(lastDay) - subtractDaysForStartDay;
-    const runs = 6 - weekdayOfLastDay;
+    let runs = 6 - weekdayOfLastDay;
+
+    if (weekdayOfLastDay < 0) {
+      runs = 0;
+    }
+
     times(runs, () => {
       // its weird, that this add day is before the push. error potential.
       lastDay = addDays(lastDay, 1);
-      if (showWeekend === true || !isWeekend(lastDay)) {
+
+      if (startWithMonday === false) {
+        if (showWeekend === true || (!isFriday(lastDay) && !isSaturday(lastDay))) {
+          days.push(new CalendarDay(lastDay, true));
+        }
+      } else if (showWeekend === true || !isWeekend(lastDay)) {
         days.push(new CalendarDay(lastDay, true));
       }
     });

@@ -5,7 +5,7 @@ import {selectSettingsShowWeekend, selectSettingsType, selectSettingsWeekStart} 
 import {CalendarType, WeekStart} from '../../redux/actions/settings-actions';
 import {untilComponentDestroyed} from 'ng2-rx-componentdestroyed';
 import {times} from '../../shared/times';
-import {addDays, startOfWeek} from 'date-fns';
+import {addDays, getDate, getDay, isMonday, isSunday, isTuesday, isWednesday, isWeekend, startOfWeek} from 'date-fns';
 
 @Component({
   selector: 'app-calendar-toolbar',

@@ -116,9 +116,9 @@ export class ConversationsComponent implements OnInit, OnDestroy {
       .map(it => it.username);
 
 
-    /*****************************************************************
-     * 3. Fetch Cards per User: only cards with members are collected
-     *****************************************************************/
+    /***************************************************
+     * 3. Fetch Cards per User:
+     ***************************************************/
 
     this.loadingInfo.members = membersArr.length;
 

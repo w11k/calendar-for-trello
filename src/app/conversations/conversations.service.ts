@@ -27,17 +27,18 @@ export class ConversationsService {
     return this.trelloHttpService.get('cards/' + cardId + '/actions?filter=commentCard');
   }
 
-
+  // no longer used, since comment cards from all cards are checked upon tagging of a member of the board.
+  // Not only for members of a card.
+  /*
   getCardsByUser(username: string, onlyPastMonth = false): Promise<CardWithBoard[]> {
-
-    const base = `comment:"@${username}" is:open`;
+    const base = `@${username}`;
     const searchQuery = onlyPastMonth ? `${base} edited:month` : base;
 
     const cardsUrl = '/search';
     return this.trelloHttpService.get<SearchResult>(cardsUrl, new HttpParams()
       .append('query', searchQuery)
-      .append('card_board', 'true')
-      .append('board_fields', 'closed')
+       .append('card_board', 'true')
+       .append('board_fields', 'closed')
       .append('cards_limit', '1000'))
       .pipe(
         map(it => it.cards),
@@ -45,6 +46,7 @@ export class ConversationsService {
       )
       .toPromise();
   }
+   */
 
 }
 

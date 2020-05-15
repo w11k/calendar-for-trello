@@ -68,7 +68,6 @@ export class ConversationsComponent implements OnInit, OnDestroy {
 
   async fetchingProcedure() {
 
-
     /******************************************************
      * 1. Reset:
      ******************************************************/
@@ -99,7 +98,6 @@ export class ConversationsComponent implements OnInit, OnDestroy {
       .pipe(take(1))
       .toPromise();
 
-
     const membersMap = await this.members$
       .pipe(take(1))
       .toPromise();
@@ -118,22 +116,28 @@ export class ConversationsComponent implements OnInit, OnDestroy {
       .map(it => it.username);
 
 
-    /******************************************************
+    /***************************************************
      * 3. Fetch Cards per User:
-     ******************************************************/
+     ***************************************************/
 
     this.loadingInfo.members = membersArr.length;
 
+    // no longer used, since comment cards from all cards are checked upon tagging of a member of the board.
+    // let cards: any;
+/*
     const memberRequestArr = membersArr
       .map(async member => {
-        const cards = await this.conversationsService.getCardsByUser(member.username);
+        cards = await this.conversationsService.getCardsByUser(member.username);
         this.loadingInfo.loadedMembers++;
+
         return cards;
       });
+*/
+     // const responses: Card[][] = await Promise.all(memberRequestArr);
 
-    const responses: Card[][] = await Promise.all(memberRequestArr);
+    const doubleAllCards: Card[][] = [allCards, allCards];
+    const responses: Card[][] = await Promise.all(doubleAllCards);
     this.trackingService.track(new TrackingEvent('conversations', 'loaded-members', `${this.loadingInfo.members}`));
-
 
     const cardMap = new Map<string, Card>();
     // Put all Cards in a Map in order to remove duplicates
@@ -143,7 +147,7 @@ export class ConversationsComponent implements OnInit, OnDestroy {
 
 
     /******************************************************
-     * 4. Fetch the Comments per Card:
+     * 4. Fetch the Comments per Card
      ******************************************************/
 
     this.currentPhase = Phase.Fetch;
@@ -151,13 +155,18 @@ export class ConversationsComponent implements OnInit, OnDestroy {
 
     const allRequests = Array.from(cardMap.values())
       .map(async card => {
-        // what if one is
-        const data = await this.conversationsService.getCommentCards(card.id).toPromise();
-        this.loadingInfo.loadedCards++;
-        try {
-          this.checkInAndOutBox(data as any, user.id, user.username, otherMemberNames, allCards);
-        } catch (e) {
-          console.error(e);
+
+        let data;
+        if (card.badges.comments > 0) {
+          data = await this.conversationsService.getCommentCards(card.id).toPromise();
+
+          this.loadingInfo.loadedCards++;
+
+          try {
+            this.checkInAndOutBox(data as any, user.id, user.username, otherMemberNames, allCards);
+          } catch (e) {
+            console.error(e);
+          }
         }
       });
 
@@ -178,20 +187,21 @@ export class ConversationsComponent implements OnInit, OnDestroy {
                    otherMemberNames: string[],
                    allCards: Card[]) {
 
-    const firstCommentCard = commentCards[0];
-    const firstComment: string = firstCommentCard.data.text;
-    const cardWithFewInfo: { id: string } = firstCommentCard.data.card;
+    let fullCard: Card;
 
-    if (firstComment.includes('@' + myUsername)) {
-      const fullCard = allCards.find(it => it.id === cardWithFewInfo.id);
-      this.store.dispatch(new AddInbox(fullCard));
+    for (let i = 0; i < commentCards.length; i++) {
+      if (commentCards[i].data.text.includes('@' + myUsername)) {
+        fullCard = allCards.find(it => it.id === commentCards[i].data.card.id);
+        this.store.dispatch(new AddInbox(fullCard));
+      }
     }
 
-
     for (const name of otherMemberNames) {
-      if (firstComment.includes('@' + name) && firstCommentCard.idMemberCreator === myUserId) {
-        const fullCard = allCards.find(it => it.id === cardWithFewInfo.id);
-        this.store.dispatch(new AddOutbox(fullCard));
+      for (let i = 0; i < commentCards.length; i++) {
+        if (commentCards[i].data.text.includes('@' + name) && commentCards[i].idMemberCreator === myUserId) {
+          fullCard = allCards.find(it => it.id === commentCards[i].data.card.id);
+          this.store.dispatch(new AddOutbox(fullCard));
+        }
       }
     }
   }

@@ -9,7 +9,6 @@ import {Settings} from './models/settings';
 import {Observable, Subscription} from 'rxjs';
 import {TrelloAuthService} from './services/trello-auth.service';
 import {MatSnackBar} from '@angular/material';
-// import {IS_UPDATE} from '../main';
 import {SettingsActions} from './redux/actions/settings-actions';
 import {ListActions} from './redux/actions/list-actions';
 import {CardActions} from './redux/actions/card-actions';
@@ -18,8 +17,6 @@ import {BoardActions} from './redux/actions/board-actions';
 
 const project = require('../../package.json');
 declare let ga: Function;
-
-// declare const IS_UPDATE: boolean;
 
 @Component({
   selector: 'app-root',

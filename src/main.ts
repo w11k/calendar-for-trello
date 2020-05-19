@@ -7,7 +7,7 @@ import {environment} from './environments/environment';
 import 'hammerjs';
 import {AppModule} from './app';
 
-const project = require('../package.json');
+ const project = require('../package.json');
 
 if (environment.production) {
   enableProdMode();
@@ -20,7 +20,7 @@ const bootstrap = () => {
     .catch(err => console.log(err));
 };
 
-
+/*
 export let IS_UPDATE = false;
 const PROJECT_VERSION: string = project.version;
 
@@ -56,7 +56,7 @@ function check() {
 }
 
 check();
-
+*/
 if (environment.hmr) {
   if (module['hot']) {
     hmrBootstrap(module, bootstrap as any);

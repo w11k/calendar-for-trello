@@ -24,6 +24,7 @@ export class AddCardComponent implements OnInit, OnDestroy {
   public lists: List[] = [];
   public cardForm: FormGroup;
   private subscriptions: Subscription[] = [];
+  private clicked: boolean;
   @select(selectOpenBoards) public boards$: Observable<Board[]>;
 
   constructor(public dialogRef: MatDialogRef<AddCardComponent>, private tHttp: TrelloHttpService, private formBuilder: FormBuilder) {
@@ -31,6 +32,7 @@ export class AddCardComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.subscriptions.push(this.boards$.subscribe(boards => this.boards = boards));
+    this.clicked = false;
 
     this.cardForm = this.formBuilder.group({
       name: [this.card ? this.card.name : '', Validators.required],
@@ -73,6 +75,7 @@ export class AddCardComponent implements OnInit, OnDestroy {
 
 
   onSubmit(cardForm: FormGroup) {
+    this.clicked = true;
     if (cardForm && cardForm.valid) {
       let hours = 12;
       let minutes = 0;

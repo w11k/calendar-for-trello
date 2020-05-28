@@ -22,7 +22,7 @@
 
   function gaOptout() {
     alert("In your future visits you'll be excluded from tracking.");
-    document.cookie = disableStr + '=true; expires=Thu, 31 Dec 2099 23:59:59 UTC; path=/';
+    document.cookie = disableStr + '=true; expires=Thu, 31 Dec 2099 23:59:59 UTC; path=/ SameSite=strict';
     window[disableStr] = true;
   }
 
@@ -39,6 +39,7 @@
   })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
   ga('create', gaProperty, 'auto');
   ga('set', 'anonymizeIp', true);
+
 
 </script>
 <!-- Place this tag in your head or just before your close body tag. -->

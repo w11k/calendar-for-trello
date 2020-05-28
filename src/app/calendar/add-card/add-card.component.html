@@ -58,7 +58,7 @@
     <button mat-button="" type="button" (click)="dialogRef.close(false)">
       Cancel
     </button>
-    <button type="submit" mat-button color="primary" [disabled]="!cardForm.valid">
+    <button type="submit" mat-button color="primary" [disabled]="!cardForm.valid || clicked">
       Save
     </button>
   </div>

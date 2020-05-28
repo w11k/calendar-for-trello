@@ -16,13 +16,15 @@
 
   var gaProperty = 'UA-61728009-5';
   var disableStr = 'ga-disable-' + gaProperty;
+  var flagsValue = 'sameSite=Strict';
+
   if (document.cookie.indexOf(disableStr + '=true') > -1) {
     window[disableStr] = true;
   }
 
   function gaOptout() {
     alert("In your future visits you'll be excluded from tracking.");
-    document.cookie = disableStr + '=true; expires=Thu, 31 Dec 2099 23:59:59 UTC; path=/ SameSite=strict';
+    document.cookie = disableStr + '=true; expires=Thu, 31 Dec 2099 23:59:59 UTC; path=/; sameSite=Strict';
     window[disableStr] = true;
   }
 
@@ -37,7 +39,7 @@
     a.src = g;
     m.parentNode.insertBefore(a, m)
   })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
-  ga('create', gaProperty, 'auto');
+  ga('create', gaProperty, 'auto', {cookieFlags: flagsValue});
   ga('set', 'anonymizeIp', true);
 
 

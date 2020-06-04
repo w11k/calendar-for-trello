@@ -9,7 +9,6 @@ import {Settings} from './models/settings';
 import {Observable, Subscription} from 'rxjs';
 import {TrelloAuthService} from './services/trello-auth.service';
 import {MatSnackBar} from '@angular/material';
-import {IS_UPDATE} from '../main';
 import {SettingsActions} from './redux/actions/settings-actions';
 import {ListActions} from './redux/actions/list-actions';
 import {CardActions} from './redux/actions/card-actions';
@@ -18,8 +17,6 @@ import {BoardActions} from './redux/actions/board-actions';
 
 const project = require('../../package.json');
 declare let ga: Function;
-
-// declare const IS_UPDATE:boolean;
 
 @Component({
   selector: 'app-root',
@@ -47,6 +44,8 @@ export class AppComponent implements OnInit, OnDestroy {
   };
 
   public isSidenavOpen = false;
+  IS_UPDATE = false;
+  PROJECT_VERSION: string = project.version;
 
   constructor(private ngRedux: NgRedux<RootState>,
               private ngReduxRouter: NgReduxRouter,
@@ -55,7 +54,9 @@ export class AppComponent implements OnInit, OnDestroy {
               private trelloAuthService: TrelloAuthService,
               private snackBar: MatSnackBar) {
 
-    if (IS_UPDATE) {
+    this.check();
+
+    if (this.IS_UPDATE) {
       this.snackBar.open('Calendar for Trello was updated to version ' + project.version + '!', 'OK');
     }
 
@@ -163,6 +164,39 @@ export class AppComponent implements OnInit, OnDestroy {
       myform.remove();
     }, 500);
 
+  }
+
+
+  check() {
+    let token = localStorage.getItem('trello_token') || localStorage.getItem('token');
+
+    if (!token) {
+      // no token, fresh user
+      return;
+    }
+    token = token.replace(/"/g, '');
+
+    const dataVersion = localStorage.getItem('version');
+
+    // let PROJECT_VERSION;
+    if (dataVersion !== this.PROJECT_VERSION) {
+      // older v2 version
+
+      // remove usage data (keeps settings!)
+      localStorage.removeItem('w11k.trello-cal/members');
+      localStorage.removeItem('w11k.trello-cal/boards');
+      localStorage.removeItem('w11k.trello-cal/cards');
+
+      this.IS_UPDATE = true;
+      localStorage.setItem('version', this.PROJECT_VERSION);
+    }
+
+    if (!dataVersion) {
+      // old v1 version, clear everything
+      localStorage.clear();
+      localStorage.setItem('token', token);
+      localStorage.setItem('version', this.PROJECT_VERSION);
+    }
   }
 
 }

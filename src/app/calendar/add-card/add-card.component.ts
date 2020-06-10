@@ -24,7 +24,7 @@ export class AddCardComponent implements OnInit, OnDestroy {
   public lists: List[] = [];
   public cardForm: FormGroup;
   private subscriptions: Subscription[] = [];
-  private clicked: boolean;
+  public clicked: boolean;
   @select(selectOpenBoards) public boards$: Observable<Board[]>;
 
   constructor(public dialogRef: MatDialogRef<AddCardComponent>, private tHttp: TrelloHttpService, private formBuilder: FormBuilder) {

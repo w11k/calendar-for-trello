@@ -21,7 +21,7 @@
       </mat-menu>
     </div>
   </div>
-  
+
 </div>
 
 <div class="content" >
@@ -34,7 +34,7 @@
   <div class="right" >
     <div class="memberPictures"  *ngIf="!card.dueComplete">
       <ng-container *ngFor="let id of card.idMembers">
-        <img *ngIf="getAvatar(id)" src="https://trello-avatars.s3.amazonaws.com/{{getAvatar(id)}}/50.png">
+        <img *ngIf="getAvatar(id)" src="{{getAvatar(id)}}/50.png">
       </ng-container>
     </div>
   </div>

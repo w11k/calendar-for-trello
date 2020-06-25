@@ -36,7 +36,7 @@ export class CalendarCardComponent implements OnInit, OnDestroy {
   }
 
   getAvatar(userId: string) {
-    return this.memberMap ? (this.memberMap[userId] ? this.memberMap[userId].avatarHash : '' ) : '';
+    return this.memberMap[userId].avatarUrl;
   }
 
   ngOnInit() {

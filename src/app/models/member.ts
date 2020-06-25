@@ -1,7 +1,7 @@
 import {Board} from './board';
 
 export class Member {
-  avatarHash: string;
+  avatarUrl: string;
   constructor(public id?: string,
               public fullName?: string,
               public username?: string,

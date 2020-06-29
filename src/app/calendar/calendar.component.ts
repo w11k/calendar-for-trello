@@ -106,19 +106,17 @@ export class CalendarComponent implements OnInit, OnDestroy {
 
     const actualMonth = this.calendarDate.getMonth();
 
-
     const elementToPrint = document.getElementById('nodeToRenderAsPDF');
     const opt = {
       margin:       0,
       filename:     'trello_calendar_' + months[actualMonth],
       image:        { type: 'jpeg', quality: 0.98 },
       html2canvas:  { scale: 2 },
-      // jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+      // jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }          //default setting
       jsPDF:        { unit: 'in', format: 'a3', orientation: 'landscape' }
     };
 
     html2pdf().set(opt).from(elementToPrint).save();
-    // html2pdf(elementToPrint).save('trello_calendar_' + months[actualMonth]);
   }
 
 }

@@ -112,7 +112,7 @@ export class CalendarComponent implements OnInit, OnDestroy {
       filename:     'trello_calendar_' + months[actualMonth],
       image:        { type: 'jpeg', quality: 0.98 },
       html2canvas:  { scale: 2 },
-      // jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }          //default setting
+      // jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }          // default setting
       jsPDF:        { unit: 'in', format: 'a3', orientation: 'landscape' }
     };
 

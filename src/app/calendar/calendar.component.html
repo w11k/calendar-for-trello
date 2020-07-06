@@ -42,11 +42,15 @@
                 matTooltip="Switch to Work Week View" *ngIf="calendarType != CalendarType.WorkWeek">
                 Work Week
             </button>
+        <button class="printButton" (click)="printCalendar()" mat-icon-button color="primary">
+              <mat-icon color="primary">print</mat-icon>
+            </button>
         </div>
     </div>
 
 </div>
 
+<div id="nodeToRenderAsPDF">
 <app-calendar-toolbar></app-calendar-toolbar>
 <ng-container [ngSwitch]="calendarType">
     <ng-container *ngSwitchCase="CalendarType.Month">
@@ -59,6 +63,6 @@
         <app-week></app-week>
     </ng-container>
 </ng-container>
-
+</div>
 
 <app-context-menu-holder></app-context-menu-holder>

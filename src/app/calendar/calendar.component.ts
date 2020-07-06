@@ -9,6 +9,7 @@ import {AddCardComponent} from './add-card/add-card.component';
 import {selectCalendarDate, selectSettingsType, selectVisibleLabelsInRange} from '../redux/store/selects';
 import {MatDialog} from '@angular/material';
 import {Label} from '../models/label';
+import html2pdf from 'html2pdf.js';
 
 @Component({
   selector: 'app-calendar',
@@ -96,4 +97,26 @@ export class CalendarComponent implements OnInit, OnDestroy {
   private _returnCalDate(lang?): Date {
     return this.calendarDate ? new Date(this.calendarDate) : new Date();
   }
+
+  printCalendar(quality =  1) {
+    const months = ['january', 'february', 'march',
+                    'april', 'may', 'june', 'july',
+                    'august', 'september', 'october',
+                    'november', 'december'];
+
+    const actualMonth = this.calendarDate.getMonth();
+
+    const elementToPrint = document.getElementById('nodeToRenderAsPDF');
+    const opt = {
+      margin:       0,
+      filename:     'trello_calendar_' + months[actualMonth],
+      image:        { type: 'jpeg', quality: 0.98 },
+      html2canvas:  { scale: 2 },
+      // jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }          // default setting
+      jsPDF:        { unit: 'in', format: 'a3', orientation: 'landscape' }
+    };
+
+    html2pdf().set(opt).from(elementToPrint).save();
+  }
+
 }

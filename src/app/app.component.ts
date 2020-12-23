@@ -63,17 +63,6 @@ export class AppComponent implements OnInit, OnDestroy {
       this.snackBar.open('Calendar for Trello was updated to version ' + project.version + '!', 'OK');
     }
 
-    // ga('send', 'event', 'version', project.version);
-    //
-    // this.subscriptions.push(
-    //   this.router.events.subscribe(event => {
-    //     if (event instanceof NavigationEnd) {
-    //       ga('set', 'page', event.urlAfterRedirects);
-    //       ga('send', 'pageview');
-    //     }
-    //   })
-    // );
-
     this.ngRedux.configureStore(
       reducer,
       this.initStore,

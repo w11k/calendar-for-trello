@@ -14,6 +14,8 @@ import {ListActions} from './redux/actions/list-actions';
 import {CardActions} from './redux/actions/card-actions';
 import {UserActions} from './redux/actions/user-actions';
 import {BoardActions} from './redux/actions/board-actions';
+import {TrackingService} from './tracking/tracking.service';
+
 
 const project = require('../../package.json');
 declare let ga: Function;
@@ -52,7 +54,8 @@ export class AppComponent implements OnInit, OnDestroy {
               public router: Router,
               private trelloPullService: TrelloPullService,
               private trelloAuthService: TrelloAuthService,
-              private snackBar: MatSnackBar) {
+              private snackBar: MatSnackBar,
+              private trackingService: TrackingService) {
 
     this.check();
 
@@ -60,16 +63,16 @@ export class AppComponent implements OnInit, OnDestroy {
       this.snackBar.open('Calendar for Trello was updated to version ' + project.version + '!', 'OK');
     }
 
-    ga('send', 'event', 'version', project.version);
-
-    this.subscriptions.push(
-      this.router.events.subscribe(event => {
-        if (event instanceof NavigationEnd) {
-          ga('set', 'page', event.urlAfterRedirects);
-          ga('send', 'pageview');
-        }
-      })
-    );
+    // ga('send', 'event', 'version', project.version);
+    //
+    // this.subscriptions.push(
+    //   this.router.events.subscribe(event => {
+    //     if (event instanceof NavigationEnd) {
+    //       ga('set', 'page', event.urlAfterRedirects);
+    //       ga('send', 'pageview');
+    //     }
+    //   })
+    // );
 
     this.ngRedux.configureStore(
       reducer,
@@ -98,7 +101,7 @@ export class AppComponent implements OnInit, OnDestroy {
     if (this.settings.businessHoursEnd === undefined) {
       this.settings.businessHoursEnd = 18;
     }
-
+    this.trackingService.init();
     this.checkWidth(window.innerWidth);
   }
 

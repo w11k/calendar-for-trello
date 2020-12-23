@@ -56,7 +56,7 @@
     "moment": "^2.15.1",
     "ng2-rx-componentdestroyed": "^3.0.0",
     "ngx-cookieconsent": "^2.2.3",
-    "node-sass": "^4.12.0",
+    "node-sass": "^4.13.1",
     "raven-js": "^3.8.1",
     "redux": "^4.0.0",
     "redux-localstorage": "^0.4.1",

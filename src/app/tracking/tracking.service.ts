@@ -25,19 +25,16 @@ export class TrackingService {
   flagsValue = 'sameSite=Strict';
 
   public init() {
-    console.log('initFunction');
     if (isPlatformBrowser(this.platformId)) {
       console.log(document.cookie);
       if (document.cookie.includes('cookieconsent_status=allow')) {
         this.enableGoogleTracking(this.gaProperty);
-        console.log('checkIfEnabledGoogleTracking');
       }
 
       this.ngcCookieContentService.statusChange$
         .subscribe(status => {
           if (status.status === 'allow') {
             this.enableGoogleTracking(this.gaProperty);
-            console.log('checkIfEnabledGoogleTrackingStatusChange');
           }
         });
     }
@@ -46,7 +43,6 @@ export class TrackingService {
   public track(event: TrackingEvent) {
     if (isPlatformBrowser(this.platformId)) {
       ga('send', 'event', event.category, event.action, event.label, event.value);
-      console.log('trackFunction');
     }
   }
 
@@ -64,7 +60,6 @@ export class TrackingService {
     })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
     ga('create', this.gaProperty, 'auto', {cookieFlags: this.flagsValue});
     ga('set', 'anonymizeIp', true);
-    console.log('enabledGoogleTracking');
   }
 
 

@@ -18,7 +18,7 @@ import {TrackingService} from './tracking/tracking.service';
 
 
 const project = require('../../package.json');
-declare let ga: Function;
+// declare let ga: Function;
 
 @Component({
   selector: 'app-root',

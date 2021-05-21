@@ -1,3 +1,9 @@
+# Looking for Maintainer
+While this project is still up and running on  [calendar-for-trello.com](https://calendar-for-trello.com/) we are no longer maintaining this project.
+We are looking for someone who wants to take over the development and bugfixing
+
+See discussion in https://github.com/w11k/calendar-for-trello/issues/287
+
 # Calendar for Trello
 Trello is a productivity tool that helps you to organize projects by creating individual lists, boards and cards. Manage your projects in teams, get more flexible and improve your workflow.
 

@@ -25,8 +25,13 @@ export class TrackingService {
   flagsValue = 'sameSite=Strict';
 
   public init() {
+    console.log('inside tracking service : init is called');
+
     if (isPlatformBrowser(this.platformId)) {
-      console.log(document.cookie);
+      console.log('inside tracking service : init is called: inside first if');
+      console.log('this is platform is : ' , this.platformId);
+
+      console.log('this is document cookie : ', document.cookie);
       if (document.cookie.includes('cookieconsent_status=allow')) {
         this.enableGoogleTracking(this.gaProperty);
       }
@@ -41,12 +46,17 @@ export class TrackingService {
   }
 
   public track(event: TrackingEvent) {
+    console.log('inside tracking service : track is called()');
+
     if (isPlatformBrowser(this.platformId)) {
       ga('send', 'event', event.category, event.action, event.label, event.value);
     }
   }
 
   private enableGoogleTracking(gaProperty) {
+    console.log('inside tracking service : enableGoogleTracking is called');
+    console.log('this is document cookie : ', document.cookie);
+
     (function(i, s, o, g, r, a, m) {
       i['GoogleAnalyticsObject'] = r;
       i[r] = i[r] || function() {
@@ -60,6 +70,8 @@ export class TrackingService {
     })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
     ga('create', this.gaProperty, 'auto', {cookieFlags: this.flagsValue});
     ga('set', 'anonymizeIp', true);
+
+    console.log('this is document cookie : ', document.cookie);
   }
 
 

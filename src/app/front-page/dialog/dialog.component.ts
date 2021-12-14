@@ -16,7 +16,9 @@ export class DialogComponent implements OnInit {
   ngOnInit() {
   }
 
+
   login() {
+    //@khaled TODO : activate google tracking without cookies , in case the user rejected the cookies.
     this.trelloAuthService.login();
   }
 

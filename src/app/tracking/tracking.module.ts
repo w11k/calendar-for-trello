@@ -5,10 +5,10 @@ import {NgcCookieConsentConfig, NgcCookieConsentModule} from 'ngx-cookieconsent'
 
 const cookieConfig: Partial<NgcCookieConsentConfig> = {
   'palette': {
-    'popup': {
+    'popup': { //the popup container itself
       'background': '#3A476F'
     },
-    'button': {
+    'button': { //the 'Ok button'
       'background': '#eb5a46',
       'text': '#fff'
     },
@@ -36,13 +36,12 @@ const cookieConfig: Partial<NgcCookieConsentConfig> = {
 export class TrackingModule {
 
   static forRoot() {
-    console.log(' Tracking module : forRoot is called')
+    console.log('Tracking module : forRoot is called')
 
     return {
       ngModule: TrackingModule,
       providers: [TrackingService]
     };
   }
-
 
 }

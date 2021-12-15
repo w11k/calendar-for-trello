@@ -2,6 +2,7 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {TrackingService} from './tracking.service';
 import {NgcCookieConsentConfig, NgcCookieConsentModule} from 'ngx-cookieconsent';
+import { environment } from 'environments/environment';
 
 const cookieConfig: Partial<NgcCookieConsentConfig> = {
   'palette': {
@@ -12,6 +13,9 @@ const cookieConfig: Partial<NgcCookieConsentConfig> = {
       'background': '#eb5a46',
       'text': '#fff'
     },
+  },
+  'cookie': {
+    "domain": environment.cookieDomain
   },
   'position': 'bottom',
   'type': 'opt-in',

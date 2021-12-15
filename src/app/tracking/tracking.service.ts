@@ -3,12 +3,17 @@ import {isPlatformBrowser} from '@angular/common';
 import { NgcCookieConsentService, NgcStatusChangeEvent } from 'ngx-cookieconsent';
 import {TrackingEvent} from './tracking-event.model';
 
+declare global {
+  interface Window {
+    dataLayer: Record<string, any>[];
+  }
+}
 
 declare const ga: Function;
 
-interface WindowWithDataLayer extends Window {
-  dataLayer: Array<any>;
-}
+// interface WindowWithDataLayer extends Window {
+//   dataLayer: Array<any>;
+// }
 
 /**
  * This Service is shared across multiple lazy loaded modules and
@@ -66,21 +71,36 @@ export class TrackingService {
     console.log('inside tracking service : enableGoogleTracking is called');
     console.log('this is document cookie : ', document.cookie);
 
-    (function(i, s, o, g, r, a, m) {
-      i['GoogleAnalyticsObject'] = r;
-      i[r] = i[r] || function() {
-        (i[r].q = i[r].q || []).push(arguments);
-      }, i[r].l = 1 * new Date().getTime();
-      a = s.createElement(o),
-        m = s.getElementsByTagName(o)[0];
-      a.async = 1;
-      a.src = g;
-      m.parentNode.insertBefore(a, m);
-    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
-    ga('create', this.gaProperty, 'auto', {cookieFlags: this.flagsValue});
-    ga('set', 'anonymizeIp', true);
+    // (function(i, s, o, g, r, a, m) {
+    //   i['GoogleAnalyticsObject'] = r;
+    //   i[r] = i[r] || function() {
+    //     (i[r].q = i[r].q || []).push(arguments);
+    //   }, i[r].l = 1 * new Date().getTime();
+    //   a = s.createElement(o),
+    //     m = s.getElementsByTagName(o)[0];
+    //   a.async = 1;
+    //   a.src = g;
+    //   m.parentNode.insertBefore(a, m);
+    // })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    // ga('create', gaProperty, 'auto', {cookieFlags: this.flagsValue});
+    // ga('set', 'anonymizeIp', true);
 
-    console.log('this is document cookie : ', document.cookie);
+    // window.dataLayer = window.dataLayer || [];
+    // function gtag(arg1, arg2){ window.dataLayer.push(...[arg1, arg2]); }
+    // gtag('js', new Date());
+    // gtag('config', 'UA-61728009-5');
+
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){
+      window.dataLayer.push(arguments);
+    }
+
+    // @ts-ignore
+    gtag('js', new Date());
+
+    // @ts-ignore
+    gtag('config', gaProperty);
+
   }
 
 

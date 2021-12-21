@@ -6,5 +6,5 @@
 export const environment = {
   production: false,
   hmr: false,
-  cookieDomain: 'http://localhost:4200'
+  cookieDomain: 'https://www.calendar-for-trello.com'
 };

@@ -40,8 +40,6 @@ const cookieConfig: Partial<NgcCookieConsentConfig> = {
 export class TrackingModule {
 
   static forRoot() {
-    console.log('Tracking module : forRoot is called')
-
     return {
       ngModule: TrackingModule,
       providers: [TrackingService]

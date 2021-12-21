@@ -2,16 +2,20 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {TrackingService} from './tracking.service';
 import {NgcCookieConsentConfig, NgcCookieConsentModule} from 'ngx-cookieconsent';
+import { environment } from 'environments/environment';
 
 const cookieConfig: Partial<NgcCookieConsentConfig> = {
   'palette': {
-    'popup': {
+    'popup': { //the popup container itself
       'background': '#3A476F'
     },
-    'button': {
+    'button': { //the 'Ok button'
       'background': '#eb5a46',
       'text': '#fff'
     },
+  },
+  'cookie': {
+    "domain": environment.cookieDomain
   },
   'position': 'bottom',
   'type': 'opt-in',
@@ -41,6 +45,5 @@ export class TrackingModule {
       providers: [TrackingService]
     };
   }
-
 
 }

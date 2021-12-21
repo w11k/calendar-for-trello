@@ -16,6 +16,7 @@ export class DialogComponent implements OnInit {
   ngOnInit() {
   }
 
+
   login() {
     this.trelloAuthService.login();
   }

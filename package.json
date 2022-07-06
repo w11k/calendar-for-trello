@@ -53,7 +53,7 @@
     "intl": "^1.2.5",
     "jspdf": "^1.5.3",
     "lodash": "^4.17.10",
-    "moment": "^2.15.1",
+    "moment": "^2.29.4",
     "ng2-rx-componentdestroyed": "^3.0.0",
     "ngx-cookieconsent": "^2.2.3",
     "node-sass": "^4.12.0",

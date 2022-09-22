@@ -1,7 +1,7 @@
 <div class="top">
   <mat-toolbar color="primary">
-    <img *ngIf="user?.avatarHash" class="profile-picture"
-         src="https://trello-avatars.s3.amazonaws.com/{{user?.avatarHash}}/50.png"
+    <img *ngIf="user?.avatarUrl" class="profile-picture"
+         src="{{user?.avatarUrl}}/50.png"
          alt="{{user?.fullName}}">
     <span>{{user?.fullName}}</span>
   </mat-toolbar>

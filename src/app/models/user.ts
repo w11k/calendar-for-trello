@@ -1,4 +1,3 @@
-import {Board} from './board';
 export interface Prefs {
   sendSummaries: boolean;
   minutesBetweenSummaries: number;
@@ -36,4 +35,5 @@ export class User {
   uploadedAvatarHash?: any;
   premiumFeatures: any[];
   idBoardsPinned?: any;
+  avatarUrl: string;
 }

@@ -80,7 +80,7 @@
     "google-translate-xlf": "^0.2.3",
     "jasmine-core": "~2.6.2",
     "jasmine-spec-reporter": "~4.1.0",
-    "karma": "~1.7.0",
+    "karma": "~6.4.1",
     "karma-chrome-launcher": "~2.1.1",
     "karma-cli": "~1.0.1",
     "karma-coverage-istanbul-reporter": "^1.2.1",
@@ -88,7 +88,7 @@
     "karma-jasmine-html-reporter": "^0.2.2",
     "ngx-i18nsupport": "^0.17.1",
     "npm-run-all": "^4.1.3",
-    "protractor": "~5.1.2",
+    "protractor": "~5.4.4",
     "ts-node": "~3.2.0",
     "tslint": "~5.11.0",
     "typescript": "2.7.2"
